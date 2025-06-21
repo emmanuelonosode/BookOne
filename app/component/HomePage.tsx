@@ -1,11 +1,15 @@
 import { main } from "framer-motion/client";
 import React from "react";
 import Btn from "./Btn";
-import Service from "../component/Service"
-import Testimonia from "../component/Testimonia"
+import Service from "../component/Service";
+import Testimonia from "../component/Testimonia";
 import AboutUs from "../component/AboutUs";
-import CTA from "../component/CTA.jsx"
-import OurProcess from "../component/OurProcess"
+import {AboutSection} from "../component/AboutUs";
+import CTA from "../component/CTA";
+import OurProcess from "../component/OurProcess";
+import FeaturedBlog from "../component/featuredBlogs.jsx";
+import FAQ from "../component/FAQ";
+import Contact from "../component/contact.jsx";
 import Image from "next/image";
 
 function HomePage() {
@@ -37,12 +41,17 @@ function HomePage() {
         </main>
       </section>
       <section>
-        <Service/>
+        <Service />
       </section>
-      <Testimonia/>
-     <OurProcess/>
-     <AboutUs/>
-     <CTA/>
+      <Testimonia />
+      <OurProcess />
+      <AboutUs />
+      <AboutSection/>
+      <FeaturedBlog />
+      <FAQ />
+      {/* <Stat/> */}
+      <CTA />
+      <Contact />
     </>
   );
 }

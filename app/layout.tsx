@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Poppins, Prosto_One } from "next/font/google";
+import { Poppins, Prosto_One, Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
-import Nav from "./component/nav";
+import Nav from "./component/nav.jsx";
 import Footer from "./component/Footer";
 
 const poppins = Poppins({
@@ -11,7 +11,6 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
   style: ["normal", "italic"],
-
 });
 
 const prostoOne = Prosto_One({
@@ -22,15 +21,15 @@ const prostoOne = Prosto_One({
   style: "normal",
 });
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
 
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -44,17 +43,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    
       <body
-        className={` ${poppins.variable} ${prostoOne.variable} antialiased`}
+        className={`${poppins.variable} ${prostoOne.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-       <section className="shadow">
+        <section className="shadow">
+          <Nav />
+        </section>
 
-        <Nav/>
-       </section>
-       
         {children}
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

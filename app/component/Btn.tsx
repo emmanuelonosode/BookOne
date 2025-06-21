@@ -44,18 +44,18 @@ const Btn: React.FC<BtnProps> = ({
     "font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2";
 
   const variantStyles = {
-    primary: "bg-[var(--primary)] text-white hover:bg-[var(--light)] ",
+    primary:
+      "bg-primary text-white font-bold  rounded-lg hover:opacity-90 transition-opacity",
     secondary:
       "bg-zink-300 text-gray-800 hover:bg-gray-300 focus:ring-gray-400",
     outline:
       "border border-[var(--foreground)] text-[var(--primary)] hover:text-white hover:bg-[var(--primary)]",
-    ghost:
-      "text-[var(--primary)] hover:bg-[var(--light)] focus:ring-[var(--light)]",
+    ghost: "text-primary font-bold",
   };
 
   const sizeStyles = {
     sm: "px-3 py-1.5 text-sm",
-    md: "px-4 py-2 text-base",
+    md: "py-2 px-6 text-base",
     lg: "px-6 py-3 text-lg",
   };
 

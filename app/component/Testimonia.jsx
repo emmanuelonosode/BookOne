@@ -113,7 +113,7 @@ const Testimonia = () => {
                     <img
                       src={testimonial.image}
                       alt={`${testimonial.name}'s profile`}
-                      className="rounded-full object-cover w-24 h-24 border-4 border-purple-600" // Use BookOne primary color
+                      className="rounded-md object-cover w-64 h-full border-4 border-purple-600" // Use BookOne primary color
                       onError={(e) => {
                         e.currentTarget.src =
                           "https://placehold.co/100x100/cccccc/333333?text=User"; // Fallback image

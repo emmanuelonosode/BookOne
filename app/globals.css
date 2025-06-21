@@ -62,7 +62,12 @@ h6 {
   line-height: 150%;
   letter-spacing: 0%;
 }
-
+.bg-primary { background-color: #6B46C1; }
+        .text-primary { color: #6B46C1; }
+        .border-primary { border-color: #6B46C1; }
+        .ring-primary { --tw-ring-color: #6B46C1; }
+        .bg-accent { background-color: #FBBF24; } /* Gold/Amber accent */
+        .text-accent { color: #FBBF24; }
 .container {
   margin-inline: auto;
   width: 95%;

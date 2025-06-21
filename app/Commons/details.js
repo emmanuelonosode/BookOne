@@ -1,3 +1,5 @@
+import { desc } from "framer-motion/client";
+
 export const navDetails = [
   {
     name: "Services",
@@ -563,5 +565,27 @@ export const offer = [
     icon: "/dev.svg",
     tag: "Expert Web Development Tailored to Your Unique Business Needs",
     desc: "Our team crafts websites that not only look great but also perform.",
+  },
+];
+export const process = [
+  {
+    icon: "/discovery.svg",
+    tag: "Step 1: Discovery",
+    desc: "We conduct a thorough consultation to identify your goals and challenges.",
+  },
+  {
+    icon: "/strategy.svg",
+    tag: "Step 2: Strategy",
+    desc: "Our team crafts a customized strategy to meet your specific needs.",
+  },
+  {
+    icon: "/implementation.svg",
+    tag: "Step 3: Implementation",
+    desc: "We execute the plan with precision, ensuring all elements align with your vision.",
+  },
+  {
+    icon: "/review.svg",
+    tag: "Step 4: Review",
+    desc: "We assess the outcomes and make necessary adjustments for optimal results.",
   },
 ];
