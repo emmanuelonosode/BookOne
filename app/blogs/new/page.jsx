@@ -11,21 +11,27 @@ const BlogEditor = () => {
   const uploadImageToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "emmanuel-onosode");
-    formData.append("cloud_name", "drd7v5sny");
+    formData.append(
+      "upload_preset",
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+    );
 
     try {
       const res = await fetch(
-        "https://api.cloudinary.com/v1_1/drd7v5sny/image/upload",
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
         {
           method: "POST",
           body: formData,
         }
       );
+
       const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error?.message || "Upload failed");
+
       return data.secure_url;
     } catch (err) {
-      console.error("Upload error:", err);
+      console.error("Cloudinary upload error:", err.message);
       return null;
     }
   };
@@ -111,26 +117,32 @@ const BlogEditor = () => {
     try {
       const content = await editorRef.current.save();
       const postData = { title, content, banner, location };
-      // Get JWT token from session if you use JWT, or just send session cookie
+
       const res = await fetch("/api/blogs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(postData),
       });
-      // handle response...
+
+      if (res.ok) {
+        alert("Blog post submitted!");
+      } else {
+        alert("Failed to submit blog post.");
+      }
     } catch (err) {
-      // handle error...
+      console.error("Submit error:", err);
     }
   };
 
   return (
     <section className="bg-gray-100 py-30">
-      <div className="container ">
+      <div className="container">
         <form
           onSubmit={handleSubmit}
           className="max-w-3xl mx-auto bg-white p-6 rounded shadow"
         >
-          <h1 className="text-2xl font-serrif mb-4">Create New Blog Post</h1>
+          <h1 className="text-2xl font-serif mb-4">Create New Blog Post</h1>
+
           <input
             type="text"
             placeholder="Post title"
@@ -138,7 +150,8 @@ const BlogEditor = () => {
             onChange={(e) => setTitle(e.target.value)}
             className="w-full p-2 mb-4 border rounded text-black"
           />
-          <label className="block cursor-pointer group relative">
+
+          <label className="block cursor-pointer group relative mb-4">
             <img
               src={
                 banner ||
@@ -161,7 +174,7 @@ const BlogEditor = () => {
           <input
             type="text"
             placeholder="Enter location"
-            className="w-full p-2 mb-2 border text-black"
+            className="w-full p-2 mb-4 border text-black"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
