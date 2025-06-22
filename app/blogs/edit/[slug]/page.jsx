@@ -4,12 +4,15 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-const BlogEditor = () => {
+const EditBlog = ({ params }) => {
+  const { slug } = params;
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [location, setLocation] = useState("Osogbo");
+  const [location, setLocation] = useState("");
   const [title, setTitle] = useState("");
-  const [banner, setBanner] = useState(null);
+  const [banner, setBanner] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const editorRef = useRef(null);
 
   useEffect(() => {
@@ -19,7 +22,34 @@ const BlogEditor = () => {
       router.push("/auth/signin");
       return;
     }
-  }, [session, status, router]);
+
+    fetchBlog();
+  }, [session, status, router, slug]);
+
+  const fetchBlog = async () => {
+    try {
+      const response = await fetch(`/api/blogs/${slug}`);
+      if (response.ok) {
+        const blog = await response.json();
+        setTitle(blog.title);
+        setLocation(blog.location);
+        setBanner(blog.banner);
+
+        // Initialize editor with existing content
+        setTimeout(() => {
+          initEditor(blog.content);
+        }, 100);
+      } else {
+        alert("Blog not found");
+        router.push("/admin");
+      }
+    } catch (error) {
+      console.error("Error fetching blog:", error);
+      alert("Error loading blog");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const uploadImageToCloudinary = async (file) => {
     const formData = new FormData();
@@ -57,65 +87,53 @@ const BlogEditor = () => {
     }
   };
 
-  useEffect(() => {
-    const initEditor = async () => {
-      try {
-        const EditorJS = (await import("@editorjs/editorjs")).default;
-        const Header = (await import("@editorjs/header")).default;
-        const List = (await import("@editorjs/list")).default;
-        const ImageTool = (await import("@editorjs/image")).default;
-        const Paragraph = (await import("@editorjs/paragraph")).default;
-        const Quote = (await import("@editorjs/quote")).default;
-        const Embed = (await import("@editorjs/embed")).default;
-        const CodeTool = (await import("@editorjs/code")).default;
-        const Marker = (await import("@editorjs/marker")).default;
-        const InlineCode = (await import("@editorjs/inline-code")).default;
+  const initEditor = async (initialContent = null) => {
+    try {
+      const EditorJS = (await import("@editorjs/editorjs")).default;
+      const Header = (await import("@editorjs/header")).default;
+      const List = (await import("@editorjs/list")).default;
+      const ImageTool = (await import("@editorjs/image")).default;
+      const Paragraph = (await import("@editorjs/paragraph")).default;
+      const Quote = (await import("@editorjs/quote")).default;
+      const Embed = (await import("@editorjs/embed")).default;
+      const CodeTool = (await import("@editorjs/code")).default;
+      const Marker = (await import("@editorjs/marker")).default;
+      const InlineCode = (await import("@editorjs/inline-code")).default;
 
-        if (!editorRef.current) {
-          const editor = new EditorJS({
-            holder: "editorjs",
-            autofocus: true,
-            tools: {
-              header: Header,
-              paragraph: { class: Paragraph, inlineToolbar: true },
-              list: List,
-              quote: Quote,
-              embed: Embed,
-              code: CodeTool,
-              marker: Marker,
-              inlineCode: InlineCode,
-              image: {
-                class: ImageTool,
-                config: {
-                  uploader: {
-                    uploadByFile: async (file) => {
-                      const imageUrl = await uploadImageToCloudinary(file);
-                      return { success: 1, file: { url: imageUrl } };
-                    },
+      if (!editorRef.current) {
+        const editor = new EditorJS({
+          holder: "editorjs",
+          autofocus: true,
+          data: initialContent,
+          tools: {
+            header: Header,
+            paragraph: { class: Paragraph, inlineToolbar: true },
+            list: List,
+            quote: Quote,
+            embed: Embed,
+            code: CodeTool,
+            marker: Marker,
+            inlineCode: InlineCode,
+            image: {
+              class: ImageTool,
+              config: {
+                uploader: {
+                  uploadByFile: async (file) => {
+                    const imageUrl = await uploadImageToCloudinary(file);
+                    return { success: 1, file: { url: imageUrl } };
                   },
                 },
               },
             },
-            onReady: () => console.log("Editor is ready"),
-          });
-          editorRef.current = editor;
-        }
-      } catch (error) {
-        console.error("EditorJS initialization failed:", error);
+          },
+          onReady: () => console.log("Editor is ready"),
+        });
+        editorRef.current = editor;
       }
-    };
-
-    setTimeout(() => {
-      initEditor();
-    }, 0);
-
-    return () => {
-      if (editorRef.current?.destroy) {
-        editorRef.current.destroy();
-        editorRef.current = null;
-      }
-    };
-  }, []);
+    } catch (error) {
+      console.error("EditorJS initialization failed:", error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -127,38 +145,33 @@ const BlogEditor = () => {
       alert("Editor is not ready");
       return;
     }
+
+    setSaving(true);
     try {
       const content = await editorRef.current.save();
-      const postData = {
-        title,
-        content,
-        banner,
-        location,
-        author: {
-          id: session.user.id,
-          name: session.user.name,
-          email: session.user.email,
-        },
-      };
+      const postData = { title, content, banner, location };
 
-      const res = await fetch("/api/blogs", {
-        method: "POST",
+      const res = await fetch(`/api/blogs/${slug}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(postData),
       });
 
       if (res.ok) {
-        alert("Blog post submitted!");
+        alert("Blog post updated successfully!");
         router.push("/admin");
       } else {
-        alert("Failed to submit blog post.");
+        alert("Failed to update blog post.");
       }
     } catch (err) {
-      console.error("Submit error:", err);
+      console.error("Update error:", err);
+      alert("Error updating blog post");
+    } finally {
+      setSaving(false);
     }
   };
 
-  if (status === "loading") {
+  if (status === "loading" || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-xl">Loading...</div>
@@ -181,7 +194,7 @@ const BlogEditor = () => {
           onSubmit={handleSubmit}
           className="max-w-3xl mx-auto bg-white p-6 rounded shadow"
         >
-          <h1 className="text-2xl font-serif mb-4">Create New Blog Post</h1>
+          <h1 className="text-2xl font-serif mb-4">Edit Blog Post</h1>
 
           <input
             type="text"
@@ -224,16 +237,26 @@ const BlogEditor = () => {
             className="border p-4 bg-white text-black min-h-[300px] rounded"
           />
 
-          <button
-            type="submit"
-            className="mt-4 bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
-          >
-            Submit Post
-          </button>
+          <div className="mt-4 flex gap-4">
+            <button
+              type="submit"
+              disabled={saving}
+              className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 disabled:opacity-50"
+            >
+              {saving ? "Updating..." : "Update Post"}
+            </button>
+            <button
+              type="button"
+              onClick={() => router.push("/admin")}
+              className="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </section>
   );
 };
 
-export default BlogEditor;
+export default EditBlog;

@@ -4,6 +4,7 @@ import { Poppins, Prosto_One, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "./component/nav.jsx";
 import Footer from "./component/Footer";
+import AuthProvider from "./component/AuthProvider";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -46,12 +47,14 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${prostoOne.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <section className="shadow">
-          <Nav />
-        </section>
+        <AuthProvider>
+          <section className="shadow">
+            <Nav />
+          </section>
 
-        {children}
-        <Footer />
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

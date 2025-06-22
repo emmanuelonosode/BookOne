@@ -34,7 +34,7 @@ export async function GET(request, { params }) {
 export async function PUT(request, { params }) {
   // Admin authentication
   const session = await getServerSession(authOptions);
-  if (!session || session.user.email !== "admin@email.com") {
+  if (!session || session.user.role !== "admin") {
     return NextResponse.json(
       { error: "Unauthorized. Admin access required." },
       { status: 403 }
@@ -62,12 +62,12 @@ export async function PUT(request, { params }) {
 /**
  * @method DELETE
  * @route /api/blogs/[slug]
- * @description Delete a blog post by slug (admin only)
+ * @description Delete a blog post by slug or ID (admin only)
  */
 export async function DELETE(request, { params }) {
   // Admin authentication
   const session = await getServerSession(authOptions);
-  if (!session || session.user.email !== "admin@email.com") {
+  if (!session || session.user.role !== "admin") {
     return NextResponse.json(
       { error: "Unauthorized. Admin access required." },
       { status: 403 }
@@ -76,7 +76,19 @@ export async function DELETE(request, { params }) {
   try {
     await connectDB();
     const { slug } = params;
-    const deletedBlog = await Blog.findOneAndDelete({ slug });
+
+    // Check if the parameter is a MongoDB ObjectId (24 character hex string)
+    const isObjectId = /^[0-9a-fA-F]{24}$/.test(slug);
+
+    let deletedBlog;
+    if (isObjectId) {
+      // If it's an ObjectId, delete by ID
+      deletedBlog = await Blog.findByIdAndDelete(slug);
+    } else {
+      // Otherwise, delete by slug
+      deletedBlog = await Blog.findOneAndDelete({ slug });
+    }
+
     if (!deletedBlog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 });
     }
