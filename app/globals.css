@@ -4,7 +4,7 @@
   --background: #d9d9d9;
   --foreground: #2e073f;
   --light: #d997f5;
-  --primary: #800080;
+  /* --primary: #800080; */
 }
 * {
   box-sizing: border-box;
@@ -17,23 +17,27 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-poppins);
   --font-mono: var(--font-prostoOne);
-  --primary-color: var(--primary);
 }
 
 h1 {
   font-size: 3.5rem;
+  color: #212121;
   font-weight: normal;
   line-height: 120%;
   letter-spacing: 0%;
 }
 h2 {
   font-size: 3rem;
+  color: #212121;
+
   font-weight: bold;
   line-height: 120%;
   letter-spacing: 0%;
 }
 h3 {
   font-size: 2.5rem;
+  color: #212121;
+
   font-weight: bold;
   line-height: 120%;
   letter-spacing: 0%;
@@ -41,17 +45,23 @@ h3 {
 h4 {
   font-size: 1.5rem;
   font-weight: normal;
+  color: #212121;
+
   line-height: 140%;
   letter-spacing: -1%;
 }
 h5 {
   font-size: 1.125rem;
   font-weight: normal;
+  color: #212121;
+
   line-height: 150%;
   letter-spacing: 0%;
 }
 h6 {
   font-size: 1rem;
+  color: #212121;
+
   font-weight: 700;
   line-height: 150%;
   letter-spacing: 0%;
@@ -61,17 +71,28 @@ h6 {
   font-weight: normal;
   line-height: 150%;
   letter-spacing: 0%;
+  color: #212121;
 }
-.bg-primary { background-color: #6B46C1; }
-        .text-primary { color: #6B46C1; }
-        .border-primary { border-color: #6B46C1; }
-        .ring-primary { --tw-ring-color: #6B46C1; }
-        .bg-accent { background-color: #FBBF24; } /* Gold/Amber accent */
-        .text-accent { color: #FBBF24; }
+.bg-primary {
+  background-color: #6b46c1;
+}
+.text-primary {
+  color: #6b46c1;
+}
+.border-primary {
+  border-color: #6b46c1;
+}
+.ring-primary {
+  --tw-ring-color: #6b46c1;
+}
+.bg-accent {
+  background-color: #fbbf24;
+} /* Gold/Amber accent */
+.text-accent {
+  color: #fbbf24;
+}
 .container {
   margin-inline: auto;
   width: 95%;
   max-width: 1440px;
 }
-
-

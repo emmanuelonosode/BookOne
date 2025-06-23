@@ -24,7 +24,7 @@ function Service() {
               className="w-full p-4 rounded-md shadow transition-all duration-300 ease-in-out hover:bg-[#d997f5] hover:scale-[1.02]"
               key={index}
             >
-              <Image src={icon} desc={desc} height={32} width={32} />
+              <Image src={icon} desc={desc} alt={icon} height={32} width={32} />
 
               <h4 className="my-6">{tag}</h4>
               <p>{desc}</p>

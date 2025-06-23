@@ -7,8 +7,15 @@ import Link from "next/link";
 import Btn from "./Btn";
 
 function Footer() {
+  function handleSubmit(data) {
+    const obj = Object.fromEntries(data);
+    const allData = {
+      ...obj,
+    };
+    console.log(allData);
+  }
   return (
-    <footer className="py-20 font-sans bg-white text-black">
+    <footer className="py-20 font-sans bg-dark text-light">
       <div className="container mx-auto flex flex-col md:flex-row flex-wrap justify-between items-start gap-y-12">
         {/* Logo */}
         <div className="flex flex-col items-center md:items-start w-full md:w-[20%]">
@@ -41,7 +48,7 @@ function Footer() {
         </div>
 
         {/* Newsletter */}
-        <form className="w-full md:w-[30%]">
+        <form action={handleSubmit} className="w-full md:w-[30%]">
           <h6 className="font-semibold">Subscribe</h6>
           <p className="text-sm mb-6 mt-4">
             Join our newsletter for the latest updates and insights.

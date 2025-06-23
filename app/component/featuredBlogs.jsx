@@ -70,7 +70,7 @@ function FeaturedBlogs() {
           )}
         </div>
         <div className="flex items-center justify-center">
-          <Btn label="View all" size="md" />
+          <Btn label="View all" />
         </div>
       </div>
     </section>

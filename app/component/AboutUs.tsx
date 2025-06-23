@@ -128,11 +128,13 @@ const CtaSection: React.FC<CtaSectionProps> = ({
     >
       <div className="container mx-auto px-6 text-center max-w-3xl">
         <h2
-          className={`text-3xl md:text-4xl font-bold leading-tight mb-4 ${headlineClass}`}
+          className={`text-3xl md:text-4xl font-bold leading-tight max-w-2xl mx-auto mb-4 ${headlineClass}`}
         >
           {headline}
         </h2>
-        <p className={`text-lg leading-relaxed mb-8 ${descriptionClass}`}>
+        <p
+          className={`text-lg leading-relaxed max-w-2xl mx-auto mb-8 ${descriptionClass}`}
+        >
           {description}
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">

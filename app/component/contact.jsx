@@ -3,45 +3,97 @@ import Btn from "../component/Btn";
 import { contact } from "../Commons/details";
 
 function Contact() {
+  // function handleChange(data) {
+  //   const obj = Object.fromEntries(data);
+  //   const allData = {
+  //     ...obj,
+  //   };
+  //}
   return (
     <section id="contact" className="py-28">
       <div className="container flex max-md:flex-col gap-8">
-        <form className="flex-col flex max-w-lg w-full " action="">
+        <form
+          className="flex-col flex max-w-lg w-full" /*action={handleChange}*/
+        >
           <div className="mb-8">
             <h2>Contact us</h2>
             <p className="pat">get a free consultation from us</p>
           </div>
-          <label htmlFor="name">name</label>
-          <input
-            type="text"
-            className="p-2 pat border max-w-lg rounded-lg mt-2 mb-6 w-full"
-            name="name"
-            id="name"
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            className="p-2 pat border max-w-lg rounded-lg mt-2 mb-6 w-full"
-            name="email"
-            id="email"
-          />
-          <label htmlFor="message">message</label>
-          <textarea
-            name="message"
-            className="p-2 pat border max-w-lg rounded-lg mt-2 mb-6 w-full"
-            id="message"
-            placeholder="Type your message..."
-          ></textarea>
-          <label className="mb-6" htmlFor="terms">
+          <div className="mb-4">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor="name"
+            >
+              name
+            </label>
             <input
-              type="checkbox"
-              className="mr-2"
-              name="terms"
-              id="terms"
-              value="terms"
+              type="text"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+              name="name"
+              id="name"
             />
-            Terms
-          </label>
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor="email"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+              name="email"
+              id="email"
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="service"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              How can we help?
+            </label>
+            <select
+              id="service"
+              name="service"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+            >
+              <option>Website Design & Building</option>
+              <option>AI Automation</option>
+              <option>Search Engine Optimization (SEO)</option>
+              <option>Website Optimization (CRO)</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor="message"
+            >
+              message
+            </label>
+            <textarea
+              name="message"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+              id="message"
+              placeholder="Type your message..."
+            ></textarea>
+          </div>
+          <div className="mb-4">
+            <label className="mb-6 bg-light" htmlFor="terms">
+              <input
+                type="checkbox"
+                className="mr-2"
+                name="terms"
+                id="terms"
+                value="terms"
+              />
+              Terms
+            </label>
+          </div>
+
           <Btn label="Submit" />
         </form>
         <section className="w-full">

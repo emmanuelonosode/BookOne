@@ -5,13 +5,18 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { navDetails, socialIcons } from "../Commons/details.js";
-import Btn from "./Btn.tsx";
+import Btn from "./Btn.jsx";
+import { usePathname } from "next/navigation.js";
+import { input } from "framer-motion/client";
 
 function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { data: session, status } = useSession();
   const isAdmin = session?.user?.role === "admin";
-
+  const pathname = usePathname();
+  const isBlog = pathname === "/blogs";
+  const [search, setSearch] = useState(null);
+  console.log(isBlog);
   const handleSignOut = () => {
     signOut({ callbackUrl: "/" });
   };
@@ -59,6 +64,16 @@ function Nav() {
             </>
           )}
         </ul>
+
+        {isBlog && (
+          <input
+            type="search"
+            placeholder="wachu wanna read?"
+            className="border-gray-400 border px-2 py-1 rounded-full "
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        )}
         <div className="flex gap-4 items-center">
           {status === "loading" ? (
             <span className="text-sm text-gray-500">Loading...</span>
@@ -76,8 +91,8 @@ function Nav() {
               </button>
             </div>
           ) : (
-            <Link href="/auth/signin">
-              <Btn label="Sign In" size="md" />
+            <Link href="#contact">
+              <Btn label="Contact Us" />
             </Link>
           )}
           {menuOpen ? (
@@ -86,7 +101,11 @@ function Nav() {
               src="/close.svg"
               width={32}
               height={28}
-              onClick={() => setMenuOpen(false)}
+              alt="hambuger Menu"
+              onClick={() => {
+                window.innerHeight == "100vh";
+                setMenuOpen(!menuOpen);
+              }}
             />
           ) : (
             <Image
@@ -94,7 +113,10 @@ function Nav() {
               src="/menu.svg"
               width={32}
               height={28}
-              onClick={() => setMenuOpen(true)}
+              alt="close hamburger menu"
+              onClick={() => {
+                setMenuOpen(!menuOpen);
+              }}
             />
           )}
         </div>
@@ -102,11 +124,11 @@ function Nav() {
 
       <nav
         className={`
-      ${menuOpen ? " h-screen w-full md:hidden" : " hidden"}`}
+      ${menuOpen ? " h-screen w-full md:hidden " : " hidden"}`}
       >
         <ul className=" container">
           {navDetails.map(({ name, href, id }) => (
-            <Link key={id} href={href}>
+            <Link key={id} onClick={() => setMenuOpen(!menuOpen)} href={href}>
               {" "}
               <div className="flex hover:shadow py-2 border-t items-center justify-between w-full">
                 <li
@@ -115,7 +137,12 @@ function Nav() {
                 >
                   {name}
                 </li>
-                <Image src="/chevron-right.svg" height={28} width={28} />
+                <Image
+                  src="/chevron-right.svg"
+                  alt="chevron right"
+                  height={28}
+                  width={28}
+                />
               </div>
             </Link>
           ))}
@@ -124,7 +151,12 @@ function Nav() {
               <li className="font-sans text-[18px] font-normal leading-[150%] tracking-normal">
                 More
               </li>
-              <Image src="/chevron-right.svg" height={28} width={28} />
+              <Image
+                src="/chevron-right.svg"
+                alt="chevron right"
+                height={28}
+                width={28}
+              />
             </div>
           </Link>
           <Link href="/blogs">
@@ -132,7 +164,12 @@ function Nav() {
               <li className="font-sans text-[18px] font-normal leading-[150%] tracking-normal">
                 Blogs
               </li>
-              <Image src="/chevron-right.svg" height={28} width={28} />
+              <Image
+                src="/chevron-right.svg"
+                alt="chevron right"
+                height={28}
+                width={28}
+              />
             </div>
           </Link>
           {isAdmin && (
@@ -142,7 +179,12 @@ function Nav() {
                   <li className="font-sans text-[18px] font-normal leading-[150%] tracking-normal text-green-600">
                     New Post
                   </li>
-                  <Image src="/chevron-right.svg" height={28} width={28} />
+                  <Image
+                    src="/chevron-right.svg"
+                    alt="chevron right"
+                    height={28}
+                    width={28}
+                  />
                 </div>
               </Link>
               <Link href="/admin">
@@ -150,7 +192,12 @@ function Nav() {
                   <li className="font-sans text-[18px] font-normal leading-[150%] tracking-normal text-blue-600">
                     Admin Panel
                   </li>
-                  <Image src="/chevron-right.svg" height={28} width={28} />
+                  <Image
+                    src="/chevron-right.svg"
+                    alt="chevron right"
+                    height={28}
+                    width={28}
+                  />
                 </div>
               </Link>
             </>
