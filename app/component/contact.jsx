@@ -1,5 +1,6 @@
 import React from "react";
-import Btn from "../component/Btn";
+import Btn from "./Btn.jsx";
+import {AnimatedButton} from "./Btn.jsx"
 import { contact } from "../Commons/details";
 
 function Contact() {
