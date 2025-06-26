@@ -1,26 +1,61 @@
-import React from "react";
+"use client"
+
+import React,{useState} from "react";
 import Btn from "./Btn.jsx";
 import {AnimatedButton} from "./Btn.jsx"
 import { contact } from "../Commons/details";
 
 function Contact() {
-  // function handleChange(data) {
-  //   const obj = Object.fromEntries(data);
-  //   const allData = {
-  //     ...obj,
-  //   };
-  //}
+  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState("")
+ async function handleChange(dat) {
+    const obj = Object.fromEntries(dat);
+    const allData = {
+      ...obj,
+    };
+    try {
+      setLoading(true);
+
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(allData),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Server responded with status ${res.status}`);
+      }
+
+      const dataBack = await res.json();
+      setData(dataBack);
+
+      // Optional: show a success message
+      alert(dataBack.message || "Message sent successfully!");
+    } catch (error) {
+      console.error("Form submission error:", error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+    
+
+
+
+  }
   return (
-    <section id="contact" className="py-28">
+    <section id="contact" className="py-28 bg-light">
       <div className="container flex max-md:flex-col gap-8">
         <form
-          className="flex-col flex max-w-lg w-full" /*action={handleChange}*/
+          action={handleChange}
+          className="flex-col flex max-w-xl w-full bg-white px-12 py-8 shadow-md rounded-xl"
         >
           <div className="mb-8">
             <h2>Contact us</h2>
             <p className="pat">get a free consultation from us</p>
           </div>
-          <div className="mb-4">
+          <div className="mb-6">
             <label
               className="block text-sm font-medium text-gray-700 mb-1"
               htmlFor="name"
@@ -34,7 +69,7 @@ function Contact() {
               id="name"
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-6">
             <label
               className="block text-sm font-medium text-gray-700 mb-1"
               htmlFor="email"
@@ -48,7 +83,7 @@ function Contact() {
               id="email"
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-6">
             <label
               htmlFor="service"
               className="block text-sm font-medium text-gray-700 mb-1"
@@ -68,7 +103,7 @@ function Contact() {
             </select>
           </div>
 
-          <div className="mb-4">
+          <div className="mb-6">
             <label
               className="block text-sm font-medium text-gray-700 mb-1"
               htmlFor="message"
@@ -94,8 +129,11 @@ function Contact() {
               Terms
             </label>
           </div>
+          {data && <div className="mb-4">
+            <p>{}</p>
+            </div>}
 
-          <Btn label="Submit" />
+          <Btn label={`${loading ? "loading..." : "Submit"}`} />
         </form>
         <section className="w-full">
           <div className="w-full h-full">
@@ -115,7 +153,7 @@ function Contact() {
       <section className="py-28">
         <div className="container grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-12">
           {contact.map(({ src, label, description, value }, index) => (
-            <div key={index}>
+            <div key={index} className="shadow-sm bg-white p-2 px-4 rounded-md">
               <img src={src} className="w-6 h-6" alt="" />
               <h4 className="mt-6">{label}</h4>
               <p className="text-[14px] mb-6 mt-4 text-gray-700 leading-[150%]">

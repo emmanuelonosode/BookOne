@@ -1,28 +1,30 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { quickLinks } from "../Commons/details";
 import Link from "next/link";
 import Btn from "./Btn";
 
 function Footer() {
-  function handleSubmit(data) {
-    const obj = Object.fromEntries(data);
-    const allData = {
-      ...obj,
-    };
-    console.log(allData);
+  async function handleSubmit(data) {
+    const email = Object.fromEntries(data);
+    const res = await fetch("/api/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(email),
+    });
+
+    const result = await res.json();
+    alert(result.message || result.error);
   }
   return (
     <footer className="py-20 font-sans bg-dark text-light">
-      <div className="container mx-auto flex flex-col md:flex-row flex-wrap justify-between items-start gap-y-12">
+      <div className="container mx-auto flex flex-wrap justify-between items-start gap-y-12">
         {/* Logo */}
-        <div className="flex flex-col items-center md:items-start w-full md:w-[20%]">
-          <Image src="/logo.png" alt="logo" width={120} height={120} />
-          <h3 className="font-mono mt-2">BookOne</h3>
-        </div>
-
+        <Link href="/">
+          <p className="text-5xl font-bold text-light">BookOne</p>
+          <p className="text-light/80 mt-2 ">Unluck digital profit</p>
+        </Link>
         {/* Quick Links Column 1 */}
         <div className="w-full md:w-[20%]">
           <h6 className="mb-4 font-semibold">Quick Links</h6>
@@ -61,9 +63,9 @@ function Footer() {
               id="email"
               placeholder="example@gmail.com"
             />
-            <Btn label="Subscribe" size="md" />
+            <Btn label="Subscribe" sec />
           </div>
-          <p className="text-[12px] leading-[150%] text-gray-600">
+          <p className="text-[12px] leading-[150%] text-light/65">
             By subscribing, you consent to our Privacy Policy and receive
             updates.
           </p>

@@ -1,7 +1,7 @@
-import { main } from "framer-motion/client";
+// import { motion } from "framer-motion";
 import React from "react";
 import Btn from "./Btn";
-import { AnimatedButton } from "./Btn.jsx";
+import { AnimatedButton } from "./Btn";
 import Service from "./Service";
 import Testimonia from "./Testimonia";
 import AboutUs from "./AboutUs";
@@ -15,10 +15,10 @@ import Image from "next/image";
 
 function HomePage() {
   return (
-    <main className="bg-white">
-      <section id="home" className="bg-light py-29 ">
+    <main>
+      <section id="home" className=" py-29 ">
         <div className="container px-6 text-center">
-          <h1 className=" md:text-6xl font-extrabold text-gray-900 leading-tight">
+          <h1 className=" text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
             Unlock <span className="text-primary">Digital Profit</span> with
             BookOne
           </h1>
@@ -28,10 +28,13 @@ function HomePage() {
             complete web advantage your business needs to thrive.
           </p>
           <div className="mt-8 flex justify-center items-center gap-4">
-            <Btn label="Start Your Project" />
+            <AnimatedButton label=" Start Your Project" />
             <a href="#services" className="text-primary font-bold py-3 px-8">
               Explore Services &rarr;
             </a>
+          </div>
+          <div className="h-25 overflow-hidden">
+            <Image src="/noise.png" alt="noise" width={1440} height={100} />
           </div>
         </div>
       </section>

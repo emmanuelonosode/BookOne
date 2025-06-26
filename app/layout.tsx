@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Prosto_One, Geist, Geist_Mono } from "next/font/google";
+import { Prosto_One, Poppins, Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
 import Nav from "./component/nav.jsx";
@@ -10,7 +10,7 @@ const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  // display: "swap",
+  display: "swap",
   style: ["normal", "italic"],
 });
 
@@ -18,7 +18,7 @@ const prostoOne = Prosto_One({
   variable: "--font-prosto-one",
   subsets: ["latin"],
   weight: "400",
-  // display: "swap",
+  display: "swap",
   style: "normal",
 });
 

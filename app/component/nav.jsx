@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { navDetails, socialIcons } from "../Commons/details.js";
 import Btn from "./Btn.jsx";
@@ -21,14 +21,30 @@ function Nav() {
     signOut({ callbackUrl: "/" });
   };
 
+  useEffect(() => {
+    // Ensure this runs only in the browser
+    if (typeof window !== "undefined") {
+      if (menuOpen) {
+        window.document.body.style.overflow = "hidden";
+      } else {
+        window.document.body.style.overflow = "";
+      }
+    }
+
+    // Cleanup in case component unmounts
+    return () => {
+      if (typeof window !== "undefined") {
+        window.document.body.style.overflow = "";
+      }
+    };
+  }, [menuOpen]);
   return (
     <header className="">
       <nav className="flex container h-16 items-center justify-between">
         <Link href="/">
-          <div className="flex items-center">
-            <Image src="/logo.png" alt="logo" width={32} height={32} />
-            <h6 className="font-mono">BookOne</h6>
-          </div>
+            <p className="text-2xl font-bold text-primary">
+              BookOne
+            </p>
         </Link>
         <ul className="flex gap-8 max-md:hidden">
           {navDetails.map(({ name, href, id }) => (
@@ -36,7 +52,10 @@ function Nav() {
               className="font-sans text-[16px] font-normal leading-[150%] tracking-normal"
               key={id}
             >
-              <Link href={href}> {name}</Link>
+              <Link scroll={false} href={href}>
+                {" "}
+                {name}
+              </Link>
             </li>
           ))}
           <Link href="/blogs">
@@ -92,7 +111,7 @@ function Nav() {
             </div>
           ) : (
             <Link href="#contact">
-              <Btn label="Contact Us" />
+              <Btn label="Get a Free Consultation" />
             </Link>
           )}
           {menuOpen ? (

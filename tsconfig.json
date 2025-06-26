@@ -28,7 +28,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/component/Btn.jsx",
-    "app/component/HomePage.tsx",
+    "app/component/HomePage.jsx",
     "app/component/nav.jsx"
   ],
   "exclude": ["node_modules"]

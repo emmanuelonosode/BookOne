@@ -1,29 +1,38 @@
 @import "tailwindcss";
 
-
 * {
   box-sizing: border-box;
   /* margin: 0;
   padding: 0; */
 }
+html{
+  scroll-behavior: smooth;
+}
 
 @theme inline {
   /* --color-background: var(--background);
   --color-foreground: var(--foreground); */
-  --font-sans: var(--font-poppins);
-  --font-mono: var(--font-prostoOne);
+  --font-sans: var(--font-poppins) sans-serif;
+  --font-mono: var(--font-prostoOne) sans-serif;
+  --color-primary: #6B46C1;
+  --color-secondary: #800080;
+  --color-dark:#2E073F;
+  --color-light: #EDE9F7;
+  --color-neutral: #1A1A1A;
+  --color-muted: #7D6C9A;
+  --color-accent: #FFD700;
 }
 
-h1 {
+/* h1 {
   font-size: 3.5rem;
-  color: #212121;
   font-weight: normal;
   line-height: 120%;
   letter-spacing: 0%;
-}
+} */
+
+/* text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight */
 h2 {
   font-size: 3rem;
-  color: #212121;
 
   font-weight: bold;
   line-height: 120%;
@@ -31,16 +40,15 @@ h2 {
 }
 h3 {
   font-size: 2.5rem;
-  color: #212121;
+  
 
-  font-weight: bold;
+  font-weight: 700;
   line-height: 120%;
-  letter-spacing: 0%;
+  letter-spacing: 1%;
 }
 h4 {
   font-size: 1.5rem;
   font-weight: normal;
-  color: #212121;
 
   line-height: 140%;
   letter-spacing: -1%;
@@ -48,14 +56,12 @@ h4 {
 h5 {
   font-size: 1.125rem;
   font-weight: normal;
-  color: #212121;
 
   line-height: 150%;
   letter-spacing: 0%;
 }
 h6 {
   font-size: 1rem;
-  color: #212121;
 
   font-weight: 700;
   line-height: 150%;
@@ -85,7 +91,7 @@ h6 {
 } /* Gold/Amber accent */
 /* .text-accent {
   color: #fbbf24;
-} */ 
+} */
 .container {
   margin-inline: auto;
   width: 95%;

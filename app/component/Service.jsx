@@ -5,7 +5,7 @@ function Service() {
   return (
     <section className="py-28">
       <div className="container">
-        <div className="flex justify-between gap-8 mb-20 font-sans">
+        <div className="flex flex-col md:flex-row justify-between gap-8 mb-20 font-sans">
           <h3 className="">
             Transform Your Business with Our Comprehensive Web Solutions and
             Automation Services
@@ -18,7 +18,7 @@ function Service() {
             presence.
           </h5>
         </div>
-        <div className="flex gap-4 justify-between">
+        <div className="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 justify-between">
           {offer.map(({ tag, icon, desc }, index) => (
             <div
               className="w-full p-4 rounded-md shadow transition-all duration-300 ease-in-out hover:bg-[#d997f5] hover:scale-[1.02]"
