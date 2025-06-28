@@ -16,13 +16,12 @@ function BlogCard1(props) {
       viewport={{  amount: 0.2 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <img src={props.imgurl} alt="" className="w-full aspect-video mb-6 " />
+      <img src={props.banner} alt="" className="w-full aspect-video mb-6 " />
       <div className="text-[14px] flex gap-4 mb-4 font-semi-bold leading-[150%]">
-        <p className=" bg-gray-100 rounded-sm">{props.categories}</p>
         <p>{props.timeToRead}</p>
       </div>
       <h4 className="mb-2">{props.title}</h4>
-      <p className="pat">{props.excerpt}</p>
+      <p className="pat">{props.desc}</p>
       <Link href={`/blogs/${props.slug}`} className="w-full">
       
       <button className="flex items-center pat mt-6">

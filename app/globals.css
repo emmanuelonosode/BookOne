@@ -2,16 +2,13 @@
 
 * {
   box-sizing: border-box;
-  /* margin: 0;
-  padding: 0; */
+
 }
 html{
   scroll-behavior: smooth;
 }
 
 @theme inline {
-  /* --color-background: var(--background);
-  --color-foreground: var(--foreground); */
   --font-sans: var(--font-poppins) sans-serif;
   --font-mono: var(--font-prostoOne) sans-serif;
   --color-primary: #6B46C1;
@@ -23,14 +20,6 @@ html{
   --color-accent: #FFD700;
 }
 
-/* h1 {
-  font-size: 3.5rem;
-  font-weight: normal;
-  line-height: 120%;
-  letter-spacing: 0%;
-} */
-
-/* text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight */
 h2 {
   font-size: 3rem;
 
@@ -74,24 +63,7 @@ h6 {
   letter-spacing: 0%;
   color: #212121;
 }
-/* .bg-primary {
-  background-color: #6b46c1;
-}
-.text-primary {
-  color: #6b46c1;
-}
-.border-primary {
-  border-color: #6b46c1;
-}
-.ring-primary {
-  --tw-ring-color: #6b46c1;
-}
-.bg-accent {
-  background-color: #fbbf24;
-} /* Gold/Amber accent */
-/* .text-accent {
-  color: #fbbf24;
-} */
+
 .container {
   margin-inline: auto;
   width: 95%;

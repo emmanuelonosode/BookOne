@@ -90,10 +90,9 @@ export default function BlogHome() {
             <div key={blog._id} className="relative">
               <BlogCard1
                 title={blog.title}
-                excerpt={blog.excerpt}
-                imgurl={blog.imgurl}
-                categories={blog.categories}
-                timeToRead={blog.timeToRead}
+                excerpt={blog.desc}
+                imgurl={blog.banner}
+
                 slug={blog.slug}
               />
               {isAdmin && (
