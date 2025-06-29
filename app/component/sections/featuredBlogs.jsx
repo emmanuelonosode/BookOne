@@ -1,8 +1,8 @@
 import React from "react";
-import Tagline from "../component/tagline.jsx";
-import { featBlogs } from "../Commons/details";
-import Btn from "../component/Btn";
-import { FadeInSection } from "../component/fadeIn.jsx";
+import Tagline from "../tagline.jsx";
+import { featBlogs } from "../../Commons/details.js";
+import Btn from "../Btn.jsx";
+import { FadeInSection } from "../fadeIn.jsx";
 import Link from "next/link";
 
 function FeaturedBlogs() {

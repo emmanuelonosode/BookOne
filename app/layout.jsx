@@ -1,9 +1,8 @@
-import type { Metadata } from "next";
 import { Prosto_One, Poppins, Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
-import Nav from "./component/nav.jsx";
-import Footer from "./component/Footer";
+import Nav from "./component/sections/nav.jsx";
+import Footer from "./component/sections/Footer.jsx";
 import AuthProvider from "./component/AuthProvider";
 
 const poppins = Poppins({
@@ -11,7 +10,6 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
-  style: ["normal", "italic"],
 });
 
 const prostoOne = Prosto_One({
@@ -19,7 +17,6 @@ const prostoOne = Prosto_One({
   subsets: ["latin"],
   weight: "400",
   display: "swap",
-  style: "normal",
 });
 
 const geistSans = Geist({
@@ -32,16 +29,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "BookOne Your Business ",
   description: "The leading business digital optimizer",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body

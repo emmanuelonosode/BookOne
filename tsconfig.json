@@ -28,8 +28,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/component/Btn.jsx",
-    "app/component/HomePage.jsx",
-    "app/component/nav.jsx"
+    "app/component/sections/HomePage.jsx",
+    "app/component/sections/nav.jsx",
+    "app/layout.jsx"
   ],
   "exclude": ["node_modules"]
 }

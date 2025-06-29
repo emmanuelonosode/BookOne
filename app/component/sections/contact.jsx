@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import React,{useState} from "react";
-import Btn from "./Btn.jsx";
-import {AnimatedButton} from "./Btn.jsx"
-import { contact } from "../Commons/details";
+import React, { useState } from "react";
+import Btn from "../Btn.jsx";
+import { AnimatedButton } from "../Btn.jsx";
+import { contact } from "../../Commons/details.js";
 
 function Contact() {
-  const [loading, setLoading] = useState(false)
-  const [data, setData] = useState("")
- async function handleChange(dat) {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState("");
+  async function handleChange(dat) {
     const obj = Object.fromEntries(dat);
     const allData = {
       ...obj,
@@ -39,10 +39,6 @@ function Contact() {
     } finally {
       setLoading(false);
     }
-    
-
-
-
   }
   return (
     <section id="contact" className="py-28 bg-light">
@@ -129,9 +125,11 @@ function Contact() {
               Terms
             </label>
           </div>
-          {data && <div className="mb-4">
-            <p>{}</p>
-            </div>}
+          {data && (
+            <div className="mb-4">
+              <p>{}</p>
+            </div>
+          )}
 
           <Btn label={`${loading ? "loading..." : "Submit"}`} />
         </form>
@@ -153,7 +151,7 @@ function Contact() {
       <section className="py-28">
         <div className="container grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-12">
           {contact.map(({ src, label, description, value }, index) => (
-            <div key={index} className="shadow-sm bg-white p-2 px-4 rounded-md">
+            <div key={index} className="shadow-sm bg-white p-8 rounded-md">
               <img src={src} className="w-6 h-6" alt="" />
               <h4 className="mt-6">{label}</h4>
               <p className="text-[14px] mb-6 mt-4 text-gray-700 leading-[150%]">

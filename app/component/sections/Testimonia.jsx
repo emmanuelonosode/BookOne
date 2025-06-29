@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { testimonia } from "../Commons/details";
+import { testimonia } from "../../Commons/details";
 
 const Testimonia = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

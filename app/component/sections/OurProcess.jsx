@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { process } from "../Commons/details";
+import { process } from "../../Commons/details";
 import Image from "next/image";
-import Btn from "./Btn";
-import Tagline from "./tagline";
+import Btn from "../Btn";
+import Tagline from "../tagline";
 
 function OurProcess() {
   return (

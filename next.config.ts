@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: "randomuser.me",
         pathname: "/api/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
     ],
   },
   // experimental: {

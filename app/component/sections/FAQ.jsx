@@ -1,6 +1,6 @@
 import React from "react";
-import { faq } from "../Commons/details";
-import Btn from "../component/Btn";
+import { faq } from "../../Commons/details";
+import Btn from "../Btn";
 
 function FAQ() {
   return (

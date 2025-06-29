@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { quickLinks } from "../Commons/details";
+import { quickLinks } from "../../Commons/details";
 import Link from "next/link";
-import Btn from "./Btn";
+import Btn from "../Btn";
 
 function Footer() {
   async function handleSubmit(data) {
@@ -18,7 +18,7 @@ function Footer() {
     alert(result.message || result.error);
   }
   return (
-    <footer className="py-20 font-sans bg-dark text-light">
+    <footer className="py-20 font-sans bg-black text-light">
       <div className="container mx-auto flex flex-wrap justify-between items-start gap-y-12">
         {/* Logo */}
         <Link href="/">

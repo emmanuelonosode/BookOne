@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { Chart, registerables } from "chart.js"; // Import Chart and registerables
-import Tagline from "./tagline";
+import Tagline from "../tagline";
 
 // Register all Chart.js components (important for Doughnut chart, legends, tooltips etc.)
 Chart.register(...registerables);

@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
-import { navDetails, socialIcons } from "../Commons/details.js";
-import Btn from "./Btn.jsx";
+import { navDetails, socialIcons } from "../../Commons/details.js";
+import Btn from "../Btn.jsx";
 import { usePathname } from "next/navigation.js";
 import { input } from "framer-motion/client";
 
@@ -42,9 +42,7 @@ function Nav() {
     <header className="">
       <nav className="flex container h-16 items-center justify-between">
         <Link href="/">
-            <p className="text-2xl font-bold text-primary">
-              BookOne
-            </p>
+          <p className="text-2xl font-bold text-primary">BookOne</p>
         </Link>
         <ul className="flex gap-8 max-md:hidden">
           {navDetails.map(({ name, href, id }) => (

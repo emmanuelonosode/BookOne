@@ -1,28 +1,28 @@
 import React from "react";
-import Btn from "./Btn";
-import { AnimatedButton } from "./Btn";
-import Service from "./Service";
-import Testimonia from "./Testimonia";
+import { AnimatedButton } from "../Btn.jsx";
+import PortfolioPreview from "./portfolio.jsx";
+import Service from "./Service.jsx";
+import Testimonia from "./Testimonia.jsx";
 import AboutUs from "./AboutUs";
 import { AboutSection } from "./AboutUs";
 import CTA from "./CTA";
-import OurProcess from "./OurProcess";
+import OurProcess from "./OurProcess.jsx";
 import FeaturedBlog from "./featuredBlogs.jsx";
-import FAQ from "./FAQ";
+import FAQ from "./FAQ.jsx";
 import Contact from "./contact.jsx";
 import Image from "next/image";
 
 function HomePage() {
   return (
     <main className="">
-    
       <section id="home" className=" py-29 ">
-        <div className="container px-6 text-center">
-          <h1 className=" text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
+        <div className="container  text-center">
+          <h1 className=" text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight">
             Unlock <span className="text-primary">Digital Profit</span> with
             BookOne
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600">
+          
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-700">
             We transform your online presence into a highly profitable asset.
             From stunning websites to intelligent AI automation, we deliver the
             complete web advantage your business needs to thrive.
@@ -38,13 +38,12 @@ function HomePage() {
           </div>
         </div>
       </section>
-      <section>
-        <Service />
-      </section>
+      <Service />
+      <PortfolioPreview />
       <Testimonia />
       <OurProcess />
       <AboutUs />
-      <AboutSection />
+      {/* <AboutSection /> */}
       <FeaturedBlog />
       <FAQ />
       {/* <Stat/> */}
