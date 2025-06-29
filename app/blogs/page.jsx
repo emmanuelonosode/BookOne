@@ -91,7 +91,7 @@ export default function BlogHome() {
               <BlogCard1
                 title={blog.title}
                 excerpt={blog.desc}
-                imgurl={blog.banner}
+                banner={blog.banner}
 
                 slug={blog.slug}
               />

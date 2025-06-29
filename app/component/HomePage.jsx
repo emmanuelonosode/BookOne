@@ -1,4 +1,3 @@
-// import { motion } from "framer-motion";
 import React from "react";
 import Btn from "./Btn";
 import { AnimatedButton } from "./Btn";
@@ -15,7 +14,8 @@ import Image from "next/image";
 
 function HomePage() {
   return (
-    <main>
+    <main className="">
+    
       <section id="home" className=" py-29 ">
         <div className="container px-6 text-center">
           <h1 className=" text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">

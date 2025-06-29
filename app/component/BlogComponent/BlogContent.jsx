@@ -6,7 +6,7 @@ const renderBlock = (block) => {
       const Tag = `h${block.data.level}`;
       return <Tag key={block.id}>{block.data.text}</Tag>;
     case "paragraph":
-      return <p key={block.id}>{block.data.text}</p>;
+      return <p className="mb-6 pat" key={block.id}>{block.data.text}</p>;
     case "image":
       return (
         <div key={block.id} style={{ textAlign: "center", margin: "1em 0" }}>

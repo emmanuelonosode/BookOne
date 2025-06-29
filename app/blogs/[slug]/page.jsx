@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import BlogContent from "@/app/component/BlogComponent/BlogContent";
+import getReadTime from "../../../lib/readTime";
 
 export default function ReadBlog({ params }) {
   const { slug } = params;
@@ -16,6 +17,7 @@ export default function ReadBlog({ params }) {
 
   useEffect(() => {
     fetchBlog();
+    // eslint-disable-next-line
   }, [slug]);
 
   const fetchBlog = async () => {
@@ -41,12 +43,10 @@ export default function ReadBlog({ params }) {
     if (!confirm("Are you sure you want to delete this blog post?")) {
       return;
     }
-
     try {
       const response = await fetch(`/api/blogs/${blog._id}`, {
         method: "DELETE",
       });
-
       if (response.ok) {
         alert("Blog post deleted successfully!");
         router.push("/blogs");
@@ -58,6 +58,15 @@ export default function ReadBlog({ params }) {
       alert("Error deleting blog post.");
     }
   };
+
+  // Calculate read time
+  let readTime = "";
+  if (blog && blog.content && Array.isArray(blog.content.blocks)) {
+    const text = blog.content.blocks
+      .map((block) => block.data?.text || "")
+      .join(" ");
+    readTime = getReadTime(text);
+  }
 
   if (loading) {
     return (
@@ -78,8 +87,8 @@ export default function ReadBlog({ params }) {
   }
 
   return (
-    <section className="bg-gray-100 py-30">
-      <div className="container max-w-3xl mx-auto py-10">
+    <section className="bg-gray-100 pb-20 pt-10">
+      <div className="max-w-3xl mx-auto py-10">
         {isAdmin && (
           <div className="mb-6 flex gap-4 justify-end">
             <Link
@@ -110,6 +119,7 @@ export default function ReadBlog({ params }) {
           {blog.createdAt && (
             <span>{new Date(blog.createdAt).toLocaleDateString()}</span>
           )}
+          {readTime && <span className="ml-2">| {readTime} min read</span>}
         </div>
         {blog.content && blog.content.blocks ? (
           <BlogContent blocks={blog.content.blocks} />
