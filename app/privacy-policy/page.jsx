@@ -1,95 +1,88 @@
-export const metadata = {
-  title: "Privacy Policy | MyBook",
-  description:
-    "Learn how we collect, use, and protect your information at MyBook.",
+import React from "react";
+
+// Reusable LegalDocCard component
+const LegalDocCard = ({ title, description, link }) => {
+  return (
+    <div
+      className="bg-white rounded-3xl shadow-xl p-8 flex flex-col justify-between
+      transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2
+      border border-gray-200"
+    >
+      <div>
+        <h3 className="text-3xl font-bold text-gray-800 mb-3">{title}</h3>
+        <p className="text-gray-700 leading-relaxed mb-6">{description}</p>
+      </div>
+      <div className="mt-auto">
+        <a
+          href={link}
+          className="inline-block w-full text-center py-3 px-6 rounded-xl font-semibold text-xl shadow-lg
+          transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300
+          bg-blue-600 text-white hover:bg-blue-700"
+        >
+          View Document
+        </a>
+      </div>
+    </div>
+  );
 };
 
-export default function PrivacyPolicy() {
+// Main LegalPage component for BookOne website
+const LegalPage = () => {
   return (
-    <section className="max-w-3xl mx-auto py-20 px-4">
-      <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
-      <p className="mb-4">
-        At MyBook, your privacy is important to us. This Privacy Policy explains
-        how we collect, use, disclose, and safeguard your information when you
-        visit our website.
-      </p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8 font-inter text-gray-800">
+      <div className="max-w-7xl mx-auto">
+        {/* Page Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-5xl font-extrabold text-blue-800 mb-6 leading-tight rounded-lg p-2 inline-block bg-white shadow-lg">
+            Legal Information
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Your trust is important to us. Here you can find important legal
+            documents that govern your use of BookOne's services.
+          </p>
+        </div>
 
-      <h2 className="text-xl font-semibold mt-8 mb-2">
-        1. Information We Collect
-      </h2>
-      <ul className="list-disc pl-6 mb-4">
-        <li>
-          <strong>Personal Information:</strong> Such as your name, email
-          address, and any other information you provide when you contact us,
-          subscribe to our newsletter, or create an account.
-        </li>
-        <li>
-          <strong>Usage Data:</strong> Information about how you use our
-          website, including your IP address, browser type, and pages visited.
-        </li>
-        <li>
-          <strong>Cookies:</strong> We use cookies to remember your preferences
-          and enhance your experience. You can manage cookies in your browser
-          settings.
-        </li>
-      </ul>
+        {/* Legal Documents Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {/* Privacy Policy Card */}
+          <LegalDocCard
+            title="Privacy Policy"
+            description="Understand how BookOne collects, uses, protects, and handles your personal information when you use our website and services."
+            link="/privacy-policy"
+          />
 
-      <h2 className="text-xl font-semibold mt-8 mb-2">
-        2. How We Use Your Information
-      </h2>
-      <ul className="list-disc pl-6 mb-4">
-        <li>To provide and maintain our services.</li>
-        <li>
-          To communicate with you, including sending newsletters and updates.
-        </li>
-        <li>To improve our website and user experience.</li>
-        <li>To comply with legal obligations.</li>
-      </ul>
+          {/* Terms of Service Card */}
+          <LegalDocCard
+            title="Terms of Service"
+            description="Read the terms and conditions that govern your use of the BookOne platform, outlining your rights and responsibilities as a user."
+            link="/terms-of-service"
+          />
 
-      <h2 className="text-xl font-semibold mt-8 mb-2">
-        3. Sharing Your Information
-      </h2>
-      <p className="mb-4">
-        We do not sell or rent your personal information. We may share your
-        information with trusted third parties who assist us in operating our
-        website, conducting our business, or serving our users, as long as those
-        parties agree to keep this information confidential.
-      </p>
+          {/* Cookie Policy Card */}
+          <LegalDocCard
+            title="Cookie Policy"
+            description="Learn about how BookOne uses cookies and similar tracking technologies to enhance your browsing experience and analyze site usage."
+            link="/cookie-policy"
+          />
+        </div>
 
-      <h2 className="text-xl font-semibold mt-8 mb-2">4. Data Security</h2>
-      <p className="mb-4">
-        We implement reasonable security measures to protect your information.
-        However, no method of transmission over the Internet or electronic
-        storage is 100% secure.
-      </p>
-
-      <h2 className="text-xl font-semibold mt-8 mb-2">5. Your Rights</h2>
-      <p className="mb-4">
-        You have the right to access, update, or delete your personal
-        information. To exercise these rights, please contact us at{" "}
-        <a href="mailto:support@mybook.com" className="text-blue-600 underline">
-          support@mybook.com
-        </a>
-        .
-      </p>
-
-      <h2 className="text-xl font-semibold mt-8 mb-2">
-        6. Changes to This Policy
-      </h2>
-      <p className="mb-4">
-        We may update this Privacy Policy from time to time. We will notify you
-        of any changes by posting the new policy on this page.
-      </p>
-
-      <h2 className="text-xl font-semibold mt-8 mb-2">7. Contact Us</h2>
-      <p>
-        If you have any questions about this Privacy Policy, please contact us
-        at{" "}
-        <a href="mailto:support@mybook.com" className="text-blue-600 underline">
-          support@mybook.com
-        </a>
-        .
-      </p>
-    </section>
+        {/* Additional Legal Info (Optional) */}
+        <div className="mt-16 text-center text-gray-600">
+          <p className="mb-4">
+            For any questions regarding these documents or other legal
+            inquiries, please don't hesitate to contact our support team.
+          </p>
+          <a
+            href="/contact" // Link to your contact page
+            className="inline-block bg-blue-100 text-blue-700 font-semibold py-3 px-8 rounded-xl shadow-md
+            transition-all duration-300 transform hover:scale-105 hover:bg-blue-200 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          >
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </div>
   );
-}
+};
+
+export default LegalPage;
