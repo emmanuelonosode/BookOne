@@ -1,24 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "tailwindcss";
 
 * {
   box-sizing: border-box;
-
 }
-html{
+html {
   scroll-behavior: smooth;
+  font-family: "Geist", sans-serif;
 }
 
 @theme inline {
   --font-sans: var(--font-poppins) sans-serif;
   --font-mono: var(--font-prostoOne) sans-serif;
-  --color-primary: #6B46C1;
+  --color-primary: #6b46c1;
   --color-secondary: #800080;
-  --color-dark:#2E073F;
-  --color-light: #EDE9F7;
-  --color-neutral: #1A1A1A;
-  --color-muted: #7D6C9A;
-  --color-accent: #FFD700;
-  --color-bgcolor: #BBA9E4;
+  --color-dark: #2e073f;
+  --color-light: #ede9f7;
+  --color-neutral: #1a1a1a;
+  --color-muted: #7d6c9a;
+  --color-accent: #ffd700;
+  --color-bgcolor: #bba9e4;
 }
 
 .h2 {
@@ -30,7 +31,6 @@ html{
 }
 .h3 {
   font-size: 2.5rem;
-  
 
   font-weight: 700;
   line-height: 120%;

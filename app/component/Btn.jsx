@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 function Btn({ label, sec, light, className = "" }) {
   const baseStyles =
     "leading-[150%] text-[16px] tracking-normal rounded-lg px-6";
-  const size = sec ? "py-[9px]" : "py-2.5";
+  const size = sec ? "md:py-[9px]" : "md:py-2.5";
   const color = sec ? "border" : "bg-primary text-light";
 
   const weight = light ? "font-normal" : "font-bold";
@@ -36,7 +36,7 @@ export function AnimatedButton({ label }) {
         }}
         initial={{ width: "0%" }}
       />
-      <span className="relative z-10">{label}</span>
+      <span className="relative z-10">{label }</span>
     </motion.button>
   );
 }

@@ -15,7 +15,7 @@ function Nav() {
   const isAdmin = session?.user?.role === "admin";
   const pathname = usePathname();
   const isBlog = pathname === "/blogs";
-  const [search, setSearch] = useState(null);
+  const [search, setSearch] = useState("");
   console.log(isBlog);
   const handleSignOut = () => {
     signOut({ callbackUrl: "/" });
