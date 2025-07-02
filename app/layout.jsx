@@ -6,27 +6,25 @@ import Footer from "./component/sections/Footer.jsx";
 import AuthProvider from "./component/AuthProvider";
 
 const poppins = Poppins({
-  variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
 const prostoOne = Prosto_One({
-  variable: "--font-prosto-one",
   subsets: ["latin"],
   weight: "400",
   display: "swap",
 });
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata = {
@@ -37,14 +35,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${poppins.variable} ${prostoOne.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={` ${poppins.className} antialiased`}>
         <AuthProvider>
-          <section className="shadow">
+          <section className="shadow-black">
             <Nav />
           </section>
-
           {children}
           <Footer />
         </AuthProvider>

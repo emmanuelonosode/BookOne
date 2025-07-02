@@ -27,7 +27,7 @@ export function AnimatedButton({ label }) {
       whileHover="hover"
     >
       <motion.span
-        className="absolute left-0 top-0 h-full w-0  text-primary/50"
+        className="absolute left-0 top-0 h-full w-0 bg-white  text-primary/50"
         variants={{
           hover: {
             width: "100%",

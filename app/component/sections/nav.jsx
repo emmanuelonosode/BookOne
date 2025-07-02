@@ -47,7 +47,7 @@ function Nav() {
         <ul className="flex gap-8 max-md:hidden">
           {navDetails.map(({ name, href, id }) => (
             <li
-              className="font-sans text-[16px] font-normal leading-[150%] tracking-normal"
+              className="font-sans text-[16px] pat font-normal leading-[150%] tracking-normal"
               key={id}
             >
               <Link scroll={false} href={href}>
@@ -57,12 +57,12 @@ function Nav() {
             </li>
           ))}
           <Link href="/blogs">
-            <li className="font-sans text-[16px] font-normal leading-[150%] tracking-normal">
+            <li className="font-sans pat font-normal leading-[150%] tracking-normal">
               More
             </li>
           </Link>
           <Link href="/blogs">
-            <li className="font-sans text-[16px] font-normal leading-[150%] tracking-normal">
+            <li className="font-sans pat font-normal leading-[150%] tracking-normal">
               Blogs
             </li>
           </Link>
