@@ -3,7 +3,6 @@ import PortfolioPreview from "./portfolio.jsx";
 import Service from "./Service.jsx";
 import Testimonia from "./Testimonia.jsx";
 import AboutUs from "./AboutUs";
-import CTA from "./CTA";
 import OurProcess from "./OurProcess.jsx";
 import HeroSection from "./HeroSection.jsx";
 import FeaturedBlog from "./featuredBlogs.jsx";
@@ -23,7 +22,6 @@ function HomePage() {
       <FeaturedBlog />
       <FAQ />
       {/* <Stat/> */}
-      <CTA />
       <Contact />
     </main>
   );

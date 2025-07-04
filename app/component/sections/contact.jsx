@@ -42,13 +42,25 @@ function Contact() {
   }
   return (
     <section id="contact" className="py-28 bg-light">
+
+          <section className="py-20 text-center">
+            <div className="container max-w-2xl mx-auto">
+              <h2 className="h2  mb-4">
+                Ready to bring your <span className="text-primary">business</span> online?
+              </h2>
+              <p className="pat mb-8">
+                Let`s talk about how BookOne can help you launch smarter and faster.
+              </p>
+          
+            </div>
+          </section>
       <div className="container flex max-md:flex-col gap-8">
         <form
           action={handleChange}
           className="flex-col flex max-w-xl w-full bg-white px-12 py-8 shadow-md rounded-xl"
         >
           <div className="mb-8">
-            <h2>Contact us</h2>
+            <h2 className="h3">Contact us</h2>
             <p className="pat">get a free consultation from us</p>
           </div>
           <div className="mb-6">

@@ -10,11 +10,14 @@ function Btn({ label, sec, light, className = "" }) {
   const weight = light ? "font-normal" : "font-bold";
 
   return (
-    <button
+    <motion.button
+    whileHover={{
+      scale:1.2
+    }}
       className={`max-md:font-medium ${baseStyles} ${size} ${color} ${weight} ${className}`}
     >
       {label}
-    </button>
+    </motion.button>
   );
 }
 

@@ -1,4 +1,3 @@
-import { desc } from "framer-motion/client";
 
 export const navDetails = [
   {

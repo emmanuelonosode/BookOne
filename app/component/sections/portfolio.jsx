@@ -137,7 +137,7 @@ const ProjectCard = ({ project }) => {
   return (
     <motion.div
       ref={cardRef} // Assign the ref to the card's outer motion.div
-      className={`group relative w-full rounded-3xl shadow-xl overflow-hidden cursor-pointer
+      className={`group relative w-full rounded-md   shadow-xl overflow-hidden cursor-pointer
         transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2
         ${
           project.isFeatured
@@ -148,7 +148,7 @@ const ProjectCard = ({ project }) => {
       variants={cardVariants} // For the card's entry animation
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.4 }} // Trigger animation when 40% of the card is visible
+      // viewport={{ once: true, amount: 0.4 }} // Trigger animation when 40% of the card is visible
       whileHover={{ scale: 1.01 }}
     >
       {/* Replaced Next.js Link with standard <a> tag */}
@@ -210,7 +210,7 @@ export default function PortfolioPage() {
   const otherProjects = allProjects.filter((p) => !p.isFeatured);
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 py-12 px-4 sm:px-6 lg:px-8 font-inter text-gray-800 overflow-hidden">
+    <section className="min-h-screen bg-bgcolor py-12 px-4 sm:px-6 lg:px-8 font-inter text-gray-800 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Page Header */}
         <div className="text-center mb-16">
@@ -218,8 +218,8 @@ export default function PortfolioPage() {
             variants={headerTextVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            className="text-5xl font-extrabold text-purple-800 mb-6 leading-tight rounded-lg p-2 inline-block bg-white shadow-lg"
+            // viewport={{ once: true, amount: 0.5 }}
+            className="text-5xl font-extrabold text-purple-800 mb-6 leading-tight text-shadow-zinc-900 inline-block "
           >
             Our Portfolio
           </motion.h1>
@@ -227,7 +227,7 @@ export default function PortfolioPage() {
             variants={headerTextVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
+            // viewport={{ once: true, amount: 0.5 }}
             className="text-xl text-gray-600 max-w-3xl mx-auto"
           >
             Showcasing our impactful work across various industries. Each
@@ -249,7 +249,7 @@ export default function PortfolioPage() {
           variants={cardContainerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }} // Trigger animation for the grid
+          // viewport={{ once: true, amount: 0.2 }} // Trigger animation for the grid
         >
           {otherProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />

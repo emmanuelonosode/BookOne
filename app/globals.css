@@ -18,8 +18,7 @@ html {
   --color-light: #ede9f7;
   --color-neutral: #1a1a1a;
   --color-muted: #7d6c9a;
-  --color-accent: #ffd700;
-  --color-bgcolor: #bba9e4;
+  --color-accent: linear-gradient(135deg, #6b46c1, #800080, #2e073f);
 }
 
 .h2 {

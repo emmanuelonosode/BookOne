@@ -7,7 +7,6 @@ import { useSession, signOut } from "next-auth/react";
 import { navDetails, socialIcons } from "../../Commons/details.js";
 import Btn from "../Btn.jsx";
 import { usePathname } from "next/navigation.js";
-import { input } from "framer-motion/client";
 
 function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -39,8 +38,8 @@ function Nav() {
     };
   }, [menuOpen]);
   return (
-    <header className="">
-      <nav className="flex container h-16 items-center justify-between">
+    <header className=" bg-white">
+      <nav className="flex container h-16  items-center justify-between">
         <Link href="/">
           <p className="text-2xl font-bold text-primary">BookOne</p>
         </Link>
@@ -113,17 +112,23 @@ function Nav() {
             </Link>
           )}
           {menuOpen ? (
-            <Image
+            <button
               className="md:hidden"
-              src="/close.svg"
-              width={32}
-              height={28}
-              alt="hambuger Menu"
               onClick={() => {
                 window.innerHeight == "100vh";
                 setMenuOpen(!menuOpen);
               }}
-            />
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="28px"
+                viewBox="0 -960 960 960"
+                width="32px"
+                fill="#000000"
+              >
+                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+              </svg>
+            </button>
           ) : (
             <Image
               className="md:hidden"

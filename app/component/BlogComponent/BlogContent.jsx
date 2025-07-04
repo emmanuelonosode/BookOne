@@ -25,8 +25,12 @@ const renderBlock = (block) => {
     }
     case "paragraph":
       return (
-        <p className="mb-6 pat " key={block.id}>
-          {block.data.text}
+        <p
+          className="mb-6 pat "
+          key={block.id}
+          dangerouslySetInnerHTML={{ __html: block.data.text }}
+        >
+          {/* {block.data.text} */}
         </p>
       );
     case "image":

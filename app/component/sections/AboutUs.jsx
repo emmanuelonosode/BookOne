@@ -110,7 +110,7 @@ const RoiChart = ({ className }) => {
 export default function AboutSection({
   storyHeadline = "Tell the story of how your company came about",
   storyParagraph = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius faucibus massa sollicitudin amet augue. Nibh metus a semper purus mauris duis. Lorem eu neque, tristique quis duis. Nibh scelerisque ac adipiscing velit non nulla in amet pellentesque. Sit turpis pretium eget maecenas. Vestibulum dolor mattis consectetur eget commodo vitae. Amet pellentesque sit pulvinar lorem mi a, euismod risus rhoncus. Elementum ullamcorper nec, habitasse vulputate. Eget dictum quis est sed egestas tellus, a lectus. Quam ullamcorper in fringilla arcu aliquet fames arcu. Lacinia eget faucibus urna, nam risus nec elementum cras",
-  storyImageUrl = "/busyman.webp", // Placeholder image with purple theme
+  storyImageUrl = "https://s3-us-west-2.amazonaws.com/public.notion-static.com/1f88cc90-92fd-4ce4-bfcd-25daec2ffbbe/5e659275-5b7b-4ed9-97a4-0316fccd1403/person.png", // Placeholder image with purple theme
   storyImageAlt = "About BookOne",
   statsHeadline = "Highlight achievements by the numbers",
   statsParagraph = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.",

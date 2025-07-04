@@ -30,6 +30,7 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "BookOne Your Business ",
   description: "The leading business digital optimizer",
+  
 };
 
 export default function RootLayout({ children }) {
@@ -37,7 +38,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={` ${poppins.className} antialiased`}>
         <AuthProvider>
-          <section className="shadow-black">
+          <section className="shadow-md w-full fixed z-10">
             <Nav />
           </section>
           {children}

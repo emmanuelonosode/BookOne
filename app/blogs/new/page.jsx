@@ -70,6 +70,7 @@ const BlogEditor = () => {
         const CodeTool = (await import("@editorjs/code")).default;
         const Marker = (await import("@editorjs/marker")).default;
         const InlineCode = (await import("@editorjs/inline-code")).default;
+        const LinkTool = (await import("@editorjs/link")).default; // <-- Add this line
 
         if (!editorRef.current) {
           const editor = new EditorJS({
@@ -93,6 +94,12 @@ const BlogEditor = () => {
                       return { success: 1, file: { url: imageUrl } };
                     },
                   },
+                },
+              },
+              linkTool: {
+                class: LinkTool,
+                config: {
+                  endpoint: "/api/fetchUrl", // Optional: endpoint for link data fetching
                 },
               },
             },

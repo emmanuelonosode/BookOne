@@ -1,44 +1,67 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { faq } from "../../Commons/details";
-import Btn from "../Btn";
+import { motion } from "framer-motion";
 
 function FAQ() {
+  const [selectedTest, setSelectedTest] = useState(null);
+
   return (
-    <section className="py-28">
-      <div className="container flex max-md:flex-col  bg-primary/80 p-8 rounded-lg gap-10">
-        <div className="grid gap-4 max-w-md">
-          {" "}
-          <div>
-            <h2 className="">FAQs</h2>
-            <p className="text-[18px] leading-[150%]">
-              Here are answers to common questions about my services and
-              expertise in web development.
-            </p>
-          </div>
-          <div className="max-w-lg max-md:hidden">
-            <h5 className="mb-2">Still have questions? </h5>
-            <p className="mb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Repudiandae, nesciunt.
-            </p>
-            <Btn label="Contact" sec light />
-          </div>
-        </div>
-        <div className="w-full">
-          {faq.map(({ title, desc }, index) => (
-            <details
-              key={index}
-              className="cursor-pointer border-b text-light first:border-t p-4"
-            >
-              <summary className="mb-4 font-bold text-[18px]  leading-[150%]">
-                {title}
-              </summary>
-              <p className="">{desc}</p>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
+    <div className="container">
+      <h2 className="mb-8 h3 text-gray-900 lowercase">
+        WE KNOW <span>WHAT YOU THINK</span>{" "}
+      </h2>
+      <motion.div
+        transition={{
+          ease: "anticipate",
+          duration: 0.5,
+        }}
+        className="flex flex-col gap-4"
+      >
+        {faq.map(({ title, desc }) => (
+          <motion.div
+            key={title}
+            className="border-b-2 border-gray-300 p-4 first:border-t-2 cursor-pointer"
+            onClick={
+              () => setSelectedTest(selectedTest === title ? null : title) // Toggle logic
+            }
+          >
+            <motion.div className="flex gap-5 items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="size-6 transition-transform duration-300"
+                style={{
+                  transform:
+                    selectedTest === title ? "rotate(45deg)" : "rotate(0deg)", // Rotate on expand
+                }}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                />
+              </svg>
+              <h4 className="text-3xl text-gray-800 font-semibold">{title}</h4>
+            </motion.div>
+            {selectedTest === title && (
+              <motion.p
+                key={title}
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+                className="mx-16 py-5"
+              >
+                <p className="pat text-gray-800">{desc}</p>
+              </motion.p>
+            )}
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
   );
 }
 
