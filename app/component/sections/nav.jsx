@@ -38,7 +38,7 @@ function Nav() {
     };
   }, [menuOpen]);
   return (
-    <header className=" bg-white">
+    <header className="">
       <nav className="flex container h-16  items-center justify-between">
         <Link href="/">
           <p className="text-2xl font-bold text-primary">BookOne</p>
@@ -107,7 +107,7 @@ function Nav() {
               </button>
             </div>
           ) : (
-            <Link href="#contact">
+            <Link href="#contact" className="hidden sm:block">
               <Btn label="Get a Free Consultation" />
             </Link>
           )}
@@ -130,16 +130,39 @@ function Nav() {
               </svg>
             </button>
           ) : (
-            <Image
-              className="md:hidden"
-              src="/menu.svg"
-              width={32}
-              height={28}
-              alt="close hamburger menu"
+            <button
+              className="md:hidden w-8 h-7"
               onClick={() => {
                 setMenuOpen(!menuOpen);
               }}
-            />
+            >
+              <svg
+                width="800px"
+                height="800px"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 18L20 18"
+                  stroke="#000000"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M4 12L20 12"
+                  stroke="#000000"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M4 6L20 6"
+                  stroke="#000000"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
           )}
         </div>
       </nav>
@@ -150,7 +173,7 @@ function Nav() {
       >
         <ul className=" container">
           {navDetails.map(({ name, href, id }) => (
-            <Link key={id} onClick={() => setMenuOpen(!menuOpen)} href={href}>
+            <Link key={id} onClick={() => setMenuOpen(false)} href={href}>
               {" "}
               <div className="flex hover:shadow py-2 border-t items-center justify-between w-full">
                 <li
@@ -159,12 +182,21 @@ function Nav() {
                 >
                   {name}
                 </li>
-                <Image
-                  src="/chevron-right.svg"
-                  alt="chevron right"
-                  height={28}
-                  width={28}
-                />
+             
+                <button
+                className="w-7 h-7"
+
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="#2e073f"
+                  >
+                    <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
+                  </svg>
+                </button>
               </div>
             </Link>
           ))}

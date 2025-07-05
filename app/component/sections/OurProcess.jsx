@@ -54,23 +54,37 @@ function OurProcess() {
     <motion.section
       ref={sectionRef} // Attach ref to the section
       className="py-16 md:py-28 bg-light text-neutral overflow-hidden relative" // Added relative for absolute positioning if needed, overflow-hidden for parallax
+      aria-label="Our Process Section"
+      role="region"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center flex flex-col items-center mb-20">
+        <header
+          className="text-center flex flex-col items-center mb-20"
+          aria-label="Section Header"
+        >
           <Tagline tag="Engage" />
-          <h2 className="text-3xl md:text-4xl font-bold max-w-2xl mb-4 leading-tight">
+          <h2
+            className="text-3xl md:text-4xl font-bold max-w-2xl mb-4 leading-tight"
+            tabIndex={0}
+          >
             Our Simple Process for Client Success
           </h2>
-          <p className="max-w-2xl text-neutral text-base md:text-lg">
+          <p
+            className="max-w-2xl text-neutral text-base md:text-lg"
+            tabIndex={0}
+          >
             We prioritize understanding your unique needs. Our streamlined
             approach ensures effective solutions tailored for your business.
           </p>
-        </div>
+        </header>
 
         {/* Process Cards */}
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-12">
-          {/* Left Steps with Parallax and Stagger */}
+        <div
+          className="flex flex-col lg:flex-row justify-between items-center gap-12"
+          aria-label="Process Steps"
+        >
+          {/* Left Steps */}
           <motion.div
             style={{ y: leftY }} // Apply parallax effect
             variants={containerVariants} // Apply container variants for staggering
@@ -78,23 +92,27 @@ function OurProcess() {
             whileInView="visible" // Animate when element enters viewport
             viewport={{ once: true, amount: 0.4 }} // Trigger animation when 40% of the element is visible, only once
             className="flex flex-col gap-12 max-w-xs w-full"
+            aria-label="Initial Steps"
           >
             {process.slice(0, 2).map(({ icon, tag, desc }) => (
               <motion.div
                 key={tag}
                 variants={itemVariants}
                 className="flex flex-col items-center text-center"
+                role="group"
+                aria-label={tag}
+                tabIndex={0}
               >
-                <Image src={icon} alt={tag} width={48} height={48} />
-                <h4 className="mt-4 text-xl font-semibold text-neutral">
+                <Image src={icon} alt={`${tag} icon`} width={48} height={48} />
+                <h3 className="mt-4 text-xl font-semibold text-neutral">
                   {tag}
-                </h4>
+                </h3>
                 <p className="mt-2 text-neutral">{desc}</p>
               </motion.div>
             ))}
           </motion.div>
 
-          {/* Center Image with Parallax */}
+          {/* Center Image */}
           <motion.div
             style={{ y: centerY }} // Apply parallax effect
             initial={{ opacity: 0, scale: 0.8 }}
@@ -102,17 +120,18 @@ function OurProcess() {
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="w-full max-w-sm lg:max-w-md"
+            aria-label="Process Illustration"
           >
             <Image
               src="/hero.avif"
-              alt="Our Process"
+              alt="Illustration of BookOne's client process"
               width={540}
               height={540}
               className="rounded-xl shadow-lg"
             />
           </motion.div>
 
-          {/* Right Steps with Parallax and Stagger */}
+          {/* Right Steps */}
           <motion.div
             style={{ y: rightY }} // Apply parallax effect
             variants={containerVariants} // Apply container variants for staggering
@@ -120,17 +139,21 @@ function OurProcess() {
             whileInView="visible" // Animate when element enters viewport
             viewport={{ once: true, amount: 0.4 }} // Trigger animation when 40% of the element is visible, only once
             className="flex flex-col gap-12 max-w-xs w-full"
+            aria-label="Final Steps"
           >
             {process.slice(2, 4).map(({ icon, tag, desc }) => (
               <motion.div
                 key={tag}
                 variants={itemVariants}
                 className="flex flex-col items-center text-center"
+                role="group"
+                aria-label={tag}
+                tabIndex={0}
               >
-                <Image src={icon} alt={tag} width={48} height={48} />
-                <h4 className="mt-4 text-xl font-semibold text-neutral">
+                <Image src={icon} alt={`${tag} icon`} width={48} height={48} />
+                <h3 className="mt-4 text-xl font-semibold text-neutral">
                   {tag}
-                </h4>
+                </h3>
                 <p className="mt-2 text-neutral">{desc}</p>
               </motion.div>
             ))}
@@ -138,9 +161,21 @@ function OurProcess() {
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-16">
-          <Btn label="Learn More" size="md" />
-          <Btn label="Sign Up →" size="md" variant="ghost" />
+        <div
+          className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-16"
+          aria-label="Process Actions"
+        >
+          <Btn
+            label="Learn More"
+            size="md"
+            aria-label="Learn More about our process"
+          />
+          <Btn
+            label="Sign Up →"
+            size="md"
+            variant="ghost"
+            aria-label="Sign Up for BookOne"
+          />
         </div>
       </div>
     </motion.section>

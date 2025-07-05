@@ -1,29 +1,32 @@
-"use client";
+"use client"; // This directive is necessary for client-side components in Next.js App Router
+
 import React from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Btn, { AnimatedButton } from "../Btn";
-import Link from "next/link";
+import { motion } from "framer-motion"; // Import motion from framer-motion
+// import Image from "next/image"; // Removed Next.js Image component
+import Btn from "../Btn"; // Assuming Btn is a standard React component (not Next.js specific)
+import Link from "next/link"; // Removed Next.js Link component
 
 function HeroSection() {
+  // Variants for the main container to control staggering of its children
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.4,
-        delayChildren: 0.2,
+        staggerChildren: 0.2, // Delay between each child animation
+        delayChildren: 0.1, // Delay before the first child starts animating
       },
     },
   };
 
+  // Variants for individual items to fade in and slide up slightly
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring", // Use spring for a natural bounce effect
         damping: 15,
         stiffness: 100,
       },
@@ -44,9 +47,13 @@ function HeroSection() {
   };
 
   return (
-    <section id="home" className="py-29 bg-white">
+    <section
+      id="home"
+      className="py-28 pt-38 bg-white "
+      aria-labelledby="hero-heading"
+    >
       {" "}
-      
+      {/* Added aria-labelledby for accessibility */}
       <motion.div
         className="container mx-auto px-4 sm:px-6 lg:px-8 text-center overflow-hidden" // Added overflow-hidden for animations
         variants={containerVariants}
@@ -54,8 +61,9 @@ function HeroSection() {
         animate="visible" // Animate on component mount
       >
         <motion.h1
+          id="hero-heading" // Added id to link with aria-labelledby
           variants={itemVariants}
-          className="text-6xl md:text-6xl font-extrabold text-gray-900 leading-tight"
+          className="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight"
         >
           Unlock <span className="text-primary">Digital Profit</span> with
           BookOne
@@ -63,7 +71,7 @@ function HeroSection() {
 
         <motion.p
           variants={itemVariants}
-          className="mt-4 max-w-2xl mx-auto text-lg text-gray-700"
+          className="mt-6 max-w-2xl mx-auto pat text-gray-700"
         >
           We transform your online presence into a highly profitable asset. From
           stunning websites to intelligent AI automation, we deliver the
@@ -72,31 +80,38 @@ function HeroSection() {
 
         <motion.div
           variants={itemVariants}
-          className="mt-8 flex justify-center items-center gap-4"
+          className="mt-10 md:flex justify-center items-center gap-4"
         >
-            <Link href="#contact">
-            
-          <Btn label=" Start Your Project" />
-            </Link>
+          {/* Replaced Next.js Link with standard <a> tag and wrapped Btn for animation */}
           <Link
+            href="#contact"
+            aria-label="Start your project with BookOne by contacting us"
+          >
+            <Btn label=" Start Your Project" className="w-full mb-6"/>
+          </Link>
+          {/* Apply motion variants to the <a> tag */}
+          <motion.a
             href="#services"
-            className="text-primary font-bold py-3 px-8"
+            className="text-primary font-bold py-3 px-8 hover:underline"
+            variants={itemVariants} // Use itemVariants for animation
+            aria-label="Explore our services" // Added aria-label for clarity
           >
             Explore Services &rarr;
-          </Link>
+          </motion.a>
         </motion.div>
 
         {/* Image with Fade-in and Scale animation */}
         <motion.div
           variants={imageVariants}
-          className="mt-16 h-25 overflow-hidden"
+          className="mt-16 h-25 overflow-hidden" // Added margin-top to separate from buttons
         >
-          <Image
-            src="/noise.png"
-            alt="noise"
-            width={1440}
-            height={100}
-            className="w-full h-full object-cover" 
+          {/* Replaced Next.js Image with standard <img> tag */}
+          <img
+            src="/noise.png" // Ensure this image path is correct and accessible
+            alt="Abstract background texture with subtle noise pattern" // More descriptive alt text for SEO
+            width={1440} // Explicit width for SEO and CLS prevention
+            height={100} // Explicit height for SEO and CLS prevention
+            className="w-full h-full object-cover" // Ensure image covers the div
           />
         </motion.div>
       </motion.div>

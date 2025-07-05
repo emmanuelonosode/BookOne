@@ -42,7 +42,7 @@ function Footer() {
           <h6 className="mb-4 font-semibold">Resources</h6>
           <div>
             {quickLinks.map(({ href, label }, index) => (
-              <Link key={index} href={`#${href}`}>
+              <Link key={index} href={`${href}`}>
                 <p className="py-2 hover:underline cursor-pointer">{label}</p>
               </Link>
             ))}

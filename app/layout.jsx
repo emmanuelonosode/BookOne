@@ -28,21 +28,78 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "BookOne Your Business ",
-  description: "The leading business digital optimizer",
-  
+  title:
+    "BookOne - Professional Web Design, Development & AI Solutions for Your Business",
+  description:
+    "BookOne offers expert web design, development, and AI automation services to help businesses grow online, improve efficiency, and stand out.",
+  keywords: [
+    "business optimization",
+    "digital solutions",
+    "web development",
+    "SEO",
+    "automation",
+    "BookOne",
+    "AI automation",
+    "content writing",
+    "website optimization",
+    "branding",
+    "software development",
+    "IT consulting",
+    "growth",
+    "digital marketing",
+    "online presence",
+  ],
+  openGraph: {
+    title: "BookOne Your Business",
+    description: "The leading business digital optimizer",
+    url: "https://yourdomain.com",
+    siteName: "BookOne",
+    images: [
+      {
+        url: "https://yourdomain.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "BookOne - The leading business digital optimizer",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+    publisher: "BookOne",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BookOne Your Business",
+    description: "The leading business digital optimizer",
+    images: ["https://yourdomain.com/og-image.jpg"],
+    site: "@yourtwitterhandle",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={` ${poppins.className} antialiased`}>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta name="robots" content="index, follow" />
+        <meta name="publisher" content="BookOne" />
+        <link
+          rel="canonical"
+          href="https://lkgdca7gsivoowsxmk5fxvbqjy.srv.us/"
+        />
+        <meta name="keywords" content={metadata.keywords.join(", ")} />
+      </head>
+      <body className={`${poppins.className} antialiased`}>
         <AuthProvider>
-          <section className="shadow-md w-full fixed z-10">
+          <header
+            className="shadow-md backdrop-blur-2xl  w-full fixed z-10"
+            role="banner"
+            aria-label="Main Navigation"
+          >
             <Nav />
-          </section>
-          {children}
-          <Footer />
+          </header>
+          <main aria-label="Main Content">{children}</main>
+          <footer role="contentinfo" aria-label="Footer">
+            <Footer />
+          </footer>
         </AuthProvider>
       </body>
     </html>

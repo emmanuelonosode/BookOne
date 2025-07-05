@@ -18,7 +18,7 @@ const Testimonia = () => {
     const startAutoPlay = () => {
       intervalRef.current = setInterval(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % totalTestimonials);
-      }, 5000); // Change slide every 5 seconds
+      }, 5000);
     };
 
     startAutoPlay();
@@ -64,69 +64,86 @@ const Testimonia = () => {
   }, [currentIndex]);
 
   const goToNext = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current); // Stop auto-play on manual interaction
+    if (intervalRef.current) clearInterval(intervalRef.current);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % totalTestimonials);
   };
 
   const goToPrev = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current); // Stop auto-play on manual interaction
+    if (intervalRef.current) clearInterval(intervalRef.current);
     setCurrentIndex(
       (prevIndex) => (prevIndex - 1 + totalTestimonials) % totalTestimonials
     );
   };
 
   const goToSlide = (index) => {
-    if (intervalRef.current) clearInterval(intervalRef.current); // Stop auto-play on manual interaction
+    if (intervalRef.current) clearInterval(intervalRef.current);
     setCurrentIndex(index);
   };
 
   return (
-    <section className="py-16 md:py-28 font-sans bg-gray-50">
+    <section
+      className="py-16 md:py-28 font-sans bg-gray-50"
+      aria-label="Testimonials Section"
+    >
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+        <header className="text-center mb-12" aria-label="Testimonials Header">
+          <h2
+            className="text-3xl md:text-4xl font-bold text-gray-900"
+            tabIndex={0}
+          >
             What Our Clients Say
           </h2>
-          <p className="mt-2 text-lg text-gray-600 max-w-xl mx-auto">
+          <p
+            className="mt-2 text-lg text-gray-600 max-w-xl mx-auto"
+            tabIndex={0}
+          >
             Hear directly from businesses that have achieved remarkable growth
             and efficiency with BookOne.
           </p>
-        </div>
+        </header>
         <div className="relative max-w-4xl mx-auto">
           <div
             id="testimonial-slider"
             ref={sliderRef}
             className="flex overflow-x-hidden relative rounded-xl shadow-lg bg-white testimonial-slider-container"
-            aria-live="polite" // Announces changes to screen readers
+            aria-live="polite"
+            aria-label="Testimonial Carousel"
+            role="region"
           >
             {testimonia.map((testimonial, index) => (
-              <div
-                key={testimonial.name} // Use name as key, assuming it's unique enough for sibling elements
-                className="testimonial-card flex-shrink-0 w-full p-8 md:p-12 snap-center" // snap-center for smooth scrolling
+              <article
+                key={testimonial.name}
+                className="testimonial-card flex-shrink-0 w-full p-8 md:p-12 snap-center"
                 role="group"
                 aria-roledescription="slide"
-                aria-label={`${index + 1} of ${totalTestimonials}`}
+                aria-label={`Testimonial ${
+                  index + 1
+                } of ${totalTestimonials}: ${testimonial.name}, ${
+                  testimonial.position
+                }`}
+                tabIndex={0}
               >
                 <div className="flex flex-col md:flex-row items-center gap-6">
                   <div className="flex-shrink-0 mb-4 md:mb-0">
-                    {/* Replaced Next.js Image component with standard <img> tag */}
                     <img
                       src={testimonial.image}
-                      alt={`${testimonial.name}'s profile`}
-                      className="rounded-md object-cover w-64 h-full border-4 border-purple-600" // Use BookOne primary color
+                      alt={`Photo of ${testimonial.name}, ${testimonial.position}`}
+                      className="rounded-md object-cover w-64 h-full border-4 border-purple-600"
                       onError={(e) => {
                         e.currentTarget.src =
-                          "https://placehold.co/100x100/cccccc/333333?text=User"; // Fallback image
+                          "https://placehold.co/100x100/cccccc/333333?text=User";
                       }}
                     />
                   </div>
                   <div className="text-center md:text-left flex-grow">
-                    <p className="text-2xl font-bold text-gray-900 mb-4 leading-relaxed">
-                      &quot;{testimonial.tag}&quot;
-                    </p>
-                    <p className="mb-6 text-gray-700 text-lg leading-relaxed">
-                      {testimonial.desc}
-                    </p>
+                    <blockquote>
+                      <p className="text-2xl font-bold text-gray-900 mb-4 leading-relaxed">
+                        &quot;{testimonial.tag}&quot;
+                      </p>
+                      <p className="mb-6 text-gray-700 text-lg leading-relaxed">
+                        {testimonial.desc}
+                      </p>
+                    </blockquote>
                     <p className="font-semibold text-purple-600 text-lg">
                       {testimonial.name}
                     </p>
@@ -135,17 +152,18 @@ const Testimonia = () => {
                     </p>
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
 
-          {/* Navigation Arrows (visible only for multiple testimonials) */}
+          {/* Navigation Arrows */}
           {isMultipleTestimonials && (
             <>
               <button
                 onClick={goToPrev}
                 className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-50 transition-colors z-10 hidden md:block focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
                 aria-label="Previous testimonial"
+                role="button"
               >
                 <span className="text-2xl font-bold text-purple-600">‹</span>
               </button>
@@ -153,15 +171,20 @@ const Testimonia = () => {
                 onClick={goToNext}
                 className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-50 transition-colors z-10 hidden md:block focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
                 aria-label="Next testimonial"
+                role="button"
               >
                 <span className="text-2xl font-bold text-purple-600">›</span>
               </button>
             </>
           )}
 
-          {/* Pagination Dots (visible only for multiple testimonials) */}
+          {/* Pagination Dots */}
           {isMultipleTestimonials && (
-            <div className="flex justify-center space-x-2 mt-6" role="tablist">
+            <nav
+              className="flex justify-center space-x-2 mt-6"
+              role="tablist"
+              aria-label="Testimonial Pagination"
+            >
               {testimonia.map((_, index) => (
                 <button
                   key={index}
@@ -171,12 +194,13 @@ const Testimonia = () => {
                       ? "bg-purple-600"
                       : "bg-gray-300 hover:bg-gray-400"
                   }`}
-                  aria-label={`Go to slide ${index + 1}`}
+                  aria-label={`Go to testimonial ${index + 1}`}
                   role="tab"
                   aria-selected={index === currentIndex}
+                  tabIndex={0}
                 ></button>
               ))}
-            </div>
+            </nav>
           )}
         </div>
       </div>
@@ -186,16 +210,16 @@ const Testimonia = () => {
             display: none;
         }
         .no-scrollbar {
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
         .testimonial-card {
-            flex: 0 0 100%; /* Each card takes full width of the slider container */
-            min-height: 300px; /* Ensure consistent height for cards */
+            flex: 0 0 100%;
+            min-height: 300px;
         }
         @media (min-width: 768px) {
              .testimonial-card {
-                min-height: 250px; /* Adjust height for larger screens */
+                min-height: 250px;
             }
         }
       `}</style>

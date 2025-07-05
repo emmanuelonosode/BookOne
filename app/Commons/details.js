@@ -1,19 +1,16 @@
-
 export const navDetails = [
   {
     name: "Services",
-    href: "#services",
+    href: "/#services",
     id: "services",
   },
 
   {
     name: "About Us",
-    href: "#projects",
+    href: "/#projects",
     id: "projects",
   },
-
 ];
-
 
 export const socialIcons = [
   {
@@ -49,7 +46,7 @@ export const services = [
     label: "Web Development Expertise",
     desc: "I create responsive and visually appealing interfaces.",
   },
-  
+
   {
     src: "/web-design.svg",
     label: "Web Design and User Experience",
@@ -192,23 +189,23 @@ export const testimonia = [
 export const faq = [
   {
     title: "What services do you offer?",
-    desc: "I offer a range of services including full-stack development, web design, and project management. My expertise spans various technologies, ensuring that I can cater to diverse client needs. Whether you need a simple website or a complex application, I can help.",
+    desc: "BookOne offers professional web design, full-stack web development, business automation with AI, and performance optimization. We tailor solutions to fit your specific business goals.",
   },
   {
-    title: "What is your experience?",
-    desc: "I have over five years of experience in the web development industry. My background includes working with startups and established companies, delivering high-quality projects. I continuously update my skills to stay current with industry trends.",
+    title: "Who is BookOne for?",
+    desc: "BookOne is perfect for startups, small businesses, and entrepreneurs looking to build a strong online presence, streamline operations, or modernize their digital strategy.",
   },
   {
-    title: "Question Goes in this place Holder here",
-    desc: "I have over five years of experience in the web development industry. My background includes working with startups and established companies, delivering high-quality projects. I continuously update my skills to stay current with industry trends.",
+    title: "How long does a project take?",
+    desc: "Project timelines depend on the scope and complexity. Basic websites may take 1–2 weeks, while more advanced projects like custom apps or automation systems may take 3–6 weeks.",
   },
   {
-    title: "Question Goes in this place Holder here",
-    desc: "I have over five years of experience in the web development industry. My background includes working with startups and established companies, delivering high-quality projects. I continuously update my skills to stay current with industry trends.",
+    title: "Do you offer post-launch support?",
+    desc: "Yes, BookOne provides ongoing support and maintenance. We also offer updates, performance checks, and additional feature integrations as your business grows.",
   },
   {
-    title: "Question Goes in this place Holder here",
-    desc: "I have over five years of experience in the web development industry. My background includes working with startups and established companies, delivering high-quality projects. I continuously update my skills to stay current with industry trends.",
+    title: "Can you redesign my existing website?",
+    desc: "Absolutely. BookOne specializes in redesigning outdated or underperforming websites to align with modern design standards, improve speed, and boost conversion rates.",
   },
 ];
 
@@ -522,33 +519,28 @@ export const contact = [
   },
 ];
 
-export const quickLinks=[
+export const quickLinks = [
   {
-    label:"About Us",
-    href:"about",
-
+    label: "About Us",
+    href: "/about",
   },
   {
-    label:" Contact Us",
-    href:"contact",
-
+    label: " Contact Us",
+    href: "/#contact",
   },
   {
-    label:"Services",
-    href:"service",
-
+    label: "Services",
+    href: "/service",
   },
   {
-    label:"Blogs",
-    href:"blog",
-
+    label: "Blogs",
+    href: "/blog",
   },
   {
-    label:"Support",
-    href:"support",
-
+    label: "Support",
+    href: "support",
   },
-]
+];
 export const offer = [
   {
     icon: "/aii.svg",
