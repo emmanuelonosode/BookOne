@@ -21,12 +21,12 @@ function Footer() {
     <footer className="py-20 font-sans bg-black text-light">
       <div className="container mx-auto flex flex-wrap justify-between items-start gap-y-12">
         {/* Logo */}
-        <Link href="/">
+        <Link href="/" className="w-full">
           <p className="text-5xl font-bold text-light">BookOne</p>
           <p className="text-light/80 mt-2 ">Unluck digital profit</p>
         </Link>
         {/* Quick Links Column 1 */}
-        <div className="w-full md:w-[20%]">
+        <div className=" md:w-[20%]">
           <h6 className="mb-4 font-semibold">Quick Links</h6>
           <div>
             {quickLinks.map(({ href, label }, index) => (
@@ -38,7 +38,7 @@ function Footer() {
         </div>
 
         {/* Quick Links Column 2 */}
-        <div className="w-full md:w-[20%]">
+        <div className=" md:w-[20%]">
           <h6 className="mb-4 font-semibold">Resources</h6>
           <div>
             {quickLinks.map(({ href, label }, index) => (
@@ -50,7 +50,7 @@ function Footer() {
         </div>
 
         {/* Newsletter */}
-        <form action={handleSubmit} className="w-full md:w-[30%]">
+        <form action={handleSubmit} className="w-full md:w-[40%]">
           <h6 className="font-semibold">Subscribe</h6>
           <p className="text-sm mb-6 mt-4">
             Join our newsletter for the latest updates and insights.

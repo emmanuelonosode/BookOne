@@ -112,24 +112,23 @@ function OurProcess() {
             ))}
           </motion.div>
 
-          {/* Center Image */}
+          {/* Center Image
           <motion.div
             style={{ y: centerY }} // Apply parallax effect
+            className=""
+          > */}
+          <motion.img
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="w-full max-w-sm lg:max-w-md"
             aria-label="Process Illustration"
-          >
-            <Image
-              src="/hero.avif"
-              alt="Illustration of BookOne's client process"
-              width={540}
-              height={540}
-              className="rounded-xl shadow-lg"
-            />
-          </motion.div>
+            style={{ y: centerY }} // Apply parallax effect
+            src="/chart.png"
+            alt="Illustration of BookOne's client process"
+            className=" w-full max-w-sm lg:max-w-md"
+          />
+          {/* </motion.div> */}
 
           {/* Right Steps */}
           <motion.div
@@ -161,22 +160,6 @@ function OurProcess() {
         </div>
 
         {/* Buttons */}
-        <div
-          className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-16"
-          aria-label="Process Actions"
-        >
-          <Btn
-            label="Learn More"
-            size="md"
-            aria-label="Learn More about our process"
-          />
-          <Btn
-            label="Sign Up →"
-            size="md"
-            variant="ghost"
-            aria-label="Sign Up for BookOne"
-          />
-        </div>
       </div>
     </motion.section>
   );

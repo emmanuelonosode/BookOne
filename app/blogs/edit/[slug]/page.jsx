@@ -126,7 +126,6 @@ const EditBlog = ({ params }) => {
               },
             },
           },
-          onReady: () => console.log("Editor is ready"),
         });
         editorRef.current = editor;
       }

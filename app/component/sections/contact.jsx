@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Btn from "../Btn.jsx";
 import { contact } from "../../Commons/details.js";
 // Install platform.js: npm install platform
 import platform from "platform";
@@ -211,11 +210,17 @@ function Contact() {
             {data && <p className="text-green-600">{data}</p>}
             {errorMsg && <p className="text-red-600">{errorMsg}</p>}
           </div>
-          <Btn
-            label={loading ? "Loading..." : "Submit"}
+          {/* <Btn
+          /> */}
+          <button
             aria-label="Submit Contact Form"
             disabled={loading}
-          />
+            className={`${
+              loading ? "bg-gray-600" : " bg-primary  "
+            } w-full p-2 rounded-md text-white`}
+          >
+            {loading ? "loading" : "Submit"}
+          </button>
         </form>
 
         {/* Map Section */}

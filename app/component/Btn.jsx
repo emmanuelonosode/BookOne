@@ -11,9 +11,9 @@ function Btn({ label, sec, light, className = "" }) {
 
   return (
     <motion.button
-    whileHover={{
-      scale:1.2
-    }}
+      whileHover={{
+        scale: 1.1,
+      }}
       className={`max-md:font-medium ${baseStyles} ${size} ${color} ${weight} ${className}`}
     >
       {label}
@@ -30,7 +30,7 @@ export function AnimatedButton({ label }) {
       whileHover="hover"
     >
       <motion.span
-        className="absolute left-0 top-0 h-full w-0 bg-white  text-primary/50"
+        className="absolute left-0 top-0 h-full w-0 bg-purple-700 "
         variants={{
           hover: {
             width: "100%",
@@ -39,7 +39,7 @@ export function AnimatedButton({ label }) {
         }}
         initial={{ width: "0%" }}
       />
-      <span className="relative z-10">{label }</span>
+      <span className="relative z-10">{`${label}`}</span>
     </motion.button>
   );
 }

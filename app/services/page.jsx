@@ -1,9 +1,10 @@
 import React from "react";
+import Link from "next/link";
 
 // Main ServicesPage component for BookOne website
 const ServicesPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 py-12 px-4 sm:px-6 lg:px-8 font-inter text-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 py-12 md:py-28 px-4 sm:px-6 lg:px-8 font-inter text-gray-800">
       <div className="max-w-7xl mx-auto">
         {/* Page Header */}
         <div className="text-center mb-16">
@@ -115,7 +116,7 @@ const ServiceCard = ({ title, description, features, icon }) => {
       <div>
         <div className="flex items-center mb-4">
           {/* Icon from Lucide React (or simple SVG for demonstration) */}
-          <div className="flex-shrink-0 bg-blue-500 p-3 rounded-full shadow-lg">
+          <div className="flex-shrink-0 bg-primary p-3 rounded-full shadow-lg">
             <svg
               className="h-8 w-8 text-white"
               fill="currentColor"
@@ -125,7 +126,7 @@ const ServiceCard = ({ title, description, features, icon }) => {
               <path d={icon} />
             </svg>
           </div>
-          <h2 className="text-3xl font-bold text-blue-700 ml-4">{title}</h2>
+          <h2 className="text-3xl font-bold text-zinc -700 ml-4">{title}</h2>
         </div>
         <p className="text-gray-700 mb-6 leading-relaxed">{description}</p>
         <ul className="list-disc list-inside space-y-2 text-gray-600">
@@ -148,9 +149,11 @@ const ServiceCard = ({ title, description, features, icon }) => {
         </ul>
       </div>
       <div className="mt-8">
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
-          Learn More
-        </button>
+        <Link href="/#contact">
+          <button className="w-full bg-primary  text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
+            Get Consultation{" "}
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 // pages/api/contact.js
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import os from "os";
 
 export async function POST(request) {
   const body = await request.json();

@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion"; // Import motion from framer-motion
 // import Image from "next/image"; // Removed Next.js Image component
-import Btn from "../Btn"; // Assuming Btn is a standard React component (not Next.js specific)
+import Btn, { AnimatedButton } from "../Btn"; // Assuming Btn is a standard React component (not Next.js specific)
 import Link from "next/link"; // Removed Next.js Link component
 
 function HeroSection() {
@@ -63,10 +63,10 @@ function HeroSection() {
         <motion.h1
           id="hero-heading" // Added id to link with aria-labelledby
           variants={itemVariants}
-          className="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight"
+          className="text-5xl md:text-7xl font-extrabold text-gray-900 leading-tight"
         >
-          Unlock <span className="text-primary">Digital Profit</span> with
-          BookOne
+          Where Web <span className="text-primary">Design</span> Meets AI & SEO
+          Excellence
         </motion.h1>
 
         <motion.p
@@ -87,7 +87,11 @@ function HeroSection() {
             href="#contact"
             aria-label="Start your project with BookOne by contacting us"
           >
-            <Btn label=" Start Your Project" className="w-full mb-6"/>
+            <Btn label=" Start Your Project" className="w-full mb-6" />
+            <AnimatedButton
+              label="Start Your Project"
+              className="w-full mb-6"
+            />
           </Link>
           {/* Apply motion variants to the <a> tag */}
           <motion.a
@@ -100,12 +104,11 @@ function HeroSection() {
           </motion.a>
         </motion.div>
 
-        {/* Image with Fade-in and Scale animation */}
+        {/* Image with Fade-in and Scale animation
         <motion.div
           variants={imageVariants}
           className="mt-16 h-25 overflow-hidden" // Added margin-top to separate from buttons
         >
-          {/* Replaced Next.js Image with standard <img> tag */}
           <img
             src="/noise.png" // Ensure this image path is correct and accessible
             alt="Abstract background texture with subtle noise pattern" // More descriptive alt text for SEO
@@ -113,7 +116,7 @@ function HeroSection() {
             height={100} // Explicit height for SEO and CLS prevention
             className="w-full h-full object-cover" // Ensure image covers the div
           />
-        </motion.div>
+        </motion.div> */}
       </motion.div>
     </section>
   );

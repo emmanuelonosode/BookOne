@@ -15,7 +15,6 @@ function Nav() {
   const pathname = usePathname();
   const isBlog = pathname === "/blogs";
   const [search, setSearch] = useState("");
-  console.log(isBlog);
   const handleSignOut = () => {
     signOut({ callbackUrl: "/" });
   };
@@ -40,7 +39,7 @@ function Nav() {
   return (
     <header className="">
       <nav className="flex container h-16  items-center justify-between">
-        <Link href="/">
+        <Link href="/" scroll={false}>
           <p className="text-2xl font-bold text-primary">BookOne</p>
         </Link>
         <ul className="flex gap-8 max-md:hidden">
@@ -55,12 +54,8 @@ function Nav() {
               </Link>
             </li>
           ))}
-          <Link href="/blogs">
-            <li className="font-sans pat font-normal leading-[150%] tracking-normal">
-              More
-            </li>
-          </Link>
-          <Link href="/blogs">
+
+          <Link href="/blogs" scroll={false}>
             <li className="font-sans pat font-normal leading-[150%] tracking-normal">
               Blogs
             </li>
@@ -146,20 +141,20 @@ function Nav() {
                 <path
                   d="M4 18L20 18"
                   stroke="#000000"
-                  stroke-width="2"
-                  stroke-linecap="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
                 />
                 <path
                   d="M4 12L20 12"
                   stroke="#000000"
-                  stroke-width="2"
-                  stroke-linecap="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
                 />
                 <path
                   d="M4 6L20 6"
                   stroke="#000000"
-                  stroke-width="2"
-                  stroke-linecap="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
                 />
               </svg>
             </button>
@@ -175,18 +170,15 @@ function Nav() {
           {navDetails.map(({ name, href, id }) => (
             <Link key={id} onClick={() => setMenuOpen(false)} href={href}>
               {" "}
-              <div className="flex hover:shadow py-2 border-t items-center justify-between w-full">
+              <ul className="flex hover:shadow py-2 border-t items-center justify-between w-full">
                 <li
                   className="font-sans text-[18px] font-normal leading-[150%] tracking-normal"
                   key={id}
                 >
                   {name}
                 </li>
-             
-                <button
-                className="w-7 h-7"
 
-                >
+                <button className="w-7 h-7">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24px"
@@ -197,11 +189,11 @@ function Nav() {
                     <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
                   </svg>
                 </button>
-              </div>
+              </ul>
             </Link>
           ))}
           <Link href="/blogs">
-            <div className="flex hover:shadow border-t py-2 items-center justify-between w-full">
+            <ul className="flex hover:shadow border-t py-2 items-center justify-between w-full">
               <li className="font-sans text-[18px] font-normal leading-[150%] tracking-normal">
                 More
               </li>
@@ -211,10 +203,10 @@ function Nav() {
                 height={28}
                 width={28}
               />
-            </div>
+            </ul>
           </Link>
           <Link href="/blogs">
-            <div className="flex hover:shadow border-y py-2 items-center justify-between w-full">
+            <ul className="flex hover:shadow border-y py-2 items-center justify-between w-full">
               <li className="font-sans text-[18px] font-normal leading-[150%] tracking-normal">
                 Blogs
               </li>
@@ -224,12 +216,12 @@ function Nav() {
                 height={28}
                 width={28}
               />
-            </div>
+            </ul>
           </Link>
           {isAdmin && (
             <>
               <Link href="/blogs/new">
-                <div className="flex hover:shadow border-y py-2 items-center justify-between w-full">
+                <ul className="flex hover:shadow border-y py-2 items-center justify-between w-full">
                   <li className="font-sans text-[18px] font-normal leading-[150%] tracking-normal text-green-600">
                     New Post
                   </li>
@@ -239,10 +231,10 @@ function Nav() {
                     height={28}
                     width={28}
                   />
-                </div>
+                </ul>
               </Link>
               <Link href="/admin">
-                <div className="flex hover:shadow border-y py-2 items-center justify-between w-full">
+                <ul className="flex hover:shadow border-y py-2 items-center justify-between w-full">
                   <li className="font-sans text-[18px] font-normal leading-[150%] tracking-normal text-blue-600">
                     Admin Panel
                   </li>
@@ -252,7 +244,7 @@ function Nav() {
                     height={28}
                     width={28}
                   />
-                </div>
+                </ul>
               </Link>
             </>
           )}

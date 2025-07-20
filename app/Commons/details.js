@@ -1,14 +1,20 @@
 export const navDetails = [
   {
     name: "Services",
-    href: "/#services",
+    href: "/services",
     id: "services",
   },
 
   {
-    name: "About Us",
-    href: "/#projects",
-    id: "projects",
+    name: "About",
+    href: "/about",
+    id: "about",
+  },
+
+  {
+    name: "Portfolio",
+    href: "/portfolio",
+    id: "portfolio",
   },
 ];
 

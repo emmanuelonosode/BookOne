@@ -103,7 +103,6 @@ const BlogEditor = () => {
                 },
               },
             },
-            onReady: () => console.log("Editor is ready"),
           });
           editorRef.current = editor;
         }
