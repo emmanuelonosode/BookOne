@@ -16,6 +16,11 @@ export const navDetails = [
     href: "/portfolio",
     id: "portfolio",
   },
+  {
+    name: "Blogs",
+    href: "/blogs",
+    id: "blogs",
+  },
 ];
 
 export const socialIcons = [

@@ -9,19 +9,28 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <section className="py-24 px-6 md:px-20 max-w-6xl mx-auto text-neutral-800">
-      <div className="mb-12 text-center">
-        <h1 className="text-5xl font-bold  mb-4">About BookOne</h1>
-        <p className=" max-w-3xl mx-auto">
-          Welcome to the heart of BookOne, where our passion for literature and
-          community comes to life. We believe in the transformative power of
-          stories and the magic that happens when readers connect.
+    <section className="py-24 px-6  max-w-6xl mx-auto text-neutral-800">
+      <div className="mb-4  md:flex items-center gap-12 justify-between">
+        <h1 className="text-5xl font-bold w-full  mb-4">
+          {" "}
+          Welcome to the heart of BookOne{" "}
+        </h1>
+        <p className="w-full text-lg">
+          where our passion for literature and community comes to life. We
+          believe in the transformative power of stories and the magic that
+          happens when readers connect.
         </p>
+      </div>
+      <div className="w-full">
+        <img
+          className="w-full h-full"
+          src="https://s3-us-west-2.amazonaws.com/public.notion-static.com/1f88cc90-92fd-4ce4-bfcd-25daec2ffbbe/5e659275-5b7b-4ed9-97a4-0316fccd1403/person.png"
+        />
       </div>
 
       {/* Mission & Vision */}
-      <div className="mb-20">
-        <h2 className="text-2xl font-semibold text-primary mb-4">
+      <div className="my-20">
+        <h2 className="text-3xl font-semibold text-zinc-900  mb-4">
           Our Mission & Vision
         </h2>
         <p className="mb-4">

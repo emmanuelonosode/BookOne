@@ -31,7 +31,6 @@ export async function POST(request) {
         pass: process.env.GMAIL_PASS,
       },
     });
-
     await transporter.sendMail({
       from: process.env.GMAIL_USER,
       to: email,
@@ -77,7 +76,6 @@ export async function POST(request) {
 
     return NextResponse.json({ success: true, message: "You're subscribed!" });
   } catch (err) {
-    console.error("SheetDB error:", err);
     return NextResponse.json(
       { success: false, error: "Something went wrong." },
       { status: 500 }

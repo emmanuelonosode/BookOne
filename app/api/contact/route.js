@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 
 export async function POST(request) {
   const body = await request.json();
-  const { name, email, message, service, systemInfo } = body; // <-- add systemInfo
+  const { name, email, message, service, systemInfo } = body;
   if (!name || !email || !message || !service) {
     return NextResponse.json(
       { success: false, error: "Missing required fields" },
@@ -80,7 +80,6 @@ export async function POST(request) {
       message: `Thanks for this, ${name}. We'll get back to you soon.`,
     });
   } catch (error) {
-    console.error("Email error:", error);
     return NextResponse.json(
       { success: false, error: "Email failed to send." },
       { status: 500 }

@@ -1,7 +1,7 @@
-"use client"; // This directive is necessary for client-side components in Next.js App Router
+"use client";
 
 import React from "react";
-import { motion } from "framer-motion"; // Import motion from framer-motion
+import { motion } from "framer-motion";
 // import Image from "next/image"; // Removed Next.js Image component
 import Btn, { AnimatedButton } from "../Btn"; // Assuming Btn is a standard React component (not Next.js specific)
 import Link from "next/link"; // Removed Next.js Link component
@@ -19,7 +19,6 @@ function HeroSection() {
     },
   };
 
-  // Variants for individual items to fade in and slide up slightly
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -80,28 +79,21 @@ function HeroSection() {
 
         <motion.div
           variants={itemVariants}
-          className="mt-10 md:flex justify-center items-center gap-4"
+          className="mt-10 mb-2 md:flex justify-center items-center space-y-6 gap-4"
         >
           {/* Replaced Next.js Link with standard <a> tag and wrapped Btn for animation */}
           <Link
             href="#contact"
             aria-label="Start your project with BookOne by contacting us"
           >
-            <Btn label=" Start Your Project" className="w-full mb-6" />
-            <AnimatedButton
-              label="Start Your Project"
-              className="w-full mb-6"
-            />
+            <Btn label=" Start Your Project" className="w-full max-md:mb-6" />
           </Link>
-          {/* Apply motion variants to the <a> tag */}
-          <motion.a
-            href="#services"
-            className="text-primary font-bold py-3 px-8 hover:underline"
-            variants={itemVariants} // Use itemVariants for animation
+          <Link
+            href="/services"
             aria-label="Explore our services" // Added aria-label for clarity
           >
-            Explore Services &rarr;
-          </motion.a>
+            <Btn sec label="  Explore Services &rarr; " className="w-full" />
+          </Link>
         </motion.div>
 
         {/* Image with Fade-in and Scale animation

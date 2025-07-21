@@ -31,6 +31,6 @@
     "app/component/sections/HomePage.jsx",
     "app/component/sections/nav.jsx",
     "app/layout.jsx"
-  ],
+, "sanity/schemaTypes/post.js"  ],
   "exclude": ["node_modules"]
 }

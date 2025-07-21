@@ -1,132 +1,172 @@
-"use client";
+import { sanity, urlFor } from "@/lib/sanity";
+import { blogBySlugQuery } from "@/lib/queries";
+import { PortableText } from "@portabletext/react";
+import { Metadata } from "next";
 
-import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import BlogContent from "@/app/component/BlogComponent/BlogContent";
-import getReadTime from "../../../lib/readTime";
+const portableComponents = {
+  types: {
+    image: ({ value }) =>
+      value && value.asset ? (
+        <img
+          src={urlFor(value)}
+          alt={value.alt || "Blog image"}
+          className="my-6 rounded-lg shadow-md w-full max-w-2xl mx-auto"
+          loading="lazy"
+        />
+      ) : null,
+  },
+  block: {
+    h1: ({ children }) => (
+      <h1 className="text-3xl font-bold mt-8 mb-4 leading-tight text-gray-900 dark:text-white">
+        {children}
+      </h1>
+    ),
+    h2: ({ children }) => (
+      <h2 className="text-3xl font-semibold mt-6 mb-3 leading-snug text-gray-800 ">
+        {children}
+      </h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="text-xl font-semibold mt-4 mb-2 text-gray-700 ">
+        {children}
+      </h3>
+    ),
+    normal: ({ children }) => (
+      <p className="mb-4 text-[18px] leading-relaxed text-gray-800">
+        {children}
+      </p>
+    ),
+  },
+  marks: {
+    strong: ({ children }) => (
+      <strong className="font-bold text-[18px] text-gray-800 ">
+        {children}
+      </strong>
+    ),
+    em: ({ children }) => (
+      <em className="italic text-[18px] text-gray-700 ">{children}</em>
+    ),
+    code: ({ children }) => (
+      <code className="bg-gray-100 text-[18px] dark:bg-gray-800 px-1 rounded text-pink-600 dark:text-pink-400 font-mono">
+        {children}
+      </code>
+    ),
+    link: ({ value, children }) => (
+      <a
+        href={value?.href}
+        className="underline text-blue-600 text-[18px] dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
+    ),
+  },
+};
 
-export default function ReadBlog({ params }) {
-  const { slug } = params;
-  const { data: session } = useSession();
-  const router = useRouter();
-  const [blog, setBlog] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const isAdmin = session?.user?.role === "admin";
-
-  useEffect(() => {
-    fetchBlog();
-    // eslint-disable-next-line
-  }, [slug]);
-
-  const fetchBlog = async () => {
-    try {
-      const res = await fetch(`/api/blogs/${slug}`, {
-        cache: "no-store",
-      });
-      if (!res.ok) {
-        setBlog(null);
-        return;
-      }
-      const data = await res.json();
-      setBlog(data);
-    } catch (error) {
-      console.error("Error fetching blog:", error);
-      setBlog(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this blog post?")) {
-      return;
-    }
-    try {
-      const response = await fetch(`/api/blogs/${blog._id}`, {
-        method: "DELETE",
-      });
-      if (response.ok) {
-        alert("Blog post deleted successfully!");
-        router.push("/blogs");
-      } else {
-        alert("Failed to delete blog post.");
-      }
-    } catch (error) {
-      console.error("Error deleting blog:", error);
-      alert("Error deleting blog post.");
-    }
-  };
-
-  // Calculate read time
-  let readTime = "";
-  if (blog && blog.content && Array.isArray(blog.content.blocks)) {
-    const text = blog.content.blocks
-      .map((block) => block.data?.text || "")
-      .join(" ");
-    readTime = getReadTime(text);
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading...</div>
-      </div>
-    );
-  }
-
-  if (!blog) {
-    return (
-      <section className="bg-gray-100 py-30">
-        <div className="container">
-          <div>No blog found.</div>
-        </div>
-      </section>
-    );
-  }
+export default async function BlogDetailPage({ params }) {
+  const blog = await sanity.fetch(blogBySlugQuery, { slug: params.slug });
+  console.log(blog);
+  if (!blog) return <div className="py-16 text-center">Not found</div>;
 
   return (
-    <section className="bg-gray-100 pb-20 pt-10">
-      <div className="max-w-3xl mx-auto py-10">
-        {isAdmin && (
-          <div className="mb-6 flex gap-4 justify-end">
-            <Link
-              href={`/blogs/edit/${blog.slug}`}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-            >
-              Edit Post
-            </Link>
-            <button
-              onClick={handleDelete}
-              className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-            >
-              Delete Post
-            </button>
-          </div>
-        )}
-
-        <h1 className="text-4xl font-bold mb-4">{blog.title}</h1>
-        {blog.banner && (
+    <article className="max-w-3xl mx-auto py-16 md:py-22 px-4">
+      <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
+      <div className="flex items-center gap-4 mb-6">
+        {blog.author?.image && (
           <img
-            src={blog.banner}
-            alt={blog.title}
-            className="w-full h-80 object-cover rounded mb-6"
+            src={urlFor(blog.author.image)}
+            alt={blog.author.name}
+            className="w-12 h-12 rounded-full object-cover shadow-lg shadow-pink-50"
           />
         )}
-        <div className="mb-6 text-gray-500 text-sm">
-          {blog.location && <span>Location: {blog.location} | </span>}
-          {blog.createdAt && (
-            <span>{new Date(blog.createdAt).toLocaleDateString()}</span>
-          )}
-          {readTime && <span className="ml-2">| {readTime} min read</span>}
+        <div className="text-gray-700 text-base">
+          By{" "}
+          <a
+            href={`/authors/${blog.author?.slug?.current}`}
+            className="hover:underline font-medium"
+          >
+            {blog.author?.name}
+          </a>{" "}
+          · {new Date(blog._createdAt).toLocaleDateString()}
         </div>
-        {blog.content && blog.content.blocks ? (
-          <BlogContent blocks={blog.content.blocks} />
-        ) : (
-          <div>No content available.</div>
-        )}
       </div>
-    </section>
+      {blog.category && (
+        <div className="flex flex-wrap gap-2 mb-4">
+          <span className="bg-gray-200 text-xs px-2 py-1 rounded-full text-gray-700">
+            {blog.category
+              .replace(/-/g, " ")
+              .replace(/\b\w/g, (c) => c.toUpperCase())}
+          </span>
+        </div>
+      )}
+      {blog.mainImage && (
+        <img
+          src={urlFor(blog.mainImage)}
+          alt={blog.title}
+          className="mb-6 rounded-lg w-full max-h-96 object-cover"
+        />
+      )}
+      <div className="prose prose-lg mb-8 max-w-none dark:prose-invert">
+        <PortableText value={blog.body} components={portableComponents} />
+      </div>
+    </article>
   );
+}
+
+export async function generateMetadata({ params }) {
+  const blog = await sanity.fetch(blogBySlugQuery, { slug: params.slug });
+  if (!blog) return {};
+
+  // Get a plain text summary from the body (first 150 chars)
+  let description = "";
+  if (Array.isArray(blog.body) && blog.body.length > 0) {
+    const firstBlock = blog.body.find((b) => b._type === "block" && b.children);
+    if (firstBlock) {
+      description = firstBlock.children
+        .map((c) => c.text)
+        .join(" ")
+        .slice(0, 150);
+    }
+  }
+  if (!description) description = blog.title;
+
+  const imageUrl = blog.mainImage ? urlFor(blog.mainImage) : undefined;
+  const author = blog.author?.name || "BookOne";
+  const category = blog.category
+    ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+    : undefined;
+
+  return {
+    title: blog.title,
+    description,
+    keywords: [blog.title, author, category, "BookOne Blog"].filter(Boolean),
+    openGraph: {
+      title: blog.title,
+      description,
+      type: "article",
+      url: `https://yourdomain.com/blogs/${params.slug}`,
+      images: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: blog.title,
+            },
+          ]
+        : [],
+      article: {
+        publishedTime: blog._createdAt,
+        authors: [author],
+        tags: [category].filter(Boolean),
+      },
+    },
+    twitter: {
+      card: imageUrl ? "summary_large_image" : "summary",
+      title: blog.title,
+      description,
+      images: imageUrl ? [imageUrl] : [],
+    },
+  };
 }

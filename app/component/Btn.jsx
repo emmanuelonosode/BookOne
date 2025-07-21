@@ -1,23 +1,14 @@
-"use client";
-import React from "react";
-import { motion } from "framer-motion";
-function Btn({ label, sec, light, className = "" }) {
+function Btn({ label, sec, className = " " }) {
   const baseStyles =
-    "leading-[150%] md:text-[16px] text-sm tracking-normal rounded-lg px-6";
-  const size = sec ? "py-[9px]" : "py-2.5";
-  const color = sec ? "border" : "bg-primary text-light";
-
-  const weight = light ? "font-normal" : "font-bold";
+    "inline-block py-3 px-6 rounded-full font-bold transition-all duration-300 transform hover:scale-105 shadow-lg";
+  const secondary = sec
+    ? "bg-transparent hover:bg-gray-50 text-purple-600   border-2 border-purple-600"
+    : "  bg-purple-600 hover:bg-purple-700 text-white    ";
 
   return (
-    <motion.button
-      whileHover={{
-        scale: 1.1,
-      }}
-      className={`max-md:font-medium ${baseStyles} ${size} ${color} ${weight} ${className}`}
-    >
+    <button className={`${baseStyles}  ${secondary} ${className}`}>
       {label}
-    </motion.button>
+    </button>
   );
 }
 

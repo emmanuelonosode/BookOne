@@ -1,364 +1,199 @@
-"use client";
+import { sanity, urlFor } from "@/lib/sanity";
+import { allCategoriesQuery, paginatedBlogsQuery } from "@/lib/queries";
 
-import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
-// import Link from "next/link"; // Removed Next.js Link component
-import { motion } from "framer-motion"; // Import motion for animations
-import BlogCard1 from "../component/BlogComponent/blogCard1"; // Assuming this path is correct
-import Btn from "../component/Btn"; // Assuming this path is correct
+const PAGE_SIZE = 6;
 
-// --- Custom Modal Component (Replaces alert/confirm) ---
-const ConfirmModal = ({ message, onConfirm, onCancel, type = "confirm" }) => {
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 50 }}
-        className="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full text-center"
-      >
-        <p className="text-lg font-semibold mb-4 text-gray-800">{message}</p>
-        {type === "confirm" ? (
-          <div className="flex justify-center gap-4">
-            <button
-              onClick={onConfirm}
-              className="px-5 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
-            >
-              Confirm
-            </button>
-            <button
-              onClick={onCancel}
-              className="px-5 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition-colors"
-            >
-              Cancel
-            </button>
-          </div>
-        ) : (
-          <button
-            onClick={onConfirm} // On "OK", just close the modal
-            className="px-5 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-          >
-            OK
-          </button>
-        )}
-      </motion.div>
-    </div>
+export default async function BlogListPage({ searchParams }) {
+  const page = parseInt(searchParams?.page || "1", 10);
+  const search = searchParams?.search || "";
+  const category = searchParams?.category || "";
+
+  // Build GROQ filters
+  const categoryFilter = category
+    ? ` && references(*[_type=='category' && slug.current=='${category}']._id)`
+    : "";
+  const searchFilter = search
+    ? ` && (title match "*${search}*" || body[].children[].text match "*${search}*" || author->name match "*${search}*" || categories[]->title match "*${search}*")`
+    : "";
+  const start = (page - 1) * PAGE_SIZE;
+  const end = start + PAGE_SIZE;
+
+  // Replace filters in query
+  const blogs = await sanity.fetch(
+    paginatedBlogsQuery
+      .replace("$categoryFilter", categoryFilter)
+      .replace("$searchFilter", searchFilter)
+      .replace("$start", start)
+      .replace("$end", end)
   );
-};
+  console.log(blogs);
+  const categories = await sanity.fetch(allCategoriesQuery);
 
-// --- Framer Motion Variants ---
-const headerVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  },
-};
-
-const buttonVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      type: "spring",
-      damping: 15,
-      stiffness: 100,
-    },
-  },
-};
-
-const blogCardContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15, // Delay between each card's animation
-      delayChildren: 0.1, // Delay before the first card starts animating
-    },
-  },
-};
-
-const blogCardItemVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      damping: 12,
-      stiffness: 90,
-    },
-  },
-};
-
-const newsletterContainerVariants = {
-  // Renamed for clarity, as it's the container for newsletter content
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      damping: 10,
-      stiffness: 80,
-      staggerChildren: 0.1, // Stagger direct children (text div and form)
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const newsletterContentItemVariants = {
-  // Specific variants for items inside newsletter sections
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      damping: 12,
-      stiffness: 90,
-    },
-  },
-};
-
-export default function BlogHome() {
-  const { data: session } = useSession();
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const [modalType, setModalType] = useState("confirm"); // 'confirm' or 'alert'
-  const [modalCallback, setModalCallback] = useState(null); // Function to call on confirm
-
-  const isAdmin = session?.user?.email === "admin@email.com"; // Changed role to email for consistency with previous API
-
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
-
-  const fetchBlogs = async () => {
-    try {
-      const res = await fetch("/api/blogs", {
-        cache: "no-store",
-      });
-      const data = await res.json();
-      setBlogs(data);
-    } catch (error) {
-      console.error("Error fetching blogs:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDeleteClick = (blogId) => {
-    setModalMessage("Are you sure you want to delete this blog post?");
-    setModalType("confirm");
-    setModalCallback(() => async () => {
-      // This is the actual delete logic
-      try {
-        const response = await fetch(`/api/blogs/${blogId}`, {
-          method: "DELETE",
-        });
-
-        if (response.ok) {
-          setBlogs(blogs.filter((blog) => blog._id !== blogId));
-          setModalMessage("Blog post deleted successfully!");
-          setModalType("alert");
-          setModalCallback(() => () => setShowModal(false)); // Close modal on OK
-        } else {
-          const errorData = await response.json();
-          setModalMessage(
-            `Failed to delete blog post: ${
-              errorData.details || response.statusText
-            }`
-          );
-          setModalType("alert");
-          setModalCallback(() => () => setShowModal(false)); // Close modal on OK
-        }
-      } catch (error) {
-        console.error("Error deleting blog:", error);
-        setModalMessage("Error deleting blog post.");
-        setModalType("alert");
-        setModalCallback(() => () => setShowModal(false)); // Close modal on OK
-      }
-    });
-    setShowModal(true);
-  };
-
-  const handleModalConfirm = () => {
-    if (modalCallback) {
-      modalCallback();
-    }
-  };
-
-  const handleModalCancel = () => {
-    setShowModal(false);
-    setModalCallback(null);
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading...</div>
-      </div>
-    );
-  }
+  // For pagination, get total count
+  const totalCount = await sanity.fetch(
+    `count(*[_type == "post"${categoryFilter}${searchFilter}])`
+  );
+  const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
   return (
-    <section className="py-28 bg-white overflow-hidden">
-      {" "}
-      {/* Added bg-white and overflow-hidden */}
-      <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="mb-10">
-          <motion.h1
-            variants={headerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            className="max-w-[750px] text-3xl md:text-4xl font-bold text-gray-900" // Added md:text-4xl
-          >
-            Fresh Takes on Tech and Design
-          </motion.h1>
-          <motion.p
-            variants={headerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            className="pat max-w-lg text-zinc-900 mt-2 text-lg" // Added text-lg
-          >
-            Deep dives, quick wins, and creative thoughts from a developer's
-            perspective.
-          </motion.p>
-          {isAdmin && (
-            <motion.div
-              variants={buttonVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.5 }}
-              className="mt-4"
-            >
-              {/* Replaced Next.js Link with standard <a> tag */}
-              <a
-                href="/blogs/new"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-              >
-                Create New Post
-              </a>
-            </motion.div>
-          )}
-        </div>
-
-        {/* Blog Cards */}
-        <motion.div
-          className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" // Adjusted grid for better responsiveness
-          variants={blogCardContainerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }} // Trigger animation when 20% of the grid is visible
-        >
-          {blogs.map((blog) => (
-            <motion.div
-              key={blog._id}
-              className="relative"
-              variants={blogCardItemVariants}
-            >
-              <BlogCard1
-                title={blog.title}
-                excerpt={blog.desc} // Ensure blog.desc exists or adjust to blog.content for excerpt
-                banner={blog.banner}
-                slug={blog.slug}
-              />
-              {isAdmin && (
-                <div className="absolute top-2 right-2 flex gap-2 z-10">
-                  {" "}
-                  {/* Added z-10 to ensure buttons are above card */}
-                  {/* Replaced Next.js Link with standard <a> tag */}
+    <section className="py-16 md:py-22 px-4 max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row gap-10">
+        {/* Sidebar: Categories */}
+        <aside className="md:w-1/4 mb-8 md:mb-0">
+          <div className="bg-white rounded-xl shadow p-6 sticky top-24">
+            <h2 className="text-xl font-bold mb-4 text-primary">Categories</h2>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="/blogs"
+                  className={`block px-3 py-2 rounded-lg transition font-medium ${
+                    !category
+                      ? "bg-primary text-white"
+                      : "hover:bg-gray-100 text-gray-800"
+                  }`}
+                >
+                  All Categories
+                </a>
+              </li>
+              {categories.map((cat) => (
+                <li key={cat._id}>
                   <a
-                    href={`/blogs/edit/${blog.slug}`}
-                    className="bg-blue-600 text-white px-2 py-1 rounded text-xs hover:bg-blue-700"
+                    href={`?category=${cat.slug.current}${
+                      search ? `&search=${encodeURIComponent(search)}` : ""
+                    }`}
+                    className={`block px-3 py-2 rounded-lg transition font-medium ${
+                      category === cat.slug.current
+                        ? "bg-primary text-white"
+                        : "hover:bg-gray-100 text-gray-800"
+                    }`}
                   >
-                    Edit
+                    {cat.title}
                   </a>
-                  <button
-                    onClick={() => handleDeleteClick(blog._id)} // Use new handler
-                    className="bg-red-600 text-white px-2 py-1 rounded text-xs hover:bg-red-700"
-                  >
-                    Delete
-                  </button>
-                </div>
-              )}
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Newsletter */}
-        <motion.div
-          className="flex items-center max-md:flex-col gap-6 py-28"
-          id="newsletter"
-          variants={newsletterContainerVariants} // Use the new container variants
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }} // Animate when 40% in view
-        >
-          <motion.div
-            className="grid gap-4 w-full max-md:text-center"
-            variants={newsletterContentItemVariants}
-          >
-            {" "}
-            {/* Apply item variants to this div */}
-            <motion.h3
-              className="text-2xl font-bold"
-              variants={newsletterContentItemVariants}
-            >
-              Sign up for our newsletter
-            </motion.h3>
-            <motion.p
-              className="pat text-gray-600"
-              variants={newsletterContentItemVariants}
-            >
-              Smart reads. Once a week. That's it.
-            </motion.p>
-          </motion.div>
-          <motion.form
-            className="w-full max-w-xl"
-            variants={newsletterContentItemVariants}
-          >
-            {" "}
-            {/* Apply item variants to the form */}
-            <div className="flex gap-4 max-md:flex-col mb-4">
-              <label htmlFor="email" className="sr-only">
-                Email
-              </label>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+        {/* Main Content: Blog List */}
+        <div className="md:w-3/4">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
+            <h1 className="text-3xl font-bold text-primary">BookOne Blog</h1>
+            <form className="flex gap-2 w-full md:w-auto" method="get">
               <input
-                type="email"
-                placeholder="example@email.com"
-                name="email"
-                id="email"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                type="text"
+                name="search"
+                placeholder="Search by title, content, author, or category..."
+                defaultValue={search}
+                className="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-64 text-black focus:outline-primary"
               />
-              <Btn label="Subscribe" />
-            </div>
-            <p className="text-xs text-gray-500">
-              By clicking Subscribe you agree to our Terms and Conditions.
-            </p>
-          </motion.form>
-        </motion.div>
+              {category && (
+                <input type="hidden" name="category" value={category} />
+              )}
+              <button
+                type="submit"
+                className="bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-primary/90 transition"
+              >
+                Search
+              </button>
+            </form>
+          </div>
+          <ul className="space-y-8">
+            {blogs.length === 0 && (
+              <li className="text-center text-gray-500 py-12 text-lg">
+                No blogs found.
+              </li>
+            )}
+            {blogs.map((blog) => (
+              <li
+                key={blog._id}
+                className="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row gap-6 hover:shadow-lg transition"
+              >
+                {blog.mainImage && (
+                  <a
+                    href={`/blogs/${blog.slug.current}`}
+                    className="md:w-1/3 block"
+                  >
+                    <img
+                      src={urlFor(blog.mainImage)}
+                      alt={blog.title}
+                      className="rounded-lg w-full h-40 object-cover mb-4 md:mb-0"
+                    />
+                  </a>
+                )}
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <a
+                      href={`/blogs/${blog.slug.current}`}
+                      className="text-2xl font-bold text-primary hover:underline"
+                    >
+                      {blog.title}
+                    </a>
+                    <div className="flex flex-wrap gap-2 mt-2 mb-2">
+                      {blog.categories?.map((cat) => (
+                        <span
+                          key={cat._id}
+                          className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full font-medium"
+                        >
+                          {cat.title}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="text-gray-600 text-sm mb-2 line-clamp-2">
+                      {/* Show a short excerpt from the body if available */}
+                      {blog.body &&
+                      blog.body[0]?.children &&
+                      blog.body[0].children[0]?.text
+                        ? blog.body[0].children[0].text.slice(0, 120) +
+                          (blog.body[0].children[0].text.length > 120
+                            ? "..."
+                            : "")
+                        : ""}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 mt-4">
+                    {blog.author?.image && (
+                      <img
+                        src={urlFor(blog.author.image)}
+                        alt={blog.author.name}
+                        className="w-8 h-8 rounded-full object-cover border"
+                      />
+                    )}
+                    <a
+                      href={`/authors/${blog.author?.slug?.current}`}
+                      className="text-sm font-medium text-primary hover:underline"
+                    >
+                      {blog.author?.name}
+                    </a>
+                    <span className="text-gray-400 text-xs">
+                      · {new Date(blog._createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          {/* Pagination */}
+          <div className="flex gap-2 mt-12 justify-center">
+            {Array.from({ length: totalPages }, (_, i) => (
+              <a
+                key={i}
+                href={`?page=${i + 1}${
+                  search ? `&search=${encodeURIComponent(search)}` : ""
+                }${
+                  category ? `&category=${encodeURIComponent(category)}` : ""
+                }`}
+                className={`px-4 py-2 rounded-lg font-semibold transition ${
+                  page === i + 1
+                    ? "bg-primary text-white"
+                    : "bg-gray-200 text-gray-700 hover:bg-primary/10"
+                }`}
+              >
+                {i + 1}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
-      {/* Render Modal if showModal is true */}
-      {showModal && (
-        <ConfirmModal
-          message={modalMessage}
-          type={modalType}
-          onConfirm={handleModalConfirm}
-          onCancel={handleModalCancel}
-        />
-      )}
     </section>
   );
 }

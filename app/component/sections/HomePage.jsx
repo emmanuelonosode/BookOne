@@ -9,10 +9,16 @@ import FeaturedBlog from "./featuredBlogs.jsx";
 import FAQ from "./FAQ.jsx";
 import Contact from "./contact.jsx";
 
+export const metadata = {
+  title: "BookOne | Web Design, Development & Digital Agency",
+  description:
+    "BookOne is a digital agency specializing in web design, development, and digital transformation. Discover our services, portfolio, and insights.",
+};
+
 function HomePage() {
   return (
     <main className="">
-      <HeroSection/>
+      <HeroSection />
       <Service />
       <PortfolioPreview />
       <Testimonia />

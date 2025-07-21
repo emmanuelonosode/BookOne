@@ -8,7 +8,7 @@ import {
   Testimonial,
 } from "../../component/ProjectLayouts";
 import { PortfolioProjectSchema } from "../../component/StructuredData";
-
+import Link from "next/link";
 // Generate metadata for SEO
 export async function generateMetadata({ params }) {
   const project = getProjectBySlug(params.slug);
@@ -177,18 +177,20 @@ const ProjectPage = ({ params }) => {
               business.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
+              <Link
+                scroll={false}
                 href="/contact"
                 className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
                 Get a Similar Solution
-              </a>
-              <a
+              </Link>
+              <Link
+                scroll={false}
                 href="/portfolio"
                 className="inline-block bg-white hover:bg-gray-50 text-purple-600 font-bold py-3 px-6 rounded-full border-2 border-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
                 View More Projects
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -181,3 +181,94 @@ For production, consider:
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+## Sanity Studio Schema Setup
+
+To use this project with Sanity, your Sanity Studio should have the following schemas:
+
+### 1. Author Schema (`schemas/author.js`)
+
+```js
+export default {
+  name: "author",
+  type: "document",
+  title: "Author",
+  fields: [
+    { name: "name", type: "string", title: "Name" },
+    {
+      name: "slug",
+      type: "slug",
+      title: "Slug",
+      options: { source: "name", maxLength: 96 },
+    },
+    { name: "image", type: "image", title: "Image" },
+    { name: "bio", type: "text", title: "Bio" },
+  ],
+};
+```
+
+### 2. Category Schema (`schemas/category.js`)
+
+```js
+export default {
+  name: "category",
+  type: "document",
+  title: "Category",
+  fields: [
+    { name: "title", type: "string", title: "Title" },
+    {
+      name: "slug",
+      type: "slug",
+      title: "Slug",
+      options: { source: "title", maxLength: 96 },
+    },
+  ],
+};
+```
+
+### 3. Post Schema (`schemas/post.js`)
+
+```js
+export default {
+  name: "post",
+  type: "document",
+  title: "Post",
+  fields: [
+    { name: "title", type: "string", title: "Title" },
+    {
+      name: "slug",
+      type: "slug",
+      title: "Slug",
+      options: { source: "title", maxLength: 96 },
+    },
+    { name: "mainImage", type: "image", title: "Main image" },
+    { name: "body", type: "array", title: "Body", of: [{ type: "block" }] },
+    { name: "author", type: "reference", to: [{ type: "author" }] },
+    {
+      name: "categories",
+      type: "array",
+      title: "Categories",
+      of: [{ type: "reference", to: [{ type: "category" }] }],
+    },
+    { name: "publishedAt", type: "datetime", title: "Published at" },
+  ],
+};
+```
+
+### 4. Add to Your Sanity Studio
+
+- Place these files in your `schemas/` directory in your Sanity Studio project.
+- Import and add them to your `schemaTypes` array in `schema.js`:
+
+```js
+import post from "./post";
+import author from "./author";
+import category from "./category";
+
+export const schemaTypes = [post, author, category];
+```
+
+### 5. Start or Deploy Your Studio
+
+- Run `sanity start` to use locally, or `sanity deploy` to deploy online.
+- Add content via the Studio and it will appear on your Next.js frontend!
