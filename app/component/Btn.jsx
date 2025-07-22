@@ -3,7 +3,7 @@ function Btn({ label, sec, className = " " }) {
     "inline-block py-3 px-6 rounded-full font-bold transition-all duration-300 transform hover:scale-105 shadow-lg";
   const secondary = sec
     ? "bg-transparent hover:bg-gray-50 text-purple-600   border-2 border-purple-600"
-    : "  bg-purple-600 hover:bg-purple-700 text-white    ";
+    : "  bg-purple-600 hover:bg-white hover:text-black hover:border-black hover:border-2 text-white    ";
 
   return (
     <button className={`${baseStyles}  ${secondary} ${className}`}>

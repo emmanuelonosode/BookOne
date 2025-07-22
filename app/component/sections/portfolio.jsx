@@ -1,59 +1,12 @@
 "use client";
-
+import { sanity, urlFor } from "@/lib/sanity";
+import { projects } from "@/lib/queries";
 import React, { useRef } from "react";
-// import Image from 'next/image'; // Removed Next.js Image component
-// import Link from 'next/link';   // Removed Next.js Link component
+
 import { motion, useScroll, useTransform } from "framer-motion";
 
 // --- Project Data ---
-const allProjects = [
-  {
-    id: 1,
-    title: "EcoHarvest Sustainable Farming Platform",
-    description:
-      "Developed a comprehensive web platform for sustainable farming, connecting local farmers with consumers and optimizing crop management through data analytics. Features include inventory tracking, order management, and community forums.",
-    imageUrl: "/port-5.avif",
-    category: "Web & AI Development",
-    slug: "ecoharvest-platform",
-    isFeatured: true, // This project will be full-width
-  },
-  {
-    id: 2,
-    title: "UrbanFlow Smart Traffic Management",
-    description:
-      "An AI-powered solution to optimize urban traffic flow, reducing congestion and travel times. Utilizes real-time sensor data and predictive algorithms for dynamic signal control.",
-    imageUrl: "/port-4.avif",
-    category: "Business AI Automation",
-    slug: "urbanflow-traffic",
-  },
-  {
-    id: 3,
-    title: "Zenith Fitness Mobile App",
-    description:
-      "Designed and developed a cross-platform mobile application for personalized fitness coaching, featuring workout tracking, nutrition plans, and virtual trainer integration.",
-    imageUrl: "/port-3.avif",
-    category: "Mobile App Development",
-    slug: "zenith-fitness-app",
-  },
-  {
-    id: 4,
-    title: "Spectra CRM Customization",
-    description:
-      "Tailored a CRM system for a growing tech startup, integrating sales, marketing, and customer support functionalities into a unified, efficient platform.",
-    imageUrl: "/port-1.avif",
-    category: "Custom Solutions",
-    slug: "spectra-crm",
-  },
-  {
-    id: 5,
-    title: "Voyage Travels SEO & Content",
-    description:
-      "Implemented a comprehensive SEO strategy and content marketing plan for a travel agency, significantly increasing organic traffic and online bookings for various destinations.",
-    imageUrl: "/port-2.avif",
-    category: "SEO & Content Writing",
-    slug: "voyage-seo",
-  },
-];
+const allProjects = await sanity.fetch(projects);
 
 // --- Framer Motion Variants ---
 
@@ -165,9 +118,8 @@ const ProjectCard = ({ project }) => {
         <motion.div style={{ y: imageY }} className="absolute inset-0">
           {/* Replaced Next.js Image with standard <img> tag */}
           <img
-            src={project.imageUrl}
+            src={urlFor(project.imageUrl)}
             alt={`Screenshot or visual for ${project.title} project`} // More descriptive alt text
-            // fill and sizes props are specific to next/image, so they are removed
             className="object-cover w-full h-full" // Ensure image covers the div
             onError={(e) => {
               e.currentTarget.src = `https://placehold.co/700x400/C0FFEE/1A1A1A?text=${encodeURIComponent(
@@ -267,7 +219,9 @@ export default function PortfolioPage() {
           aria-label="Other Projects" // Label for the group of projects
         >
           {otherProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <motion.div key={project._id} className="mb-8">
+              <ProjectCard project={project} />
+            </motion.div>
           ))}
         </motion.div>
 

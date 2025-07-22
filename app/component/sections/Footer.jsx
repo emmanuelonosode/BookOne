@@ -63,7 +63,11 @@ function Footer() {
               id="email"
               placeholder="example@gmail.com"
             />
-            <Btn label="Subscribe" sec />
+            <Btn
+              label="Subscribe"
+              sec
+              className="rounded-sm border-white text-white hover:text-black"
+            />
           </div>
           <p className="text-[12px] leading-[150%] text-light/65">
             By subscribing, you consent to our Privacy Policy and receive

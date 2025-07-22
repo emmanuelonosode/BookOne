@@ -1,6 +1,8 @@
 import { sanity, urlFor } from "@/lib/sanity";
 import { blogBySlugQuery } from "@/lib/queries";
 import { PortableText } from "@portabletext/react";
+import { formatDistanceToNow } from "date-fns";
+
 import { Metadata } from "next";
 
 const portableComponents = {
@@ -88,7 +90,12 @@ export default async function BlogDetailPage({ params }) {
           >
             {blog.author?.name}
           </a>{" "}
-          · {new Date(blog._createdAt).toLocaleDateString()}
+          {/* · {new Date(blog._createdAt).toLocaleDateString()} */}
+          <p>
+            {formatDistanceToNow(new Date(blog._createdAt), {
+              addSuffix: true,
+            })}
+          </p>
         </div>
       </div>
       {blog.category && (

@@ -1,202 +1,119 @@
-import React from "react";
-import { notFound } from "next/navigation";
-import { getProjectBySlug } from "../../Commons/projectData";
-import {
-  WebDesignProject,
-  SEOMarketingProject,
-  AIAutomationProject,
-  Testimonial,
-} from "../../component/ProjectLayouts";
-import { PortfolioProjectSchema } from "../../component/StructuredData";
+import { sanity, urlFor } from "@/lib/sanity";
+import { projectsBySlug } from "../../../lib/queries";
+import TestimonialCard from "../../component/testimonialCard";
+import WebDesignDetails from "../../component/webDesignCard";
+import SeoDetails from "../../component/seoDetails";
+import AiAutomationDetails from "../../component/aiAutomation";
 import Link from "next/link";
-// Generate metadata for SEO
-export async function generateMetadata({ params }) {
-  const project = getProjectBySlug(params.slug);
 
-  if (!project) {
-    return {
-      title: "Project Not Found - BookOne",
-      description: "The requested project could not be found.",
-    };
-  }
-
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.com";
-  const projectUrl = `${baseUrl}/portfolio/${project.slug}`;
-  const ogImageUrl = `${baseUrl}/api/og?title=${encodeURIComponent(
-    project.title
-  )}&category=${encodeURIComponent(
-    project.category
-  )}&image=${encodeURIComponent(project.images[0])}`;
-
-  return {
-    title: `${project.title} - BookOne Portfolio`,
-    description: project.overview,
-    keywords: [
-      project.category.toLowerCase(),
-      "portfolio",
-      "case study",
-      "web design",
-      "seo",
-      "marketing",
-      "ai automation",
-      "bookone",
-      ...project.techStack.map((tech) => tech.toLowerCase()),
-    ],
-    authors: [{ name: "BookOne Team" }],
-    creator: "BookOne",
-    publisher: "BookOne",
-    formatDetection: {
-      email: false,
-      address: false,
-      telephone: false,
-    },
-    metadataBase: new URL(baseUrl),
-    alternates: {
-      canonical: projectUrl,
-    },
-    openGraph: {
-      title: `${project.title} - BookOne Portfolio`,
-      description: project.overview,
-      url: projectUrl,
-      siteName: "BookOne",
-      images: [
-        {
-          url: ogImageUrl,
-          width: 1200,
-          height: 630,
-          alt: `${project.title} - ${project.category} project by BookOne`,
-        },
-        {
-          url: project.images[0],
-          width: 800,
-          height: 600,
-          alt: project.title,
-        },
-      ],
-      locale: "en_US",
-      type: "article",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${project.title} - BookOne Portfolio`,
-      description: project.overview,
-      images: [ogImageUrl],
-      creator: "@bookone",
-      site: "@bookone",
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
-    },
-    verification: {
-      google: "your-google-verification-code",
-      yandex: "your-yandex-verification-code",
-      yahoo: "your-yahoo-verification-code",
-    },
-  };
-}
-
-// Generate static params for all projects
-export async function generateStaticParams() {
-  const { projects } = await import("../../Commons/projectData");
-
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
-}
-
-// Main Project Page Component
-const ProjectPage = ({ params }) => {
-  const project = getProjectBySlug(params.slug);
-
-  if (!project) {
-    notFound();
-  }
-
-  // Render different layouts based on category
-  const renderProjectContent = () => {
-    switch (project.category) {
-      case "Web Design":
-        return <WebDesignProject project={project} />;
-      case "SEO & Marketing":
-        return <SEOMarketingProject project={project} />;
-      case "AI Automation":
-        return <AIAutomationProject project={project} />;
-      default:
-        return <WebDesignProject project={project} />;
-    }
-  };
-
-  return (
-    <>
-      <PortfolioProjectSchema project={project} />
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 py-12 md:py-28 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          {/* Breadcrumb */}
-          <nav className="mb-8" aria-label="Breadcrumb">
-            <ol className="flex items-center space-x-2 text-sm text-gray-600">
-              <li>
-                <a
-                  href="/portfolio"
-                  className="hover:text-purple-600 transition-colors"
-                >
-                  Portfolio
-                </a>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li className="text-gray-800 font-medium" aria-current="page">
-                {project.title}
-              </li>
-            </ol>
-          </nav>
-
-          {/* Project Content */}
-          {renderProjectContent()}
-
-          {/* Testimonial */}
-          {project.testimonial && (
-            <div className="mt-12">
-              <Testimonial testimonial={project.testimonial} />
-            </div>
-          )}
-
-          {/* Related Projects CTA */}
-          <div className="mt-16 md:min-h-screen/2 flex md:flex-col place-content-center text-center">
-            <h2 className="text-5xl font-bold text-gray-800 mb-4">
-              Ready to Start Your <span className="text-primary">Project?</span>
-            </h2>
-            <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
-              Let's discuss how we can help you achieve similar results for your
-              business.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                scroll={false}
-                href="/contact"
-                className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                Get a Similar Solution
-              </Link>
-              <Link
-                scroll={false}
-                href="/portfolio"
-                className="inline-block bg-white hover:bg-gray-50 text-purple-600 font-bold py-3 px-6 rounded-full border-2 border-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                View More Projects
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+const categoryLabels = {
+  web: "Web Design & Development",
+  seo: "SEO & Website Optimization",
+  ai: "AI Automation & Workflow",
 };
 
-export default ProjectPage;
+export async function generateMetadata({ params }) {
+  const project = await sanity.fetch(projectsBySlug, { slug: params.slug });
+  if (!project) return {};
+
+  const description = project.overview?.slice(0, 150) || project.title;
+  const imageUrl =
+    project.images && project.images[0] ? urlFor(project.images[0]) : undefined;
+
+  return {
+    title: project.title,
+    description,
+    openGraph: {
+      title: project.title,
+      description,
+      images: imageUrl
+        ? [{ url: imageUrl, width: 1200, height: 630, alt: project.title }]
+        : [],
+      type: "article",
+      url: `http://localhost.com/portfolio/${params.slug}`,
+    },
+    twitter: {
+      card: imageUrl ? "summary_large_image" : "summary",
+      title: project.title,
+      description,
+      images: imageUrl ? [imageUrl] : [],
+    },
+  };
+}
+
+export default async function PortfolioDetailPage({ params }) {
+  const project = await sanity.fetch(projectsBySlug, {
+    slug: params.slug,
+  });
+  if (!project) return <div className="py-16 text-center">Not found</div>;
+
+  return (
+    <div className="bg-gray-900 min-h-screen text-gray-200">
+      <main className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div className="py-12">
+          <Link href="/portfolio">
+            <p className="text-blue-400 hover:underline mb-8 block">
+              ← Back to Portfolio
+            </p>
+          </Link>
+          <span className="text-sm font-semibold text-purple-400 uppercase tracking-wider">
+            {categoryLabels[project.category]}
+          </span>
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mt-2 mb-4">
+            {project.title}
+          </h1>
+          <p className="text-xl text-gray-400 mb-8">
+            For:{" "}
+            <span className="font-semibold text-white">{project.client}</span>
+          </p>
+
+          {project.images && project.images[0] && (
+            <img
+              src={urlFor(project.images[0])}
+              alt={project.title}
+              className="mb-6 rounded-lg w-full max-h-96 object-cover"
+            />
+          )}
+
+          <div className="prose prose-lg prose-invert max-w-none space-y-6">
+            <div>
+              <h2 className="text-3xl font-bold border-b border-gray-700 pb-2 mb-4">
+                Overview
+              </h2>
+              <p>{project.overview}</p>
+            </div>
+
+            <div>
+              <h2 className="text-3xl font-bold border-b border-gray-700 pb-2 mb-4">
+                The Challenge
+              </h2>
+              <p>{project.challenge}</p>
+            </div>
+
+            <div>
+              <h2 className="text-3xl font-bold border-b border-gray-700 pb-2 mb-4">
+                Our Solution
+              </h2>
+              <p>{project.solution}</p>
+            </div>
+          </div>
+
+          <TestimonialCard testimonial={project.testimonial} />
+
+          {/* Conditional Rendering for Category-Specific Details */}
+          <div className="mt-16">
+            {project.category === "web" && (
+              <WebDesignDetails details={project.webDetails} />
+            )}
+            {project.category === "seo" && (
+              <SeoDetails details={project.seoDetails} />
+            )}
+            {project.category === "ai" && (
+              <AiAutomationDetails details={project.aiDetails} />
+            )}
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}

@@ -1,12 +1,24 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { testimonia } from "../../Commons/details";
+// import { sanity } from "../../lib/sanity";
+// import { allTestimoniaQuery } from "../../lib/queries";
+import { sanity } from "@/lib/sanity";
+import { allTestimoniaQuery } from "@/lib/queries";
 
 const Testimonia = () => {
+  const [testimonia, setTestimonia] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const sliderRef = useRef(null);
   const intervalRef = useRef(null);
+
+  useEffect(() => {
+    async function fetchTestimonia() {
+      const data = await sanity.fetch(allTestimoniaQuery);
+      setTestimonia(data);
+    }
+    fetchTestimonia();
+  }, []);
 
   const totalTestimonials = testimonia.length;
   const isMultipleTestimonials = totalTestimonials > 1;
@@ -112,7 +124,7 @@ const Testimonia = () => {
           >
             {testimonia.map((testimonial, index) => (
               <article
-                key={testimonial.name}
+                key={testimonial._id || testimonial.name}
                 className="testimonial-card flex-shrink-0 w-full p-8 md:p-12 snap-center"
                 role="group"
                 aria-roledescription="slide"
@@ -126,7 +138,11 @@ const Testimonia = () => {
                 <div className="flex flex-col md:flex-row items-center gap-6">
                   <div className="flex-shrink-0 mb-4 md:mb-0">
                     <img
-                      src={testimonial.image}
+                      src={
+                        testimonial.image && testimonial.image.asset
+                          ? testimonial.image.asset._ref
+                          : testimonial.image
+                      }
                       alt={`Photo of ${testimonial.name}, ${testimonial.position}`}
                       className="rounded-md object-cover w-64 h-full border-4 border-purple-600"
                       onError={(e) => {
@@ -165,7 +181,9 @@ const Testimonia = () => {
                 aria-label="Previous testimonial"
                 role="button"
               >
-                <span className="text-2xl font-bold text-purple-600">‹</span>
+                <span className="text-2xl font-bold text-purple-600">
+                  &#8249;
+                </span>
               </button>
               <button
                 onClick={goToNext}
@@ -173,7 +191,9 @@ const Testimonia = () => {
                 aria-label="Next testimonial"
                 role="button"
               >
-                <span className="text-2xl font-bold text-purple-600">›</span>
+                <span className="text-2xl font-bold text-purple-600">
+                  &#8250;
+                </span>
               </button>
             </>
           )}

@@ -31,7 +31,7 @@ function Nav() {
         <Link href="/" scroll={false}>
           <p className="text-2xl font-bold text-primary">BookOne</p>
         </Link>
-        <ul className="flex gap-8 max-md:hidden">
+        <ul className="flex gap-8 max-md:hidden mix-blend-difference">
           {navDetails.map(({ name, href, id }) => (
             <li
               className="font-sans text-[16px] pat font-normal leading-[150%] tracking-normal"
@@ -45,9 +45,12 @@ function Nav() {
         </ul>
 
         <div className="flex gap-4 items-center">
+          <Link href="/#contact">
+            <Btn label="Get a free consultation" />
+          </Link>
           {menuOpen ? (
             <button
-              className="md:hidden"
+              className="md:hidden cursor-pointer text-black"
               onClick={() => {
                 window.innerHeight == "100vh";
                 setMenuOpen(!menuOpen);
@@ -58,23 +61,23 @@ function Nav() {
                 height="28px"
                 viewBox="0 -960 960 960"
                 width="32px"
-                fill="#000000"
+                fill="currentcolor"
               >
                 <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
               </svg>
             </button>
           ) : (
             <button
-              className="md:hidden w-8 h-7"
+              className="md:hidden cursor-pointer text-black"
               onClick={() => {
                 setMenuOpen(!menuOpen);
               }}
             >
               <svg
-                width="800px"
-                height="800px"
+                width="32px"
+                height="28px"
                 viewBox="0 0 24 24"
-                fill="none"
+                fill="currentcolor"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path

@@ -79,7 +79,7 @@ function HeroSection() {
 
         <motion.div
           variants={itemVariants}
-          className="mt-10 mb-2 md:flex justify-center items-center space-y-6 gap-4"
+          className="mt-10 mb-2 md:flex justify-center items-center  gap-4"
         >
           {/* Replaced Next.js Link with standard <a> tag and wrapped Btn for animation */}
           <Link
