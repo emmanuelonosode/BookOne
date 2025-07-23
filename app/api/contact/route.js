@@ -81,7 +81,8 @@ export async function POST(request) {
     });
   } catch (error) {
     return NextResponse.json(
-      { success: false, error: "Email failed to send." },
+      { success: false, error: error?.message || "Email failed to send.",
+ },
       { status: 500 }
     );
   }

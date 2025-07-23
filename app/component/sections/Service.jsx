@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion"; // Import motion from framer-motion
 import { offer } from "../../Commons/details"; // Assuming this path is correct for your project
 import Image from "next/image"; // Keep Image for Next.js optimization if available
+import Btn from "../Btn";
 // import Link from "next/link"; // Re-add if you intend to use Next.js Link for internal navigation
 
 function Service() {
@@ -121,6 +122,30 @@ function Service() {
               {/* Close </a> tag if it were a link */}
             </motion.div>
           ))}
+        </motion.div>
+      </div>
+      <div className="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto py-10 px-4 overflow-hidden gap-10">
+        {/* Animated Text */}
+        <motion.p
+          className="text-zinc-900 text-4xl md:text-5xl font-semibold font-sans uppercase max-w-2xl"
+          initial={{ x: -100, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.5 }}
+        >
+          at BookOne, we are committed to providing you with the best possible
+          service.
+        </motion.p>
+
+        {/* Animated Image */}
+        <motion.div
+          className="flex items-center justify-center"
+          initial={{ x: 100, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+          viewport={{ once: true, amount: 0.5 }}
+        >
+          <Image src="/serve.svg" alt="BookOne" width={500} height={500} />
         </motion.div>
       </div>
     </section>

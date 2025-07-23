@@ -75,10 +75,12 @@ export async function POST(request) {
     });
 
     return NextResponse.json({ success: true, message: "You're subscribed!" });
-  } catch (err) {
+  } catch (error) {
     return NextResponse.json(
-      { success: false, error: "Something went wrong." },
+      { success: false, error: error?.message || "Something went wrong"},
       { status: 500 }
     );
+
+
   }
 }

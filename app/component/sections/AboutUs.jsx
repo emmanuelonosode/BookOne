@@ -259,7 +259,7 @@ export default function AboutSection({
 
         {/* Statistics Section */}
         <div
-          className="flex flex-col md:flex-row items-center md:space-x-12"
+          className="flex flex-col-reverse md:flex-row items-center md:space-x-12"
           aria-label="Company Statistics"
         >
           {/* Stats Image with Parallax */}
@@ -267,14 +267,15 @@ export default function AboutSection({
             <motion.img
               src={statsImageUrl}
               alt={statsImageAlt}
-              width={600}
-              height={600}
+              // width={0}
+              // height={0}
+              // sizes="100vw"
               style={{ y: statsImageY }} // Apply parallax
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="w-full max-w-sm md:max-w-md rounded-xl shadow-lg object-cover"
+              className="w-full  md:max-w-md rounded-xl shadow-lg object-cover"
               onError={(e) => {
                 e.currentTarget.src =
                   "https://placehold.co/600x600/805AD5/FFFFFF?text=Stats+Error"; // Fallback

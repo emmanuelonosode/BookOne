@@ -1,0 +1,20 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/api/subscribe/route": "/api/subscribe",
+  "/api/contact/route": "/api/contact",
+  "/manifest.webmanifest/route": "/manifest.webmanifest",
+  "/robots.txt/route": "/robots.txt",
+  "/sitemap.xml/route": "/sitemap.xml",
+  "/favicon.ico/route": "/favicon.ico",
+  "/opengraph-image.png/route": "/opengraph-image.png",
+  "/page": "/",
+  "/authors/[slug]/page": "/authors/[slug]",
+  "/blogs/[slug]/page": "/blogs/[slug]",
+  "/blogs/page": "/blogs",
+  "/pricing/page": "/pricing",
+  "/portfolio/page": "/portfolio",
+  "/portfolio/[slug]/page": "/portfolio/[slug]",
+  "/services/page": "/services",
+  "/privacy-policy/page": "/privacy-policy",
+  "/about/page": "/about"
+}

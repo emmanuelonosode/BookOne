@@ -68,7 +68,6 @@ const portableComponents = {
 
 export default async function BlogDetailPage({ params }) {
   const blog = await sanity.fetch(blogBySlugQuery, { slug: params.slug });
-  console.log(blog);
   if (!blog) return <div className="py-16 text-center">Not found</div>;
 
   return (

@@ -26,7 +26,6 @@ export default async function BlogListPage({ searchParams }) {
       .replace("$start", start)
       .replace("$end", end)
   );
-  console.log(blogs);
   const categories = await sanity.fetch(allCategoriesQuery);
 
   // For pagination, get total count

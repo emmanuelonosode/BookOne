@@ -1,0 +1,3 @@
+export const production = {"NEXTAUTH_URL":"http://localhost:3000","MONGODB_URI":"mongodb://localhost:27017/","NEXT_PUBLIC_BASE_URL":"https://lkgdca7gsivoowsxmk5fxvbqjy.srv.us/","GMAIL_USER":"officialbookone@gmail.com","GMAIL_PASS":"hkqnvharpvmyagpw","NEXT_PUBLIC_SANITY_PROJECT_ID":"18zc3ehw","NEXT_PUBLIC_SANITY_DATASET":"production"};
+export const development = {"NEXTAUTH_URL":"http://localhost:3000","MONGODB_URI":"mongodb://localhost:27017/","NEXT_PUBLIC_BASE_URL":"https://lkgdca7gsivoowsxmk5fxvbqjy.srv.us/","GMAIL_USER":"officialbookone@gmail.com","GMAIL_PASS":"hkqnvharpvmyagpw","NEXT_PUBLIC_SANITY_PROJECT_ID":"18zc3ehw","NEXT_PUBLIC_SANITY_DATASET":"production"};
+export const test = {};

@@ -1,14 +1,37 @@
-function Btn({ label, sec, className = " " }) {
-  const baseStyles =
-    "inline-block py-3 px-6 rounded-full font-bold transition-all duration-300 transform hover:scale-105 shadow-lg";
+"use client";
+import { motion } from "framer-motion";
+
+function Btn({ label, sec, className = "", type = "button" }) {
   const secondary = sec
-    ? "bg-transparent hover:bg-gray-50 text-purple-600   border-2 border-purple-600"
-    : "  bg-purple-600 hover:bg-white hover:text-black hover:border-black hover:border-2 text-white    ";
+    ? "bg-transparent text-purple-600 border-2 border-purple-600"
+    : "bg-purple-600 text-white";
+
+  const hoverVariant = sec
+    ? {
+        backgroundColor: "#f9fafb", // Tailwind's gray-50
+        color: "#000000",
+        borderColor: "#000000",
+        scale: 1.05,
+      }
+    : {
+        backgroundColor: "#ffffff",
+        color: "#000000",
+        borderColor: "#000000",
+        scale: 1.05,
+      };
 
   return (
-    <button className={`${baseStyles}  ${secondary} ${className}`}>
+    <motion.button
+      whileHover={hoverVariant}
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 20,
+      }}
+      className={`inline-block py-3 px-6 rounded-full font-bold shadow-lg border transition-all duration-300 ${secondary} ${className}`}
+    >
       {label}
-    </button>
+    </motion.button>
   );
 }
 
