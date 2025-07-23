@@ -1,6 +1,7 @@
 {
   "main": ".open-next/worker.js",
-  "name": "my-app",
+  // wrangler.jsonc
+  "name": "bookone",
   "compatibility_date": "2025-03-25",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
