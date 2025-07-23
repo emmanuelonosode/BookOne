@@ -61,8 +61,8 @@ const contentItemVariants = {
 // --- ProjectCard Component ---
 
 // --- PortfolioPage Component ---
+const allProjects = await sanity.fetch(projects);
 export  default async function PortfolioPage() {
-  const allProjects = await sanity.fetch(projects);
 
   return (
     <section

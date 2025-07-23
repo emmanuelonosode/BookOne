@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 // import Image from "next/image"; // Removed Next.js Image component
-import Btn, { AnimatedButton } from "../Btn"; // Assuming Btn is a standard React component (not Next.js specific)
+import Btn from "../Btn"; // Assuming Btn is a standard React component (not Next.js specific)
 import Link from "next/link"; // Removed Next.js Link component
 
 function HeroSection() {

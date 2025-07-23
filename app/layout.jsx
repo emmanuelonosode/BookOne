@@ -3,7 +3,6 @@ import { Prosto_One, Poppins, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "./component/sections/nav.jsx";
 import Footer from "./component/sections/Footer.jsx";
-import AuthProvider from "./component/AuthProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -88,7 +87,6 @@ export default function RootLayout({ children }) {
         <meta name="keywords" content={metadata.keywords.join(", ")} />
       </head>
       <body className={`${poppins.className} antialiased`}>
-        <AuthProvider>
           <header
             className="shadow-md backdrop-blur-2xl  w-full fixed z-10"
             role="banner"
@@ -100,7 +98,6 @@ export default function RootLayout({ children }) {
           <footer role="contentinfo" aria-label="Footer">
             <Footer />
           </footer>
-        </AuthProvider>
       </body>
     </html>
   );
