@@ -8,10 +8,8 @@ const handler = (req, res) => {
   const robotsTxt = `
 User-agent: *
 Allow: /
-Disallow: /api/
-Disallow: /admin/
+
 Disallow: /_next/
-Disallow: /private/
 
 Sitemap: ${baseUrl}/sitemap.xml
 Host: ${baseUrl}

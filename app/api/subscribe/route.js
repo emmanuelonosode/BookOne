@@ -1,6 +1,6 @@
-// pages/api/subscribe.js
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+
 export async function POST(request) {
   const body = await request.json();
   const { email } = body;
@@ -13,6 +13,7 @@ export async function POST(request) {
   }
 
   try {
+    // Save email to SheetDB
     const response = await fetch(process.env.SHEETDB_API_URL, {
       method: "POST",
       headers: {
@@ -24,6 +25,26 @@ export async function POST(request) {
     if (!response.ok) {
       throw new Error("Failed to store email");
     }
+
+    // ✅ Send response immediately
+    const res = NextResponse.json({ success: true, message: "You're subscribed!" });
+
+    // ⏳ Send email in background (no await)
+    void sendConfirmationEmail(email);
+
+    return res;
+
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, error: error?.message || "Something went wrong" },
+      { status: 500 }
+    );
+  }
+}
+
+// Background email sending function
+async function sendConfirmationEmail(email) {
+  try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -31,6 +52,7 @@ export async function POST(request) {
         pass: process.env.GMAIL_PASS,
       },
     });
+
     await transporter.sendMail({
       from: process.env.GMAIL_USER,
       to: email,
@@ -71,16 +93,10 @@ export async function POST(request) {
   </div>
 </div>
 
-      `,
+      `, // your full HTML here
     });
-
-    return NextResponse.json({ success: true, message: "You're subscribed!" });
   } catch (error) {
-    return NextResponse.json(
-      { success: false, error: error?.message || "Something went wrong"},
-      { status: 500 }
-    );
-
-
+    console.error("Failed to send email:", error.message);
+    // You can log this error to Sentry or another monitoring tool
   }
 }
