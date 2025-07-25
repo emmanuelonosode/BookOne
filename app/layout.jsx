@@ -51,11 +51,11 @@ export const metadata = {
   openGraph: {
     title: "BookOne Your Business",
     description: "The leading business digital optimizer",
-    url: "https://yourdomain.com",
+    url: "https://bookone.dev",
     siteName: "BookOne",
     images: [
       {
-        url: "https://yourdomain.com/og-image.jpg",
+        url: "https://bookone.dev/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "BookOne - The leading business digital optimizer",
@@ -69,8 +69,8 @@ export const metadata = {
     card: "summary_large_image",
     title: "BookOne Your Business",
     description: "The leading business digital optimizer",
-    images: ["https://yourdomain.com/og-image.jpg"],
-    site: "@yourtwitterhandle",
+    images: ["https://bookone.dev/og-image.jpg"],
+    site: "@EmmanuelOnosod1",
   },
 };
 
@@ -80,24 +80,20 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="robots" content="index, follow" />
         <meta name="publisher" content="BookOne" />
-        <link
-          rel="canonical"
-          href="https://lkgdca7gsivoowsxmk5fxvbqjy.srv.us/"
-        />
-        <meta name="keywords" content={metadata.keywords.join(", ")} />
+        <link rel="canonical" href="https://bookone.dev" />
       </head>
-      <body className={} >
-          <header
-            className="shadow-md backdrop-blur-2xl  w-full fixed z-10"
-            role="banner"
-            aria-label="Main Navigation"
-          >
-            <Nav />
-          </header>
-          <main aria-label="Main Content">{children}</main>
-          <footer role="contentinfo" aria-label="Footer">
-            <Footer />
-          </footer>
+      <body>
+        <header
+          className="shadow-md backdrop-blur-2xl  w-full fixed z-10"
+          role="banner"
+          aria-label="Main Navigation"
+        >
+          <Nav />
+        </header>
+        <main aria-label="Main Content">{children}</main>
+        <footer role="contentinfo" aria-label="Footer">
+          <Footer />
+        </footer>
       </body>
     </html>
   );
