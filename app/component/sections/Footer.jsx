@@ -85,10 +85,10 @@ function Footer() {
           <Link href="/privacy-policy">
             <p className="hover:underline cursor-pointer">Privacy Policy</p>
           </Link>
-          <Link href="/terms">
+          <Link href="/terms-and-conditions">
             <p className="hover:underline cursor-pointer">Terms of Service</p>
           </Link>
-          <Link href="/cookies">
+          <Link href="/cookies-policy">
             <p className="hover:underline cursor-pointer">Cookies Settings</p>
           </Link>
         </div>

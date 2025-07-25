@@ -1,5 +1,7 @@
-import { Prosto_One, Poppins, Geist, Geist_Mono } from "next/font/google";
+// app/layout.jsx or layout.tsx
 
+import { Prosto_One, Poppins, Geist, Geist_Mono } from "next/font/google";
+import CookieConsent from "../app/component/CookieConsentBoss"
 import "./globals.css";
 import Nav from "./component/sections/nav.jsx";
 import Footer from "./component/sections/Footer.jsx";
@@ -15,16 +17,8 @@ const prostoOne = Prosto_One({
   weight: "400",
   display: "swap",
 });
-
-const geistSans = Geist({
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  display: "swap",
-});
+const geistSans = Geist({ subsets: ["latin"], display: "swap" });
+const geistMono = Geist_Mono({ subsets: ["latin"], display: "swap" });
 
 export const metadata = {
   title:
@@ -77,27 +71,24 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="ltr">
-      <head>
-        <meta name="robots" content="index, follow" />
-        <meta name="publisher" content="BookOne" />
-        <link
-          rel="canonical"
-          href="https://lkgdca7gsivoowsxmk5fxvbqjy.srv.us/"
-        />
-        <meta name="keywords" content={metadata.keywords.join(", ")} />
-      </head>
       <body className={`${poppins.className} antialiased`}>
-          <header
-            className="shadow-md backdrop-blur-2xl  w-full fixed z-10"
-            role="banner"
-            aria-label="Main Navigation"
-          >
-            <Nav />
-          </header>
-          <main aria-label="Main Content">{children}</main>
-          <footer role="contentinfo" aria-label="Footer">
-            <Footer />
-          </footer>
+        <header
+          className="shadow-md backdrop-blur-2xl w-full fixed z-10"
+          role="banner"
+          aria-label="Main Navigation"
+        >
+          <Nav />
+        </header>
+
+        <main aria-label="Main Content">{children}</main>
+
+        <footer role="contentinfo" aria-label="Footer">
+          <Footer />
+        </footer>
+
+       
+   
+        <CookieConsent/>
       </body>
     </html>
   );
