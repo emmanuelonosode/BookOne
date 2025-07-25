@@ -9,9 +9,11 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-.open-next
-# testing
+# OpenNext build output
+.open-next/
 /coverage
+.open-next
+/.open-next
 
 # next.js
 /.next/
