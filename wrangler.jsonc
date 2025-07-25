@@ -19,14 +19,24 @@
     "NEXT_PUBLIC_SANITY_PROJECT_ID": "18zc3ehw",
     "NEXT_PUBLIC_SANITY_DATASET": "production",
     "NEXT_PUBLIC_BASE_URL": "https://bookone.dev"
+<<<<<<< HEAD
     // "NEXT_PUBLIC_GA_MEASUREMENT_ID": "",
+=======
+    // "NEXT_PUBLIC_GA_MEASUREMENT_ID": "G-1234567890",
+>>>>>>> ce16772d579586d9245e568808d9402deba96986
     // "NEXT_PUBLIC_GTM_CONTAINER_ID": "",
     // "GOOGLE_SITE_VERIFICATION": "",
     // "YANDEX_SITE_VERIFICATION": "",
     // "YAHOO_SITE_VERIFICATION": "",
     // "BING_SITE_VERIFICATION": "",
+<<<<<<< HEAD
     // "SHEETDB_API_URL": "",
     // "GMAIL_USER": "",
     // "GMAIL_PASS": ""
+=======
+    // "SHEETDB_API_URL": "https://sheetdb.io/api/v1/fizoupdzoi7rz",
+    // "GMAIL_USER": "officialbookone@gmail.com",
+    // "GMAIL_PASS": "hkqnvharpvmyagpw"
+>>>>>>> ce16772d579586d9245e568808d9402deba96986
   }
 }

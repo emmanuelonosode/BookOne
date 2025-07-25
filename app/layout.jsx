@@ -1,24 +1,30 @@
-// app/layout.jsx or layout.tsx
+// import { Prosto_One, Poppins, Geist, Geist_Mono } from "next/font/google";
 
-import { Prosto_One, Poppins, Geist, Geist_Mono } from "next/font/google";
-import CookieConsent from "../app/component/CookieConsentBoss"
 import "./globals.css";
 import Nav from "./component/sections/nav.jsx";
 import Footer from "./component/sections/Footer.jsx";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  display: "swap",
-});
+// const poppins = Poppins({
+//   subsets: ["latin"],
+//   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+//   display: "swap",
+// });
 
-const prostoOne = Prosto_One({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const geistSans = Geist({ subsets: ["latin"], display: "swap" });
-const geistMono = Geist_Mono({ subsets: ["latin"], display: "swap" });
+// const prostoOne = Prosto_One({
+//   subsets: ["latin"],
+//   weight: "400",
+//   display: "swap",
+// });
+
+// const geistSans = Geist({
+//   subsets: ["latin"],
+//   display: "swap",
+// });
+
+// const geistMono = Geist_Mono({
+//   subsets: ["latin"],
+//   display: "swap",
+// });
 
 export const metadata = {
   title:
@@ -71,24 +77,23 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="ltr">
-      <body className={`${poppins.className} antialiased`}>
+      <head>
+        <meta name="robots" content="index, follow" />
+        <meta name="publisher" content="BookOne" />
+        <link rel="canonical" href="https://bookone.dev" />
+      </head>
+      <body>
         <header
-          className="shadow-md backdrop-blur-2xl w-full fixed z-10"
+          className="shadow-md backdrop-blur-2xl  w-full fixed z-10"
           role="banner"
           aria-label="Main Navigation"
         >
           <Nav />
         </header>
-
         <main aria-label="Main Content">{children}</main>
-
         <footer role="contentinfo" aria-label="Footer">
           <Footer />
         </footer>
-
-       
-   
-        <CookieConsent/>
       </body>
     </html>
   );
