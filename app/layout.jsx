@@ -45,11 +45,11 @@ export const metadata = {
   openGraph: {
     title: "BookOne Your Business",
     description: "The leading business digital optimizer",
-    url: "https://yourdomain.com",
+    url: "https://bookone.dev",
     siteName: "BookOne",
     images: [
       {
-        url: "https://yourdomain.com/og-image.jpg",
+        url: "https://bookone.dev/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "BookOne - The leading business digital optimizer",
@@ -63,8 +63,8 @@ export const metadata = {
     card: "summary_large_image",
     title: "BookOne Your Business",
     description: "The leading business digital optimizer",
-    images: ["https://yourdomain.com/og-image.jpg"],
-    site: "@yourtwitterhandle",
+    images: ["https://bookone.dev/og-image.jpg"],
+    site: "@EmmanuelOnosod1",
   },
 };
 
