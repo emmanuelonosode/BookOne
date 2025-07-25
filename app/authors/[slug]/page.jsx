@@ -1,4 +1,4 @@
-import { sanity } from "@/lib/sanity";
+import { sanity,urlFor } from "@/lib/sanity";
 import { authorBySlugQuery, blogsByAuthorQuery } from "@/lib/queries";
 
 export default async function AuthorPage({ params }) {
@@ -12,7 +12,7 @@ export default async function AuthorPage({ params }) {
       <div className="flex items-center gap-6 mb-8">
         {author.image && (
           <img
-            src={author.image}
+            src={urlFor(author.image)}
             alt={author.name}
             className="w-24 h-24 rounded-full object-cover"
           />
