@@ -12,7 +12,8 @@ const categoryLabels = {
   ai: "AI Automation & Workflow",
 };
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const project = await sanity.fetch(projectsBySlug, { slug: params.slug });
   if (!project) return {};
 
@@ -41,7 +42,8 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function PortfolioDetailPage({ params }) {
+export default async function PortfolioDetailPage(props) {
+  const params = await props.params;
   const project = await sanity.fetch(projectsBySlug, {
     slug: params.slug,
   });

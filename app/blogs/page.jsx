@@ -3,7 +3,8 @@ import { allCategoriesQuery, paginatedBlogsQuery } from "@/lib/queries";
 
 const PAGE_SIZE = 6;
 
-export default async function BlogListPage({ searchParams }) {
+export default async function BlogListPage(props) {
+  const searchParams = await props.searchParams;
   const page = parseInt(searchParams?.page || "1", 10);
   const search = searchParams?.search || "";
   const category = searchParams?.category || "";
