@@ -75,8 +75,6 @@ export const services = [
   },
 ];
 
-
-
 export const faq = [
   {
     title: "What services do you offer?",
@@ -285,18 +283,18 @@ export const quickLinks = [
 export const offer = [
   {
     icon: "/aii.svg",
-    tag: "Innovative AI Automation to Streamline Your Business Processes and Save Time",
-    desc: "Leverage our AI solutions to optimize your operations and drive growth.",
+    tag: " Stunning, High-Performance Websites",
+    desc: "We craft visually captivating and fully functional websites tailored precisely to your brand. Our designs ensure seamless user experiences and robust performance, built for conversion.",
   },
   {
     icon: "/busy.svg",
-    tag: "Comprehensive Web-Based Services to Enhance Your Business's Online Presence",
-    desc: "From SEO to content management, we have you covered.",
+    tag: " Optimized Search Visibility",
+    desc: "Elevate your online presence with cutting-edge Search Engine Optimization strategies. We ensure top rankings on search engines, driving targeted organic traffic and qualified leads directly to your business.",
   },
   {
     icon: "/dev.svg",
-    tag: "Expert Web Development Tailored to Your Unique Business Needs",
-    desc: "Our team crafts websites that not only look great but also perform.",
+    tag: " Automated Efficiency & Growth",
+    desc: " Implement cutting-edge AI automation workflows and custom AI agent setups. Streamline operations, enhance customer engagement, and unlock new growth opportunities for your enterprise.",
   },
 ];
 export const process = [

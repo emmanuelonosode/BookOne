@@ -73,7 +73,7 @@ export default function RootLayout({ children }) {
     <html lang="en" dir="ltr">
       <body className={`${poppins.className} antialiased`}>
         <header
-          className="shadow-md backdrop-blur-2xl w-full fixed z-10"
+          className="backdrop-blur-2xl w-full fixed z-20"
           role="banner"
           aria-label="Main Navigation"
         >

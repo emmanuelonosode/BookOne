@@ -1,14 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { sanity, urlFor } from "@/lib/sanity";
 import { paginatedBlogsQuery } from "@/lib/queries";
-import { Metadata } from "next";
-
-export const metadata = {
-  title: "Featured Blogs | BookOne",
-  description:
-    "Discover featured blog posts from BookOne on design, development, and business.",
-};
 
 export default async function FeaturedBlogs() {
   // Fetch top 3 recent blogs from Sanity
@@ -33,10 +27,15 @@ export default async function FeaturedBlogs() {
           >
             {blog.mainImage && (
               <Link href={`/blogs/${blog.slug.current}`}>
-                <img
+                <Image
                   src={urlFor(blog.mainImage)}
                   alt={blog.title}
+                  width={400}
+                  height={160}
                   className="rounded-lg w-full h-40 object-cover mb-4"
+                  priority={false}
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                 />
               </Link>
             )}
@@ -66,10 +65,14 @@ export default async function FeaturedBlogs() {
             </div>
             <div className="flex items-center gap-2 mt-auto">
               {blog.author?.image && (
-                <img
+                <Image
                   src={urlFor(blog.author.image)}
                   alt={blog.author.name}
+                  width={28}
+                  height={28}
                   className="w-7 h-7 rounded-full object-cover border"
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                 />
               )}
               <Link

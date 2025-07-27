@@ -61,10 +61,9 @@ function Service() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
-            className="text-3xl md:text-4xl font-bold max-w-xl leading-tight text-gray-900"
+            className="text-3xl md:text-4xl font-light max-w-xl leading-tight text-gray-900"
           >
-            Transform Your Business with Our Comprehensive Web Solutions and
-            Automation Services
+            Unlocking Digital Growth for Your Businesses
           </motion.h2>
           <motion.p // Changed h5 to p for semantic correctness (it's a paragraph, not a heading)
             variants={textVariants}
@@ -73,11 +72,9 @@ function Service() {
             viewport={{ once: true, amount: 0.5 }}
             className="text-lg md:text-xl max-w-xl text-gray-700"
           >
-            Our web development services create stunning, user-friendly websites
-            tailored to your business needs. With cutting-edge AI automation, we
-            streamline processes to enhance efficiency and productivity. Explore
-            our range of web-based services designed to elevate your online
-            presence.
+            BookOne provides a comprehensive suite of web solutions designed to
+            propel your business forward in the digital age, generating tangible
+            leads and maximizing your online presence.
           </motion.p>
         </div>
         <motion.div

@@ -3,8 +3,9 @@
 import React, { useState, useEffect, useRef } from "react";
 // import { sanity } from "../../lib/sanity";
 // import { allTestimoniaQuery } from "../../lib/queries";
-import { sanity } from "@/lib/sanity";
+import { sanity, urlFor } from "@/lib/sanity";
 import { allTestimoniaQuery } from "@/lib/queries";
+import Image from "next/image";
 
 const Testimonia = () => {
   const [testimonia, setTestimonia] = useState([]);
@@ -137,14 +138,14 @@ const Testimonia = () => {
               >
                 <div className="flex flex-col md:flex-row items-center gap-6">
                   <div className="flex-shrink-0 mb-4 md:mb-0">
-                    <img
-                      src={
-                        testimonial.image && testimonial.image.asset
-                          ? testimonial.image.asset._ref
-                          : testimonial.image
-                      }
+                    <Image
+                      src={urlFor(testimonial.image)}
                       alt={`Photo of ${testimonial.name}, ${testimonial.position}`}
+                      width={256}
+                      height={256}
                       className="rounded-md object-cover w-64 h-full border-4 border-purple-600"
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                       onError={(e) => {
                         e.currentTarget.src =
                           "https://placehold.co/100x100/cccccc/333333?text=User";

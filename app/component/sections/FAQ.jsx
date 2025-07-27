@@ -79,7 +79,7 @@ function FAQ() {
                   initial={{ opacity: 0, scale: 0.6 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3 }}
-                  className="mx-16 py-5"
+                  className="md:mx-16 py-5"
                   tabIndex={0}
                 >
                   <p className="text-gray-800">{desc}</p>

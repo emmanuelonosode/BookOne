@@ -21,17 +21,17 @@ export default async function PortfolioPage() {
     >
       <div className="max-w-7xl mx-auto">
         {/* Page Header */}
-        <div className="text-center mb-16">
+        <div className="mb-16">
           <h2 // Changed h1 to h2 for semantic hierarchy within the section
             id="portfolio-heading" // ID for aria-labelledby
-            className="h2 font-extrabold text-purple-800 mb-6 leading-tight inline-block" // Removed text-shadow-zinc-900 as it's not a standard Tailwind class
+            className="h2 font-extrabold max-w-2xl text-purple-800 mb-6 leading-tight inline-block" // Removed text-shadow-zinc-900 as it's not a standard Tailwind class
           >
-            Our Portfolio
+            Our Success Stories: A Glimpse into Our Portfolio{" "}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Showcasing our impactful work across various industries. Each
-            project is a testament to our dedication to innovation and client
-            success.
+          <p className="text-xl text-gray-600 max-w-3xl">
+            Explore a selection of our impactful projects where we've
+            transformed visions into vibrant online realities for businesses and
+            organizations.
           </p>
         </div>
 

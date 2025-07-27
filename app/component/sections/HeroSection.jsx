@@ -1,20 +1,43 @@
 "use client";
-
-import React from "react";
-import { motion } from "framer-motion";
-// import Image from "next/image"; // Removed Next.js Image component
-import Btn from "../Btn"; // Assuming Btn is a standard React component (not Next.js specific)
-import Link from "next/link"; // Removed Next.js Link component
+import React, { useState, useEffect } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import Btn from "../Btn";
 
 function HeroSection() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  // Create smooth spring animations for mouse tracking
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springX = useSpring(mouseX, { stiffness: 100, damping: 30 });
+  const springY = useSpring(mouseY, { stiffness: 100, damping: 30 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+
+      // Convert mouse position to values between -1 and 1
+      const x = (clientX / innerWidth - 0.5) * 2;
+      const y = (clientY / innerHeight - 0.5) * 2;
+
+      setMousePosition({ x, y });
+      mouseX.set(x * 50); // Multiply for desired movement range
+      mouseY.set(y * 50);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
   // Variants for the main container to control staggering of its children
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2, // Delay between each child animation
-        delayChildren: 0.1, // Delay before the first child starts animating
+        staggerChildren: 0.2,
+        delayChildren: 0.1,
       },
     },
   };
@@ -25,92 +48,196 @@ function HeroSection() {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring", // Use spring for a natural bounce effect
+        type: "spring",
         damping: 15,
         stiffness: 100,
       },
     },
   };
 
-  // Variants for the image to fade in and scale up slightly
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
+  const orbVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.8,
+        duration: 1.2,
         ease: "easeOut",
       },
     },
   };
 
+  const floatingAnimation = {
+    y: [-10, 10, -10],
+    transition: {
+      duration: 6,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  };
+
   return (
-    <section
-      id="home"
-      className="py-28 pt-38 bg-white "
-      aria-labelledby="hero-heading"
-    >
-      {" "}
-      {/* Added aria-labelledby for accessibility */}
+    <div className="min-h-screen bg-gradient-to-br pt-16 from-gray-100 via-gray-50 to-white relative overflow-hidden">
+      {/* Main Content */}
       <motion.div
-        className="container mx-auto px-4 sm:px-6 lg:px-8 text-center overflow-hidden" // Added overflow-hidden for animations
+        className="container mx-auto px-6 md:px-8 relative z-10"
         variants={containerVariants}
         initial="hidden"
-        animate="visible" // Animate on component mount
+        animate="visible"
       >
-        <motion.h1
-          id="hero-heading" // Added id to link with aria-labelledby
-          variants={itemVariants}
-          className="text-5xl md:text-7xl font-extrabold text-gray-900 leading-tight"
-        >
-          Where Web <span className="text-primary">Design</span> Meets AI & SEO
-          Excellence
-        </motion.h1>
+        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
+          {/* Left Content */}
+          <div className="space-y-8">
+            <motion.div variants={itemVariants} className="space-y-6">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-gray-800 leading-tight">
+                Design That Feels.
+                <br />
+                <span className="text-gray-600">
+                  Experiences That Resonate.
+                </span>
+              </h1>
 
-        <motion.p
-          variants={itemVariants}
-          className="mt-6 max-w-2xl mx-auto pat text-gray-700"
-        >
-          We transform your online presence into a highly profitable asset. From
-          stunning websites to intelligent AI automation, we deliver the
-          complete web advantage your business needs to thrive.
-        </motion.p>
+              <p className="text-lg text-gray-600 max-w-lg leading-relaxed">
+                We blend creativity, emotion, and innovation to create digital
+                worlds that your audience can connect with — across screens,
+                dimensions, and interactions.
+              </p>
+            </motion.div>
 
-        <motion.div
-          variants={itemVariants}
-          className="mt-10 mb-2 md:flex justify-center items-center  gap-4"
-        >
-          {/* Replaced Next.js Link with standard <a> tag and wrapped Btn for animation */}
-          <Link
-            href="#contact"
-            aria-label="Start your project with BookOne by contacting us"
-          >
-            <Btn label=" Start Your Project" className="w-full max-md:mb-6" />
-          </Link>
-          <Link
-            href="/services"
-            aria-label="Explore our services" // Added aria-label for clarity
-          >
-            <Btn sec label="  Explore Services &rarr; " className="w-full" />
-          </Link>
-        </motion.div>
+            <motion.div variants={itemVariants}>
+              <Btn
+                label="LET'S TALK"
+                className="bg-gray-800 text-white px-8 py-4 rounded-full hover:bg-gray-700 transition-colors flex items-center space-x-2 group"
+              />
+            </motion.div>
+          </div>
 
-        {/* Image with Fade-in and Scale animation
-        <motion.div
-          variants={imageVariants}
-          className="mt-16 h-25 overflow-hidden" // Added margin-top to separate from buttons
-        >
-          <img
-            src="/noise.png" // Ensure this image path is correct and accessible
-            alt="Abstract background texture with subtle noise pattern" // More descriptive alt text for SEO
-            width={1440} // Explicit width for SEO and CLS prevention
-            height={100} // Explicit height for SEO and CLS prevention
-            className="w-full h-full object-cover" // Ensure image covers the div
-          />
-        </motion.div> */}
+          {/* Right Content */}
+          <div className="relative flex flex-col items-center space-y-8">
+            {/* Glowing Orb */}
+            <div className="relative">
+              <motion.div
+                variants={orbVariants}
+                animate={floatingAnimation}
+                style={{
+                  x: springX,
+                  y: springY,
+                }}
+                className="w-80 h-80 md:w-96 md:h-96 relative"
+              >
+                {/* Main orb with gradient */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/35 via-primary/35 to-primary/35 opacity-80 blur-sm"></div>
+                <div className="absolute inset-2 rounded-full bg-gradient-to-br from-white via-primary/15 to-primary/15 opacity-90"></div>
+
+                {/* Particle effects */}
+                <div className="absolute inset-0 rounded-full">
+                  {[...Array(20)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1 h-1 bg-white rounded-full opacity-60"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        x: mousePosition.x * (10 + i * 2),
+                        y: mousePosition.y * (10 + i * 2),
+                      }}
+                      animate={{
+                        opacity: [0.3, 1, 0.3],
+                        scale: [0.5, 1, 0.5],
+                      }}
+                      transition={{
+                        duration: 2 + Math.random() * 2,
+                        repeat: Infinity,
+                        delay: Math.random() * 2,
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Outer glow */}
+                <motion.div
+                  className="absolute -inset-8 rounded-full bg-gradient-to-br from-orange-200 to-transparent opacity-30 blur-xl"
+                  style={{
+                    x: mousePosition.x * -10,
+                    y: mousePosition.y * -10,
+                  }}
+                ></motion.div>
+              </motion.div>
+            </div>
+
+            {/* Bottom Text */}
+            <motion.div
+              variants={itemVariants}
+              className="text-center space-y-4 max-w-md"
+            >
+              <p className="text-gray-600 leading-relaxed">
+                Whether through intuitive interfaces, immersive 3D, or bold
+                visual storytelling,
+                <span className="text-gray-800 font-medium">
+                  {" "}
+                  we design moments that people don't just see — they feel.
+                </span>
+              </p>
+
+              <div className="flex flex-wrap justify-center gap-3 text-sm">
+                <span className="px-4 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
+                  UI/UX
+                </span>
+                <span className="px-4 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
+                  3D VISUALIZATION
+                </span>
+                <span className="px-4 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
+                  DEVELOPMENT
+                </span>
+                <span className="px-4 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
+                  +
+                </span>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </motion.div>
-    </section>
+
+      {/* Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-blue-100 to-transparent rounded-full opacity-30 blur-xl"
+          style={{
+            x: mousePosition.x * 30,
+            y: mousePosition.y * 30,
+          }}
+        ></motion.div>
+        <motion.div
+          className="absolute bottom-40 left-20 w-24 h-24 bg-gradient-to-br from-purple-100 to-transparent rounded-full opacity-20 blur-lg"
+          style={{
+            x: mousePosition.x * -20,
+            y: mousePosition.y * -20,
+          }}
+        ></motion.div>
+
+        {/* Additional floating particles */}
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-orange-200 rounded-full opacity-40"
+            style={{
+              left: `${20 + Math.random() * 60}%`,
+              top: `${20 + Math.random() * 60}%`,
+              x: mousePosition.x * (15 + i * 5),
+              y: mousePosition.y * (15 + i * 5),
+            }}
+            animate={{
+              opacity: [0.2, 0.6, 0.2],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+            }}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 

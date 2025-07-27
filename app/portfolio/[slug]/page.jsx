@@ -5,6 +5,10 @@ import WebDesignDetails from "../../component/webDesignCard";
 import SeoDetails from "../../component/seoDetails";
 import AiAutomationDetails from "../../component/aiAutomation";
 import Link from "next/link";
+import Image from "next/image";
+
+// Add caching configuration
+export const revalidate = 3600; // Revalidate every hour
 
 const categoryLabels = {
   web: "Web Design & Development",
@@ -70,10 +74,15 @@ export default async function PortfolioDetailPage(props) {
           </p>
 
           {project.images && project.images[0] && (
-            <img
+            <Image
               src={urlFor(project.images[0])}
               alt={project.title}
+              width={1200}
+              height={400}
               className="mb-6 rounded-lg w-full max-h-96 object-cover"
+              priority={true}
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
             />
           )}
 

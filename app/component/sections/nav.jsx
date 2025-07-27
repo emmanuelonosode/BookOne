@@ -1,178 +1,285 @@
 "use client";
-
-import Image from "next/image";
-import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { navDetails, socialIcons } from "../../Commons/details.js";
-import Btn from "../Btn.jsx";
-import { usePathname } from "next/navigation.js";
+import { motion, AnimatePresence } from "framer-motion";
+
+// Mock data - replace with actual imports
+const navDetails = [
+  { id: 1, name: "Home", href: "#home" },
+  { id: 2, name: "About", href: "#about" },
+  { id: 3, name: "Services", href: "#services" },
+  { id: 4, name: "Portfolio", href: "#portfolio" },
+  { id: 5, name: "Contact", href: "#contact" },
+];
+
+const socialIcons = [
+  { src: "/twitter-icon.svg", alt: "Twitter", href: "#twitter" },
+  { src: "/linkedin-icon.svg", alt: "LinkedIn", href: "#linkedin" },
+  { src: "/github-icon.svg", alt: "GitHub", href: "#github" },
+];
 
 function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (menuOpen) {
-        window.document.body.style.overflow = "hidden";
-      } else {
-        window.document.body.style.overflow = "";
-      }
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
-      if (typeof window !== "undefined") {
-        window.document.body.style.overflow = "";
-      }
+      document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  const menuVariants = {
+    closed: {
+      x: "100%",
+      opacity: 0,
+      transition: { duration: 0.3 },
+    },
+    open: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut",
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    closed: { opacity: 0, x: 20 },
+    open: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.3 },
+    },
+  };
+
   return (
-    <header className="">
-      <nav className="flex container h-16  items-center justify-between">
-        <Link href="/" scroll={false}>
-          <p className="text-2xl font-bold text-primary">BookOne</p>
-        </Link>
-        <ul className="flex gap-8 max-md:hidden mix-blend-difference">
-          {navDetails.map(({ name, href, id }) => (
-            <li
-              className="font-sans text-[16px] pat font-normal leading-[150%] tracking-normal"
-              key={id}
-            >
-              <Link scroll={false} href={href}>
-                {name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        <div className="flex gap-4 items-center">
-          <Link href="/#contact">
-            <Btn label="Get a free consultation" />
-          </Link>
-          {menuOpen ? (
-            <button
-              className="md:hidden cursor-pointer text-black"
-              onClick={() => {
-                window.innerHeight == "100vh";
-                setMenuOpen(!menuOpen);
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="28px"
-                viewBox="0 -960 960 960"
-                width="32px"
-                fill="currentcolor"
-              >
-                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
-              </svg>
-            </button>
-          ) : (
-            <button
-              className="md:hidden cursor-pointer text-black"
-              onClick={() => {
-                setMenuOpen(!menuOpen);
-              }}
-            >
-              <svg
-                width="32px"
-                height="28px"
-                viewBox="0 0 24 24"
-                fill="currentcolor"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4 18L20 18"
-                  stroke="#000000"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M4 12L20 12"
-                  stroke="#000000"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M4 6L20 6"
-                  stroke="#000000"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
-          )}
-        </div>
-      </nav>
-
-      <nav
-        className={`
-      ${menuOpen ? " h-screen w-full md:hidden " : " hidden"}`}
+    <header className="fixed top-0 left-0 right-0 z-50">
+      <motion.nav
+        className={`transition-all duration-300 ${
+          scrolled
+            ? "bg-white/80 backdrop-blur-md border-b border-gray-200/50 shadow-sm"
+            : "bg-transparent"
+        }`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <ul className=" container">
-          {navDetails.map(({ name, href, id }) => (
-            <Link key={id} onClick={() => setMenuOpen(false)} href={href}>
-              {" "}
-              <ul className="flex hover:shadow py-2 border-t items-center justify-between w-full">
-                <li
-                  className="font-sans text-[18px] font-normal leading-[150%] tracking-normal"
-                  key={id}
-                >
-                  {name}
-                </li>
+        <div className="container mx-auto px-6 md:px-8">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <motion.a
+              href="/"
+              className="text-2xl md:text-3xl font-bold text-gray-800 hover:text-gray-600 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              BookOne
+            </motion.a>
 
-                <button className="w-7 h-7">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24px"
-                    viewBox="0 -960 960 960"
-                    width="24px"
-                    fill="#2e073f"
+            {/* Desktop Navigation */}
+            <ul className="hidden md:flex items-center space-x-8">
+              {navDetails.map(({ name, href, id }) => (
+                <motion.li key={id}>
+                  <a
+                    href={href}
+                    className="text-gray-700 hover:text-gray-900 font-medium transition-colors relative group"
                   >
-                    <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
-                  </svg>
-                </button>
-              </ul>
-            </Link>
-          ))}
-          <Link href="/blogs">
-            <ul className="flex hover:shadow border-t py-2 items-center justify-between w-full">
-              <li className="font-sans text-[18px] font-normal leading-[150%] tracking-normal">
-                More
-              </li>
-              <Image
-                src="/chevron-right.svg"
-                alt="chevron right"
-                height={28}
-                width={28}
-              />
+                    {name}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
+                  </a>
+                </motion.li>
+              ))}
             </ul>
-          </Link>
-          <Link href="/blogs">
-            <ul className="flex hover:shadow border-y py-2 items-center justify-between w-full">
-              <li className="font-sans text-[18px] font-normal leading-[150%] tracking-normal">
-                Blogs
-              </li>
-              <Image
-                src="/chevron-right.svg"
-                alt="chevron right"
-                height={28}
-                width={28}
-              />
-            </ul>
-          </Link>
-        </ul>
 
-        <div className="mt-12 container">
-          <h4>follow us on all platform</h4>
-          <div className="flex mt-3 gap-6 items-center">
-            {socialIcons.map(({ src, alt, href }, index) => (
-              <Link href={href} key={index}>
-                <Image src={src} alt={alt} height={28} width={28} />
-              </Link>
-            ))}
+            {/* CTA & Hamburger */}
+            <div className="flex items-center space-x-4">
+              <motion.a
+                href="#contact"
+                className="hidden sm:inline-flex bg-gray-800 text-white px-6 py-3 rounded-full hover:bg-gray-700 transition-colors text-sm font-medium"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Get a free consultation
+              </motion.a>
+
+              {/* Hamburger */}
+              <motion.button
+                className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                onClick={() => setMenuOpen(!menuOpen)}
+                whileTap={{ scale: 0.95 }}
+              >
+                <motion.div
+                  className="w-6 h-5 flex flex-col justify-between"
+                  animate={menuOpen ? "open" : "closed"}
+                >
+                  <motion.span
+                    className="w-full h-0.5 bg-gray-800 origin-center"
+                    variants={{
+                      closed: { rotate: 0, y: 0 },
+                      open: { rotate: 45, y: 9 },
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <motion.span
+                    className="w-full h-0.5 bg-gray-800"
+                    variants={{
+                      closed: { opacity: 1 },
+                      open: { opacity: 0 },
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <motion.span
+                    className="w-full h-0.5 bg-gray-800 origin-center"
+                    variants={{
+                      closed: { rotate: 0, y: 0 },
+                      open: { rotate: -45, y: -9 },
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
+              </motion.button>
+            </div>
           </div>
         </div>
-      </nav>
+      </motion.nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            {/* Backdrop Fullscreen Blur */}
+            <motion.div
+              className="fixed inset-0 bg-black/40 backdrop-blur-lg z-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMenuOpen(false)}
+            />
+
+            {/* Mobile Sidebar */}
+            <motion.div
+              className="fixed top-20 right-0 h-full w-full bg-white/40 backdrop-blur-md z-50 md:hidden"
+              variants={menuVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+            >
+              <div className="p-8 ">
+                <div className="space-y-6">
+                  {navDetails.map(({ name, href, id }) => (
+                    <motion.div key={id} variants={itemVariants}>
+                      <a
+                        href={href}
+                        onClick={() => setMenuOpen(false)}
+                        className="flex items-center justify-between py-4 border-b border-gray-200/50 group"
+                      >
+                        <span className="text-lg font-medium text-gray-800 group-hover:text-gray-600 transition-colors">
+                          {name}
+                        </span>
+                        <motion.div
+                          className="text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all"
+                          whileHover={{ x: 4 }}
+                        >
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M9 6L15 12L9 18"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </motion.div>
+                      </a>
+                    </motion.div>
+                  ))}
+
+                  {/* Blog Link */}
+                  <motion.div variants={itemVariants}>
+                    <a
+                      href="/blogs"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center justify-between py-4 border-b border-gray-200/50 group"
+                    >
+                      <span className="text-lg font-medium text-gray-800 group-hover:text-gray-600 transition-colors">
+                        Blogs
+                      </span>
+                      <motion.div
+                        className="text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all"
+                        whileHover={{ x: 4 }}
+                      >
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9 6L15 12L9 18"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </motion.div>
+                    </a>
+                  </motion.div>
+                </div>
+
+                {/* CTA */}
+                <motion.div variants={itemVariants} className="mt-8">
+                  <a
+                    href="#contact"
+                    onClick={() => setMenuOpen(false)}
+                    className="w-full inline-flex items-center justify-center bg-gray-800 text-white px-6 py-4 rounded-full hover:bg-gray-700 transition-colors font-medium"
+                  >
+                    Get a free consultation
+                  </a>
+                </motion.div>
+
+                {/* Social Links */}
+                <motion.div variants={itemVariants} className="mt-12">
+                  <h4 className="text-sm font-medium text-gray-600 mb-4 uppercase tracking-wider">
+                    Follow us on all platforms
+                  </h4>
+                  <div className="flex space-x-6">
+                    {socialIcons.map(({ src, alt, href }, index) => (
+                      <motion.a
+                        key={index}
+                        href={href}
+                        className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <span className="text-gray-600 text-sm font-medium">
+                          {alt.charAt(0)}
+                        </span>
+                      </motion.a>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

@@ -1,16 +1,80 @@
 "use client";
+import React, { useState, useEffect } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
-import React, { useState } from "react";
-import platform from "platform";
-import Btn from "../Btn.jsx";
-import { contact } from "../../Commons/details.js";
+// Mock contact data
+const contact = [
+  {
+    src: "/email-icon.svg",
+    label: "Email Us",
+    description: "Send us an email and we'll get back to you within 24 hours",
+    value: "hello@bookone.com",
+  },
+  {
+    src: "/phone-icon.svg",
+    label: "Call Us",
+    description: "Speak directly with our team during business hours",
+    value: "+1 (555) 123-4567",
+  },
+  {
+    src: "/location-icon.svg",
+    label: "Visit Us",
+    description: "Come visit our office for a face-to-face consultation",
+    value: "123 Business Ave, City, State 12345",
+  },
+];
 
 function Contact() {
-  const [data, setData] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    service: "Website Design & Building",
+    message: "",
+    terms: false,
+  });
+  const [responseMsg, setResponseMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [pending, setPending] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [focusedField, setFocusedField] = useState("");
+  const [formProgress, setFormProgress] = useState(0);
 
-  // Fetch system/user info
+  // Mouse tracking for interactive elements
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 100, damping: 30 });
+  const springY = useSpring(mouseY, { stiffness: 100, damping: 30 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+
+      const x = (clientX / innerWidth - 0.5) * 2;
+      const y = (clientY / innerHeight - 0.5) * 2;
+
+      setMousePosition({ x, y });
+      mouseX.set(x * 30);
+      mouseY.set(y * 30);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  // Calculate form progress
+  useEffect(() => {
+    const fields = ["name", "email", "message"];
+    const completedFields = fields.filter(
+      (field) => formData[field].trim() !== ""
+    ).length;
+    const termsProgress = formData.terms ? 1 : 0;
+    setFormProgress(
+      ((completedFields + termsProgress) / (fields.length + 1)) * 100
+    );
+  }, [formData]);
+
+  // Get system info
   async function getSystemInfo() {
     let country = "";
     try {
@@ -24,27 +88,20 @@ function Contact() {
     return {
       userAgent: navigator.userAgent,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      os: platform.os?.toString() || "",
-      manufacturer: platform.manufacturer || "",
-      systemName: platform.name || "",
       country,
     };
   }
 
   // Handle form submission
-  async function handleChange(event) {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setPending(true);
-    setData("");
+    setResponseMsg("");
     setErrorMsg("");
-
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const obj = Object.fromEntries(formData.entries());
 
     try {
       const systemInfo = await getSystemInfo();
-      const payload = { ...obj, systemInfo };
+      const payload = { ...formData, systemInfo };
 
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -55,166 +112,565 @@ function Contact() {
       if (!res.ok) throw new Error("Network error");
 
       const resData = await res.json();
-      setData(resData.message || "Message sent successfully!");
-      form.reset(); // Optional: clear the form
+      setResponseMsg(resData.message || "Message sent successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        service: "Website Design & Building",
+        message: "",
+        terms: false,
+      });
     } catch (error) {
       setErrorMsg("Something went wrong. Please try again.");
     } finally {
       setPending(false);
     }
-  }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const floatingAnimation = {
+    y: [-10, 10, -10],
+    transition: {
+      duration: 8,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  };
 
   return (
     <section
       id="contact"
-      className="py-28 bg-light"
-      aria-label="Contact Section"
+      className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50 relative overflow-hidden py-20"
     >
-      {/* Intro */}
-      <section className="py-20 text-center">
-        <div className="container max-w-2xl mx-auto">
-          <h2 className="h2 mb-4">
-            Ready to bring your <span className="text-primary">business</span>{" "}
-            online?
-          </h2>
-          <p className="pat mb-8">
-            Let's talk about how BookOne can help you launch smarter and faster.
-          </p>
-        </div>
-      </section>
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-purple-300/30 to-transparent rounded-full blur-3xl"
+          style={{
+            x: springX,
+            y: springY,
+          }}
+          animate={floatingAnimation}
+        />
+        <motion.div
+          className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-br from-indigo-300/30 to-transparent rounded-full blur-2xl"
+          style={{
+            x: mousePosition.x * -20,
+            y: mousePosition.y * -20,
+          }}
+          animate={{
+            ...floatingAnimation,
+            transition: { ...floatingAnimation.transition, delay: 2 },
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-violet-200/20 to-transparent rounded-full blur-3xl"
+          style={{
+            x: mousePosition.x * 15,
+            y: mousePosition.y * 15,
+          }}
+          animate={{
+            ...floatingAnimation,
+            transition: { ...floatingAnimation.transition, delay: 4 },
+          }}
+        />
 
-      <div className="container flex max-md:flex-col gap-8">
-        {/* Form */}
-        <form
-          onSubmit={handleChange}
-          className="flex-col flex max-w-xl w-full bg-white px-12 py-8 shadow-md rounded-xl"
-          autoComplete="on"
-        >
-          <div className="mb-8">
-            <h3 className="h3">Contact us</h3>
-            <p className="pat">Get a free consultation from us</p>
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Name *
-            </label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              required
-              defaultValue="Emmanuel Onosode"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary"
-            />
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Email *
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              required
-              defaultValue="emmanuelonosode4@gmail.com"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary"
-            />
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="service"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              How can we help?
-            </label>
-            <select
-              id="service"
-              name="service"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary"
-            >
-              <option>Website Design & Building</option>
-              <option>AI Automation</option>
-              <option>Search Engine Optimization (SEO)</option>
-              <option>Website Optimization (CRO)</option>
-              <option>General Inquiry</option>
-            </select>
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="message"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Message *
-            </label>
-            <textarea
-              name="message"
-              id="message"
-              required
-              defaultValue="More Money In Jesus Name"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary"
-            ></textarea>
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="terms">
-              <input
-                type="checkbox"
-                name="terms"
-                id="terms"
-                required
-                className="mr-2"
-              />
-              I accept the terms and conditions *
-            </label>
-          </div>
-
-          <div className="mb-4" aria-live="polite">
-            {data && <p className="text-green-600">{data}</p>}
-            {errorMsg && <p className="text-red-600">{errorMsg}</p>}
-          </div>
-
-          <Btn type="submit" label={pending ? "Sending..." : "Submit"} sec />
-        </form>
-
-        {/* Map */}
-        <section className="w-full" aria-label="Business Location Map">
-          <iframe
-            title="Business Location"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6748.559397877792!2d4.601460247410117!3d7.768472024886876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1037882cc5d1c8a9%3A0xa6db63516ea57615!2sUniosun%20Main%20Gate!5e0!3m2!1sen!2sng!4v1747172774614!5m2!1sen!2sng"
-            width="100%"
-            height="100%"
-            allowFullScreen
-            loading="lazy"
-            className="rounded-xl shadow-lg border"
+        {/* Interactive floating particles */}
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-purple-400/40 rounded-full"
+            style={{
+              left: `${20 + Math.random() * 60}%`,
+              top: `${20 + Math.random() * 60}%`,
+              x: mousePosition.x * (10 + i * 3),
+              y: mousePosition.y * (10 + i * 3),
+            }}
+            animate={{
+              opacity: [0.2, 0.8, 0.2],
+              scale: [0.5, 1.2, 0.5],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+            }}
+            whileHover={{ scale: 2, opacity: 1 }}
           />
-        </section>
+        ))}
       </div>
 
-      {/* Contact Info Cards */}
-      <section className="py-28">
-        <div className="container grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-12">
-          {contact.map(({ src, label, description, value }, index) => (
-            <div key={index} className="shadow-sm bg-white p-8 rounded-md">
-              <img src={src} alt={`${label} icon`} className="w-6 h-6" />
-              <h4 className="mt-6 text-lg font-semibold">{label}</h4>
-              <p className="text-[14px] mb-6 mt-4 text-gray-700 leading-[150%]">
-                {description}
-              </p>
-              <p className="pat">{value}</p>
+      {/* Header Section */}
+      <motion.div
+        className="container mx-auto px-6 md:px-8 text-center mb-16 relative z-10"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <motion.h2
+          variants={itemVariants}
+          className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-800 mb-6 leading-tight"
+        >
+          Ready to bring your{" "}
+          <motion.span
+            className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600"
+            whileHover={{
+              backgroundImage:
+                "linear-gradient(45deg, #6b46c1, #8b5cf6, #a855f7)",
+              transition: { duration: 0.3 },
+            }}
+          >
+            business
+          </motion.span>{" "}
+          online?
+        </motion.h2>
+        <motion.p
+          variants={itemVariants}
+          className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed"
+        >
+          Let's talk about how BookOne can help you launch smarter and faster.
+          We're here to transform your digital presence.
+        </motion.p>
+      </motion.div>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-6 md:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20 relative overflow-hidden">
+              {/* Form background gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent pointer-events-none" />
+
+              {/* Progress indicator */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gray-200 rounded-t-3xl overflow-hidden">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-purple-500 to-indigo-500"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${formProgress}%` }}
+                  transition={{ duration: 0.5 }}
+                />
+              </div>
+
+              <div className="relative z-10">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="mb-8"
+                >
+                  <h3 className="text-3xl font-light text-gray-800 mb-3">
+                    Get in Touch
+                  </h3>
+                  <p className="text-gray-600">
+                    Get a free consultation from our experts
+                  </p>
+                  <div className="text-sm text-purple-600 mt-2">
+                    Form {Math.round(formProgress)}% complete
+                  </div>
+                </motion.div>
+
+                <div className="space-y-6">
+                  {/* Name Field */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className="relative"
+                  >
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Name *
+                    </label>
+                    <motion.input
+                      type="text"
+                      name="name"
+                      id="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      onFocus={() => setFocusedField("name")}
+                      onBlur={() => setFocusedField("")}
+                      required
+                      className="w-full px-4 py-4 bg-white/50 backdrop-blur-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-500"
+                      placeholder="Your full name"
+                      whileFocus={{ scale: 1.02 }}
+                    />
+                    {focusedField === "name" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="absolute -top-2 right-2 w-4 h-4 bg-purple-500 rounded-full"
+                      />
+                    )}
+                  </motion.div>
+
+                  {/* Email Field */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    className="relative"
+                  >
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Email *
+                    </label>
+                    <motion.input
+                      type="email"
+                      name="email"
+                      id="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      onFocus={() => setFocusedField("email")}
+                      onBlur={() => setFocusedField("")}
+                      required
+                      className="w-full px-4 py-4 bg-white/50 backdrop-blur-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-500"
+                      placeholder="your.email@example.com"
+                      whileFocus={{ scale: 1.02 }}
+                    />
+                    {focusedField === "email" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="absolute -top-2 right-2 w-4 h-4 bg-purple-500 rounded-full"
+                      />
+                    )}
+                  </motion.div>
+
+                  {/* Service Field */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                    className="relative"
+                  >
+                    <label
+                      htmlFor="service"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      How can we help?
+                    </label>
+                    <motion.select
+                      name="service"
+                      id="service"
+                      value={formData.service}
+                      onChange={handleInputChange}
+                      onFocus={() => setFocusedField("service")}
+                      onBlur={() => setFocusedField("")}
+                      className="w-full px-4 py-4 bg-white/50 backdrop-blur-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300 text-gray-800"
+                      whileFocus={{ scale: 1.02 }}
+                    >
+                      <option>Website Design & Building</option>
+                      <option>AI Automation</option>
+                      <option>Search Engine Optimization (SEO)</option>
+                      <option>Website Optimization (CRO)</option>
+                      <option>General Inquiry</option>
+                    </motion.select>
+                    {focusedField === "service" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="absolute -top-2 right-2 w-4 h-4 bg-purple-500 rounded-full"
+                      />
+                    )}
+                  </motion.div>
+
+                  {/* Message Field */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                    className="relative"
+                  >
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Message *
+                    </label>
+                    <motion.textarea
+                      name="message"
+                      id="message"
+                      rows="5"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      onFocus={() => setFocusedField("message")}
+                      onBlur={() => setFocusedField("")}
+                      required
+                      className="w-full px-4 py-4 bg-white/50 backdrop-blur-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-500 resize-none"
+                      placeholder="Tell us about your project..."
+                      whileFocus={{ scale: 1.02 }}
+                    />
+                    {focusedField === "message" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="absolute -top-2 right-2 w-4 h-4 bg-purple-500 rounded-full"
+                      />
+                    )}
+                  </motion.div>
+
+                  {/* Terms Checkbox */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.7 }}
+                    className="flex items-start space-x-3"
+                  >
+                    <motion.input
+                      type="checkbox"
+                      name="terms"
+                      id="terms"
+                      checked={formData.terms}
+                      onChange={handleInputChange}
+                      required
+                      className="mt-1 w-4 h-4 text-purple-500 border-gray-300 rounded focus:ring-purple-400"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="text-sm text-gray-600 leading-relaxed"
+                    >
+                      I accept the{" "}
+                      <motion.a
+                        href="/terms"
+                        className="text-purple-500 hover:text-purple-600 transition-colors"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        terms and conditions
+                      </motion.a>{" "}
+                      and{" "}
+                      <motion.a
+                        href="/privacy"
+                        className="text-purple-500 hover:text-purple-600 transition-colors"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        privacy policy
+                      </motion.a>
+                      *
+                    </label>
+                  </motion.div>
+
+                  {/* Status Messages */}
+                  {(responseMsg || errorMsg) && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`p-4 rounded-xl ${
+                        responseMsg
+                          ? "bg-green-50 text-green-700 border border-green-200"
+                          : "bg-red-50 text-red-700 border border-red-200"
+                      }`}
+                    >
+                      {responseMsg || errorMsg}
+                    </motion.div>
+                  )}
+
+                  {/* Submit Button */}
+                  <motion.button
+                    type="button"
+                    onClick={handleSubmit}
+                    disabled={pending || !formData.terms}
+                    className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 px-8 rounded-xl font-medium text-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.8 }}
+                  >
+                    <motion.div
+                      className="absolute inset-0 bg-white/20"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: "100%" }}
+                      transition={{ duration: 0.6 }}
+                    />
+                    {pending ? (
+                      <span className="inline-flex items-center relative z-10">
+                        <motion.svg
+                          className="-ml-1 mr-3 h-5 w-5 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          animate={{ rotate: 360 }}
+                          transition={{
+                            duration: 1,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </motion.svg>
+                        Sending Message...
+                      </span>
+                    ) : (
+                      <span className="relative z-10">Send Message</span>
+                    )}
+                  </motion.button>
+                </div>
+              </div>
             </div>
-          ))}
+          </motion.div>
+
+          {/* Contact Info Cards */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mb-8"
+            >
+              <h3 className="text-2xl font-light text-gray-800 mb-4">
+                Let's Connect
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Choose the best way to reach us. We're here to help bring your
+                vision to life.
+              </p>
+            </motion.div>
+
+            {contact.map(({ src, label, description, value }, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="bg-white/60 backdrop-blur-xl rounded-2xl p-6 shadow-xl border border-white/30 cursor-pointer group transition-all duration-300 hover:shadow-2xl relative overflow-hidden"
+              >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  initial={false}
+                />
+                <div className="flex items-start space-x-4 relative z-10">
+                  <motion.div
+                    className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <span className="text-white font-bold text-lg">
+                      {label.charAt(0)}
+                    </span>
+                  </motion.div>
+                  <div className="flex-1">
+                    <h4 className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-gray-900 transition-colors">
+                      {label}
+                    </h4>
+                    <p className="text-sm text-gray-600 mb-3 leading-relaxed">
+                      {description}
+                    </p>
+                    <p className="text-purple-600 font-medium group-hover:text-purple-700 transition-colors">
+                      {value}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+
+            {/* Call to Action */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="bg-gradient-to-br from-purple-600 to-indigo-600 rounded-2xl p-8 text-white relative overflow-hidden"
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-transparent"
+                animate={{
+                  background: [
+                    "linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, transparent 100%)",
+                    "linear-gradient(225deg, rgba(99, 102, 241, 0.2) 0%, transparent 100%)",
+                    "linear-gradient(315deg, rgba(168, 85, 247, 0.2) 0%, transparent 100%)",
+                    "linear-gradient(45deg, rgba(99, 102, 241, 0.2) 0%, transparent 100%)",
+                  ],
+                }}
+                transition={{ duration: 4, repeat: Infinity }}
+              />
+              <div className="relative z-10">
+                <h4 className="text-xl font-semibold mb-3">Ready to Start?</h4>
+                <p className="text-purple-100 mb-6 leading-relaxed">
+                  Book a free 30-minute consultation call with our experts
+                  today.
+                </p>
+                <motion.button
+                  className="bg-white text-purple-600 px-6 py-3 rounded-full font-medium hover:bg-purple-50 transition-colors relative overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <motion.div
+                    className="absolute inset-0 bg-purple-100"
+                    initial={{ scale: 0 }}
+                    whileHover={{ scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <span className="relative z-10">Schedule Call</span>
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </div>
     </section>
   );
 }

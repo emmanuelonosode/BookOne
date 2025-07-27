@@ -4,7 +4,6 @@ import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion"; // Import motion and hooks from framer-motion
 import { process } from "../../Commons/details"; // Assuming this path is correct for your project
 import Image from "next/image";
-import Btn from "../Btn"; // Assuming this path is correct
 import Tagline from "../tagline"; // Assuming this path is correct
 
 function OurProcess() {

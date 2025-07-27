@@ -3,6 +3,8 @@
   "main": ".open-next/worker.js",
   "name": "bookone",
   "compatibility_date": "2025-03-25",
+  "routes": ["https://bookone.dev/*"],
+
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "directory": ".open-next/assets",

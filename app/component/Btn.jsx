@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-function Btn({ label, sec, className = "", type = "button" }) {
+function  Btn({ label, sec, className = "", type = "button" }) {
   const secondary = sec
     ? "bg-transparent text-purple-600 border-2 border-purple-600"
     : "bg-purple-600 text-white";

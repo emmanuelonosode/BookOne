@@ -2,18 +2,26 @@ import { sanity, urlFor } from "@/lib/sanity";
 import { blogBySlugQuery } from "@/lib/queries";
 import { PortableText } from "@portabletext/react";
 import { formatDistanceToNow } from "date-fns";
+import Image from "next/image";
 
 import { Metadata } from "next";
+
+// Add caching configuration
+export const revalidate = 3600; // Revalidate every hour
 
 const portableComponents = {
   types: {
     image: ({ value }) =>
       value && value.asset ? (
-        <img
+        <Image
           src={urlFor(value)}
           alt={value.alt || "Blog image"}
+          width={800}
+          height={600}
           className="my-6 rounded-lg shadow-md w-full max-w-2xl mx-auto"
-          loading="lazy"
+          priority={false}
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
         />
       ) : null,
   },
@@ -75,10 +83,14 @@ export default async function BlogDetailPage({ params }) {
       <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
       <div className="flex items-center gap-4 mb-6">
         {blog.author?.image && (
-          <img
+          <Image
             src={urlFor(blog.author.image)}
             alt={blog.author.name}
+            width={48}
+            height={48}
             className="w-12 h-12 rounded-full object-cover shadow-lg shadow-pink-50"
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
           />
         )}
         <div className="text-gray-700 text-base">
@@ -107,10 +119,15 @@ export default async function BlogDetailPage({ params }) {
         </div>
       )}
       {blog.mainImage && (
-        <img
+        <Image
           src={urlFor(blog.mainImage)}
           alt={blog.title}
+          width={1200}
+          height={400}
           className="mb-6 rounded-lg w-full max-h-96 object-cover"
+          priority={true}
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
         />
       )}
       <div className="prose prose-lg mb-8 max-w-none dark:prose-invert">

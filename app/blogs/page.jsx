@@ -1,5 +1,10 @@
 import { sanity, urlFor } from "@/lib/sanity";
 import { allCategoriesQuery, paginatedBlogsQuery } from "@/lib/queries";
+import Image from "next/image";
+import Link from "next/link";
+
+// Add caching configuration
+export const revalidate = 3600; // Revalidate every hour
 
 const PAGE_SIZE = 6;
 
@@ -109,16 +114,21 @@ export default async function BlogListPage(props) {
                 className="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row gap-6 hover:shadow-lg transition"
               >
                 {blog.mainImage && (
-                  <a
+                  <Link
                     href={`/blogs/${blog.slug.current}`}
                     className="md:w-1/3 block"
                   >
-                    <img
+                    <Image
                       src={urlFor(blog.mainImage)}
                       alt={blog.title}
+                      width={400}
+                      height={160}
                       className="rounded-lg w-full h-40 object-cover mb-4 md:mb-0"
+                      priority={false}
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                     />
-                  </a>
+                  </Link>
                 )}
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
@@ -152,10 +162,14 @@ export default async function BlogListPage(props) {
                   </div>
                   <div className="flex items-center gap-3 mt-4">
                     {blog.author?.image && (
-                      <img
+                      <Image
                         src={urlFor(blog.author.image)}
                         alt={blog.author.name}
+                        width={32}
+                        height={32}
                         className="w-8 h-8 rounded-full object-cover border"
+                        placeholder="blur"
+                        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                       />
                     )}
                     <a
@@ -175,7 +189,7 @@ export default async function BlogListPage(props) {
           {/* Pagination */}
           <div className="flex gap-2 mt-12 justify-center">
             {Array.from({ length: totalPages }, (_, i) => (
-              <a
+              <Link
                 key={i}
                 href={`?page=${i + 1}${
                   search ? `&search=${encodeURIComponent(search)}` : ""
@@ -189,7 +203,7 @@ export default async function BlogListPage(props) {
                 }`}
               >
                 {i + 1}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
