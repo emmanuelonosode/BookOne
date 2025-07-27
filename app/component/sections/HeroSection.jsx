@@ -90,23 +90,22 @@ function HeroSection() {
           <div className="space-y-8">
             <motion.div variants={itemVariants} className="space-y-6">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-gray-800 leading-tight">
-                Design That Feels.
-                <br />
+                Transform Your Business Online <br />
                 <span className="text-gray-600">
-                  Experiences That Resonate.
+                  with Our Digital Solutions.
                 </span>
               </h1>
 
               <p className="text-lg text-gray-600 max-w-lg leading-relaxed">
-                We blend creativity, emotion, and innovation to create digital
-                worlds that your audience can connect with — across screens,
-                dimensions, and interactions.
+                Attract quality leads, and achieve sustainable growth through
+                bespoke web design, advanced SEO, powerful AI automation, and
+                compelling content.
               </p>
             </motion.div>
 
             <motion.div variants={itemVariants}>
               <Btn
-                label="LET'S TALK"
+                label="Propel Your Business Forward"
                 className="bg-gray-800 text-white px-8 py-4 rounded-full hover:bg-gray-700 transition-colors flex items-center space-x-2 group"
               />
             </motion.div>
@@ -171,11 +170,11 @@ function HeroSection() {
               className="text-center space-y-4 max-w-md"
             >
               <p className="text-gray-600 leading-relaxed">
-                Whether through intuitive interfaces, immersive 3D, or bold
-                visual storytelling,
+                Whether through intuitive interfaces, immersive AI Automation,
+                or bold visual storytelling,
                 <span className="text-gray-800 font-medium">
                   {" "}
-                  we design moments that people don't just see — they feel.
+                  we design moments that people don't just see, they feel.
                 </span>
               </p>
 
@@ -184,10 +183,10 @@ function HeroSection() {
                   UI/UX
                 </span>
                 <span className="px-4 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
-                  3D VISUALIZATION
+                  AI Automation
                 </span>
                 <span className="px-4 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
-                  DEVELOPMENT
+                  SEO Optimization
                 </span>
                 <span className="px-4 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
                   +

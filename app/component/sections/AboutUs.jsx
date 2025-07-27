@@ -92,7 +92,7 @@ export default function AiAutomationSection({ className = "" }) {
             style={{ y: imageY }} // Apply parallax effect
           >
             <img
-              src="https://via.placeholder.com/600x400/6b46c1/ffffff?text=AI+Automation+Image" // Replace with your actual image URL
+              src="/ai.jpg" // Replace with your actual image URL
               alt="AI Automation for Business Transformation"
               width={600}
               height={400}
