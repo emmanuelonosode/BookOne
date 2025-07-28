@@ -76,23 +76,29 @@ export default function RootLayout({ children }) {
     <html lang="en" dir="ltr">
       <head>
         {/* Google Analytics Script (gtag.js) */}
-        <Script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive" // Loads after the page becomes interactive
-        />
-        <Script
-          id="google-analytics-init" // Unique ID for this inline script
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              // The 'config' call for the initial page view will be handled by the GoogleAnalytics client component
-            `,
-          }}
-        />
+        {GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script
+              id="google-analytics-init"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${GA_MEASUREMENT_ID}', {
+                    page_path: window.location.pathname,
+                  });
+                `,
+              }}
+            />
+          </>
+        )}
       </head>
       <body className={`${poppins.className} antialiased`}>
         <header
@@ -108,7 +114,10 @@ export default function RootLayout({ children }) {
         <footer role="contentinfo" aria-label="Footer">
           <Footer />
         </footer>
-        <GoogleAnalytics GA_MEASUREMENT_ID={GA_MEASUREMENT_ID} />
+
+        {GA_MEASUREMENT_ID && (
+          <GoogleAnalytics GA_MEASUREMENT_ID={GA_MEASUREMENT_ID} />
+        )}
 
         <CookieConsent />
       </body>
