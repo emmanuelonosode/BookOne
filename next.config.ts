@@ -1,3 +1,5 @@
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -5,7 +7,6 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
-
-import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 initOpenNextCloudflareForDev();
+
+export default nextConfig;

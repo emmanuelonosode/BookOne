@@ -1,6 +1,7 @@
 // app/layout.jsx or layout.tsx
 
 import { Prosto_One, Poppins, Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
 import CookieConsent from "../app/component/CookieConsentBoss";
 import "./globals.css";
 import Nav from "./component/sections/nav.jsx";
@@ -118,7 +119,9 @@ export default function RootLayout({ children }) {
         </footer>
 
         {GA_MEASUREMENT_ID && (
-          <GoogleAnalytics GA_MEASUREMENT_ID={GA_MEASUREMENT_ID} />
+          <Suspense fallback={null}>
+            <GoogleAnalytics GA_MEASUREMENT_ID={GA_MEASUREMENT_ID} />
+          </Suspense>
         )}
 
         <CookieConsent />
