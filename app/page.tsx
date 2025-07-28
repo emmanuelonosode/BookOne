@@ -3,7 +3,6 @@ import PortfolioPreview from "./component/sections/portfolio.jsx";
 import Service from "./component/sections/Service.jsx";
 import Testimonia from "./component/sections/Testimonia.jsx";
 import AboutUs from "./component/sections/AboutUs";
-// import OurProcess from "./component/sections/OurProcess.jsx";
 import HeroSection from "./component/sections/HeroSection.jsx";
 import FeaturedBlog from "./component/sections/featuredBlogs.jsx";
 import FAQ from "./component/sections/FAQ.jsx";
@@ -23,12 +22,9 @@ function HomePage() {
       <PortfolioPreview />
 
       <Testimonia />
-      {/* <OurProcess /> */}
       <AboutUs />
-      {/* <AboutSection /> */}
       <FeaturedBlog />
       <FAQ />
-      {/* <Stat/> */}
       <Contact />
     </main>
   );
