@@ -1,89 +1,19 @@
-"use client";
 import { sanity, urlFor } from "@/lib/sanity";
 import { projects } from "@/lib/queries";
-import React, { useRef, useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React from "react";
 import Btn from "@/app/component/Btn";
 import Image from "next/image";
+import Script from "next/script";
+import { Metadata } from "next";
 
-// --- Framer Motion Variants ---
-const headerTextVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  },
-};
-
-const cardContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      damping: 15,
-      stiffness: 100,
-    },
-  },
-};
-
-const contentItemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      damping: 12,
-      stiffness: 90,
-    },
-  },
-};
+// Add caching configuration
+export const revalidate = 3600; // Revalidate every hour
 
 // --- ProjectCard Component ---
 const ProjectCard = ({ project }) => {
-  const cardRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "end start"],
-  });
-  const imageY = useTransform(scrollYProgress, [0, 1], [-50, 50]);
-  const overlayVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.05,
-        duration: 0.5,
-      },
-    },
-  };
-
   return (
-    <motion.div
-      ref={cardRef}
+    <div
       className="group relative w-full h-150 rounded-md shadow-xl overflow-hidden cursor-pointer transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      whileHover={{ scale: 1.01 }}
       role="article"
       aria-labelledby={`project-title-${project.slug?.current}`}
       aria-describedby={`project-description-${project.slug?.current}`}
@@ -94,7 +24,7 @@ const ProjectCard = ({ project }) => {
         aria-label={`View details for ${project.title}`}
         title={`Learn more about ${project.title}`}
       >
-        <motion.div style={{ y: imageY }} className="absolute inset-0">
+        <div className="absolute inset-0">
           {project.mainImage?.asset?.url && (
             <Image
               src={project.mainImage.asset.url}
@@ -107,107 +37,201 @@ const ProjectCard = ({ project }) => {
               blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
             />
           )}
-        </motion.div>
-        <motion.div
-          className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 bg-black/60 text-white"
-          variants={overlayVariants}
-          initial="hidden"
-          whileHover="visible"
-        >
-          <motion.h3
+        </div>
+        <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 bg-black/60 text-white">
+          <h3
             id={`project-title-${project._id}`}
-            variants={contentItemVariants}
             className="text-2xl md:text-3xl font-semibold mb-2"
           >
             {project.title}
-          </motion.h3>
-          <motion.p
+          </h3>
+          <p
             id={`project-description-${project._id}`}
-            variants={contentItemVariants}
             className="text-sm md:text-base leading-relaxed mb-4"
           >
             {project.overview}
-          </motion.p>
-          <motion.span
-            variants={contentItemVariants}
+          </p>
+          <span
             className="inline-block text-blue-300 font-medium text-sm md:text-base"
             aria-hidden="true"
           >
             View Project &rarr;
-          </motion.span>
-        </motion.div>
+          </span>
+        </div>
       </a>
-    </motion.div>
+    </div>
   );
 };
 
 // --- PortfolioPage Component ---
-export default function PortfolioPage() {
-  const [allProjects, setAllProjects] = useState([]);
+export default async function PortfolioPage() {
+  const allProjects = await sanity.fetch(projects);
 
-  useEffect(() => {
-    sanity.fetch(projects).then(setAllProjects).catch(console.error);
-  }, []);
+  // Generate structured data for the portfolio page
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "BookOne Portfolio",
+    description:
+      "Showcasing our impactful work across various industries. Each project is a testament to our dedication to innovation and client success.",
+    url: `${baseUrl}/portfolio`,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: allProjects.map((project, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "CreativeWork",
+          name: project.title,
+          description: project.overview,
+          url: `${baseUrl}/portfolio/${project.slug?.current}`,
+          image: project.mainImage?.asset?.url,
+          creator: {
+            "@type": "Organization",
+            name: "BookOne",
+          },
+        },
+      })),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "BookOne",
+      logo: {
+        "@type": "ImageObject",
+        url: `${baseUrl}/logo.png`,
+      },
+    },
+  };
 
   return (
-    <section
-      id="portfolio-section"
-      className="min-h-screen bg-bgcolor py-22 px-4 sm:px-6 lg:px-8 font-inter text-gray-800 overflow-hidden"
-      aria-labelledby="portfolio-heading"
-    >
-      <div className="max-w-7xl mx-auto">
-        {/* Page Header */}
-        <div className="text-center mb-16">
-          <motion.h2
-            id="portfolio-heading"
-            variants={headerTextVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            className="h2 font-extrabold text-purple-800 mb-6 leading-tight inline-block"
-          >
-            Our Portfolio
-          </motion.h2>
-          <motion.p
-            variants={headerTextVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
-          >
-            Showcasing our impactful work across various industries. Each
-            project is a testament to our dedication to innovation and client
-            success.
-          </motion.p>
-        </div>
+    <>
+      <Script
+        id="portfolio-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
+      <section
+        id="portfolio-section"
+        className="min-h-screen bg-bgcolor py-22 px-4 sm:px-6 lg:px-8 font-inter text-gray-800 overflow-hidden"
+        aria-labelledby="portfolio-heading"
+      >
+        <div className="max-w-7xl mx-auto">
+          {/* Page Header */}
+          <div className="text-center mb-16">
+            <h2
+              id="portfolio-heading"
+              className="h2 font-extrabold text-purple-800 mb-6 leading-tight inline-block"
+            >
+              Our Portfolio
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Showcasing our impactful work across various industries. Each
+              project is a testament to our dedication to innovation and client
+              success.
+            </p>
+          </div>
 
-        {/* Projects Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
-          variants={cardContainerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          role="group"
-          aria-label="Other Projects"
-        >
-          {allProjects.map((port) => (
-            <motion.div key={port._id} className="mb-8">
-              <ProjectCard project={port} />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        <div className="text-center mt-16">
-          <a
-            href="/portfolio"
-            aria-label="View all our portfolio projects"
-            title="Explore our complete portfolio of work"
+          {/* Projects Grid */}
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            role="group"
+            aria-label="Portfolio Projects"
           >
-            <Btn label="Explore All Projects → " />
-          </a>
+            {allProjects.map((port) => (
+              <div key={port._id} className="mb-8">
+                <ProjectCard project={port} />
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-16">
+            <a
+              href="/portfolio"
+              aria-label="View all our portfolio projects"
+              title="Explore our complete portfolio of work"
+            >
+              <Btn label="Explore All Projects → " />
+            </a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
+}
+
+export async function generateMetadata() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
+
+  return {
+    title: "Portfolio | BookOne - Web Design, SEO & AI Automation Projects",
+    description:
+      "Explore our portfolio of successful projects in web design, SEO optimization, and AI automation. See how we help businesses grow with innovative digital solutions.",
+    keywords: [
+      "portfolio",
+      "web design projects",
+      "SEO projects",
+      "AI automation projects",
+      "website development",
+      "digital marketing",
+      "business automation",
+      "BookOne portfolio",
+      "Nigeria digital agency",
+      "client projects",
+      "case studies",
+    ],
+    authors: [{ name: "BookOne" }],
+    creator: "BookOne",
+    publisher: "BookOne",
+    classification: "Portfolio",
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    alternates: {
+      canonical: `${baseUrl}/portfolio`,
+    },
+    openGraph: {
+      title: "Portfolio | BookOne - Web Design, SEO & AI Automation Projects",
+      description:
+        "Explore our portfolio of successful projects in web design, SEO optimization, and AI automation. See how we help businesses grow with innovative digital solutions.",
+      type: "website",
+      url: `${baseUrl}/portfolio`,
+      siteName: "BookOne",
+      locale: "en_US",
+      images: [
+        {
+          url: `${baseUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: "BookOne Portfolio - Web Design, SEO & AI Automation Projects",
+          type: "image/png",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Portfolio | BookOne - Web Design, SEO & AI Automation Projects",
+      description:
+        "Explore our portfolio of successful projects in web design, SEO optimization, and AI automation.",
+      images: [`${baseUrl}/og-image.png`],
+      creator: "@EmmanuelOnosod1",
+      site: "@EmmanuelOnosod1",
+    },
+    other: {
+      "portfolio:category": "Web Design, SEO, AI Automation",
+      "portfolio:client_count": "30+",
+      "portfolio:project_types": "Websites, SEO Campaigns, AI Workflows",
+    },
+  };
 }
