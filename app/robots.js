@@ -1,5 +1,5 @@
 export default function robots() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.com";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
 
   return {
     rules: [
@@ -11,9 +11,9 @@ export default function robots() {
           "/portfolio",
           "/services",
           "/about",
-          "/contact",
-          "/pricing",
           "/privacy-policy",
+          "/cookies-policy",
+          "/terms-and-conditions",
           "/blogs",
         ],
         disallow: [
@@ -44,8 +44,10 @@ export default function robots() {
           "/portfolio",
           "/services",
           "/about",
-          "/contact",
           "/pricing",
+          "/privacy-policy",
+          "/cookies-policy",
+          "/terms-and-conditions",
           "/blogs",
         ],
         disallow: [
@@ -75,13 +77,13 @@ export default function robots() {
           "/portfolio",
           "/services",
           "/about",
-          "/contact",
           "/pricing",
+          "/privacy-policy",
+          "/cookies-policy",
+          "/terms-and-conditions",
           "/blogs",
         ],
         disallow: [
-          "/api/",
-          "/admin/",
           "/_next/",
           "/private/",
           "/auth/",
@@ -106,8 +108,10 @@ export default function robots() {
           "/portfolio",
           "/services",
           "/about",
-          "/contact",
           "/pricing",
+          "/privacy-policy",
+          "/cookies-policy",
+          "/terms-and-conditions",
           "/blogs",
         ],
         disallow: [
@@ -185,12 +189,8 @@ export default function robots() {
       },
     ],
 
-    // Sitemap locations
-    sitemap: [
-      `${baseUrl}/sitemap.xml`,
-      `${baseUrl}/sitemap-portfolio.xml`,
-      `${baseUrl}/sitemap-blogs.xml`,
-    ],
+    // Sitemap location
+    sitemap: `${baseUrl}/sitemap.xml`,
 
     // Host directive
     host: baseUrl,
