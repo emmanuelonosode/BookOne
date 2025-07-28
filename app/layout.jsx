@@ -46,8 +46,9 @@ export const metadata = {
     "online presence",
   ],
   openGraph: {
-    title: "BookOne Your Business",
-    description: "The leading business digital optimizer",
+    title: "BookOne | Website Design, SEO & AI Automation for Modern Brands",
+    description:
+      "Boost your online presence with BookOne, Nigeria's digital agency for website design, SEO optimization, AI automation, and content strategy. Grow smarter online.",
     url: "https://bookone.dev",
     siteName: "BookOne",
     images: [
@@ -55,7 +56,7 @@ export const metadata = {
         url: "https://bookone.dev/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "BookOne - The leading business digital optimizer",
+        alt: "BookOne - Website Design, SEO & AI Automation for Modern Brands",
       },
     ],
     locale: "en_US",
@@ -64,8 +65,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BookOne Your Business",
-    description: "The leading business digital optimizer",
+    title: "BookOne | Website Design, SEO & AI Automation for Modern Brands",
+    description:
+      "Boost your online presence with BookOne, Nigeria's digital agency for website design, SEO optimization, AI automation, and content strategy. Grow smarter online.",
     images: ["https://bookone.dev/og-image.jpg"],
     site: "@EmmanuelOnosod1",
   },
