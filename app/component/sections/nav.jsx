@@ -4,17 +4,29 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // Mock data - replace with actual imports
 const navDetails = [
-  { id: 1, name: "Home", href: "#home" },
-  { id: 2, name: "About", href: "#about" },
-  { id: 3, name: "Services", href: "#services" },
-  { id: 4, name: "Portfolio", href: "#portfolio" },
+  { id: 1, name: "Home", href: "/" },
+  { id: 2, name: "About", href: "/about" },
+  { id: 3, name: "Services", href: "/services" },
+  { id: 4, name: "Portfolio", href: "/portfolio" },
   { id: 5, name: "Contact", href: "#contact" },
 ];
 
 const socialIcons = [
-  { src: "/twitter-icon.svg", alt: "Twitter", href: "#twitter" },
-  { src: "/linkedin-icon.svg", alt: "LinkedIn", href: "#linkedin" },
-  { src: "/github-icon.svg", alt: "GitHub", href: "#github" },
+  {
+    src: "/social-1.svg",
+    alt: "Twitter",
+    href: "https://twitter.com/@Emmanuelonosod1",
+  },
+  {
+    src: "/social-2.svg",
+    alt: "LinkedIn",
+    href: "https://www.linkedin.com/emmanuelonosode",
+  },
+  {
+    src: "/social-3.svg",
+    alt: "GitHub",
+    href: "https://github.com/emmanuelonosode",
+  },
 ];
 
 function Nav() {
@@ -62,7 +74,7 @@ function Nav() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <header className="fixed top-0 backdrop-blur-lg left-0 right-0 z-50">
       <motion.nav
         className={`transition-all duration-300 ${
           scrolled
@@ -94,7 +106,7 @@ function Nav() {
                     className="text-gray-700 hover:text-gray-900 font-medium transition-colors relative group"
                   >
                     {name}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
                   </a>
                 </motion.li>
               ))}
@@ -268,9 +280,7 @@ function Nav() {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <span className="text-gray-600 text-sm font-medium">
-                          {alt.charAt(0)}
-                        </span>
+                        <img src={src} alt={alt} className="w-6 h-6" />
                       </motion.a>
                     ))}
                   </div>

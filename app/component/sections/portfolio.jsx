@@ -16,7 +16,7 @@ export default async function PortfolioPage() {
   return (
     <section
       id="portfolio-section" // Unique ID for the section
-      className="min-h-screen bg-bgcolor py-12 px-4 sm:px-6 lg:px-8 font-inter text-gray-800 overflow-hidden"
+      className="min-h-screen bg-bgcolor py-12 px-4 sm:px-6 lg:px-8  text-gray-800 overflow-hidden"
       aria-labelledby="portfolio-heading" // Links section to its main heading
     >
       <div className="max-w-7xl mx-auto">
@@ -24,7 +24,7 @@ export default async function PortfolioPage() {
         <div className="mb-16">
           <h2 // Changed h1 to h2 for semantic hierarchy within the section
             id="portfolio-heading" // ID for aria-labelledby
-            className="h2 font-extrabold max-w-2xl text-purple-800 mb-6 leading-tight inline-block" // Removed text-shadow-zinc-900 as it's not a standard Tailwind class
+            className=" font-light max-w-2xl text-5xl text-gray-800 mb-6 leading-tight inline-block" // Removed text-shadow-zinc-900 as it's not a standard Tailwind class
           >
             Our Success Stories: A Glimpse into Our Portfolio{" "}
           </h2>

@@ -5,6 +5,9 @@ import CookieConsent from "../app/component/CookieConsentBoss";
 import "./globals.css";
 import Nav from "./component/sections/nav.jsx";
 import Footer from "./component/sections/Footer.jsx";
+import Script from "next/script";
+import GoogleAnalytics from "../lib/gtag";
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -71,6 +74,26 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="ltr">
+      <head>
+        {/* Google Analytics Script (gtag.js) */}
+        <Script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive" // Loads after the page becomes interactive
+        />
+        <Script
+          id="google-analytics-init" // Unique ID for this inline script
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              // The 'config' call for the initial page view will be handled by the GoogleAnalytics client component
+            `,
+          }}
+        />
+      </head>
       <body className={`${poppins.className} antialiased`}>
         <header
           className="backdrop-blur-2xl w-full fixed z-20"
@@ -85,6 +108,7 @@ export default function RootLayout({ children }) {
         <footer role="contentinfo" aria-label="Footer">
           <Footer />
         </footer>
+        <GoogleAnalytics GA_MEASUREMENT_ID={GA_MEASUREMENT_ID} />
 
         <CookieConsent />
       </body>

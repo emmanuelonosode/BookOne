@@ -4,7 +4,7 @@ import Image from "next/image";
 export const metadata = {
   title: "About | BookOne",
   description:
-    "Learn about BookOne’s mission, story, and team behind our web design & development agency.",
+    "Learn about BookOne's mission, story, and team behind our web design & development agency.",
 };
 
 export default function AboutPage() {

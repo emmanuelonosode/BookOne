@@ -3,16 +3,16 @@ import PortfolioPreview from "./component/sections/portfolio.jsx";
 import Service from "./component/sections/Service.jsx";
 import Testimonia from "./component/sections/Testimonia.jsx";
 import AboutUs from "./component/sections/AboutUs";
-import OurProcess from "./component/sections/OurProcess.jsx";
+// import OurProcess from "./component/sections/OurProcess.jsx";
 import HeroSection from "./component/sections/HeroSection.jsx";
 import FeaturedBlog from "./component/sections/featuredBlogs.jsx";
 import FAQ from "./component/sections/FAQ.jsx";
 import Contact from "./component/sections/contact.jsx";
 
 export const metadata = {
-  title: "BookOne | Web Design, Development & Digital Agency",
+  title: "BookOne | Website Design, SEO & AI Automation for Modern Brands",
   description:
-    "BookOne is a digital agency specializing in web design, development, and digital transformation. Discover our services, portfolio, and insights.",
+    "Boost your online presence with BookOne, Nigeria's digital agency for website design, SEO optimization, AI automation, and content strategy. Grow smarter online.",
 };
 
 function HomePage() {
@@ -21,8 +21,9 @@ function HomePage() {
       <HeroSection />
       <Service />
       <PortfolioPreview />
+
       <Testimonia />
-      <OurProcess />
+      {/* <OurProcess /> */}
       <AboutUs />
       {/* <AboutSection /> */}
       <FeaturedBlog />

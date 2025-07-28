@@ -1,9 +1,7 @@
 // pages/api/robots.txt.ts
 
 const handler = (req, res) => {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL ||
-    "https://lkgdca7gsivoowsxmk5fxvbqjy.srv.us/";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
 
   const robotsTxt = `
 User-agent: *

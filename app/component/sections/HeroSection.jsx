@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import Btn from "../Btn";
+import { FancyCtaButton } from "../Btn";
 
 function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -89,7 +89,7 @@ function HeroSection() {
           {/* Left Content */}
           <div className="space-y-8">
             <motion.div variants={itemVariants} className="space-y-6">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-gray-800 leading-tight">
+              <h1 className="text-4xl md:text-6xl  font-light text-gray-800 ">
                 Transform Your Business Online <br />
                 <span className="text-gray-600">
                   with Our Digital Solutions.
@@ -104,10 +104,7 @@ function HeroSection() {
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <Btn
-                label="Propel Your Business Forward"
-                className="bg-gray-800 text-white px-8 py-4 rounded-full hover:bg-gray-700 transition-colors flex items-center space-x-2 group"
-              />
+              <FancyCtaButton text="Propel Your Business Forward" />
             </motion.div>
           </div>
 

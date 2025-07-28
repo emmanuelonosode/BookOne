@@ -1,28 +1,147 @@
-"use client"; // This directive ensures the component is rendered on the client side
+"use client";
 
 import React, { useRef } from "react";
+import { Chart, registerables } from "chart.js";
+import Tagline from "../tagline";
 import { motion, useScroll, useTransform } from "framer-motion";
-// Assuming you have SVG icon components or a utility for them
-// Replace these with your actual icon imports (e.g., from a custom /icons folder or a library like 'lucide-react', 'react-icons')
-import { Brain, Settings, ChartBar } from "lucide-react"; // Example: using lucide-react for icons
-// You might need to install lucide-react: npm install lucide-react
 
-// Optional: If you have a custom Tagline component like the one in AboutSection
-// import Tagline from "./Tagline"; // Adjust path if necessary
+// Register all Chart.js components (important for Doughnut chart, legends, tooltips etc.)
+Chart.register(...registerables);
 
-export default function AiAutomationSection({ className = "" }) {
+const RoiChart = ({ className }) => {
+  const chartRef = useRef(null);
+  const chartInstance = useRef(null);
+  const chartContainerRef = useRef(null);
+  const { scrollYProgress: chartScrollYProgress } = useScroll({
+    target: chartContainerRef,
+    offset: ["start end", "end start"],
+  });
+  const chartY = useTransform(chartScrollYProgress, [0, 1], [-50, 50]); // Subtle vertical parallax for the chart
+
+  React.useEffect(() => {
+    if (chartRef.current) {
+      const ctx = chartRef.current.getContext("2d");
+      if (ctx) {
+        if (chartInstance.current) {
+          chartInstance.current.destroy(); // Destroy existing chart before creating a new one
+        }
+        chartInstance.current = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: [
+              "Lead Generation",
+              "Conversion Optimization",
+              "Efficiency Gains",
+              "Brand Equity",
+            ],
+            datasets: [
+              {
+                label: "Contribution to ROI",
+                data: [40, 30, 20, 10],
+                backgroundColor: [
+                  "#6B46C1", // Primary Purple
+                  "#805AD5",
+                  "#9F7AEA",
+                  "#B794F4",
+                ],
+                borderColor: "#FFFFFF",
+                borderWidth: 4,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false, // Important for respecting container dimensions
+            cutout: "70%",
+            plugins: {
+              legend: {
+                position: "bottom",
+                labels: {
+                  padding: 20,
+                  font: {
+                    family: "'Inter', sans-serif",
+                  },
+                },
+              },
+              tooltip: {
+                titleFont: {
+                  family: "'Montserrat', sans-serif",
+                  weight: "bold",
+                  size: 14,
+                },
+                bodyFont: {
+                  family: "'Inter', sans-serif",
+                },
+                padding: 10,
+                cornerRadius: 4,
+                backgroundColor: "rgba(0,0,0,0.8)",
+              },
+            },
+          },
+        });
+      }
+    }
+    // Cleanup function: destroy chart instance on component unmount
+    return () => {
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+        chartInstance.current = null;
+      }
+    };
+  }, []); // Empty dependency array ensures it runs once on mount and cleans up on unmount
+
+  return (
+    <motion.div
+      ref={chartContainerRef}
+      style={{ y: chartY }} // Apply parallax to the chart container
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className={`chart-container h-80 md:h-96 max-w-lg mx-auto ${className}`}
+      aria-label="ROI Contribution Doughnut Chart"
+      role="img"
+    >
+      <canvas ref={chartRef} aria-label="ROI Chart Canvas"></canvas>
+    </motion.div>
+  );
+};
+
+export default function AboutSection({
+  storyHeadline = "How BookOne Began",
+  storyParagraph = "At BookOne, we believe every business deserves a strong online presence. Our journey started with a simple mission — to help small and growing businesses thrive through exceptional websites, smart automation, and digital strategies. What began as a passion for building beautiful, functional sites has grown into a full-service agency focused on innovation and results. From user-friendly designs to powerful backend systems, we create custom solutions that fuel real growth. We're not just developers — we're partners in your success.",
+
+  storyImageUrl = "https://s3-us-west-2.amazonaws.com/public.notion-static.com/1f88cc90-92fd-4ce4-bfcd-25daec2ffbbe/5e659275-5b7b-4ed9-97a4-0316fccd1403/person.png",
+  storyImageAlt = "A BookOne team member collaborating on a project",
+
+  statsHeadline = "Our Impact by the Numbers",
+  statsParagraph = "Since our start, BookOne has helped dozens of businesses elevate their digital presence. With a focus on quality, strategy, and measurable results, we continue to drive growth for our clients in Nigeria and beyond.",
+  statsData = [
+    { value: "30+", description: "Projects completed" },
+    { value: "120%", description: "Year-on-year growth" },
+    { value: "$75K+", description: "Value delivered" },
+    { value: "20+", description: "Satisfied clients" },
+  ],
+  statsImageUrl = "/chart.webp",
+  statsImageAlt = "Statistics chart showing BookOne achievements",
+  className = "",
+}) {
+  // Ref for the main section to track its scroll progress
   const sectionRef = useRef(null);
 
   // useScroll hook to track scroll progress within the section
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"], // Triggers when section enters/leaves viewport
+    offset: ["start end", "end start"],
   });
 
-  // Parallax for the main image (subtle up/down movement on scroll)
-  const imageY = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  // Parallax for story image
+  const storyImageY = useTransform(scrollYProgress, [0, 1], [-80, 80]);
 
-  // Variants for staggered animation of text blocks
+  // Parallax for stats image
+  const statsImageY = useTransform(scrollYProgress, [0, 1], [80, -80]);
+
+  // Variants for staggered animation of text blocks and stat items
   const textContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -47,28 +166,26 @@ export default function AiAutomationSection({ className = "" }) {
     },
   };
 
-  // Variants for staggered animation of the feature cards
-  const featureGridVariants = {
+  const statsGridVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2, // Delay between each feature card
-        delayChildren: 0.3, // Delay before the first feature card animates
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
       },
     },
   };
 
-  const featureCardVariants = {
-    hidden: { opacity: 0, scale: 0.85, y: 50 },
+  const statItemVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
       scale: 1,
-      y: 0,
       transition: {
         type: "spring",
-        damping: 12,
-        stiffness: 120,
+        damping: 10,
+        stiffness: 100,
       },
     },
   };
@@ -76,165 +193,182 @@ export default function AiAutomationSection({ className = "" }) {
   return (
     <motion.section
       ref={sectionRef}
-      className={`py-16 md:py-28 font-sans bg-gray-50 ${className} overflow-hidden relative`}
-      aria-label="BookOne AI Automation Solutions"
+      className={`py-16 md:py-28 font-sans bg-purple-50 ${className} overflow-hidden relative`}
+      aria-label="About BookOne Section"
       role="region"
     >
       <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-12 lg:gap-20 mb-16 md:mb-24">
-          {/* Left Column: Image with Parallax */}
-          <motion.div
-            className="md:w-1/2 flex justify-center order-2 md:order-1" // Order for mobile vs desktop
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            style={{ y: imageY }} // Apply parallax effect
-          >
-            <img
-              src="/ai.jpg" // Replace with your actual image URL
-              alt="AI Automation for Business Transformation"
-              width={600}
-              height={400}
-              className="w-full max-w-lg rounded-xl shadow-2xl object-cover transform hover:scale-[1.01] transition-transform duration-300 ease-in-out"
-              onError={(e) => {
-                e.currentTarget.src =
-                  "https://placehold.co/600x400/6B46C1/FFFFFF?text=AI+Image+Error"; // Fallback
-              }}
-              aria-label="A person interacting with AI interface, representing business automation"
-              role="img"
-            />
-          </motion.div>
-
-          {/* Right Column: Main Text Content */}
+        {/* About Us Story Section */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:space-x-12 mb-16 md:mb-24">
           <motion.div
             variants={textContainerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            className="md:w-1/2 text-center md:text-left order-1 md:order-2" // Order for mobile vs desktop
-            aria-label="AI Automation Description"
+            className="w-full md:w-1/2 mb-8 md:mb-0"
+            aria-label="Company Story"
           >
-            {/* Optional: If you have a Tagline component */}
-            {/* <motion.div variants={textItemVariants}>
-                <Tagline tag="AI Solutions" />
-            </motion.div> */}
-
+            <motion.div variants={textItemVariants}>
+              <Tagline tag="About Us" />
+            </motion.div>
             <motion.h2
               variants={textItemVariants}
-              className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-6"
+              className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight"
               tabIndex={0}
             >
-              Harness the Power of AI for Business Transformation
+              {storyHeadline}
             </motion.h2>
+          </motion.div>
+          <motion.div
+            variants={textContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="w-full md:w-1/2"
+            aria-label="Company Story Description"
+          >
             <motion.p
               variants={textItemVariants}
-              className="text-lg text-gray-700 leading-relaxed mb-8"
+              className="text-lg text-gray-700 leading-relaxed"
               tabIndex={0}
             >
-              At BookOne, we integrate artificial intelligence to redefine
-              efficiency and growth for your enterprise. From automating routine
-              tasks to deploying intelligent agents for customer support and
-              data analysis, our AI solutions are designed to optimize every
-              facet of your operations, freeing up your team to focus on
-              strategic initiatives and innovation.
+              {storyParagraph}
             </motion.p>
           </motion.div>
         </div>
 
-        {/* AI Solutions Features Grid */}
-        <div className="mt-16 md:mt-24 text-center">
-          <motion.h3
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+        {/* Story Image with Parallax */}
+        <div className="mb-16 md:mb-24 flex justify-center">
+          <motion.img
+            src={storyImageUrl}
+            alt={storyImageAlt}
+            width={800}
+            height={450}
+            style={{ y: storyImageY }} // Apply parallax
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-10"
-            tabIndex={0}
-          >
-            Our AI Solutions Include:
-          </motion.h3>
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full max-w-4xl rounded-xl shadow-lg md:aspect-video object-cover"
+            onError={(e) => {
+              e.currentTarget.src =
+                "https://placehold.co/800x450/6B46C1/FFFFFF?text=Image+Load+Error"; // Fallback
+            }}
+            aria-label="BookOne team member"
+            role="img"
+          />
+        </div>
 
+        {/* Statistics Section */}
+        <div
+          className="flex flex-col-reverse md:flex-row items-center md:space-x-12"
+          aria-label="Company Statistics"
+        >
+          {/* Stats Image with Parallax */}
+          <div className="w-full md:w-1/2 flex justify-center">
+            <motion.img
+              src={statsImageUrl}
+              alt={statsImageAlt}
+              // width={0}
+              // height={0}
+              // sizes="100vw"
+              style={{ y: statsImageY }} // Apply parallax
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="w-full  md:max-w-md rounded-xl shadow-lg object-cover"
+              onError={(e) => {
+                e.currentTarget.src =
+                  "https://placehold.co/600x600/805AD5/FFFFFF?text=Stats+Error"; // Fallback
+              }}
+              aria-label="BookOne statistics chart"
+              role="img"
+            />
+          </div>
           <motion.div
-            variants={featureGridVariants}
+            variants={textContainerVariants} // Reuse text container variants for headline/paragraph
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            aria-label="Key AI features"
+            viewport={{ once: true, amount: 0.3 }}
+            className="w-full md:w-1/2 max-w-[600px] mb-12 md:mb-0"
+            aria-label="Statistics Description"
           >
-            {/* AI Feature 1: Workflow Automation */}
-            <motion.div
-              variants={featureCardVariants}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 ease-in-out border border-transparent hover:border-primary/30"
+            <motion.h2
+              variants={textItemVariants}
+              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight"
               tabIndex={0}
             >
-              <div className="mb-4 flex justify-center">
-                <div className="icon-background p-4 rounded-full bg-primary/10">
-                  <Brain className="h-10 w-10 text-primary" strokeWidth={1.5} />
-                  {/* Replace with your actual icon component */}
-                </div>
-              </div>
-              <h4 className="text-xl font-semibold text-gray-900 mb-3">
-                Workflow Automation
-              </h4>
-              <p className="text-gray-600">
-                Automate repetitive tasks, data processing, and internal
-                communications to enhance productivity and significantly reduce
-                operational costs.
-              </p>
-            </motion.div>
-
-            {/* AI Feature 2: Intelligent Agent Setup */}
-            <motion.div
-              variants={featureCardVariants}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 ease-in-out border border-transparent hover:border-primary/30"
+              {statsHeadline}
+            </motion.h2>
+            <motion.p
+              variants={textItemVariants}
+              className="text-lg text-gray-700 leading-relaxed"
               tabIndex={0}
             >
-              <div className="mb-4 flex justify-center">
-                <div className="icon-background p-4 rounded-full bg-primary/10">
-                  <Settings
-                    className="h-10 w-10 text-primary"
-                    strokeWidth={1.5}
-                  />
-                  {/* Replace with your actual icon component */}
-                </div>
-              </div>
-              <h4 className="text-xl font-semibold text-gray-900 mb-3">
-                Intelligent Agent Setup
-              </h4>
-              <p className="text-gray-600">
-                Deploy custom AI agents for 24/7 customer support, efficient
-                lead qualification, and personalized user experiences that drive
-                satisfaction.
-              </p>
-            </motion.div>
-
-            {/* AI Feature 3: Data-Driven Insights */}
+              {statsParagraph}
+            </motion.p>
+            {/* Staggered stats data */}
             <motion.div
-              variants={featureCardVariants}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 ease-in-out border border-transparent hover:border-primary/30"
-              tabIndex={0}
+              variants={statsGridVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.4 }}
+              className="grid grid-cols-2 mt-8 gap-x-8 gap-y-6"
+              aria-label="Statistics Grid"
             >
-              <div className="mb-4 flex justify-center">
-                <div className="icon-background p-4 rounded-full bg-primary/10">
-                  <ChartBar
-                    className="h-10 w-10 text-primary"
-                    strokeWidth={1.5}
-                  />
-                  {/* Replace with your actual icon component */}
-                </div>
-              </div>
-              <h4 className="text-xl font-semibold text-gray-900 mb-3">
-                Data-Driven Insights
-              </h4>
-              <p className="text-gray-600">
-                Utilize AI to analyze vast datasets, uncover actionable
-                insights, and inform strategic business decisions for sustained,
-                exponential growth.
-              </p>
+              {statsData.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  variants={statItemVariants}
+                  className="flex flex-col"
+                  aria-label={stat.description}
+                  tabIndex={0}
+                >
+                  <h3 className="text-4xl md:text-5xl font-extrabold mb-1 text-primary">
+                    {stat.value}
+                  </h3>
+                  <p className="text-gray-600 text-lg">{stat.description}</p>
+                </motion.div>
+              ))}
             </motion.div>
           </motion.div>
+        </div>
+        {/* ROI Chart Section */}
+        <div
+          className="mt-16 grid lg:grid-cols-5 gap-8 items-center"
+          aria-label="ROI Chart Section"
+        >
+          <motion.div
+            variants={textContainerVariants} // Reuse text container variants
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="lg:col-span-2"
+            aria-label="Profitability Partner Description"
+          >
+            <motion.h3
+              variants={textItemVariants}
+              className="text-2xl font-bold text-gray-800 mb-4"
+              tabIndex={0}
+            >
+              Your Profitability Partner
+            </motion.h3>
+            <motion.p
+              variants={textItemVariants}
+              className="text-gray-600"
+              tabIndex={0}
+            >
+              At BookOne, every service is a component of a larger strategy
+              aimed at increasing your revenue and efficiency. This chart
+              illustrates our holistic approach, where every piece contributes
+              to your bottom line. We don't just build; we build for growth.
+            </motion.p>
+          </motion.div>
+          <div className="lg:col-span-3" aria-label="ROI Chart">
+            <RoiChart />{" "}
+            {/* RoiChart component already has its own framer-motion */}
+          </div>
         </div>
       </div>
     </motion.section>

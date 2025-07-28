@@ -294,7 +294,7 @@ function Contact() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
+                  transition={{ duration: 0.6 }}
                   className="mb-8"
                 >
                   <h3 className="text-3xl font-light text-gray-800 mb-3">
@@ -313,7 +313,7 @@ function Contact() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
+                    transition={{ duration: 0.6 }}
                     className="relative"
                   >
                     <label
@@ -348,7 +348,7 @@ function Contact() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
+                    transition={{ duration: 0.6 }}
                     className="relative"
                   >
                     <label
@@ -383,7 +383,7 @@ function Contact() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
+                    transition={{ duration: 0.6 }}
                     className="relative"
                   >
                     <label
@@ -421,7 +421,7 @@ function Contact() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
+                    transition={{ duration: 0.6 }}
                     className="relative"
                   >
                     <label
@@ -455,8 +455,8 @@ function Contact() {
                   {/* Terms Checkbox */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.7 }}
+                    whileInView={{ opacity: 1, y: 0, once: true }}
+                    transition={{ duration: 0.6 }}
                     className="flex items-start space-x-3"
                   >
                     <motion.input
@@ -518,8 +518,8 @@ function Contact() {
                     whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
+                    whileInView={{ opacity: 1, y: 0, once: true }}
+                    transition={{ duration: 0.6 }}
                   >
                     <motion.div
                       className="absolute inset-0 bg-white/20"
@@ -569,15 +569,15 @@ function Contact() {
           {/* Contact Info Cards */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0, once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
             className="space-y-6"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              whileInView={{ opacity: 1, y: 0, once: true }}
+              transition={{ duration: 0.6 }}
               className="mb-8"
             >
               <h3 className="text-2xl font-light text-gray-800 mb-4">
@@ -593,8 +593,8 @@ function Contact() {
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                whileInView={{ opacity: 1, y: 0, once: true }}
+                transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.02, y: -5 }}
                 className="bg-white/60 backdrop-blur-xl rounded-2xl p-6 shadow-xl border border-white/30 cursor-pointer group transition-all duration-300 hover:shadow-2xl relative overflow-hidden"
@@ -631,8 +631,9 @@ function Contact() {
             {/* Call to Action */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
+              whileInView={{ opacity: 1, y: 0, once: true }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
               className="bg-gradient-to-br from-purple-600 to-indigo-600 rounded-2xl p-8 text-white relative overflow-hidden"
             >
               <motion.div

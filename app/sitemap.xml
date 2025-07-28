@@ -1,8 +1,6 @@
 import { projects } from "../../Commons/projectData";
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_BASE_URL ||
-  "https://lkgdca7gsivoowsxmk5fxvbqjy.srv.us/";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
 
 const staticPages = [
   { url: baseUrl, changeFrequency: "weekly", priority: 1 },
