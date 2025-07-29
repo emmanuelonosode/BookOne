@@ -422,11 +422,13 @@ const BookOneServices = () => {
             </div>
           </div>
           <div className="animate-element fade-up mt-12">
-            <Btn
-              sec
-              className="bg-white max-sm:w-full"
-              label="Get Started Today"
-            />
+            <a href="/services" className="inline-block">
+              <Btn
+                sec
+                className="bg-white max-sm:w-full"
+                label="Get Started Today"
+              />
+            </a>
           </div>
         </div>
       </section>

@@ -1,6 +1,21 @@
-// import LegalPageLayout from "@/components/LegalPageLayout";
+import LegalPageLayout from "../component/LegalPage";
+import { generateMetaTags } from "../seo-config";
 
-import LegalPageLayout from "../component/LegalPage"
+export const metadata = generateMetaTags({
+  title: "Privacy Policy | BookOne - Data Protection & Privacy",
+  description:
+    "Learn how BookOne protects your privacy and personal data. Our comprehensive privacy policy explains how we collect, use, and safeguard your information.",
+  url: "/privacy-policy",
+  keywords: [
+    "privacy policy",
+    "data protection",
+    "personal data",
+    "BookOne privacy",
+    "GDPR compliance",
+    "data security",
+    "privacy rights",
+  ],
+});
 
 export default function PrivacyPolicyPage() {
   return (

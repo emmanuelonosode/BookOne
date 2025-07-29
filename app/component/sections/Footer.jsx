@@ -1,22 +1,21 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-
+import { FaTwitter, FaLinkedin, FaInstagram, FaGithub } from "react-icons/fa";
 // Mock data - replace with your actual imports
 const quickLinks = [
-  { href: "home", label: "Home" },
-  { href: "about", label: "About" },
-  { href: "services", label: "Services" },
-  { href: "portfolio", label: "Portfolio" },
-  { href: "contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 const resources = [
-  { href: "/blog", label: "Blog" },
-  { href: "/case-studies", label: "Case Studies" },
+  { href: "/blog", label: "Blogs" },
   { href: "/resources", label: "Resources" },
-  { href: "/support", label: "Support" },
-  { href: "/faq", label: "FAQ" },
+  { href: "/#support", label: "Support" },
+  { href: "/#faqs", label: "FAQs" },
 ];
 
 function Footer() {
@@ -120,7 +119,10 @@ function Footer() {
                       transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
                     >
                       <span className="text-white text-xs font-medium">
-                        {platform.charAt(0)}
+                        {platform === "Twitter" && <FaTwitter />}
+                        {platform === "LinkedIn" && <FaLinkedin />}
+                        {platform === "Instagram" && <FaInstagram />}
+                        {platform === "GitHub" && <FaGithub />}
                       </span>
                     </motion.a>
                   )
@@ -143,11 +145,11 @@ function Footer() {
                     viewport={{ once: true }}
                   >
                     <a
-                      href={`#${href}`}
+                      href={href}
                       className="block text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2 group"
                     >
                       <span className="inline-flex items-center">
-                        <span className="w-0 h-px bg-primary-400 transition-all duration-300 group-hover:w-4 mr-0 group-hover:mr-2"></span>
+                        <span className="w-0 h-px bg-white transition-all duration-300 group-hover:w-4 mr-0 group-hover:mr-1"></span>
                         {label}
                       </span>
                     </a>
@@ -175,7 +177,7 @@ function Footer() {
                       className="block text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2 group"
                     >
                       <span className="inline-flex items-center">
-                        <span className="w-0 h-px bg-primary transition-all duration-300 group-hover:w-4 mr-0 group-hover:mr-2"></span>
+                        <span className="w-0 h-px bg-white transition-all duration-300 group-hover:w-4 mr-0 group-hover:mr-1"></span>
                         {label}
                       </span>
                     </a>

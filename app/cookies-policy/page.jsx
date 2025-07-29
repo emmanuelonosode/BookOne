@@ -1,4 +1,21 @@
-import LegalPageLayout from "../component/LegalPage"
+import LegalPageLayout from "../component/LegalPage";
+import { generateMetaTags } from "../seo-config";
+
+export const metadata = generateMetaTags({
+  title: "Cookie Policy | BookOne - Cookie Usage & Management",
+  description:
+    "Understand how BookOne uses cookies to improve your experience. Learn about cookie types, management options, and your privacy choices.",
+  url: "/cookies-policy",
+  keywords: [
+    "cookie policy",
+    "cookies usage",
+    "website cookies",
+    "cookie management",
+    "privacy cookies",
+    "analytics cookies",
+    "BookOne cookies",
+  ],
+});
 
 export default function CookiePolicyPage() {
   return (

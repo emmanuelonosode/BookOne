@@ -1,5 +1,26 @@
-import { sanity,urlFor } from "@/lib/sanity";
+import { sanity, urlFor } from "@/lib/sanity";
 import { authorBySlugQuery, blogsByAuthorQuery } from "@/lib/queries";
+import { generateMetaTags } from "../../seo-config";
+
+export async function generateMetadata({ params }) {
+  const author = await sanity.fetch(authorBySlugQuery, { slug: params.slug });
+  if (!author) return {};
+
+  return generateMetaTags({
+    title: `${author.name} | Author at BookOne`,
+    description: `Read articles and insights by ${author.name}, expert author at BookOne. Discover professional content on web design, SEO, and AI automation.`,
+    url: `/authors/${params.slug}`,
+    keywords: [
+      author.name,
+      "BookOne author",
+      "web design expert",
+      "SEO specialist",
+      "AI automation expert",
+      "digital marketing",
+      "business automation",
+    ],
+  });
+}
 
 export default async function AuthorPage({ params }) {
   const author = await sanity.fetch(authorBySlugQuery, { slug: params.slug });

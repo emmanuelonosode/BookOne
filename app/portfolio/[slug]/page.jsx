@@ -124,7 +124,7 @@ export async function generateMetadata(props) {
           ]
         : [
             {
-              url: `${baseUrl}/og-image.png`,
+              url: `${baseUrl}/opengraph-image.png`,
               width: 1200,
               height: 630,
               alt: "BookOne Portfolio Project",
@@ -142,7 +142,7 @@ export async function generateMetadata(props) {
       card: imageUrl ? "summary_large_image" : "summary",
       title: project.title,
       description,
-      images: imageUrl ? [imageUrl] : [`${baseUrl}/og-image.png`],
+      images: imageUrl ? [imageUrl] : [`${baseUrl}/opengraph-image.png`],
       creator: "@EmmanuelOnosod1",
       site: "@EmmanuelOnosod1",
     },

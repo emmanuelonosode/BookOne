@@ -174,7 +174,6 @@ export default async function BlogDetailPage({ params }) {
               width={48}
               height={48}
               className="w-12 h-12 rounded-full object-cover shadow-lg shadow-pink-50"
-              placeholder="blur"
               blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
             />
           )}
@@ -350,7 +349,7 @@ export async function generateMetadata({ params }) {
           ]
         : [
             {
-              url: `${baseUrl}/og-image.png`,
+              url: `${baseUrl}/opengraph-image.png`,
               width: 1200,
               height: 630,
               alt: "BookOne Blog",
@@ -368,7 +367,7 @@ export async function generateMetadata({ params }) {
       card: imageUrl ? "summary_large_image" : "summary",
       title: blog.title,
       description,
-      images: imageUrl ? [imageUrl] : [`${baseUrl}/og-image.png`],
+      images: imageUrl ? [imageUrl] : [`${baseUrl}/opengraph-image.png`],
       creator: "@EmmanuelOnosod1",
       site: "@EmmanuelOnosod1",
     },

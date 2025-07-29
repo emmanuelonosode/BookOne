@@ -211,7 +211,7 @@ export async function generateMetadata() {
       locale: "en_US",
       images: [
         {
-          url: `${baseUrl}/og-image.png`,
+          url: `${baseUrl}/opengraph-image.png`,
           width: 1200,
           height: 630,
           alt: "BookOne Portfolio - Web Design, SEO & AI Automation Projects",
@@ -224,7 +224,7 @@ export async function generateMetadata() {
       title: "Portfolio | BookOne - Web Design, SEO & AI Automation Projects",
       description:
         "Explore our portfolio of successful projects in web design, SEO optimization, and AI automation.",
-      images: [`${baseUrl}/og-image.png`],
+      images: [`${baseUrl}/opengraph-image.png`],
       creator: "@EmmanuelOnosod1",
       site: "@EmmanuelOnosod1",
     },

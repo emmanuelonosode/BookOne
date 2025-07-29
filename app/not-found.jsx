@@ -1,4 +1,19 @@
 import Link from "next/link";
+import { generateMetaTags } from "./seo-config";
+
+export const metadata = generateMetaTags({
+  title: "404 - Page Not Found | BookOne",
+  description:
+    "The page you're looking for doesn't exist. Navigate back to BookOne's home page or explore our services and blog.",
+  url: "/404",
+  keywords: [
+    "404 error",
+    "page not found",
+    "BookOne",
+    "web design services",
+    "SEO services",
+  ],
+});
 
 export default function NotFound() {
   return (

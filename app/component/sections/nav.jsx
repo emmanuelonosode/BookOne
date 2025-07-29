@@ -4,10 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // Mock data - replace with actual imports
 const navDetails = [
-  { id: 1, name: "Home", href: "/" },
+  { id: 1, name: "Portfolio", href: "/portfolio" },
   { id: 2, name: "About", href: "/about" },
   { id: 3, name: "Services", href: "/services" },
-  { id: 4, name: "Portfolio", href: "/portfolio" },
+  { id: 4, name: "  Blogs", href: "/blogs" },
   { id: 5, name: "Contact", href: "#contact" },
 ];
 
@@ -74,12 +74,12 @@ function Nav() {
   };
 
   return (
-    <header className="fixed top-0 backdrop-blur-lg left-0 right-0 z-50">
+    <header className="fixed top-0 left-0 right-0 z-50">
       <motion.nav
         className={`transition-all duration-300 ${
           scrolled
-            ? "bg-white/80 backdrop-blur-md border-b border-gray-200/50 shadow-sm"
-            : "bg-transparent"
+            ? "bg-white/100 backdrop-blur-xl border-b border-gray-200/50 shadow-lg"
+            : "bg-white/40 backdrop-blur-xl"
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -170,7 +170,7 @@ function Nav() {
           <>
             {/* Backdrop Fullscreen Blur */}
             <motion.div
-              className="fixed inset-0 bg-black/40 backdrop-blur-lg z-40"
+              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -179,13 +179,18 @@ function Nav() {
 
             {/* Mobile Sidebar */}
             <motion.div
-              className="fixed top-20 right-0 h-full w-full bg-white/40 backdrop-blur-md z-50 md:hidden"
+              className="fixed top-20 right-0 h-screen w-full bg-white shadow-2xl border-l border-gray-200 z-50 md:hidden"
+              style={{
+                backdropFilter: "blur(10px)",
+                backgroundColor: "rgba(255, 255, 255, 0.98)",
+                WebkitBackdropFilter: "blur(10px)",
+              }}
               variants={menuVariants}
               initial="closed"
               animate="open"
               exit="closed"
             >
-              <div className="p-8 ">
+              <div className="p-8 bg-white/100 backdrop-blur-sm rounded-lg ">
                 <div className="space-y-6">
                   {navDetails.map(({ name, href, id }) => (
                     <motion.div key={id} variants={itemVariants}>

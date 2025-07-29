@@ -1,3 +1,21 @@
+import { generateMetaTags } from "../seo-config";
+
+export const metadata = generateMetaTags({
+  title: "Terms and Conditions | BookOne - Service Terms & Legal",
+  description:
+    "Read BookOne's terms and conditions. Understand our service terms, user rights, and legal agreements for using our digital services.",
+  url: "/terms-and-conditions",
+  keywords: [
+    "terms and conditions",
+    "service terms",
+    "legal agreement",
+    "BookOne terms",
+    "user agreement",
+    "service conditions",
+    "legal terms",
+  ],
+});
+
 export default function TermsOfServicePage() {
   return (
     <main className="max-w-4xl mx-auto px-6 py-22 text-gray-900">
@@ -7,11 +25,8 @@ export default function TermsOfServicePage() {
       <p className="mb-4">
         Please read these Terms of Service ("Terms", "Terms of Service")
         carefully before using the{" "}
-        <a
-          href="https://www.bookone.agency"
-          className="text-purple-700 underline"
-        >
-          www.bookone.agency
+        <a href="https://bookone.dev" className="text-purple-700 underline">
+          bookone.dev
         </a>{" "}
         website (the "Service") operated by BookOne ("us", "we", or "our").
       </p>

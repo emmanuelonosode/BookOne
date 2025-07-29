@@ -1,4 +1,22 @@
 import React from "react";
+import { generateMetaTags } from "../seo-config";
+
+export const metadata = generateMetaTags({
+  title: "Pricing Plans - Web Design, SEO & AI Automation Services | BookOne",
+  description:
+    "Choose from our flexible pricing plans for web design, SEO optimization, and AI automation services. Transparent pricing for businesses of all sizes.",
+  url: "/pricing",
+  keywords: [
+    "web design pricing",
+    "SEO services pricing",
+    "AI automation pricing",
+    "digital agency pricing",
+    "website development cost",
+    "business automation pricing",
+    "BookOne pricing",
+    "Nigeria digital services pricing",
+  ],
+});
 
 // Reusable PricingCard component
 const PricingCard = ({

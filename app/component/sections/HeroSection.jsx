@@ -77,7 +77,7 @@ function HeroSection() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br pt-16 from-gray-100 via-gray-50 to-white relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br pt-20 from-gray-100 via-gray-50 to-white relative overflow-hidden">
       {/* Main Content */}
       <motion.div
         className="container mx-auto px-6 md:px-8 relative z-10"

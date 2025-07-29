@@ -7,12 +7,26 @@ import HeroSection from "./component/sections/HeroSection.jsx";
 import FeaturedBlog from "./component/sections/featuredBlogs.jsx";
 import FAQ from "./component/sections/FAQ.jsx";
 import Contact from "./component/sections/contact.jsx";
+import { generateMetaTags } from "./seo-config";
 
-export const metadata = {
-  title: "BookOne | Website Design, SEO & AI Automation for Modern Brands",
+export const metadata = generateMetaTags({
+  title: "BookOne | Professional Web Design, SEO & AI Automation Services",
   description:
-    "Boost your online presence with BookOne, Nigeria's digital agency for website design, SEO optimization, AI automation, and content strategy. Grow smarter online.",
-};
+    "Transform your business with BookOne's expert web design, SEO optimization, and AI automation services. Nigeria's leading digital agency helping businesses grow online.",
+  url: "/",
+  keywords: [
+    "web design Nigeria",
+    "SEO services Nigeria",
+    "AI automation Nigeria",
+    "digital agency Nigeria",
+    "website development Nigeria",
+    "business automation",
+    "digital marketing Nigeria",
+    "web development agency",
+    "SEO optimization",
+    "AI workflow automation",
+  ],
+});
 
 function HomePage() {
   return (

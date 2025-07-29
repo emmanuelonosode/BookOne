@@ -80,7 +80,7 @@ async function sendConfirmationEmail(email) {
   </div>
 
   <div style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
-    <a href="https://lkgdca7gsivoowsxmk5fxvbqjy.srv.us/blogs" style="display: inline-block; background-color: #805AD5; color: #ffffff; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px; box-shadow: 0 4px 8px rgba(128, 90, 213, 0.3);">
+    <a href="https://bookone.dev/blogs" style="display: inline-block; background-color: #805AD5; color: #ffffff; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px; box-shadow: 0 4px 8px rgba(128, 90, 213, 0.3);">
       Explore Our Latest Blogs
     </a>
   </div>
@@ -89,8 +89,8 @@ async function sendConfirmationEmail(email) {
     <p>Sent from BookOne.</p>
     <p>&copy; 2025 BookOne. All rights reserved.</p>
     <p style="margin-top: 10px;">
-      <a href="https://lkgdca7gsivoowsxmk5fxvbqjy.srv.us/privacy-policy" style="color: #888; text-decoration: underline;">Privacy Policy</a> |
-      <a href="https://lkgdca7gsivoowsxmk5fxvbqjy.srv.us/terms-of-service" style="color: #888; text-decoration: underline;">Terms of Service</a>
+      <a href="https://bookone.dev/privacy-policy" style="color: #888; text-decoration: underline;">Privacy Policy</a> |
+      <a href="https://bookone.dev/terms-and-conditions" style="color: #888; text-decoration: underline;">Terms of Service</a>
     </p>
   </div>
 </div>

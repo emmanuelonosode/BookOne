@@ -1,5 +1,23 @@
 import React from "react";
 import Link from "next/link";
+import { generateMetaTags } from "../seo-config";
+
+export const metadata = generateMetaTags({
+  title: "Our Services - Web Design, SEO & AI Automation | BookOne",
+  description:
+    "Discover BookOne's comprehensive digital services including web design, SEO optimization, AI automation, and custom solutions. Transform your business online.",
+  url: "/services",
+  keywords: [
+    "web design services",
+    "SEO services",
+    "AI automation",
+    "website optimization",
+    "content writing",
+    "custom solutions",
+    "digital marketing",
+    "business automation",
+  ],
+});
 
 // Main ServicesPage component for BookOne website
 const ServicesPage = () => {

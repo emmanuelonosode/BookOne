@@ -3,9 +3,7 @@ export const seoConfig = {
   // Site Information
   site: {
     name: "BookOne",
-    url:
-      process.env.NEXT_PUBLIC_BASE_URL ||
-      "https://lkgdca7gsivoowsxmk5fxvbqjy.srv.us/",
+    url: process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev",
     description:
       "Professional web design, SEO & marketing, and AI automation services for businesses",
     logo: "/logo.png",
@@ -114,8 +112,8 @@ export const seoConfig = {
     organization: {
       "@type": "Organization",
       name: "BookOne",
-      url: "https://bookone.com",
-      logo: "https://bookone.com/logo.png",
+      url: "https://bookone.dev",
+      logo: "https://bookone.dev/logo.png",
       description:
         "Professional web design, SEO & marketing, and AI automation services for businesses",
       foundingDate: "2023",
@@ -126,7 +124,7 @@ export const seoConfig = {
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "customer service",
-        email: "contact@bookone.com",
+        email: "info@bookone.dev",
       },
       sameAs: [
         "https://twitter.com/bookone",
