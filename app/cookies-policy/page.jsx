@@ -1,6 +1,9 @@
 import LegalPageLayout from "../component/LegalPage";
 import { generateMetaTags } from "../seo-config";
 
+// Add caching configuration
+export const revalidate = 3600; // Revalidate every hour
+
 export const metadata = generateMetaTags({
   title: "Cookie Policy | BookOne - Cookie Usage & Management",
   description:

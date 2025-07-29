@@ -9,6 +9,9 @@ import FAQ from "./component/sections/FAQ.jsx";
 import Contact from "./component/sections/contact.jsx";
 import { generateMetaTags } from "./seo-config";
 
+// Add caching configuration
+export const revalidate = 3600; // Revalidate every hour
+
 export const metadata = generateMetaTags({
   title: "BookOne | Professional Web Design, SEO & AI Automation Services",
   description:

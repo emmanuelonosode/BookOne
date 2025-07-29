@@ -148,15 +148,7 @@ export default async function PortfolioPage() {
             ))}
           </div>
 
-          <div className="text-center mt-16">
-            <a
-              href="/portfolio"
-              aria-label="View all our portfolio projects"
-              title="Explore our complete portfolio of work"
-            >
-              <Btn label="Explore All Projects → " />
-            </a>
-          </div>
+          <div className="text-center mt-16"></div>
         </div>
       </section>
     </>

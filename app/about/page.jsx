@@ -2,6 +2,9 @@ import React from "react";
 import Image from "next/image";
 import { generateMetaTags } from "../seo-config";
 
+// Add caching configuration
+export const revalidate = 3600; // Revalidate every hour
+
 export const metadata = generateMetaTags({
   title:
     "About BookOne - Our Story, Mission & Team | Web Design & AI Automation",

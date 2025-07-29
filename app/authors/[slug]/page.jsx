@@ -2,6 +2,9 @@ import { sanity, urlFor } from "@/lib/sanity";
 import { authorBySlugQuery, blogsByAuthorQuery } from "@/lib/queries";
 import { generateMetaTags } from "../../seo-config";
 
+// Add caching configuration
+export const revalidate = 3600; // Revalidate every hour
+
 export async function generateMetadata({ params }) {
   const author = await sanity.fetch(authorBySlugQuery, { slug: params.slug });
   if (!author) return {};

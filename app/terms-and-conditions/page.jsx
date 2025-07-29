@@ -1,5 +1,8 @@
 import { generateMetaTags } from "../seo-config";
 
+// Add caching configuration
+export const revalidate = 3600; // Revalidate every hour
+
 export const metadata = generateMetaTags({
   title: "Terms and Conditions | BookOne - Service Terms & Legal",
   description:

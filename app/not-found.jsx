@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { generateMetaTags } from "./seo-config";
 
+// Add caching configuration
+export const revalidate = 3600; // Revalidate every hour
+
 export const metadata = generateMetaTags({
   title: "404 - Page Not Found | BookOne",
   description:

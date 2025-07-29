@@ -1,6 +1,9 @@
 import React from "react";
 import { generateMetaTags } from "../seo-config";
 
+// Add caching configuration
+export const revalidate = 3600; // Revalidate every hour
+
 export const metadata = generateMetaTags({
   title: "Pricing Plans - Web Design, SEO & AI Automation Services | BookOne",
   description:
