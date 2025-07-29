@@ -25,6 +25,9 @@ const geistSans = Geist({ subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({ subsets: ["latin"], display: "swap" });
 
 export const metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
+  ),
   title:
     "BookOne - Professional Web Design, Development & AI Solutions for Your Business",
   description:
@@ -54,7 +57,7 @@ export const metadata = {
     siteName: "BookOne",
     images: [
       {
-        url: "https://bookone.dev/opengraph-image.png",
+        url: "/api/og?title=BookOne&category=Professional Services",
         width: 1200,
         height: 630,
         alt: "BookOne - Website Design, SEO & AI Automation for Modern Brands",
@@ -69,7 +72,7 @@ export const metadata = {
     title: "BookOne | Website Design, SEO & AI Automation for Modern Brands",
     description:
       "Boost your online presence with BookOne, Nigeria's digital agency for website design, SEO optimization, AI automation, and content strategy. Grow smarter online.",
-    images: ["https://bookone.dev/opengraph-image.png"],
+    images: ["/api/og?title=BookOne&category=Professional Services"],
     site: "@EmmanuelOnosod1",
   },
 };

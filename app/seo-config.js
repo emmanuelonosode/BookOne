@@ -251,6 +251,9 @@ export const generateMetaTags = (customMetadata = {}) => {
   };
 
   return {
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
+    ),
     title: metadata.title,
     description: metadata.description,
     keywords: metadata.keywords.join(", "),
