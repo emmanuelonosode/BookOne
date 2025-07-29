@@ -1,10 +1,8 @@
 import { sanity, urlFor } from "@/lib/sanity";
 import { projects } from "@/lib/queries";
 import React from "react";
-import Btn from "@/app/component/Btn";
 import Image from "next/image";
 import Script from "next/script";
-import { Metadata } from "next";
 
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour

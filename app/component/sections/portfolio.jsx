@@ -1,4 +1,4 @@
-import { sanity, urlFor } from "@/lib/sanity";
+import { sanity } from "@/lib/sanity";
 import { projects } from "@/lib/queries";
 import React from "react";
 import ProjectCard from "../ProjectCard";

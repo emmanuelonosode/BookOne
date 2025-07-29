@@ -5,8 +5,6 @@ import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import Script from "next/script";
 
-import { Metadata } from "next";
-
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
 

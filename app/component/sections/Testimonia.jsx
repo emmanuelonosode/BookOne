@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-// import { sanity } from "../../lib/sanity";
-// import { allTestimoniaQuery } from "../../lib/queries";
 import { sanity, urlFor } from "@/lib/sanity";
 import { allTestimoniaQuery } from "@/lib/queries";
 import Image from "next/image";
