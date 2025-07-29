@@ -8,19 +8,13 @@ const contact = [
     src: "/email-icon.svg",
     label: "Email Us",
     description: "Send us an email and we'll get back to you within 24 hours",
-    value: "hello@bookone.com",
+    value: "hello@bookone.dev",
   },
   {
     src: "/phone-icon.svg",
     label: "Call Us",
     description: "Speak directly with our team during business hours",
-    value: "+1 (555) 123-4567",
-  },
-  {
-    src: "/location-icon.svg",
-    label: "Visit Us",
-    description: "Come visit our office for a face-to-face consultation",
-    value: "123 Business Ave, City, State 12345",
+    value: "+234 807 708 0903",
   },
 ];
 
@@ -112,13 +106,22 @@ function Contact() {
       if (!res.ok) throw new Error("Network error");
 
       const resData = await res.json();
-      setResponseMsg(resData.message || "Message sent successfully!");
+      console.log(resData);
+      // Enhanced success message with data storage info
+      let successMessage = resData.message || "Message sent successfully!";
+      if (resData.dataStored) {
+        successMessage += ` (Data stored: ${resData.dataStored})`;
+      }
+
+      setResponseMsg(successMessage);
       setFormData({
         name: "",
         email: "",
         service: "Website Design & Building",
         message: "",
         terms: false,
+        timestamp: new Date().toISOString(),
+        status: "false",
       });
     } catch (error) {
       setErrorMsg("Something went wrong. Please try again.");

@@ -27,13 +27,15 @@ export async function POST(request) {
     }
 
     // ✅ Send response immediately
-    const res = NextResponse.json({ success: true, message: "You're subscribed!" });
+    const res = NextResponse.json({
+      success: true,
+      message: "You're subscribed!",
+    });
 
     // ⏳ Send email in background (no await)
     void sendConfirmationEmail(email);
 
     return res;
-
   } catch (error) {
     return NextResponse.json(
       { success: false, error: error?.message || "Something went wrong" },
