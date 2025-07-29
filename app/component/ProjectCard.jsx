@@ -86,7 +86,7 @@ export default function ProjectCard({ project }) {
 
   // Handle mobile tap interaction
   const handleMobileTap = (e) => {
-    if (window.innerWidth < 768) {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
       // Only on mobile
       e.preventDefault();
       setIsTapped(!isTapped);
@@ -101,7 +101,10 @@ export default function ProjectCard({ project }) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
-      whileHover={{ scale: window.innerWidth >= 768 ? 1.01 : 1 }} // Only scale on desktop
+      whileHover={{
+        scale:
+          typeof window !== "undefined" && window.innerWidth >= 768 ? 1.01 : 1,
+      }} // Only scale on desktop
       role="article"
       aria-labelledby={`project-title-${project.slug?.current}`}
       aria-describedby={`project-description-${project.slug?.current}`}

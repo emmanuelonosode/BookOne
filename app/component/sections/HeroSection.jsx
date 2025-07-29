@@ -27,8 +27,10 @@ function HeroSection() {
       mouseY.set(y * 50);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    if (typeof window !== "undefined") {
+      window.addEventListener("mousemove", handleMouseMove);
+      return () => window.removeEventListener("mousemove", handleMouseMove);
+    }
   }, [mouseX, mouseY]);
   // Variants for the main container to control staggering of its children
   const containerVariants = {
