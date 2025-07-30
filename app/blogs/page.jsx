@@ -93,7 +93,7 @@ export default async function BlogListPage(props) {
                 <div className="lg:w-1/2 relative overflow-hidden h-64 lg:h-auto">
                   <Link href={`/blogs/${blogs[0].slug.current}`}>
                     <Image
-                      src={urlFor(blogs[0].mainImage)}
+                      src={urlFor(blogs[0].mainImage).url()}
                       alt={blogs[0].title}
                       width={800}
                       height={400}
@@ -136,7 +136,7 @@ export default async function BlogListPage(props) {
                     {blogs[0].author?.image && (
                       <div className="relative">
                         <Image
-                          src={urlFor(blogs[0].author.image)}
+                          src={urlFor(blogs[0].author.image).url()}
                           alt={blogs[0].author.name}
                           width={44}
                           height={44}
@@ -201,7 +201,7 @@ export default async function BlogListPage(props) {
                   <Link href={`/blogs/${blog.slug.current}`} className="block">
                     <div className="relative overflow-hidden h-48">
                       <Image
-                        src={urlFor(blog.mainImage)}
+                        src={urlFor(blog.mainImage).url()}
                         alt={blog.title}
                         width={400}
                         height={200}
@@ -238,7 +238,7 @@ export default async function BlogListPage(props) {
                       {blog.author?.image && (
                         <div className="relative">
                           <Image
-                            src={urlFor(blog.author.image)}
+                            src={urlFor(blog.author.image).url()}
                             alt={blog.author.name}
                             width={32}
                             height={32}

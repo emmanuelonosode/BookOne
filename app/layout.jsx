@@ -57,7 +57,7 @@ export const metadata = {
     siteName: "BookOne",
     images: [
       {
-        url: "/api/og?title=BookOne&category=Professional Services",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "BookOne - Website Design, SEO & AI Automation for Modern Brands",
@@ -72,7 +72,7 @@ export const metadata = {
     title: "BookOne | Website Design, SEO & AI Automation for Modern Brands",
     description:
       "Boost your online presence with BookOne, Nigeria's digital agency for website design, SEO optimization, AI automation, and content strategy. Grow smarter online.",
-    images: ["/api/og?title=BookOne&category=Professional Services"],
+    images: ["/opengraph-image.png"],
     site: "@EmmanuelOnosod1",
   },
 };

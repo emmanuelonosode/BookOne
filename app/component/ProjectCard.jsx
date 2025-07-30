@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { urlFor } from "@/lib/sanity";
 
 export default function ProjectCard({ project }) {
   // State for mobile tap interaction
@@ -118,9 +119,9 @@ export default function ProjectCard({ project }) {
       >
         {/* Background Image with Parallax */}
         <motion.div style={{ y: imageY }} className="absolute inset-0">
-          {project.mainImage?.asset?.url && (
+          {project.mainImage && (
             <img
-              src={project.mainImage.asset.url}
+              src={urlFor(project.mainImage).url()}
               alt={`Screenshot or visual for ${project.title} project`}
               className="object-cover w-full h-full"
               loading="lazy"

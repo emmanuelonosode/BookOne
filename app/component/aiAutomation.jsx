@@ -30,7 +30,7 @@ export default function AiAutomationDetails({ details }) {
           </h3>
           <div className="relative w-full h-96 rounded-lg overflow-hidden border border-gray-700">
             <img
-              src={urlFor(details.automationWorkflow)}
+              src={urlFor(details.automationWorkflow).url()}
               alt="Automation Workflow Diagram"
               layout="fill"
               objectFit="contain"

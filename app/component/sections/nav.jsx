@@ -117,7 +117,7 @@ function Nav() {
             {/* CTA & Hamburger */}
             <div className="flex items-center space-x-4">
               <motion.a
-                href="#contact"
+                href="https://calendar.notion.so/meet/officialbookone/call"
                 className="hidden sm:inline-flex bg-gray-800 text-white px-6 py-3 rounded-full hover:bg-gray-700 transition-colors text-sm font-medium"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -265,7 +265,7 @@ function Nav() {
                 {/* CTA */}
                 <motion.div variants={itemVariants} className="mt-8">
                   <a
-                    href="#contact"
+                    href="https://calendar.notion.so/meet/officialbookone/call"
                     onClick={() => setMenuOpen(false)}
                     className="w-full inline-flex items-center justify-center bg-gray-800 text-white px-6 py-4 rounded-full hover:bg-gray-700 transition-colors font-medium"
                   >

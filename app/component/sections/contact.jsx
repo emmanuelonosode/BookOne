@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import Link from "next/link";
 
 // Confetti Component
 const Confetti = ({ show }) => {
@@ -301,6 +302,7 @@ function Contact() {
       transition: {
         staggerChildren: 0.2,
         delayChildren: 0.1,
+        once: true,
       },
     },
   };
@@ -313,6 +315,7 @@ function Contact() {
       transition: {
         duration: 0.6,
         ease: "easeOut",
+        once: true,
       },
     },
   };
@@ -351,7 +354,9 @@ function Contact() {
               x: springX,
               y: springY,
             }}
-            animate={floatingAnimation}
+            initial={{ y: -10 }}
+            animate={{ y: 10 }}
+            transition={{ duration: 8, ease: "easeInOut" }}
           />
           <motion.div
             className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-br from-indigo-300/30 to-transparent rounded-full blur-2xl"
@@ -359,10 +364,9 @@ function Contact() {
               x: mousePosition.x * -20,
               y: mousePosition.y * -20,
             }}
-            animate={{
-              ...floatingAnimation,
-              transition: { ...floatingAnimation.transition, delay: 2 },
-            }}
+            initial={{ y: 10 }}
+            animate={{ y: -10 }}
+            transition={{ duration: 8, delay: 2, ease: "easeInOut" }}
           />
           <motion.div
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-violet-200/20 to-transparent rounded-full blur-3xl"
@@ -370,14 +374,13 @@ function Contact() {
               x: mousePosition.x * 15,
               y: mousePosition.y * 15,
             }}
-            animate={{
-              ...floatingAnimation,
-              transition: { ...floatingAnimation.transition, delay: 4 },
-            }}
+            initial={{ y: -10 }}
+            animate={{ y: 10 }}
+            transition={{ duration: 8, delay: 4, ease: "easeInOut" }}
           />
 
           {/* Interactive floating particles */}
-          {[...Array(15)].map((_, i) => (
+          {[...Array(25)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute w-2 h-2 bg-purple-400/40 rounded-full"
@@ -838,7 +841,9 @@ function Contact() {
                       whileHover={{ scale: 1 }}
                       transition={{ duration: 0.3 }}
                     />
-                    <span className="relative z-10">Schedule Call</span>
+                    <Link href="https://calendar.notion.so/meet/officialbookone/call">
+                      <span className="relative z-10">Schedule Call</span>
+                    </Link>
                   </motion.button>
                 </div>
               </motion.div>

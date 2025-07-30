@@ -25,7 +25,15 @@ export async function generateMetadata(props) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
   const description = project.overview?.slice(0, 160) || project.title;
   const imageUrl =
-    project.images && project.images[0] ? urlFor(project.images[0]) : undefined;
+    project.images && project.images[0]
+      ? urlFor(project.images[0])
+          .width(1200)
+          .height(630)
+          .fit("crop")
+          .crop("focalpoint")
+          .focalPoint(0.5, 0.5)
+          .url()
+      : undefined;
   const category = categoryLabels[project.category] || project.category;
 
   // Enhanced keywords based on project category and content
@@ -124,7 +132,7 @@ export async function generateMetadata(props) {
           ]
         : [
             {
-              url: `${baseUrl}/opengraph-image.png`,
+              url: "/opengraph-image.png",
               width: 1200,
               height: 630,
               alt: "BookOne Portfolio Project",
@@ -142,7 +150,7 @@ export async function generateMetadata(props) {
       card: imageUrl ? "summary_large_image" : "summary",
       title: project.title,
       description,
-      images: imageUrl ? [imageUrl] : [`${baseUrl}/opengraph-image.png`],
+      images: imageUrl ? [imageUrl] : ["/opengraph-image.png"],
       creator: "@EmmanuelOnosod1",
       site: "@EmmanuelOnosod1",
     },
@@ -165,7 +173,15 @@ export default async function PortfolioDetailPage(props) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
   const category = categoryLabels[project.category] || project.category;
   const imageUrl =
-    project.images && project.images[0] ? urlFor(project.images[0]) : undefined;
+    project.images && project.images[0]
+      ? urlFor(project.images[0])
+          .width(1200)
+          .height(630)
+          .fit("crop")
+          .crop("focalpoint")
+          .focalPoint(0.5, 0.5)
+          .url()
+      : undefined;
 
   // Generate structured data for the project
   const structuredData = {
@@ -245,7 +261,7 @@ export default async function PortfolioDetailPage(props) {
 
             {project.images && project.images[0] && (
               <Image
-                src={urlFor(project.images[0])}
+                src={urlFor(project.images[0]).url()}
                 alt={project.title}
                 width={1200}
                 height={400}

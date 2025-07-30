@@ -72,7 +72,7 @@ export default async function FeaturedBlogs() {
                 >
                   <Link href={`/blogs/${blog.slug.current}`}>
                     <Image
-                      src={urlFor(blog.mainImage)}
+                      src={urlFor(blog.mainImage).url()}
                       alt={blog.title}
                       width={600}
                       height={400}
@@ -156,12 +156,11 @@ export default async function FeaturedBlogs() {
                     {blog.author?.image && (
                       <div className="relative">
                         <Image
-                          src={urlFor(blog.author.image)}
+                          src={urlFor(blog.author.image).url()}
                           alt={blog.author.name}
                           width={44}
                           height={44}
                           className="w-11 h-11 rounded-full object-cover border-2 border-white shadow-md"
-                          placeholder="blur"
                           blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                         />
                         <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 border-2 border-white rounded-full"></div>

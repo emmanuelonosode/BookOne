@@ -137,7 +137,7 @@ const Testimonia = () => {
                 <div className="flex flex-col md:flex-row items-center gap-6">
                   <div className="flex-shrink-0 mb-4 md:mb-0">
                     <Image
-                      src={urlFor(testimonial.image)}
+                      src={urlFor(testimonial.image).url()}
                       alt={`Photo of ${testimonial.name}, ${testimonial.position}`}
                       width={256}
                       height={256}

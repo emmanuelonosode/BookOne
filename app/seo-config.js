@@ -92,7 +92,7 @@ export const seoConfig = {
     siteName: "BookOne",
     images: [
       {
-        url: "/api/og?title=BookOne&category=Professional Services",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "BookOne - Professional Web Design, SEO & AI Automation Services",
@@ -175,12 +175,8 @@ export const seoUtils = {
   // Generate Open Graph image URL
   getOgImageUrl: (title, category, image) => {
     const baseUrl = seoConfig.site.url;
-    const params = new URLSearchParams({
-      title: title || "BookOne",
-      category: category || "Professional Services",
-      image: image || "/hero.avif",
-    });
-    return `${baseUrl}/api/og?${params.toString()}`;
+    // Use custom image if provided, otherwise use default opengraph image
+    return image ? `${baseUrl}${image}` : `${baseUrl}/opengraph-image.png`;
   },
 
   // Generate structured data for projects

@@ -9,7 +9,7 @@ export default function WebDesignDetails({ details }) {
       {details.heroImage && (
         <div className="relative w-full h-96 rounded-lg overflow-hidden shadow-xl">
           <img
-            src={urlFor(details.heroImage)}
+            src={urlFor(details.heroImage).url()}
             alt="Hero Image"
             layout="fill"
             objectFit="cover"

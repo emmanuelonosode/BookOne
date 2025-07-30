@@ -13,7 +13,7 @@ const portableComponents = {
     image: ({ value }) =>
       value && value.asset ? (
         <Image
-          src={urlFor(value)}
+          src={urlFor(value).url()}
           alt={value.alt || "Blog image"}
           width={800}
           height={600}
@@ -79,7 +79,15 @@ export default async function BlogDetailPage({ params }) {
 
   // Generate structured data for the blog post
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
-  const imageUrl = blog.mainImage ? urlFor(blog.mainImage) : undefined;
+  const imageUrl = blog.mainImage
+    ? urlFor(blog.mainImage)
+        .width(1200)
+        .height(630)
+        .fit("crop")
+        .crop("focalpoint")
+        .focalPoint(0.5, 0.5)
+        .url()
+    : undefined;
   const author = blog.author?.name || "BookOne";
   const category = blog.category
     ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
@@ -167,7 +175,7 @@ export default async function BlogDetailPage({ params }) {
         <div className="flex items-center gap-4 mb-6">
           {blog.author?.image && (
             <Image
-              src={urlFor(blog.author.image)}
+              src={urlFor(blog.author.image).url()}
               alt={blog.author.name}
               width={48}
               height={48}
@@ -201,7 +209,7 @@ export default async function BlogDetailPage({ params }) {
         )}
         {blog.mainImage && (
           <Image
-            src={urlFor(blog.mainImage)}
+            src={urlFor(blog.mainImage).url()}
             alt={blog.title}
             width={1200}
             height={400}
@@ -237,7 +245,15 @@ export async function generateMetadata({ params }) {
   if (!description) description = blog.title;
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
-  const imageUrl = blog.mainImage ? urlFor(blog.mainImage) : undefined;
+  const imageUrl = blog.mainImage
+    ? urlFor(blog.mainImage)
+        .width(1200)
+        .height(630)
+        .fit("crop")
+        .crop("focalpoint")
+        .focalPoint(0.5, 0.5)
+        .url()
+    : undefined;
   const author = blog.author?.name || "BookOne";
   const category = blog.category
     ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
@@ -347,7 +363,7 @@ export async function generateMetadata({ params }) {
           ]
         : [
             {
-              url: `${baseUrl}/opengraph-image.png`,
+              url: "/opengraph-image.png",
               width: 1200,
               height: 630,
               alt: "BookOne Blog",
@@ -365,7 +381,7 @@ export async function generateMetadata({ params }) {
       card: imageUrl ? "summary_large_image" : "summary",
       title: blog.title,
       description,
-      images: imageUrl ? [imageUrl] : [`${baseUrl}/opengraph-image.png`],
+      images: imageUrl ? [imageUrl] : ["/opengraph-image.png"],
       creator: "@EmmanuelOnosod1",
       site: "@EmmanuelOnosod1",
     },

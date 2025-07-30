@@ -23,9 +23,9 @@ const ProjectCard = ({ project }) => {
         title={`Learn more about ${project.title}`}
       >
         <div className="absolute inset-0">
-          {project.mainImage?.asset?.url && (
+          {project.mainImage && (
             <Image
-              src={project.mainImage.asset.url}
+              src={urlFor(project.mainImage).url()}
               alt={`Screenshot or visual for ${project.title} project`}
               fill
               className="object-cover"
@@ -85,7 +85,9 @@ export default async function PortfolioPage() {
           name: project.title,
           description: project.overview,
           url: `${baseUrl}/portfolio/${project.slug?.current}`,
-          image: project.mainImage?.asset?.url,
+          image: project.mainImage
+            ? urlFor(project.mainImage).url()
+            : undefined,
           creator: {
             "@type": "Organization",
             name: "BookOne",
@@ -201,7 +203,7 @@ export async function generateMetadata() {
       locale: "en_US",
       images: [
         {
-          url: `${baseUrl}/opengraph-image.png`,
+          url: "/opengraph-image.png",
           width: 1200,
           height: 630,
           alt: "BookOne Portfolio - Web Design, SEO & AI Automation Projects",
@@ -214,7 +216,7 @@ export async function generateMetadata() {
       title: "Portfolio | BookOne - Web Design, SEO & AI Automation Projects",
       description:
         "Explore our portfolio of successful projects in web design, SEO optimization, and AI automation.",
-      images: [`${baseUrl}/opengraph-image.png`],
+      images: ["/opengraph-image.png"],
       creator: "@EmmanuelOnosod1",
       site: "@EmmanuelOnosod1",
     },
