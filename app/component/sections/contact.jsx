@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { Mail, Phone } from "lucide-react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import Link from "next/link";
 
@@ -137,13 +138,13 @@ const CelebrationBanner = ({ show, onClose, userName }) => {
 // Mock contact data
 const contact = [
   {
-    src: "/email-icon.svg",
+    src: <Mail />,
     label: "Email Us",
     description: "Send us an email and we'll get back to you within 24 hours",
-    value: "hello@bookone.dev",
+    value: "officialbookone@gmail.com",
   },
   {
-    src: "/phone-icon.svg",
+    src: <Phone />,
     label: "Call Us",
     description: "Speak directly with our team during business hours",
     value: "+234 807 708 0903",
@@ -764,7 +765,12 @@ function Contact() {
               </motion.div>
 
               {contact.map(({ src, label, description, value }, index) => (
-                <motion.div
+                <motion.a
+                  href={
+                    value === "officialbookone@gmail.com"
+                      ? "mailto:officialbookone@gmail.com"
+                      : `tel:${value}`
+                  }
                   key={index}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0, once: true }}
@@ -780,12 +786,9 @@ function Contact() {
                   <div className="flex items-start space-x-4 relative z-10">
                     <motion.div
                       className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300"
-                      whileHover={{ rotate: 360 }}
                       transition={{ duration: 0.6 }}
                     >
-                      <span className="text-white font-bold text-lg">
-                        {label.charAt(0)}
-                      </span>
+                      {src}
                     </motion.div>
                     <div className="flex-1">
                       <h4 className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-gray-900 transition-colors">
@@ -799,7 +802,7 @@ function Contact() {
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </motion.a>
               ))}
 
               {/* Call to Action */}

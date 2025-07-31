@@ -24,10 +24,7 @@ export async function GET() {
       url: `${baseUrl}/blogs`,
       lastModified: new Date().toISOString(),
     },
-    {
-      url: `${baseUrl}/pricing`,
-      lastModified: new Date().toISOString(),
-    },
+
     {
       url: `${baseUrl}/privacy-policy`,
       lastModified: new Date().toISOString(),
@@ -45,7 +42,6 @@ export async function GET() {
   let portfolioPages = [];
   let blogPages = [];
   let authorPages = [];
-
   try {
     const projects = await sanity.fetch(`
       *[_type == "project"] {

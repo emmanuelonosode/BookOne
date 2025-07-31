@@ -13,8 +13,7 @@ const quickLinks = [
 
 const resources = [
   { href: "/blog", label: "Blogs" },
-  { href: "/resources", label: "Resources" },
-  { href: "/#support", label: "Support" },
+
   { href: "/#faqs", label: "FAQs" },
 ];
 
