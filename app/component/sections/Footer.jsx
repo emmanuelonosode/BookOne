@@ -13,7 +13,9 @@ const quickLinks = [
 
 const resources = [
   { href: "/blog", label: "Blogs" },
-
+  { href: "/resources", label: "Resources" },
+  { href: "mailto:officialbookone@gmail.com", label: "Support" },
+  { href: "tel:+2348077080903", label: "Call Us" },
   { href: "/#faqs", label: "FAQs" },
 ];
 

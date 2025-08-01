@@ -23,6 +23,77 @@ const portableComponents = {
           blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
         />
       ) : null,
+    table: ({ value }) => {
+      if (!value || !value.rows || value.rows.length === 0) return null;
+
+      return (
+        <div className="my-8 overflow-x-auto">
+          <table className="min-w-full border border-gray-300 rounded-lg overflow-hidden shadow-sm">
+            {value.caption && (
+              <caption className="text-sm text-gray-600 dark:text-gray-400 px-4 py-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600">
+                {value.caption}
+              </caption>
+            )}
+            <tbody>
+              {value.rows.map((row, rowIndex) => (
+                <tr
+                  key={rowIndex}
+                  className={`${
+                    rowIndex % 2 === 0
+                      ? "bg-white dark:bg-gray-900"
+                      : "bg-gray-50 dark:bg-gray-800"
+                  } hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors`}
+                >
+                  {row.cells.map((cell, cellIndex) => {
+                    const CellTag = cell.isHeader ? "th" : "td";
+                    return (
+                      <CellTag
+                        key={cellIndex}
+                        className={`px-3 md:px-4 py-2 md:py-3 text-left border-b border-gray-300 dark:border-gray-600 text-sm md:text-base ${
+                          cell.isHeader
+                            ? "font-semibold bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
+                            : "text-gray-800 dark:text-gray-200"
+                        }`}
+                      >
+                        {cell.content && cell.content.length > 0 ? (
+                          <PortableText
+                            value={cell.content}
+                            components={{
+                              block: {
+                                normal: ({ children }) => (
+                                  <span>{children}</span>
+                                ),
+                              },
+                              marks: {
+                                strong: ({ children }) => (
+                                  <strong className="font-bold">
+                                    {children}
+                                  </strong>
+                                ),
+                                em: ({ children }) => (
+                                  <em className="italic">{children}</em>
+                                ),
+                                code: ({ children }) => (
+                                  <code className="bg-gray-100 dark:bg-gray-800 px-1 rounded text-xs md:text-sm font-mono">
+                                    {children}
+                                  </code>
+                                ),
+                              },
+                            }}
+                          />
+                        ) : (
+                          <span className="text-gray-400">—</span>
+                        )}
+                      </CellTag>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    },
   },
   block: {
     h1: ({ children }) => (
