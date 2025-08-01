@@ -1,10 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle"); // idle, loading, success, error
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [hasSubscribed, setHasSubscribed] = useState(false);
+
+  // Check if user has already subscribed on component mount
+  useEffect(() => {
+    const subscribed = localStorage.getItem("newsletterSubscribed");
+    if (subscribed === "true") {
+      setHasSubscribed(true);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +32,12 @@ export default function NewsletterSignup() {
       if (response.ok) {
         setStatus("success");
         setEmail("");
+        // Save to localStorage so user won't see form again
+        localStorage.setItem("newsletterSubscribed", "true");
+        // Hide the form after successful submission
+        setTimeout(() => {
+          setIsSubmitted(true);
+        }, 2000); // Show success message for 2 seconds, then hide
       } else {
         setStatus("error");
       }
@@ -30,6 +46,11 @@ export default function NewsletterSignup() {
       setStatus("error");
     }
   };
+
+  // If user has already subscribed or form has been submitted and hidden, don't render anything
+  if (hasSubscribed || isSubmitted) {
+    return null;
+  }
 
   return (
     <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
@@ -47,7 +68,7 @@ export default function NewsletterSignup() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50"
+              className="flex-1 px-4 py-3 rounded-lg border-2 border-white text-gray-100 focus:outline-none focus:ring-2 focus:ring-white/50"
               required
               disabled={status === "loading"}
             />

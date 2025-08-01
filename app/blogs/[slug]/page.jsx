@@ -151,7 +151,7 @@ const portableComponents = {
     h1: ({ children }) => (
       <h1
         id={children?.[0]?.replace(/\s+/g, "-").toLowerCase()}
-        className="text-4xl md:text-5xl font-black mt-12 mb-6 leading-tight text-gray-900 scroll-mt-20 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mt-8 md:mt-12 mb-4 md:mb-6 leading-tight text-gray-900 scroll-mt-20 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
       >
         {children}
       </h1>
@@ -159,7 +159,7 @@ const portableComponents = {
     h2: ({ children }) => (
       <h2
         id={children?.[0]?.replace(/\s+/g, "-").toLowerCase()}
-        className="text-3xl md:text-4xl font-bold mt-10 mb-5 leading-tight text-gray-800 scroll-mt-20 border-l-4 border-blue-500 pl-4"
+        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-6 md:mt-10 mb-3 md:mb-5 leading-tight text-gray-800 scroll-mt-20 border-l-4 border-blue-500 pl-3 md:pl-4"
       >
         {children}
       </h2>
@@ -167,24 +167,24 @@ const portableComponents = {
     h3: ({ children }) => (
       <h3
         id={children?.[0]?.replace(/\s+/g, "-").toLowerCase()}
-        className="text-2xl md:text-3xl font-bold mt-8 mb-4 text-gray-700 scroll-mt-20"
+        className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mt-5 md:mt-8 mb-3 md:mb-4 text-gray-700 scroll-mt-20"
       >
         {children}
       </h3>
     ),
     h4: ({ children }) => (
-      <h4 className="text-xl font-semibold mt-6 mb-3 text-gray-700">
+      <h4 className="text-base sm:text-lg md:text-xl font-semibold mt-4 md:mt-6 mb-2 md:mb-3 text-gray-700">
         {children}
       </h4>
     ),
     normal: ({ children }) => (
-      <p className="mb-6 text-lg leading-relaxed text-gray-800 selection:bg-blue-100">
+      <p className="mb-4 md:mb-6 text-base md:text-lg leading-relaxed text-gray-800 selection:bg-blue-100">
         {children}
       </p>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="my-8 pl-6 border-l-4 border-blue-500 bg-blue-50 py-4 pr-6 rounded-r-xl">
-        <div className="text-lg italic text-blue-900 font-medium leading-relaxed">
+      <blockquote className="my-6 md:my-8 pl-4 md:pl-6 border-l-4 border-blue-500 bg-blue-50 py-3 md:py-4 pr-4 md:pr-6 rounded-r-lg md:rounded-r-xl">
+        <div className="text-base md:text-lg italic text-blue-900 font-medium leading-relaxed">
           {children}
         </div>
       </blockquote>
@@ -230,16 +230,16 @@ const portableComponents = {
   listItem: {
     bullet: ({ children }) => (
       <li className="flex items-start">
-        <span className="text-blue-500 mr-3 mt-1">•</span>
-        <div className="text-lg text-gray-800">{children}</div>
+        <span className="text-blue-500 mr-2 md:mr-3 mt-1">•</span>
+        <div className="text-base md:text-lg text-gray-800">{children}</div>
       </li>
     ),
     number: ({ children }) => (
       <li className="flex items-start counter-increment-[list-counter]">
-        <span className="bg-blue-500 text-white text-sm w-6 h-6 rounded-full flex items-center justify-center mr-3 mt-1 font-bold">
+        <span className="bg-blue-500 text-white text-xs md:text-sm w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center mr-2 md:mr-3 mt-1 font-bold">
           {/* Counter will be handled by CSS */}
         </span>
-        <div className="text-lg text-gray-800">{children}</div>
+        <div className="text-base md:text-lg text-gray-800">{children}</div>
       </li>
     ),
   },
@@ -374,7 +374,7 @@ export default async function BlogDetailPage({ params }) {
 
       <ReadingProgress />
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+      <div className="min-h-screen w-full max-w-none bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
         {/* Hero Section */}
         <div className="relative overflow-hidden bg-gradient-to-r from-blue-900 via-purple-900 to-indigo-900">
           <div className="absolute inset-0 bg-black/20" />
@@ -390,9 +390,9 @@ export default async function BlogDetailPage({ params }) {
             />
           </div>
 
-          <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-16 lg:py-24">
+          <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-22 md:py-22 lg:py-24">
             {/* Breadcrumb */}
-            <nav className="text-white/70 text-xs sm:text-sm mb-6 md:mb-8">
+            <nav className="text-white/70 text-xs sm:text-sm mb-6 md:mb-12">
               <a href="/" className="hover:text-white transition-colors">
                 Home
               </a>
@@ -500,8 +500,8 @@ export default async function BlogDetailPage({ params }) {
         </div>
 
         {/* Main Content */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-12">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-8 md:py-12">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-12">
             {/* Table of Contents - Sidebar */}
             <div className="lg:col-span-1 order-2 lg:order-1">
               <div className="lg:sticky lg:top-24">
@@ -510,7 +510,7 @@ export default async function BlogDetailPage({ params }) {
             </div>
 
             {/* Article Content */}
-            <article className="lg:col-span-3 order-1 lg:order-2">
+            <article className="w-full lg:col-span-3 order-1 lg:order-2">
               {/* Featured Image */}
               {blog.mainImage && (
                 <div className="relative mb-8 md:mb-12 rounded-xl md:rounded-2xl overflow-hidden shadow-xl md:shadow-2xl group">
@@ -529,7 +529,7 @@ export default async function BlogDetailPage({ params }) {
               )}
 
               {/* Content */}
-              <div className="bg-white rounded-xl md:rounded-2xl shadow-lg md:shadow-xl p-4 sm:p-6 md:p-8 lg:p-12 prose prose-sm sm:prose-base md:prose-lg max-w-none">
+              <div className="w-full bg-white rounded-xl md:rounded-2xl shadow-lg md:shadow-xl p-4 sm:p-6 md:p-8 lg:p-12 prose prose-sm sm:prose-base md:prose-lg max-w-none">
                 <PortableText
                   value={blog.body}
                   components={portableComponents}
@@ -611,7 +611,7 @@ export default async function BlogDetailPage({ params }) {
 
         {/* Related Posts */}
         <div className="bg-white py-8 md:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12">
             <RelatedPosts currentSlug={params.slug} category={blog.category} />
           </div>
         </div>
