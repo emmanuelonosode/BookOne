@@ -142,6 +142,7 @@ function FAQ() {
 
   return (
     <section
+      id="faq"
       className="container py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto"
       aria-label="Frequently Asked Questions"
       role="region"
