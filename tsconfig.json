@@ -22,15 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "app/component/Btn.jsx",
-    "app/component/sections/HomePage.jsx",
-    "app/component/sections/nav.jsx",
-    "app/layout.jsx"
-, "sanity/schemaTypes/post.js"  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

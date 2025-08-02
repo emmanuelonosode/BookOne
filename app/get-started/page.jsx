@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Head from "next/head";
 import {
   Globe,
   Code,
@@ -439,69 +438,6 @@ const ContactPage = () => {
 
   return (
     <>
-      <Head>
-        <title>
-          Get Started - Free Strategy Session | BookOne Web Design & AI
-          Automation
-        </title>
-        <meta
-          name="description"
-          content="Start your digital transformation journey with a free strategy session. Get personalized recommendations for web design, AI automation, and digital growth. No obligation, immediate actionable insights."
-        />
-        <meta
-          name="keywords"
-          content="free strategy session, web design consultation, AI automation consultation, digital transformation, business automation, website development, SEO consultation, free consultation, BookOne services, digital agency Nigeria"
-        />
-
-        {/* Open Graph */}
-        <meta
-          property="og:title"
-          content="Get Started - Free Strategy Session | BookOne"
-        />
-        <meta
-          property="og:description"
-          content="Start your digital transformation journey with a free strategy session. Get personalized recommendations for web design, AI automation, and digital growth."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://bookone.dev/get-started" />
-        <meta property="og:site_name" content="BookOne" />
-        <meta
-          property="og:image"
-          content="https://bookone.dev/og-image-get-started.jpg"
-        />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta
-          property="og:image:alt"
-          content="BookOne Get Started - Free Strategy Session"
-        />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Get Started - Free Strategy Session | BookOne"
-        />
-        <meta
-          name="twitter:description"
-          content="Start your digital transformation journey with a free strategy session. Get personalized recommendations for web design, AI automation, and digital growth."
-        />
-        <meta
-          name="twitter:image"
-          content="https://bookone.dev/og-image-get-started.jpg"
-        />
-
-        {/* Canonical */}
-        <link rel="canonical" href="https://bookone.dev/get-started" />
-
-        {/* Robots */}
-        <meta name="robots" content="index, follow" />
-        <meta
-          name="googlebot"
-          content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
-        />
-      </Head>
-
       {/* Celebration Components */}
       <Confetti show={showCelebration} />
       <CelebrationBanner

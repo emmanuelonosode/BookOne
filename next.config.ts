@@ -41,16 +41,6 @@ const nextConfig = {
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },
 
-  // Turbopack configuration (now stable)
-  turbopack: {
-    rules: {
-      "*.svg": {
-        loaders: ["@svgr/webpack"],
-        as: "*.js",
-      },
-    },
-  },
-
   // Headers for better caching and security
   async headers() {
     return [
