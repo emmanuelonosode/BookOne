@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { sanity, urlFor } from "@/lib/sanity";
@@ -36,10 +36,10 @@ export default async function FeaturedBlogs() {
             </svg>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-4">
             Featured Stories
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Discover our latest insights, stories, and expertise crafted for
             forward-thinking professionals
           </p>
@@ -70,13 +70,16 @@ export default async function FeaturedBlogs() {
                     index === 0 ? "h-1/2 lg:h-1/2" : "h-64"
                   }`}
                 >
-                  <Link href={`/blogs/${blog.slug.current}`}>
+                  <Link
+                    href={`/blogs/${blog.slug.current}`}
+                    aria-label={`Read full article: ${blog.title}`}
+                  >
                     <Image
                       src={urlFor(blog.mainImage).url()}
                       alt={blog.title}
                       width={600}
                       height={400}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       priority={index === 0}
                       placeholder="blur"
                       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
@@ -126,6 +129,7 @@ export default async function FeaturedBlogs() {
                   className={`block group-hover:text-blue-600 transition-colors duration-300 mb-4 ${
                     index === 0 ? "text-2xl lg:text-3xl" : "text-xl"
                   } font-bold text-gray-900 leading-tight`}
+                  aria-label={`Read ${blog.title}`}
                 >
                   {blog.title}
                 </Link>
@@ -170,6 +174,9 @@ export default async function FeaturedBlogs() {
                       <Link
                         href={`/authors/${blog.author?.slug?.current}`}
                         className="text-sm font-semibold text-gray-900 hover:text-blue-600 transition-colors"
+                        aria-label={`View ${
+                          blog.author?.name || "Anonymous"
+                        } author profile`}
                       >
                         {blog.author?.name || "Anonymous"}
                       </Link>
@@ -194,6 +201,7 @@ export default async function FeaturedBlogs() {
                   <Link
                     href={`/blogs/${blog.slug.current}`}
                     className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 group"
+                    aria-label={`Read full article: ${blog.title}`}
                   >
                     <svg
                       className="w-5 h-5 transform group-hover:translate-x-0.5 transition-transform"
@@ -220,6 +228,7 @@ export default async function FeaturedBlogs() {
           <Link
             href="/blogs"
             className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group"
+            aria-label="View all articles"
           >
             View All Articles
             <svg

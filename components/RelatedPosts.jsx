@@ -77,7 +77,10 @@ export default function RelatedPosts({ currentSlug, category }) {
             key={post._id}
             className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
           >
-            <Link href={`/blogs/${post.slug.current}`}>
+            <Link
+              href={`/blogs/${post.slug.current}`}
+              aria-label={`Read ${post.title}`}
+            >
               <div className="relative h-48 overflow-hidden">
                 {post.mainImage ? (
                   <Image

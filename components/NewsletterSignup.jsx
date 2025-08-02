@@ -77,6 +77,7 @@ export default function NewsletterSignup() {
               type="submit"
               disabled={status === "loading"}
               className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Subscribe to newsletter"
             >
               {status === "loading" ? "Subscribing..." : "Subscribe"}
             </button>

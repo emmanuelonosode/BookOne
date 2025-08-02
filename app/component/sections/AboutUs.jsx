@@ -1,10 +1,19 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 import { Chart, registerables } from "chart.js";
 import Tagline from "../tagline";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { TrendingUp, DollarSign, Zap, Target } from "lucide-react";
+import Link from "next/link";
+import { AnimatedButton, FancyCtaButton } from "../Btn";
+import Image from "next/image";
 
 // Register all Chart.js components
 Chart.register(...registerables);
@@ -15,27 +24,56 @@ const AnimatedCounter = ({ value, duration = 2000, delay = 0 }) => {
   const [hasStarted, setHasStarted] = useState(false);
   const ref = useRef();
 
+  // Memoize the numeric value extraction
+  const numericValue = useMemo(() => {
+    if (value.includes("K")) {
+      return parseFloat(value.replace(/[^\d.]/g, "")) || 0;
+    } else if (value.includes("x")) {
+      return parseFloat(value.replace(/[^\d.]/g, "")) || 0;
+    } else if (value.includes("$")) {
+      return parseFloat(value.replace(/[^\d.]/g, "")) || 0;
+    } else {
+      return parseFloat(value.replace(/[^\d.]/g, "")) || 0;
+    }
+  }, [value]);
+
+  // Memoize the format value function
+  const formatValue = useCallback(
+    (num) => {
+      if (value.includes("$")) {
+        if (value.includes("K")) {
+          return `$${num}K+`;
+        }
+        return `$${num}`;
+      }
+
+      if (value.includes("x")) {
+        return `${num}x`;
+      }
+
+      if (value.includes("K")) {
+        const suffix = value.replace(/[\dK]/g, "");
+        return `${num}K${suffix}`;
+      }
+
+      if (value.includes("%")) {
+        return `${num}%`;
+      }
+
+      if (value.includes("+")) {
+        return `${num}+`;
+      }
+
+      const suffix = value.replace(/[\d]/g, "");
+      return `${num}${suffix}`;
+    },
+    [value]
+  );
+
   useEffect(() => {
-    // Start animation after a delay
     const startTimeout = setTimeout(() => {
       if (!hasStarted) {
         setHasStarted(true);
-
-        // Extract numeric value more robustly
-        let numericValue = 0;
-        if (value.includes("K")) {
-          // Handle K values (e.g., "150K+" -> 150)
-          numericValue = parseFloat(value.replace(/[^\d.]/g, "")) || 0;
-        } else if (value.includes("x")) {
-          // Handle multiplier values (e.g., "4.2x" -> 4.2)
-          numericValue = parseFloat(value.replace(/[^\d.]/g, "")) || 0;
-        } else if (value.includes("$")) {
-          // Handle dollar values (e.g., "$150K+" -> 150)
-          numericValue = parseFloat(value.replace(/[^\d.]/g, "")) || 0;
-        } else {
-          // Handle regular values (e.g., "300%" -> 300, "50+" -> 50)
-          numericValue = parseFloat(value.replace(/[^\d.]/g, "")) || 0;
-        }
 
         if (numericValue === 0) {
           setCount(0);
@@ -51,7 +89,7 @@ const AnimatedCounter = ({ value, duration = 2000, delay = 0 }) => {
             setCount(numericValue);
             clearInterval(timer);
           } else {
-            setCount(Math.round(start * 10) / 10); // Round to 1 decimal place
+            setCount(Math.round(start * 10) / 10);
           }
         }, 16);
 
@@ -60,63 +98,25 @@ const AnimatedCounter = ({ value, duration = 2000, delay = 0 }) => {
     }, delay);
 
     return () => clearTimeout(startTimeout);
-  }, [hasStarted, value, duration, delay]);
+  }, [hasStarted, numericValue, duration, delay]);
 
   // Fallback: if animation hasn't started after 3 seconds, show the final value
   useEffect(() => {
     const fallbackTimeout = setTimeout(() => {
       if (!hasStarted) {
-        // Extract numeric value more robustly
-        let numericValue = 0;
-        if (value.includes("K")) {
-          numericValue = parseFloat(value.replace(/[^\d.]/g, "")) || 0;
-        } else if (value.includes("x")) {
-          numericValue = parseFloat(value.replace(/[^\d.]/g, "")) || 0;
-        } else if (value.includes("$")) {
-          numericValue = parseFloat(value.replace(/[^\d.]/g, "")) || 0;
-        } else {
-          numericValue = parseFloat(value.replace(/[^\d.]/g, "")) || 0;
-        }
         setCount(numericValue);
         setHasStarted(true);
       }
     }, 3000);
 
     return () => clearTimeout(fallbackTimeout);
-  }, [hasStarted, value]);
+  }, [hasStarted, numericValue]);
 
-  const formatValue = (num) => {
-    // Handle special cases first
-    if (value.includes("$")) {
-      if (value.includes("K")) {
-        return `$${num}K+`;
-      }
-      return `$${num}`;
-    }
-
-    if (value.includes("x")) {
-      return `${num}x`;
-    }
-
-    if (value.includes("K")) {
-      const suffix = value.replace(/[\dK]/g, "");
-      return `${num}K${suffix}`;
-    }
-
-    if (value.includes("%")) {
-      return `${num}%`;
-    }
-
-    if (value.includes("+")) {
-      return `${num}+`;
-    }
-
-    // Default case
-    const suffix = value.replace(/[\d]/g, "");
-    return `${num}${suffix}`;
-  };
-
-  return <span ref={ref}>{formatValue(count)}</span>;
+  return (
+    <span ref={ref} aria-label={`${formatValue(count)}`}>
+      {formatValue(count)}
+    </span>
+  );
 };
 
 // Enhanced ROI Chart with animations
@@ -130,7 +130,87 @@ const RoiChart = ({ className }) => {
     target: chartContainerRef,
     offset: ["start end", "end start"],
   });
-  const chartY = useTransform(chartScrollYProgress, [0, 1], [-30, 30]);
+  const chartY = useTransform(chartScrollYProgress, [0, 1], [-20, 20]);
+
+  // Memoize chart data
+  const chartData = useMemo(
+    () => ({
+      labels: [
+        "Lead Generation (40%)",
+        "Conversion Optimization (30%)",
+        "Efficiency Gains (20%)",
+        "Brand Equity (10%)",
+      ],
+      datasets: [
+        {
+          label: "ROI Contribution",
+          data: [40, 30, 20, 10],
+          backgroundColor: [
+            "#3B82F6", // Blue
+            "#8B5CF6", // Purple
+            "#10B981", // Green
+            "#F59E0B", // Amber
+          ],
+          borderColor: "#FFFFFF",
+          borderWidth: 3,
+          hoverBorderWidth: 5,
+          hoverOffset: 10,
+        },
+      ],
+    }),
+    []
+  );
+
+  // Memoize chart options
+  const chartOptions = useMemo(
+    () => ({
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: "65%",
+      animation: {
+        animateRotate: true,
+        animateScale: true,
+        duration: 1500, // Reduced from 2000
+        easing: "easeOutQuart",
+      },
+      plugins: {
+        legend: {
+          position: "bottom",
+          labels: {
+            padding: 20,
+            font: {
+              family: "'Inter', sans-serif",
+              size: 14,
+            },
+            usePointStyle: true,
+            pointStyle: "circle",
+          },
+        },
+        tooltip: {
+          titleFont: {
+            family: "'Inter', sans-serif",
+            weight: "600",
+            size: 16,
+          },
+          bodyFont: {
+            family: "'Inter', sans-serif",
+            size: 14,
+          },
+          padding: 12,
+          cornerRadius: 8,
+          backgroundColor: "rgba(0,0,0,0.9)",
+          titleColor: "#FFFFFF",
+          bodyColor: "#E5E7EB",
+          callbacks: {
+            label: function (context) {
+              return context.parsed + "% of total ROI impact";
+            },
+          },
+        },
+      },
+    }),
+    []
+  );
 
   React.useEffect(() => {
     if (chartRef.current && isInView) {
@@ -142,76 +222,8 @@ const RoiChart = ({ className }) => {
 
         chartInstance.current = new Chart(ctx, {
           type: "doughnut",
-          data: {
-            labels: [
-              "Lead Generation (40%)",
-              "Conversion Optimization (30%)",
-              "Efficiency Gains (20%)",
-              "Brand Equity (10%)",
-            ],
-            datasets: [
-              {
-                label: "ROI Contribution",
-                data: [40, 30, 20, 10],
-                backgroundColor: [
-                  "#3B82F6", // Blue
-                  "#8B5CF6", // Purple
-                  "#10B981", // Green
-                  "#F59E0B", // Amber
-                ],
-                borderColor: "#FFFFFF",
-                borderWidth: 3,
-                hoverBorderWidth: 5,
-                hoverOffset: 10,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: "65%",
-            animation: {
-              animateRotate: true,
-              animateScale: true,
-              duration: 2000,
-              easing: "easeOutQuart",
-            },
-            plugins: {
-              legend: {
-                position: "bottom",
-                labels: {
-                  padding: 20,
-                  font: {
-                    family: "'Inter', sans-serif",
-                    size: 14,
-                  },
-                  usePointStyle: true,
-                  pointStyle: "circle",
-                },
-              },
-              tooltip: {
-                titleFont: {
-                  family: "'Inter', sans-serif",
-                  weight: "600",
-                  size: 16,
-                },
-                bodyFont: {
-                  family: "'Inter', sans-serif",
-                  size: 14,
-                },
-                padding: 12,
-                cornerRadius: 8,
-                backgroundColor: "rgba(0,0,0,0.9)",
-                titleColor: "#FFFFFF",
-                bodyColor: "#E5E7EB",
-                callbacks: {
-                  label: function (context) {
-                    return context.parsed + "% of total ROI impact";
-                  },
-                },
-              },
-            },
-          },
+          data: chartData,
+          options: chartOptions,
         });
       }
     }
@@ -222,7 +234,7 @@ const RoiChart = ({ className }) => {
         chartInstance.current = null;
       }
     };
-  }, [isInView]);
+  }, [isInView, chartData, chartOptions]);
 
   return (
     <motion.div
@@ -231,7 +243,7 @@ const RoiChart = ({ className }) => {
       initial={{ opacity: 0, scale: 0.8, rotateY: 90 }}
       whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+      transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }} // Reduced duration
       className={`chart-container h-80 md:h-96 max-w-lg mx-auto ${className} relative`}
       aria-label="ROI Contribution Breakdown Chart"
       role="img"
@@ -243,7 +255,7 @@ const RoiChart = ({ className }) => {
         initial={{ opacity: 0, scale: 0 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 1.5, duration: 0.5 }}
+        transition={{ delay: 1.2, duration: 0.4 }} // Reduced delay and duration
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
       >
         <div className="text-center">
@@ -260,25 +272,30 @@ const RoiChart = ({ className }) => {
 // Process Step Component
 const ProcessStep = ({ step, title, description, icon, delay = 0 }) => {
   return (
-    <motion.div
+    <motion.article
       initial={{ opacity: 0, y: 50, scale: 0.8 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6, delay, type: "spring", stiffness: 100 }}
-      whileHover={{ scale: 1.05, y: -5 }}
+      transition={{ duration: 0.5, delay, type: "spring", stiffness: 100 }} // Reduced duration
+      whileHover={{ scale: 1.03, y: -3 }} // Reduced hover effect
       className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group"
+      aria-labelledby={`step-${step}-title`}
     >
       <motion.div
         initial={{ scale: 0, rotate: -180 }}
         whileInView={{ scale: 1, rotate: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: delay + 0.3, duration: 0.5 }}
+        transition={{ delay: delay + 0.2, duration: 0.4 }} // Reduced delay and duration
         className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-4 group-hover:from-purple-600 group-hover:to-blue-500 transition-all duration-300"
+        aria-hidden="true"
       >
         <span className="text-2xl text-white font-bold">{step}</span>
       </motion.div>
 
-      <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors duration-300">
+      <h3
+        id={`step-${step}-title`}
+        className="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors duration-300"
+      >
         {title}
       </h3>
       <p className="text-gray-600 leading-relaxed">{description}</p>
@@ -288,13 +305,14 @@ const ProcessStep = ({ step, title, description, icon, delay = 0 }) => {
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: delay + 0.6, duration: 0.4 }}
+        transition={{ delay: delay + 0.4, duration: 0.3 }} // Reduced delay and duration
         className="mt-4 flex items-center text-blue-500 font-medium text-sm"
+        aria-hidden="true"
       >
         <span className="mr-2">Next</span>
         <motion.svg
-          animate={{ x: [0, 5, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+          animate={{ x: [0, 3, 0] }} // Reduced movement
+          transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }} // Reduced duration
           className="w-4 h-4"
           fill="none"
           stroke="currentColor"
@@ -308,7 +326,7 @@ const ProcessStep = ({ step, title, description, icon, delay = 0 }) => {
           />
         </motion.svg>
       </motion.div>
-    </motion.div>
+    </motion.article>
   );
 };
 
@@ -357,148 +375,197 @@ export default function AboutSection({
     offset: ["start end", "end start"],
   });
 
-  const storyImageY = useTransform(scrollYProgress, [0, 1], [-50, 50]);
-  const statsImageY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const storyImageY = useTransform(scrollYProgress, [0, 1], [-30, 30]); // Reduced movement
+  const statsImageY = useTransform(scrollYProgress, [0, 1], [30, -30]); // Reduced movement
 
   // Auto-advance process steps
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % 4);
-    }, 3000);
+    }, 4000); // Increased from 3000 for better performance
     return () => clearInterval(interval);
   }, []);
 
-  const processSteps = [
-    {
-      step: "01",
-      title: "Discovery & Strategy",
-      description:
-        "We analyze your business, audience, and goals to create a data-driven roadmap for success.",
-    },
-    {
-      step: "02",
-      title: "Design & Development",
-      description:
-        "Our team crafts beautiful, conversion-focused solutions tailored to your unique needs.",
-    },
-    {
-      step: "03",
-      title: "Launch & Optimize",
-      description:
-        "We deploy your solution and continuously optimize based on real performance data.",
-    },
-    {
-      step: "04",
-      title: "Scale & Grow",
-      description:
-        "Ongoing support and enhancements ensure your digital presence evolves with your business.",
-    },
-  ];
-
-  const impactHighlights = [
-    {
-      icon: <TrendingUp className="w-6 h-6" />,
-      title: "Lead Generation",
-      value: "300%",
-      description: "Average increase in qualified leads",
-    },
-    {
-      icon: <DollarSign className="w-6 h-6" />,
-      title: "Revenue Growth",
-      value: "$150K+",
-      description: "Generated for our clients",
-    },
-    {
-      icon: <Zap className="w-6 h-6" />,
-      title: "Efficiency Boost",
-      value: "85%",
-      description: "Reduction in manual processes",
-    },
-    {
-      icon: <Target className="w-6 h-6" />,
-      title: "Conversion Rate",
-      value: "4.2x",
-      description: "Improvement in conversions",
-    },
-  ];
-
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
+  // Memoize process steps
+  const processSteps = useMemo(
+    () => [
+      {
+        step: "01",
+        title: "Discovery & Strategy",
+        description:
+          "We analyze your business, audience, and goals to create a data-driven roadmap for success.",
       },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
+      {
+        step: "02",
+        title: "Design & Development",
+        description:
+          "Our team crafts beautiful, conversion-focused solutions tailored to your unique needs.",
       },
-    },
-  };
-
-  const statsGridVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.3,
+      {
+        step: "03",
+        title: "Launch & Optimize",
+        description:
+          "We deploy your solution and continuously optimize based on real performance data.",
       },
-    },
-  };
-
-  const statItemVariants = {
-    hidden: { opacity: 0, scale: 0.8, y: 20 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 120,
-        damping: 12,
+      {
+        step: "04",
+        title: "Scale & Grow",
+        description:
+          "Ongoing support and enhancements ensure your digital presence evolves with your business.",
       },
-    },
-  };
+    ],
+    []
+  );
+
+  // Memoize impact highlights
+  const impactHighlights = useMemo(
+    () => [
+      {
+        icon: <TrendingUp className="w-5 h-5" aria-hidden="true" />, // Reduced size
+        title: "Lead Generation",
+        value: "300%",
+        description: "Average increase in qualified leads",
+      },
+      {
+        icon: <DollarSign className="w-5 h-5" aria-hidden="true" />, // Reduced size
+        title: "Revenue Growth",
+        value: "$150K+",
+        description: "Generated for our clients",
+      },
+      {
+        icon: <Zap className="w-5 h-5" aria-hidden="true" />, // Reduced size
+        title: "Efficiency Boost",
+        value: "85%",
+        description: "Reduction in manual processes",
+      },
+      {
+        icon: <Target className="w-5 h-5" aria-hidden="true" />, // Reduced size
+        title: "Conversion Rate",
+        value: "4.2x",
+        description: "Improvement in conversions",
+      },
+    ],
+    []
+  );
+
+  // Memoize animation variants
+  const containerVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.08, // Reduced from 0.1
+          delayChildren: 0.2,
+        },
+      },
+    }),
+    []
+  );
+
+  const itemVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: 20, scale: 0.95 }, // Reduced y movement
+      visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+          type: "spring",
+          stiffness: 100,
+          damping: 15,
+        },
+      },
+    }),
+    []
+  );
+
+  const statsGridVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.12, // Reduced from 0.15
+          delayChildren: 0.3,
+        },
+      },
+    }),
+    []
+  );
+
+  const statItemVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, scale: 0.8, y: 15 }, // Reduced y movement
+      visible: {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        transition: {
+          type: "spring",
+          stiffness: 120,
+          damping: 12,
+        },
+      },
+    }),
+    []
+  );
+
+  // Memoize ROI breakdown data
+  const roiBreakdown = useMemo(
+    () => [
+      {
+        color: "bg-blue-500",
+        label: "Lead Generation",
+        desc: "40% - Direct customer acquisition",
+      },
+      {
+        color: "bg-purple-500",
+        label: "Conversion Optimization",
+        desc: "30% - Improved sales funnel",
+      },
+      {
+        color: "bg-green-500",
+        label: "Efficiency Gains",
+        desc: "20% - Automated processes",
+      },
+      {
+        color: "bg-amber-500",
+        label: "Brand Equity",
+        desc: "10% - Long-term value building",
+      },
+    ],
+    []
+  );
 
   return (
     <motion.section
       ref={sectionRef}
-      className={`py-20 md:py-32 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 ${className} overflow-hidden relative`}
+      className={`py-16 md:py-24 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 ${className} overflow-hidden relative`} // Reduced padding
       aria-label="About BookOne and Our Impact"
       role="region"
     >
-      {/* Background decoration */}
+      {/* Background decoration - reduced complexity */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
-            opacity: [0.1, 0.05, 0.1],
+            scale: [1, 1.1, 1], // Reduced scale
+            rotate: [0, 45, 0], // Reduced rotation
+            opacity: [0.08, 0.04, 0.08], // Reduced opacity
           }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/4 -right-48 w-96 h-96 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full blur-3xl"
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }} // Increased duration
+          className="absolute top-1/4 -right-48 w-80 h-80 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full blur-3xl" // Reduced size
+          aria-hidden="true"
         />
         <motion.div
           animate={{
-            scale: [1.2, 1, 1.2],
-            rotate: [90, 0, 90],
-            opacity: [0.05, 0.1, 0.05],
+            scale: [1.1, 1, 1.1], // Reduced scale
+            rotate: [45, 0, 45], // Reduced rotation
+            opacity: [0.04, 0.08, 0.04], // Reduced opacity
           }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-1/4 -left-48 w-80 h-80 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full blur-3xl"
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }} // Increased duration
+          className="absolute bottom-1/4 -left-48 w-64 h-64 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full blur-3xl" // Reduced size
+          aria-hidden="true"
         />
       </div>
 
@@ -509,7 +576,7 @@ export default function AboutSection({
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="text-center mb-20"
+          className="text-center mb-16" // Reduced margin
         >
           <motion.div variants={itemVariants}>
             <Tagline tag="Our Impact Story" />
@@ -517,7 +584,7 @@ export default function AboutSection({
 
           <motion.h2
             variants={itemVariants}
-            className="text-5xl md:text-6xl font-black text-gray-900 mb-8 leading-tight"
+            className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight" // Reduced text size
           >
             We Don't Just Build,{" "}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -527,7 +594,7 @@ export default function AboutSection({
 
           <motion.p
             variants={itemVariants}
-            className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed" // Reduced text size
           >
             {storyParagraph}
           </motion.p>
@@ -535,20 +602,25 @@ export default function AboutSection({
           {/* Quick Impact Highlights */}
           <motion.div
             variants={statsGridVariants}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 max-w-4xl mx-auto"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 max-w-4xl mx-auto" // Reduced gap and margin
           >
             {impactHighlights.map((highlight, index) => (
               <motion.div
                 key={index}
                 variants={statItemVariants}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20"
+                whileHover={{ scale: 1.03, y: -3 }} // Reduced hover effect
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/20" // Reduced padding
               >
-                <div className="text-3xl mb-2">{highlight.icon}</div>
-                <div className="text-2xl md:text-3xl font-bold text-blue-600 mb-1">
+                <div className="text-2xl mb-2" aria-hidden="true">
+                  {highlight.icon}
+                </div>
+                <div
+                  className="text-xl md:text-2xl font-bold text-blue-600 mb-1"
+                  aria-label={`${highlight.title}: ${highlight.value}`}
+                >
                   <AnimatedCounter
                     value={highlight.value}
-                    delay={index * 200}
+                    delay={index * 150} // Reduced delay
                   />
                 </div>
                 <div className="text-sm font-semibold text-gray-800 mb-1">
@@ -564,39 +636,51 @@ export default function AboutSection({
 
         {/* Process Flow Section */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }} // Reduced y movement
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8 }}
-          className="mb-24"
+          transition={{ duration: 0.6 }} // Reduced duration
+          className="mb-20" // Reduced margin
         >
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
+            {" "}
+            {/* Reduced margin */}
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Our Proven Process
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              {" "}
+              {/* Reduced text size */}
               Every success story follows our systematic approach to digital
               transformation
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {" "}
+            {/* Reduced gap */}
             {processSteps.map((step, index) => (
               <ProcessStep
                 key={index}
                 step={step.step}
                 title={step.title}
                 description={step.description}
-                delay={index * 0.2}
+                delay={index * 0.15} // Reduced delay
               />
             ))}
           </div>
 
           {/* Process Progress Indicator */}
-          <div className="flex justify-center mt-12">
-            <div className="flex space-x-2">
+          <div className="flex justify-center mt-10">
+            {" "}
+            {/* Reduced margin */}
+            <div
+              className="flex space-x-2"
+              role="tablist"
+              aria-label="Process steps progress"
+            >
               {processSteps.map((_, index) => (
-                <motion.div
+                <motion.button
                   key={index}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     activeStep === index
@@ -604,6 +688,9 @@ export default function AboutSection({
                       : "bg-gray-300"
                   }`}
                   whileHover={{ scale: 1.2 }}
+                  aria-label={`Step ${index + 1} of ${processSteps.length}`}
+                  aria-selected={activeStep === index}
+                  role="tab"
                 />
               ))}
             </div>
@@ -611,7 +698,9 @@ export default function AboutSection({
         </motion.div>
 
         {/* Enhanced Statistics Section */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+          {" "}
+          {/* Reduced gap and margin */}
           {/* Stats Content */}
           <motion.div
             variants={containerVariants}
@@ -622,14 +711,14 @@ export default function AboutSection({
           >
             <motion.h2
               variants={itemVariants}
-              className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight"
+              className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight" // Reduced text size
             >
               {statsHeadline}
             </motion.h2>
 
             <motion.p
               variants={itemVariants}
-              className="text-xl text-gray-700 mb-8 leading-relaxed"
+              className="text-lg text-gray-700 mb-8 leading-relaxed" // Reduced text size
             >
               {statsParagraph}
             </motion.p>
@@ -637,19 +726,25 @@ export default function AboutSection({
             {/* Enhanced Stats Grid */}
             <motion.div
               variants={statsGridVariants}
-              className="grid grid-cols-2 gap-6"
+              className="grid grid-cols-2 gap-4" // Reduced gap
             >
               {statsData.map((stat, index) => (
                 <motion.div
                   key={index}
                   variants={statItemVariants}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30 group"
+                  whileHover={{ scale: 1.03, y: -3 }} // Reduced hover effect
+                  className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/30 group" // Reduced padding
                 >
-                  <div className="text-3xl md:text-4xl font-black text-blue-600 mb-2 group-hover:text-purple-600 transition-colors duration-300">
-                    <AnimatedCounter value={stat.value} delay={index * 300} />
+                  <div
+                    className="text-2xl md:text-3xl font-black text-blue-600 mb-2 group-hover:text-purple-600 transition-colors duration-300"
+                    aria-label={`${stat.description}: ${stat.value}`}
+                  >
+                    <AnimatedCounter value={stat.value} delay={index * 200} />{" "}
+                    {/* Reduced delay */}
                   </div>
-                  <div className="text-lg font-bold text-gray-800 mb-1">
+                  <div className="text-base font-bold text-gray-800 mb-1">
+                    {" "}
+                    {/* Reduced text size */}
                     {stat.description}
                   </div>
                   <div className="text-sm text-gray-600">{stat.subtext}</div>
@@ -683,7 +778,6 @@ export default function AboutSection({
               </motion.button>
             </motion.div>
           </motion.div>
-
           {/* Stats Image with Parallax */}
           <motion.div
             style={{ y: statsImageY }}
@@ -819,18 +913,19 @@ export default function AboutSection({
             Don't just take our word for it. Let's create measurable impact for
             your business too.
           </motion.p>
-
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-white text-blue-600 font-bold py-4 px-10 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+          <Link
+            href="/get-started"
+            className="flex justify-center"
+            aria-label="Start your transformation - Begin your project"
           >
-            Start Your Transformation
-          </motion.button>
+            <AnimatedButton
+              label="Start Your Transformation"
+              className="bg-white text-black font-bold py-4 px-10 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              otherBg="bg-gray-100"
+              otherText="text-white"
+              formerText="text-black"
+            />
+          </Link>
         </motion.div>
       </div>
     </motion.section>

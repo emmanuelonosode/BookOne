@@ -9,7 +9,6 @@ const navDetails = [
   { id: 2, name: "About", href: "/about" },
   { id: 3, name: "Services", href: "/services" },
   { id: 4, name: "Blogs", href: "/blogs" },
-  { id: 5, name: "Contact", href: "/#contact" },
 ];
 
 const socialIcons = [
@@ -144,6 +143,7 @@ function Nav() {
             <Link
               href="/"
               className="text-2xl md:text-3xl font-bold text-black hover:text-gray-600 transition-colors"
+              aria-label="BookOne - Home"
             >
               BookOne
             </Link>
@@ -155,6 +155,7 @@ function Nav() {
                   <Link
                     href={href}
                     className="text-gray-700 hover:text-gray-900 font-medium transition-colors relative group"
+                    aria-label={`Navigate to ${name}`}
                   >
                     {name}
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
@@ -174,6 +175,9 @@ function Nav() {
                   className="bg-gray-800 text-white px-6 py-3 rounded-full hover:bg-gray-700 transition-colors text-sm font-medium flex items-center space-x-2"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  aria-label="Open consultation options dropdown"
+                  aria-expanded={consultationDropdownOpen}
+                  aria-haspopup="true"
                 >
                   <span>Get a free consultation</span>
                   <motion.svg
@@ -209,6 +213,7 @@ function Nav() {
                           className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
                           whileHover={{ x: 4 }}
                           onClick={() => setConsultationDropdownOpen(false)}
+                          aria-label="Book a call - Schedule a free consultation"
                         >
                           <svg
                             className="w-5 h-5 mr-3 text-blue-600"
@@ -230,7 +235,10 @@ function Nav() {
                             </div>
                           </div>
                         </motion.a>
-                        <Link href="/get-started">
+                        <Link
+                          href="/get-started"
+                          aria-label="Get a quote - View pricing and get started"
+                        >
                           <motion.div
                             className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
                             whileHover={{ x: 4 }}
@@ -268,6 +276,9 @@ function Nav() {
                 className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
                 onClick={() => setMenuOpen(!menuOpen)}
                 whileTap={{ scale: 0.95 }}
+                aria-label="Toggle mobile menu"
+                aria-expanded={menuOpen}
+                aria-controls="mobile-menu"
               >
                 <motion.div
                   className="w-6 h-5 flex flex-col justify-between"
@@ -331,50 +342,16 @@ function Nav() {
               exit="closed"
             >
               <div className="p-8 bg-white/100 backdrop-blur-sm rounded-lg ">
-                <div className="space-y-6">
-                  {navDetails.map(({ name, href, id }) => (
-                    <motion.div key={id} variants={itemVariants}>
-                      <Link
-                        href={href}
-                        onClick={() => setMenuOpen(false)}
-                        className="flex items-center justify-between py-4 border-b border-gray-200/50 group"
-                      >
-                        <span className="text-lg font-medium text-gray-800 group-hover:text-gray-600 transition-colors">
-                          {name}
-                        </span>
-                        <motion.div
-                          className="text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all"
-                          whileHover={{ x: 4 }}
-                        >
-                          <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M9 6L15 12L9 18"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </motion.div>
-                      </Link>
-                    </motion.div>
-                  ))}
-
-                  {/* Blog Link */}
-                  <motion.div variants={itemVariants}>
+                {navDetails.map(({ name, href, id }) => (
+                  <motion.div key={id} variants={itemVariants}>
                     <Link
-                      href="/blogs"
+                      href={href}
                       onClick={() => setMenuOpen(false)}
                       className="flex items-center justify-between py-4 border-b border-gray-200/50 group"
+                      aria-label={`Navigate to ${name}`}
                     >
                       <span className="text-lg font-medium text-gray-800 group-hover:text-gray-600 transition-colors">
-                        Blogs
+                        {name}
                       </span>
                       <motion.div
                         className="text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all"
@@ -398,7 +375,7 @@ function Nav() {
                       </motion.div>
                     </Link>
                   </motion.div>
-                </div>
+                ))}
 
                 {/* CTA Options */}
                 <motion.div variants={itemVariants} className="mt-8 space-y-3">
@@ -406,6 +383,7 @@ function Nav() {
                     href="https://calendar.notion.so/meet/officialbookone/call"
                     onClick={() => setMenuOpen(false)}
                     className="w-full inline-flex items-center justify-center bg-gray-800 text-white px-6 py-4 rounded-full hover:bg-gray-700 transition-colors font-medium"
+                    aria-label="Book a call - Schedule a free consultation"
                   >
                     <svg
                       className="w-5 h-5 mr-2"
@@ -426,6 +404,7 @@ function Nav() {
                     href="/get-started"
                     onClick={() => setMenuOpen(false)}
                     className="w-full inline-flex items-center justify-center bg-white text-gray-800 px-6 py-4 rounded-full hover:bg-gray-50 transition-colors font-medium border border-gray-200"
+                    aria-label="Get a quote - View pricing and get started"
                   >
                     <svg
                       className="w-5 h-5 mr-2"
@@ -457,6 +436,7 @@ function Nav() {
                         className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
+                        aria-label={`Follow us on ${alt}`}
                       >
                         <img src={src} alt={alt} className="w-6 h-6" />
                       </motion.a>

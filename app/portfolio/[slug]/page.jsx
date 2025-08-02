@@ -244,10 +244,12 @@ export default async function PortfolioDetailPage(props) {
       <div className="bg-gray-900 min-h-screen text-gray-200">
         <main className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
           <div className="py-12">
-            <Link href="/portfolio">
-              <p className="text-blue-400 hover:underline mb-8 block flex items-center gap-2">
-                <ArrowLeft className="w-4 h-4" /> Back to Portfolio
-              </p>
+            <Link
+              href="/portfolio"
+              aria-label="Back to portfolio"
+              className="text-blue-400 hover:underline mb-8  flex items-center gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" /> Back to Portfolio
             </Link>
             <span className="text-sm font-semibold text-purple-400 uppercase tracking-wider">
               {category}

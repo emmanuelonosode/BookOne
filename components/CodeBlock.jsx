@@ -19,6 +19,7 @@ export default function CodeBlock({ value }) {
         <button
           onClick={handleCopy}
           className="text-gray-300 hover:text-white text-sm bg-gray-700 px-3 py-1 rounded transition-colors"
+          aria-label="Copy code to clipboard"
         >
           Copy
         </button>

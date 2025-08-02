@@ -147,7 +147,7 @@ async function processQuoteRequest(
 
         if (sheetResponse.ok) {
           sheetDbSuccess = true;
-          console.log("Quote request data sent to SheetDB successfully");
+          // Quote request data sent to SheetDB successfully
         } else {
           console.error("SheetDB Error:", await sheetResponse.text());
         }
@@ -228,7 +228,7 @@ async function sendQuoteEmail(
     // Verify transporter configuration
     try {
       await transporter.verify();
-      console.log("Email transporter verified successfully");
+      // Email transporter verified successfully
     } catch (verifyError) {
       console.error("Email transporter verification failed:", verifyError);
       throw new Error(
@@ -444,7 +444,7 @@ async function sendQuoteEmail(
     );
 
     await Promise.race([emailPromise, timeoutPromise]);
-    console.log("Quote request email sent successfully");
+    // Quote request email sent successfully
   } catch (error) {
     console.error("Failed to send quote request email:", error);
     // Don't throw the error to prevent the entire request from failing

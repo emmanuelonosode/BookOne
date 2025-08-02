@@ -1,6 +1,6 @@
 // app/layout.jsx or layout.tsx
 
-import { Prosto_One, Poppins, Geist, Geist_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { Suspense } from "react";
 import CookieConsent from "./component/CookieConsentBoss";
 import "./globals.css";
@@ -8,58 +8,24 @@ import Nav from "./component/sections/nav.jsx";
 import Footer from "./component/sections/Footer.jsx";
 import Script from "next/script";
 import GoogleAnalytics from "../lib/gtag";
+
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 
+// Optimize font loading with minimal weights and preloading
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600"], // Reduced weights for faster loading
   display: "swap",
+  preload: true,
+  fallback: ["system-ui", "arial"],
 });
 
-const prostoOne = Prosto_One({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const geistSans = Geist({ subsets: ["latin"], display: "swap" });
-const geistMono = Geist_Mono({ subsets: ["latin"], display: "swap" });
-
+// Remove conflicting metadata - let individual pages define their own metadata
 export const metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
   ),
-  title:
-    "BookOne - Professional Web Design, Development & AI Solutions for Your Business",
-  description:
-    "BookOne offers expert web design, development, and AI automation services to help businesses grow online, improve efficiency, and stand out.",
-  keywords: [
-    "business optimization",
-    "digital solutions",
-    "web development",
-    "SEO",
-    "automation",
-    "BookOne",
-    "AI automation",
-    "content writing",
-    "website optimization",
-    "branding",
-    "software development",
-    "IT consulting",
-    "growth",
-    "digital marketing",
-    "online presence",
-    "Nigeria digital agency",
-    "web design Nigeria",
-    "AI automation Nigeria",
-  ],
-  authors: [{ name: "BookOne", url: "https://bookone.dev" }],
-  creator: "BookOne",
-  publisher: "BookOne",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+  // Basic metadata that applies to all pages
   robots: {
     index: true,
     follow: true,
@@ -74,34 +40,10 @@ export const metadata = {
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,
   },
-  alternates: {
-    canonical: "https://bookone.dev",
-  },
-  openGraph: {
-    title: "BookOne | Website Design, SEO & AI Automation for Modern Brands",
-    description:
-      "Boost your online presence with BookOne, Nigeria's digital agency for website design, SEO optimization, AI automation, and content strategy. Grow smarter online.",
-    url: "https://bookone.dev",
-    siteName: "BookOne",
-    images: [
-      {
-        url: "/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "BookOne - Website Design, SEO & AI Automation for Modern Brands",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-    publisher: "BookOne",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "BookOne | Website Design, SEO & AI Automation for Modern Brands",
-    description:
-      "Boost your online presence with BookOne, Nigeria's digital agency for website design, SEO optimization, AI automation, and content strategy. Grow smarter online.",
-    images: ["/opengraph-image.png"],
-    site: "@EmmanuelOnosod1",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
   },
 };
 
@@ -109,7 +51,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="ltr">
       <head>
-        {/* Google Analytics Script (gtag.js) */}
+        {/* Preload critical resources */}
+        <link rel="preload" href="/hero.avif" as="image" type="image/avif" />
+        <link rel="preload" href="/logo.png" as="image" type="image/png" />
+
+        {/* DNS prefetch for external domains */}
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="//cdn.sanity.io" />
+
+        {/* Google Analytics Script (gtag.js) - Load after page becomes interactive */}
         {GA_MEASUREMENT_ID && (
           <>
             <Script

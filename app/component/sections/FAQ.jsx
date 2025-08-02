@@ -1,5 +1,11 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 import { faq } from "../../Commons/details";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lightbulb } from "lucide-react";
@@ -9,44 +15,47 @@ function FAQ() {
   const [focusedIndex, setFocusedIndex] = useState(null);
   const faqRefs = useRef([]);
 
-  // Handle keyboard navigation
-  const handleKeyDown = (e, title, idx) => {
-    switch (e.key) {
-      case "Enter":
-      case " ":
-        e.preventDefault();
-        setSelectedTest(selectedTest === title ? null : title);
-        break;
-      case "ArrowDown":
-        e.preventDefault();
-        const nextIndex = idx < faq.length - 1 ? idx + 1 : 0;
-        faqRefs.current[nextIndex]?.focus();
-        setFocusedIndex(nextIndex);
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        const prevIndex = idx > 0 ? idx - 1 : faq.length - 1;
-        faqRefs.current[prevIndex]?.focus();
-        setFocusedIndex(prevIndex);
-        break;
-      case "Home":
-        e.preventDefault();
-        faqRefs.current[0]?.focus();
-        setFocusedIndex(0);
-        break;
-      case "End":
-        e.preventDefault();
-        const lastIndex = faq.length - 1;
-        faqRefs.current[lastIndex]?.focus();
-        setFocusedIndex(lastIndex);
-        break;
-      case "Escape":
-        if (selectedTest === title) {
-          setSelectedTest(null);
-        }
-        break;
-    }
-  };
+  // Memoize the keyboard navigation handler
+  const handleKeyDown = useCallback(
+    (e, title, idx) => {
+      switch (e.key) {
+        case "Enter":
+        case " ":
+          e.preventDefault();
+          setSelectedTest(selectedTest === title ? null : title);
+          break;
+        case "ArrowDown":
+          e.preventDefault();
+          const nextIndex = idx < faq.length - 1 ? idx + 1 : 0;
+          faqRefs.current[nextIndex]?.focus();
+          setFocusedIndex(nextIndex);
+          break;
+        case "ArrowUp":
+          e.preventDefault();
+          const prevIndex = idx > 0 ? idx - 1 : faq.length - 1;
+          faqRefs.current[prevIndex]?.focus();
+          setFocusedIndex(prevIndex);
+          break;
+        case "Home":
+          e.preventDefault();
+          faqRefs.current[0]?.focus();
+          setFocusedIndex(0);
+          break;
+        case "End":
+          e.preventDefault();
+          const lastIndex = faq.length - 1;
+          faqRefs.current[lastIndex]?.focus();
+          setFocusedIndex(lastIndex);
+          break;
+        case "Escape":
+          if (selectedTest === title) {
+            setSelectedTest(null);
+          }
+          break;
+      }
+    },
+    [selectedTest, faq.length]
+  );
 
   // Animation variants
   const containerVariants = {
@@ -359,7 +368,7 @@ function FAQ() {
                             <Lightbulb className="w-4 h-4 inline mr-1" /> Still
                             have questions?
                             <a
-                              href="#contact"
+                              href="mailto:officialbookone@gmail.com"
                               className="ml-2 underline hover:no-underline transition-all duration-200"
                               tabIndex={0}
                             >

@@ -79,6 +79,7 @@ export default async function BlogListPage(props) {
             <button
               type="submit"
               className="bg-gray-900 text-white px-5 py-2 rounded-lg font-medium hover:bg-gray-800 transition"
+              aria-label="Search articles"
             >
               Search
             </button>
@@ -91,7 +92,10 @@ export default async function BlogListPage(props) {
               {/* Image Container */}
               {blogs[0].mainImage && (
                 <div className="lg:w-1/2 relative overflow-hidden h-64 lg:h-auto">
-                  <Link href={`/blogs/${blogs[0].slug.current}`}>
+                  <Link
+                    href={`/blogs/${blogs[0].slug.current}`}
+                    aria-label={`Read full article: ${blogs[0].title}`}
+                  >
                     <Image
                       src={urlFor(blogs[0].mainImage).url()}
                       alt={blogs[0].title}
@@ -118,7 +122,10 @@ export default async function BlogListPage(props) {
               {/* Content */}
               <div className="lg:w-1/2 p-6 lg:p-8 flex flex-col justify-center">
                 <h3 className="text-2xl lg:text-3xl font-semibold text-gray-900 mb-4 group-hover:text-gray-700 transition-colors">
-                  <Link href={`/blogs/${blogs[0].slug.current}`}>
+                  <Link
+                    href={`/blogs/${blogs[0].slug.current}`}
+                    aria-label={`Read ${blogs[0].title}`}
+                  >
                     {blogs[0].title}
                   </Link>
                 </h3>
@@ -150,6 +157,9 @@ export default async function BlogListPage(props) {
                       <Link
                         href={`/authors/${blogs[0].author?.slug?.current}`}
                         className="text-sm font-semibold text-gray-900 hover:text-gray-700 transition-colors"
+                        aria-label={`View ${
+                          blogs[0].author?.name || "Anonymous"
+                        } author profile`}
                       >
                         {blogs[0].author?.name || "Anonymous"}
                       </Link>
@@ -167,6 +177,7 @@ export default async function BlogListPage(props) {
                   <Link
                     href={`/blogs/${blogs[0].slug.current}`}
                     className="inline-flex items-center justify-center w-8 h-8 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-all duration-300 group"
+                    aria-label={`Read full article: ${blogs[0].title}`}
                   >
                     <svg
                       className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform"
@@ -198,7 +209,11 @@ export default async function BlogListPage(props) {
               >
                 {/* Image */}
                 {blog.mainImage && (
-                  <Link href={`/blogs/${blog.slug.current}`} className="block">
+                  <Link
+                    href={`/blogs/${blog.slug.current}`}
+                    className="block"
+                    aria-label={`Read ${blog.title}`}
+                  >
                     <div className="relative overflow-hidden h-48">
                       <Image
                         src={urlFor(blog.mainImage).url()}
@@ -218,7 +233,10 @@ export default async function BlogListPage(props) {
                 <div className="p-6">
                   {/* Title */}
                   <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-gray-700 transition-colors line-clamp-2">
-                    <Link href={`/blogs/${blog.slug.current}`}>
+                    <Link
+                      href={`/blogs/${blog.slug.current}`}
+                      aria-label={`Read ${blog.title}`}
+                    >
                       {blog.title}
                     </Link>
                   </h3>
@@ -252,6 +270,9 @@ export default async function BlogListPage(props) {
                         <Link
                           href={`/authors/${blog.author?.slug?.current}`}
                           className="text-sm font-semibold text-gray-900 hover:text-gray-700 transition-colors"
+                          aria-label={`View ${
+                            blog.author?.name || "Anonymous"
+                          } author profile`}
                         >
                           {blog.author?.name || "Anonymous"}
                         </Link>
@@ -267,6 +288,7 @@ export default async function BlogListPage(props) {
                     <Link
                       href={`/blogs/${blog.slug.current}`}
                       className="inline-flex items-center justify-center w-7 h-7 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-all duration-300 group"
+                      aria-label={`Read full article: ${blog.title}`}
                     >
                       <svg
                         className="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform"
@@ -308,6 +330,7 @@ export default async function BlogListPage(props) {
                   ? "bg-gray-900 text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
+              aria-label={`Go to page ${i + 1}`}
             >
               {i + 1}
             </Link>

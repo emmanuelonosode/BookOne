@@ -47,7 +47,7 @@ export async function POST(request) {
 
       if (response.ok) {
         sheetDbSuccess = true;
-        console.log("Email subscription saved to SheetDB successfully");
+        // Email subscription saved to SheetDB successfully
       } else {
         console.error("SheetDB Error:", await response.text());
         // Continue with email sending even if SheetDB fails
@@ -111,7 +111,7 @@ async function sendConfirmationEmail(email) {
     // Verify transporter configuration
     try {
       await transporter.verify();
-      console.log("Newsletter email transporter verified successfully");
+      // Newsletter email transporter verified successfully
     } catch (verifyError) {
       console.error(
         "Newsletter email transporter verification failed:",
@@ -171,7 +171,7 @@ async function sendConfirmationEmail(email) {
     );
 
     await Promise.race([emailPromise, timeoutPromise]);
-    console.log("Newsletter confirmation email sent successfully");
+    // Newsletter confirmation email sent successfully
   } catch (error) {
     console.error(
       "Failed to send newsletter confirmation email:",

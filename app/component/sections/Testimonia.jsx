@@ -205,7 +205,7 @@ const Testimonia = () => {
               aria-label="Testimonial Pagination"
             >
               {testimonia.map((_, index) => (
-                <button
+                <div
                   key={index}
                   onClick={() => goToSlide(index)}
                   className={`h-3 w-3 rounded-full transition-colors duration-200 ${
@@ -217,7 +217,7 @@ const Testimonia = () => {
                   role="tab"
                   aria-selected={index === currentIndex}
                   tabIndex={0}
-                ></button>
+                ></div>
               ))}
             </nav>
           )}

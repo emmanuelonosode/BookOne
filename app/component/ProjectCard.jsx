@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useCallback, useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { urlFor } from "@/lib/sanity";
 import Link from "next/link";
@@ -16,84 +16,108 @@ export default function ProjectCard({ project }) {
     offset: ["start end", "end start"], // When the card enters (0) and leaves (1) the viewport
   });
 
-  const imageY = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [-30, 30]); // Reduced movement for better performance
 
-  // Variants for desktop hover overlay
-  const desktopOverlayVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.05,
-        duration: 0.5,
+  // Memoize animation variants to prevent recreation
+  const desktopOverlayVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.1,
+          delayChildren: 0.05,
+          duration: 0.4, // Reduced duration
+        },
       },
-    },
-  };
+    }),
+    []
+  );
 
-  // Variants for mobile overlay (always visible with subtle animation)
-  const mobileOverlayVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-        duration: 0.6,
-        ease: "easeOut",
+  const mobileOverlayVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: 20 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          staggerChildren: 0.1,
+          delayChildren: 0.2,
+          duration: 0.5, // Reduced duration
+          ease: "easeOut",
+        },
       },
-    },
-  };
+    }),
+    []
+  );
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        damping: 15,
-        stiffness: 100,
+  const cardVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: 30 }, // Reduced movement
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          type: "spring",
+          damping: 15,
+          stiffness: 100,
+        },
       },
-    },
-  };
+    }),
+    []
+  );
 
-  const contentItemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 90,
+  const contentItemVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: 15 }, // Reduced movement
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          type: "spring",
+          damping: 12,
+          stiffness: 90,
+        },
       },
-    },
-  };
+    }),
+    []
+  );
 
-  // Enhanced content variants for mobile tap interaction
-  const mobileContentVariants = {
-    collapsed: { opacity: 0.9, y: 10 },
-    expanded: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        damping: 15,
-        stiffness: 120,
+  const mobileContentVariants = useMemo(
+    () => ({
+      collapsed: { opacity: 0.9, y: 8 }, // Reduced movement
+      expanded: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          type: "spring",
+          damping: 15,
+          stiffness: 120,
+        },
       },
-    },
-  };
+    }),
+    []
+  );
 
-  // Handle mobile tap interaction
-  const handleMobileTap = (e) => {
-    if (typeof window !== "undefined" && window.innerWidth < 768) {
-      // Only on mobile
-      e.preventDefault();
-      setIsTapped(!isTapped);
+  // Memoize the mobile tap handler
+  const handleMobileTap = useCallback(
+    (e) => {
+      if (typeof window !== "undefined" && window.innerWidth < 768) {
+        // Only on mobile
+        e.preventDefault();
+        setIsTapped(!isTapped);
+      }
+    },
+    [isTapped]
+  );
+
+  // Memoize the hover scale value
+  const hoverScale = useMemo(() => {
+    if (typeof window !== "undefined" && window.innerWidth >= 768) {
+      return 1.01;
     }
-  };
+    return 1;
+  }, []);
 
   return (
     <motion.div
@@ -103,10 +127,7 @@ export default function ProjectCard({ project }) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
-      whileHover={{
-        scale:
-          typeof window !== "undefined" && window.innerWidth >= 768 ? 1.01 : 1,
-      }} // Only scale on desktop
+      whileHover={{ scale: hoverScale }}
       role="article"
       aria-labelledby={`project-title-${project.slug?.current}`}
       aria-describedby={`project-description-${project.slug?.current}`}

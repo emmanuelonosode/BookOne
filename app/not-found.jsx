@@ -36,20 +36,33 @@ export default function NotFound() {
           <Link
             href="/"
             className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+            aria-label="Go to home page"
           >
             Go Home
           </Link>
 
           <div className="text-sm text-gray-500">
-            <Link href="/blogs" className="hover:text-blue-600">
+            <Link
+              href="/blogs"
+              className="hover:text-blue-600"
+              aria-label="Browse our blog"
+            >
               Browse our blog
             </Link>
             {" • "}
-            <Link href="/services" className="hover:text-blue-600">
+            <Link
+              href="/services"
+              className="hover:text-blue-600"
+              aria-label="View our services"
+            >
               View services
             </Link>
             {" • "}
-            <Link href="/get-started" className="hover:text-blue-600">
+            <Link
+              href="/get-started"
+              className="hover:text-blue-600"
+              aria-label="Get a quote - View pricing and get started"
+            >
               Get a Quote
             </Link>
           </div>

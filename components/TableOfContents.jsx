@@ -75,6 +75,7 @@ export default function TableOfContents({ content }) {
                 : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
             }`}
             style={{ paddingLeft: `${(heading.level - 1) * 12 + 12}px` }}
+            aria-label={`Jump to ${heading.text}`}
           >
             {heading.text}
           </button>

@@ -328,7 +328,10 @@ function Contact() {
                       whileHover={{ scale: 1 }}
                       transition={{ duration: 0.3 }}
                     />
-                    <Link href="/get-started">
+                    <Link
+                      href="/get-started"
+                      aria-label="Get started - View pricing and begin your project"
+                    >
                       <span className="relative z-10 flex items-center gap-2">
                         Get Started
                         <svg
@@ -352,7 +355,10 @@ function Contact() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Link href="https://calendar.notion.so/meet/officialbookone/call">
+                    <Link
+                      href="https://calendar.notion.so/meet/officialbookone/call"
+                      aria-label="Schedule free consultation - Book a call with our team"
+                    >
                       <span className="relative z-10 flex items-center gap-2">
                         Schedule Free Consultation
                         <svg

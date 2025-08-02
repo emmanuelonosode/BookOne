@@ -217,7 +217,11 @@ export default async function AuthorPage({ params }) {
                   key={blog._id}
                   className="group bg-white rounded-xl border border-gray-100 p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
                 >
-                  <Link href={`/blogs/${blog.slug.current}`} className="block">
+                  <Link
+                    href={`/blogs/${blog.slug.current}`}
+                    className="block"
+                    aria-label={`Read ${blog.title}`}
+                  >
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0 w-2 h-16 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       <div className="flex-1">
@@ -327,6 +331,7 @@ export default async function AuthorPage({ params }) {
           <Link
             href="/authors"
             className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium transition-colors duration-300"
+            aria-label="Back to all authors"
           >
             <svg
               className="w-4 h-4"
