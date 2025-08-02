@@ -4,6 +4,7 @@ import { PortableText } from "@portabletext/react";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import Script from "next/script";
+import Link from "next/link";
 import {
   ShareButtons,
   ReadingProgress,
@@ -14,12 +15,6 @@ import {
 import CodeBlock from "@/components/CodeBlock";
 import BackToTop from "@/components/BackToTop";
 import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { PortableText } from "@portabletext/react";
-import { urlFor } from "../../../sanity/lib/image";
-import { client } from "../../../sanity/lib/client";
-import { formatDistanceToNow } from "date-fns";
 import {
   AlertTriangle,
   X,

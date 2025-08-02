@@ -39,13 +39,14 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ["lucide-react", "framer-motion"],
-    // Enable Turbopack
-    turbo: {
-      rules: {
-        "*.svg": {
-          loaders: ["@svgr/webpack"],
-          as: "*.js",
-        },
+  },
+
+  // Turbopack configuration (now stable)
+  turbopack: {
+    rules: {
+      "*.svg": {
+        loaders: ["@svgr/webpack"],
+        as: "*.js",
       },
     },
   },
