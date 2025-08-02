@@ -1,13 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 // Mock data - replace with actual imports
 const navDetails = [
   { id: 1, name: "Portfolio", href: "/portfolio" },
   { id: 2, name: "About", href: "/about" },
   { id: 3, name: "Services", href: "/services" },
-  { id: 4, name: "  Blogs", href: "/blogs" },
+  { id: 4, name: "Blogs", href: "/blogs" },
   { id: 5, name: "Contact", href: "/#contact" },
 ];
 
@@ -32,11 +33,46 @@ const socialIcons = [
 function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [consultationDropdownOpen, setConsultationDropdownOpen] =
+    useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const handleScroll = () => setScrolled(window.scrollY > 20);
-      window.addEventListener("scroll", handleScroll);
+      let ticking = false;
+      let lastScrollY = 0;
+      let scrollThreshold = 5; // Minimum scroll distance to trigger nav change
+
+      const handleScroll = () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            const currentScrollY = window.scrollY;
+            const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+
+            // Only update if scroll distance is significant enough
+            if (scrollDelta > scrollThreshold) {
+              // Check if scrolled past threshold for background change
+              setScrolled(currentScrollY > 20);
+
+              // Determine scroll direction and show/hide nav
+              if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Scrolling down - hide nav
+                setIsVisible(false);
+              } else if (currentScrollY < lastScrollY) {
+                // Scrolling up - show nav
+                setIsVisible(true);
+              }
+
+              lastScrollY = currentScrollY;
+            }
+
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+
+      window.addEventListener("scroll", handleScroll, { passive: true });
       return () => window.removeEventListener("scroll", handleScroll);
     }
   }, []);
@@ -47,6 +83,21 @@ function Nav() {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  // Close consultation dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        consultationDropdownOpen &&
+        !event.target.closest(".consultation-dropdown")
+      ) {
+        setConsultationDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [consultationDropdownOpen]);
 
   const menuVariants = {
     closed: {
@@ -84,46 +135,133 @@ function Nav() {
             : "bg-white/40 backdrop-blur-xl"
         }`}
         initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        animate={{ y: isVisible ? 0 : -100 }}
+        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
       >
         <div className="container mx-auto px-6 md:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <motion.a
+            <Link
               href="/"
-              className="text-2xl md:text-3xl font-bold text-gray-800 hover:text-gray-600 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="text-2xl md:text-3xl font-bold text-black hover:text-gray-600 transition-colors"
             >
               BookOne
-            </motion.a>
+            </Link>
 
             {/* Desktop Navigation */}
             <ul className="hidden md:flex items-center space-x-8">
               {navDetails.map(({ name, href, id }) => (
                 <motion.li key={id}>
-                  <a
+                  <Link
                     href={href}
                     className="text-gray-700 hover:text-gray-900 font-medium transition-colors relative group"
                   >
                     {name}
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                  </a>
+                  </Link>
                 </motion.li>
               ))}
             </ul>
 
             {/* CTA & Hamburger */}
             <div className="flex items-center space-x-4">
-              <motion.a
-                href="https://calendar.notion.so/meet/officialbookone/call"
-                className="hidden sm:inline-flex bg-gray-800 text-white px-6 py-3 rounded-full hover:bg-gray-700 transition-colors text-sm font-medium"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Get a free consultation
-              </motion.a>
+              {/* Consultation Dropdown */}
+              <div className="hidden sm:block relative consultation-dropdown">
+                <motion.button
+                  onClick={() =>
+                    setConsultationDropdownOpen(!consultationDropdownOpen)
+                  }
+                  className="bg-gray-800 text-white px-6 py-3 rounded-full hover:bg-gray-700 transition-colors text-sm font-medium flex items-center space-x-2"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span>Get a free consultation</span>
+                  <motion.svg
+                    className="w-4 h-4"
+                    animate={{ rotate: consultationDropdownOpen ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </motion.svg>
+                </motion.button>
+
+                {/* Dropdown Menu */}
+                <AnimatePresence>
+                  {consultationDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50"
+                    >
+                      <div className="py-2">
+                        <motion.a
+                          href="https://calendar.notion.so/meet/officialbookone/call"
+                          className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
+                          whileHover={{ x: 4 }}
+                          onClick={() => setConsultationDropdownOpen(false)}
+                        >
+                          <svg
+                            className="w-5 h-5 mr-3 text-blue-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                            />
+                          </svg>
+                          <div>
+                            <div className="font-medium">Book a Call</div>
+                            <div className="text-xs text-gray-500">
+                              Schedule a free consultation
+                            </div>
+                          </div>
+                        </motion.a>
+                        <Link href="/get-started">
+                          <motion.div
+                            className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                            whileHover={{ x: 4 }}
+                            onClick={() => setConsultationDropdownOpen(false)}
+                          >
+                            <svg
+                              className="w-5 h-5 mr-3 text-purple-600"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                              />
+                            </svg>
+                            <div>
+                              <div className="font-medium">Get a Quote</div>
+                              <div className="text-xs text-gray-500">
+                                Request a custom proposal
+                              </div>
+                            </div>
+                          </motion.div>
+                        </Link>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               {/* Hamburger */}
               <motion.button
@@ -196,7 +334,7 @@ function Nav() {
                 <div className="space-y-6">
                   {navDetails.map(({ name, href, id }) => (
                     <motion.div key={id} variants={itemVariants}>
-                      <a
+                      <Link
                         href={href}
                         onClick={() => setMenuOpen(false)}
                         className="flex items-center justify-between py-4 border-b border-gray-200/50 group"
@@ -224,13 +362,13 @@ function Nav() {
                             />
                           </svg>
                         </motion.div>
-                      </a>
+                      </Link>
                     </motion.div>
                   ))}
 
                   {/* Blog Link */}
                   <motion.div variants={itemVariants}>
-                    <a
+                    <Link
                       href="/blogs"
                       onClick={() => setMenuOpen(false)}
                       className="flex items-center justify-between py-4 border-b border-gray-200/50 group"
@@ -258,19 +396,52 @@ function Nav() {
                           />
                         </svg>
                       </motion.div>
-                    </a>
+                    </Link>
                   </motion.div>
                 </div>
 
-                {/* CTA */}
-                <motion.div variants={itemVariants} className="mt-8">
+                {/* CTA Options */}
+                <motion.div variants={itemVariants} className="mt-8 space-y-3">
                   <a
                     href="https://calendar.notion.so/meet/officialbookone/call"
                     onClick={() => setMenuOpen(false)}
                     className="w-full inline-flex items-center justify-center bg-gray-800 text-white px-6 py-4 rounded-full hover:bg-gray-700 transition-colors font-medium"
                   >
-                    Get a free consultation
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                    Book a Call
                   </a>
+                  <Link
+                    href="/get-started"
+                    onClick={() => setMenuOpen(false)}
+                    className="w-full inline-flex items-center justify-center bg-white text-gray-800 px-6 py-4 rounded-full hover:bg-gray-50 transition-colors font-medium border border-gray-200"
+                  >
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                    Get a Quote
+                  </Link>
                 </motion.div>
 
                 {/* Social Links */}

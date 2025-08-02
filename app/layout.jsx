@@ -48,7 +48,35 @@ export const metadata = {
     "growth",
     "digital marketing",
     "online presence",
+    "Nigeria digital agency",
+    "web design Nigeria",
+    "AI automation Nigeria",
   ],
+  authors: [{ name: "BookOne", url: "https://bookone.dev" }],
+  creator: "BookOne",
+  publisher: "BookOne",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+  },
+  alternates: {
+    canonical: "https://bookone.dev",
+  },
   openGraph: {
     title: "BookOne | Website Design, SEO & AI Automation for Modern Brands",
     description:

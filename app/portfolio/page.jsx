@@ -1,65 +1,10 @@
 import { sanity, urlFor } from "@/lib/sanity";
 import { projects } from "@/lib/queries";
-import React from "react";
-import Image from "next/image";
 import Script from "next/script";
-
+import { ArrowUpRight, Users, Award, Star } from "lucide-react";
+import ProjectCard from "../component/ProjectCard";
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
-
-// --- ProjectCard Component ---
-const ProjectCard = ({ project }) => {
-  return (
-    <div
-      className="group relative w-full h-150 rounded-md shadow-xl overflow-hidden cursor-pointer transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
-      role="article"
-      aria-labelledby={`project-title-${project.slug?.current}`}
-      aria-describedby={`project-description-${project.slug?.current}`}
-    >
-      <a
-        href={`/portfolio/${project.slug?.current}`}
-        className="block w-full h-full"
-        aria-label={`View details for ${project.title}`}
-        title={`Learn more about ${project.title}`}
-      >
-        <div className="absolute inset-0">
-          {project.mainImage && (
-            <Image
-              src={urlFor(project.mainImage).url()}
-              alt={`Screenshot or visual for ${project.title} project`}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority={false}
-              placeholder="blur"
-              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-            />
-          )}
-        </div>
-        <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 bg-black/60 text-white">
-          <h3
-            id={`project-title-${project._id}`}
-            className="text-2xl md:text-3xl font-semibold mb-2"
-          >
-            {project.title}
-          </h3>
-          <p
-            id={`project-description-${project._id}`}
-            className="text-sm md:text-base leading-relaxed mb-4"
-          >
-            {project.overview}
-          </p>
-          <span
-            className="inline-block text-blue-300 font-medium text-sm md:text-base"
-            aria-hidden="true"
-          >
-            View Project &rarr;
-          </span>
-        </div>
-      </a>
-    </div>
-  );
-};
 
 // --- PortfolioPage Component ---
 export default async function PortfolioPage() {
@@ -105,6 +50,13 @@ export default async function PortfolioPage() {
     },
   };
 
+  // Sample stats - replace with real data
+  const stats = [
+    { icon: Users, label: "Happy Clients", value: "50+" },
+    { icon: Award, label: "Projects Delivered", value: "100+" },
+    { icon: Star, label: "Client Satisfaction", value: "95%" },
+  ];
+
   return (
     <>
       <Script
@@ -116,39 +68,129 @@ export default async function PortfolioPage() {
       />
       <section
         id="portfolio-section"
-        className="min-h-screen bg-bgcolor py-22 px-4 sm:px-6 lg:px-8 font-inter text-gray-800 overflow-hidden"
+        className="min-h-screen bg-gradient-to-br from-gray-50 to-purple-50 py-22 px-4 sm:px-6 lg:px-8 text-gray-800"
         aria-labelledby="portfolio-heading"
       >
         <div className="max-w-7xl mx-auto">
-          {/* Page Header */}
-          <div className="text-center mb-16">
-            <h2
+          {/* Hero Section */}
+          <div className="text-center mb-20">
+            {/* Badge */}
+            <div className="inline-flex items-center bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <Star className="w-4 h-4 mr-2" />
+              Award-Winning Work
+            </div>
+
+            {/* Main Heading */}
+            <h1
               id="portfolio-heading"
-              className="h2 font-extrabold text-purple-800 mb-6 leading-tight inline-block"
+              className="text-6xl sm:text-7xl font-bold text-gray-900 mb-6 leading-tight"
             >
-              Our Portfolio
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Our
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
+                {" "}
+                Portfolio
+              </span>
+            </h1>
+
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-12">
               Showcasing our impactful work across various industries. Each
               project is a testament to our dedication to innovation and client
               success.
             </p>
+
+            {/* Stats Row */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
+              {stats.map((stat, index) => {
+                const IconComponent = stat.icon;
+                return (
+                  <div key={index} className="text-center">
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg mb-3">
+                      <IconComponent className="w-6 h-6 text-purple-600" />
+                    </div>
+                    <div className="text-3xl font-bold text-gray-900 mb-1">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-gray-600 font-medium">
+                      {stat.label}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Projects Grid */}
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
-            role="group"
-            aria-label="Portfolio Projects"
-          >
-            {allProjects.map((port) => (
-              <div key={port._id} className="mb-8">
-                <ProjectCard project={port} />
+          {/* Featured Project */}
+          {allProjects.length > 0 && (
+            <div className="mb-16">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                  Featured Project
+                </h2>
+                <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto rounded-full"></div>
               </div>
-            ))}
+              <div className="max-w-7xl mx-auto">
+                <ProjectCard project={allProjects[0]} featured={true} />
+              </div>
+            </div>
+          )}
+
+          {/* All Projects Section */}
+          <div className="mb-16">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                All Projects
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Explore our complete collection of successful projects across
+                different industries and technologies.
+              </p>
+            </div>
+
+            {/* Projects Grid */}
+            <div
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+              role="group"
+              aria-label="Portfolio Projects"
+            >
+              {allProjects.map((project) => (
+                <ProjectCard key={project._id} project={project} />
+              ))}
+            </div>
           </div>
 
-          <div className="text-center mt-16"></div>
+          {/* CTA Section */}
+          <div className="bg-white rounded-3xl shadow-xl p-12 text-center relative overflow-hidden border border-gray-100">
+            {/* Background decoration */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-purple-100 rounded-full -translate-y-16 translate-x-16 opacity-50"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-blue-100 rounded-full translate-y-12 -translate-x-12 opacity-50"></div>
+
+            <div className="relative z-10">
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                Ready to Start Your Project?
+              </h3>
+              <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                Let's discuss your vision and create something amazing together.
+                Get in touch for a free consultation.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a
+                  href="/get-started"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 px-8 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                >
+                  <span>Start Your Project</span>
+                  <ArrowUpRight className="w-5 h-5" />
+                </a>
+
+                <a
+                  href="/about"
+                  className="inline-flex items-center gap-2 border-2 border-gray-300 text-gray-700 py-4 px-8 rounded-full font-semibold hover:border-purple-600 hover:text-purple-600 transition-all duration-300"
+                >
+                  <span>Learn More About Us</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </>

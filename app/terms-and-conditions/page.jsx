@@ -142,8 +142,8 @@ export default function TermsOfServicePage() {
         </li>
         <li>
           Contact page:{" "}
-          <a href="/contact" className="text-purple-700 underline">
-            bookone.agency/contact
+          <a href="/get-started" className="text-purple-700 underline">
+            bookone.agency/get-started
           </a>
         </li>
         <li>Phone: +234 (your business number here)</li>

@@ -2,6 +2,18 @@
 
 import { useEffect, useRef } from "react";
 import Btn from "../Btn";
+import Link from "next/link";
+import {
+  MessageSquare,
+  RefreshCw,
+  Link as LinkIcon,
+  BarChart3,
+  Target,
+  DollarSign,
+  Zap,
+  Rocket,
+  PenTool,
+} from "lucide-react";
 
 const BookOneServices = () => {
   const sectionsRef = useRef([]);
@@ -162,9 +174,9 @@ const BookOneServices = () => {
         </div>
 
         <div className="max-w-6xl mx-auto px-8 text-center text-white z-10">
-          <h1 className="animate-element fade-up text-6xl md:text-7xl lg:text-8xl font-bold mb-6 bg-gradient-to-r from-white to-violet-200 bg-clip-text text-transparent">
+          <h2 className="animate-element fade-up text-6xl md:text-7xl lg:text-8xl font-bold mb-6 bg-gradient-to-r from-white to-violet-200 bg-clip-text text-transparent">
             What We Do at BookOne
-          </h1>
+          </h2>
           <p className="animate-element fade-up text-xl md:text-2xl opacity-90 mb-8 max-w-3xl mx-auto">
             Transform your digital presence with our comprehensive solutions
             designed to elevate your business
@@ -285,7 +297,9 @@ const BookOneServices = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="animate-element stagger-1 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="text-3xl mb-4">💬</div>
+              <div className="text-3xl mb-4 flex justify-center">
+                <MessageSquare className="w-8 h-8 text-blue-600" />
+              </div>
               <h3 className="text-lg font-semibold text-slate-800 mb-2">
                 AI Chatbots
               </h3>
@@ -294,7 +308,9 @@ const BookOneServices = () => {
               </p>
             </div>
             <div className="animate-element stagger-2 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="text-3xl mb-4">🔄</div>
+              <div className="text-3xl mb-4 flex justify-center">
+                <RefreshCw className="w-8 h-8 text-green-600" />
+              </div>
               <h3 className="text-lg font-semibold text-slate-800 mb-2">
                 Workflows
               </h3>
@@ -303,7 +319,9 @@ const BookOneServices = () => {
               </p>
             </div>
             <div className="animate-element stagger-3 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="text-3xl mb-4">🔗</div>
+              <div className="text-3xl mb-4 flex justify-center">
+                <LinkIcon className="w-8 h-8 text-purple-600" />
+              </div>
               <h3 className="text-lg font-semibold text-slate-800 mb-2">
                 Integrations
               </h3>
@@ -312,7 +330,9 @@ const BookOneServices = () => {
               </p>
             </div>
             <div className="animate-element stagger-4 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="text-3xl mb-4">📊</div>
+              <div className="text-3xl mb-4 flex justify-center">
+                <BarChart3 className="w-8 h-8 text-orange-600" />
+              </div>
               <h3 className="text-lg font-semibold text-slate-800 mb-2">
                 Training
               </h3>
@@ -360,9 +380,9 @@ const BookOneServices = () => {
             </div>
           </div>
           <div className="text-center lg:text-right order-1 lg:order-2">
-            {/* <div className="animate-element scale-in text-8xl text-violet-700 mb-6">
-              ✍️
-            </div> */}
+            <div className="animate-element scale-in text-8xl text-violet-700 mb-6 flex justify-center">
+              <PenTool className="w-24 h-24" />
+            </div>
             <h2 className="animate-element fade-up text-5xl md:text-6xl font-light text-slate-800 mb-6">
               Content Writing
             </h2>
@@ -386,7 +406,9 @@ const BookOneServices = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="animate-element stagger-1">
               <div className="bg-white/10 backdrop-blur-lg p-8 rounded-3xl hover:bg-white/20 transition-all duration-300">
-                <div className="text-4xl mb-4">🎯</div>
+                <div className="text-4xl mb-4 flex justify-center">
+                  <Target className="w-12 h-12 text-white" />
+                </div>
                 <h3 className="text-xl font-bold mb-4">Discovery Call</h3>
                 <p className="text-white/80">
                   We understand your goals, audience, and vision
@@ -395,7 +417,9 @@ const BookOneServices = () => {
             </div>
             <div className="animate-element stagger-2">
               <div className="bg-white/10 backdrop-blur-lg p-8 rounded-3xl hover:bg-white/20 transition-all duration-300">
-                <div className="text-4xl mb-4">💰</div>
+                <div className="text-4xl mb-4 flex justify-center">
+                  <DollarSign className="w-12 h-12 text-white" />
+                </div>
                 <h3 className="text-xl font-bold mb-4">Proposal & Pricing</h3>
                 <p className="text-white/80">
                   Detailed quote with transparent pricing and timeline
@@ -404,7 +428,9 @@ const BookOneServices = () => {
             </div>
             <div className="animate-element stagger-3">
               <div className="bg-white/10 backdrop-blur-lg p-8 rounded-3xl hover:bg-white/20 transition-all duration-300">
-                <div className="text-4xl mb-4">⚡</div>
+                <div className="text-4xl mb-4 flex justify-center">
+                  <Zap className="w-12 h-12 text-white" />
+                </div>
                 <h3 className="text-xl font-bold mb-4">Execution</h3>
                 <p className="text-white/80">
                   We bring your vision to life with regular updates
@@ -413,7 +439,9 @@ const BookOneServices = () => {
             </div>
             <div className="animate-element stagger-4">
               <div className="bg-white/10 backdrop-blur-lg p-8 rounded-3xl hover:bg-white/20 transition-all duration-300">
-                <div className="text-4xl mb-4">🚀</div>
+                <div className="text-4xl mb-4 flex justify-center">
+                  <Rocket className="w-12 h-12 text-white" />
+                </div>
                 <h3 className="text-xl font-bold mb-4">Launch & Support</h3>
                 <p className="text-white/80">
                   Deployment, training, and ongoing support
@@ -422,13 +450,13 @@ const BookOneServices = () => {
             </div>
           </div>
           <div className="animate-element fade-up mt-12">
-            <a href="/services" className="inline-block">
+            <Link href="/get-started" className="inline-block">
               <Btn
                 sec
                 className="bg-white max-sm:w-full"
                 label="Get Started Today"
               />
-            </a>
+            </Link>
           </div>
         </div>
       </section>

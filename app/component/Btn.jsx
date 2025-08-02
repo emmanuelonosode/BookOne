@@ -3,7 +3,14 @@ import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-function Btn({ label, sec, className = "", type = "button" }) {
+function Btn({
+  label,
+  sec,
+  className = "",
+  type = "button",
+  as = "button",
+  ...props
+}) {
   const secondary = sec
     ? "bg-transparent text-purple-600 border-2 border-purple-600"
     : "bg-purple-600 text-white";
@@ -22,18 +29,21 @@ function Btn({ label, sec, className = "", type = "button" }) {
         scale: 1.05,
       };
 
+  const Component = as === "link" ? motion.div : motion.button;
+
   return (
-    <motion.button
+    <Component
       whileHover={hoverVariant}
       transition={{
         type: "spring",
         stiffness: 300,
         damping: 20,
       }}
-      className={`inline-block py-3 px-6 rounded-full font-bold shadow-lg border transition-all duration-300 ${secondary} ${className}`}
+      className={`inline-block py-3 px-6 rounded-full font-bold shadow-lg border transition-all duration-300 cursor-pointer ${secondary} ${className}`}
+      {...props}
     >
       {label}
-    </motion.button>
+    </Component>
   );
 }
 

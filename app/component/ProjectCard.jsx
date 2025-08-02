@@ -2,6 +2,7 @@
 import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { urlFor } from "@/lib/sanity";
+import Link from "next/link";
 
 export default function ProjectCard({ project }) {
   // State for mobile tap interaction
@@ -110,7 +111,7 @@ export default function ProjectCard({ project }) {
       aria-labelledby={`project-title-${project.slug?.current}`}
       aria-describedby={`project-description-${project.slug?.current}`}
     >
-      <a
+      <Link
         href={`/portfolio/${project.slug?.current}`}
         className="block w-full h-full"
         aria-label={`View details for ${project.title}`}
@@ -273,7 +274,7 @@ export default function ProjectCard({ project }) {
             </div>
           </motion.div>
         </motion.div>
-      </a>
+      </Link>
     </motion.div>
   );
 }

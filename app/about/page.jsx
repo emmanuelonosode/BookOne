@@ -2,6 +2,16 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { generateMetaTags } from "../seo-config";
+import {
+  BarChart3,
+  Star,
+  Rocket,
+  LifeBuoy,
+  TrendingUp,
+  Handshake,
+  Gem,
+  Check,
+} from "lucide-react";
 
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
@@ -27,10 +37,26 @@ export const metadata = generateMetaTags({
 
 export default function AboutPage() {
   const stats = [
-    { number: "50+", label: "Projects Delivered", icon: "📊" },
-    { number: "98%", label: "Client Satisfaction", icon: "⭐" },
-    { number: "5+", label: "Years Experience", icon: "🚀" },
-    { number: "24/7", label: "Support Available", icon: "🛟" },
+    {
+      number: "50+",
+      label: "Projects Delivered",
+      icon: <BarChart3 className="w-6 h-6" />,
+    },
+    {
+      number: "98%",
+      label: "Client Satisfaction",
+      icon: <Star className="w-6 h-6" />,
+    },
+    {
+      number: "5+",
+      label: "Years Experience",
+      icon: <Rocket className="w-6 h-6" />,
+    },
+    {
+      number: "24/7",
+      label: "Support Available",
+      icon: <LifeBuoy className="w-6 h-6" />,
+    },
   ];
 
   const values = [
@@ -38,25 +64,25 @@ export default function AboutPage() {
       title: "Innovation First",
       description:
         "We stay ahead of digital trends to deliver cutting-edge solutions that future-proof your business.",
-      icon: "🚀",
+      icon: <Rocket className="w-6 h-6" />,
     },
     {
       title: "Results Driven",
       description:
         "Every strategy, design, and line of code is optimized for measurable business growth and ROI.",
-      icon: "📈",
+      icon: <TrendingUp className="w-6 h-6" />,
     },
     {
       title: "Client Partnership",
       description:
         "We don't just build websites—we build lasting partnerships focused on your long-term success.",
-      icon: "🤝",
+      icon: <Handshake className="w-6 h-6" />,
     },
     {
       title: "Quality Excellence",
       description:
         "From initial concept to final deployment, we maintain the highest standards of quality and performance.",
-      icon: "💎",
+      icon: <Gem className="w-6 h-6" />,
     },
   ];
 
@@ -132,7 +158,7 @@ export default function AboutPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/contact"
+                href="/get-started"
                 className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300"
               >
                 Start Your Project Today
@@ -334,21 +360,22 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact"
+              href="/#contact"
               className="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transform hover:-translate-y-0.5 transition-all duration-300 shadow-lg"
             >
               Get Your Free Strategy Session
             </Link>
             <Link
-              href="/case-studies"
+              href="/portfolio"
               className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-blue-600 transition-all duration-300"
             >
               See Our Success Stories
             </Link>
           </div>
-          <p className="text-blue-200 text-sm mt-6">
-            ✅ Free consultation • ✅ No obligation • ✅ Immediate actionable
-            insights
+          <p className="text-blue-200 text-sm mt-6 flex items-center justify-center gap-2">
+            <Check className="w-4 h-4" /> Free consultation •{" "}
+            <Check className="w-4 h-4" /> No obligation •{" "}
+            <Check className="w-4 h-4" /> Immediate actionable insights
           </p>
         </div>
       </section>

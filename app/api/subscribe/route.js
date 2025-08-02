@@ -2,43 +2,86 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(request) {
-  const body = await request.json();
-  const { email } = body;
-
-  if (!email || !email.includes("@")) {
-    return NextResponse.json(
-      { success: false, error: "Invalid email" },
-      { status: 400 }
-    );
-  }
-
   try {
-    // Save email to SheetDB
-    const response = await fetch(process.env.SHEETDB_API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data: [{ email }] }),
-    });
+    const body = await request.json();
+    const { email } = body;
 
-    if (!response.ok) {
-      throw new Error("Failed to store email");
+    // Better email validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email || !emailRegex.test(email.trim())) {
+      return NextResponse.json(
+        { success: false, error: "Please provide a valid email address" },
+        { status: 400 }
+      );
+    }
+
+    const sanitizedEmail = email.toLowerCase().trim();
+
+    // Basic rate limiting check
+    const clientIP =
+      request.headers.get("x-forwarded-for") ||
+      request.headers.get("x-real-ip") ||
+      "unknown";
+
+    // In production, implement proper rate limiting with Redis or similar
+    // For now, we'll proceed with the request
+
+    // Save email to SheetDB with timeout
+    let sheetDbSuccess = false;
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
+
+      const response = await fetch(process.env.SHEETDB_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: [
+            {
+              email: sanitizedEmail,
+              timestamp: new Date().toISOString(),
+              source: "website_subscription",
+            },
+          ],
+        }),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (response.ok) {
+        sheetDbSuccess = true;
+        console.log("Email subscription saved to SheetDB successfully");
+      } else {
+        console.error("SheetDB Error:", await response.text());
+        // Continue with email sending even if SheetDB fails
+      }
+    } catch (sheetError) {
+      if (sheetError.name === "AbortError") {
+        console.error("SheetDB request timed out");
+      } else {
+        console.error("SheetDB Error:", sheetError);
+      }
+      // Continue with email sending even if SheetDB fails
     }
 
     // ✅ Send response immediately
     const res = NextResponse.json({
       success: true,
-      message: "You're subscribed!",
+      message: "You're subscribed! Check your email for confirmation.",
+      dataStored: sheetDbSuccess ? "SheetDB + Email" : "Email Only",
     });
 
     // ⏳ Send email in background (no await)
-    void sendConfirmationEmail(email);
+    void sendConfirmationEmail(sanitizedEmail);
 
     return res;
   } catch (error) {
+    console.error("Subscribe API Error:", error);
     return NextResponse.json(
-      { success: false, error: error?.message || "Something went wrong" },
+      { success: false, error: "Something went wrong. Please try again." },
       { status: 500 }
     );
   }
@@ -47,18 +90,48 @@ export async function POST(request) {
 // Background email sending function
 async function sendConfirmationEmail(email) {
   try {
+    // Validate email credentials
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
+      console.error("Missing Gmail credentials for newsletter subscription");
+      return;
+    }
+
+    // Create transporter with better configuration for Gmail
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
+        pass: process.env.GMAIL_PASS, // This should be an App Password, not regular password
       },
+      // Add timeout settings
+      connectionTimeout: 15000,
+      greetingTimeout: 15000,
+      socketTimeout: 15000,
+      // Additional settings for better reliability
+      pool: true,
+      maxConnections: 1,
+      maxMessages: 3,
+      rateLimit: 1, // Limit to 1 email per second
     });
 
-    await transporter.sendMail({
-      from: process.env.GMAIL_USER,
+    // Verify transporter configuration
+    try {
+      await transporter.verify();
+      console.log("Newsletter email transporter verified successfully");
+    } catch (verifyError) {
+      console.error(
+        "Newsletter email transporter verification failed:",
+        verifyError
+      );
+      throw new Error(
+        "Email service configuration is invalid. Please check Gmail credentials and App Password settings."
+      );
+    }
+
+    const mailOptions = {
+      from: `"BookOne Newsletter" <${process.env.GMAIL_USER}>`,
       to: email,
-      subject: "🎉 Thanks for Subscribing!",
+      subject: "🎉 Thanks for Subscribing to BookOne!",
       html: `
        <div style="font-family: 'Inter', sans-serif; background-color: #f8f8f8; padding: 20px; border-radius: 12px; max-width: 600px; margin: 20px auto; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
   <div style="text-align: center; margin-bottom: 25px;">
@@ -94,11 +167,22 @@ async function sendConfirmationEmail(email) {
     </p>
   </div>
 </div>
+      `,
+    };
 
-      `, // your full HTML here
-    });
+    // Send email with timeout
+    const emailPromise = transporter.sendMail(mailOptions);
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Email sending timeout")), 30000)
+    );
+
+    await Promise.race([emailPromise, timeoutPromise]);
+    console.log("Newsletter confirmation email sent successfully");
   } catch (error) {
-    console.error("Failed to send email:", error.message);
-    // You can log this error to Sentry or another monitoring tool
+    console.error(
+      "Failed to send newsletter confirmation email:",
+      error.message
+    );
+    // In production, you might want to log this to a monitoring service
   }
 }

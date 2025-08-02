@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { generateMetaTags } from "../seo-config"; // Assuming seo-config is server-compatible
+import { Star } from "lucide-react";
 
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
@@ -97,8 +98,9 @@ const ServicesPage = () => {
                 className="text-center animate-slide-in-left"
                 style={{ "--card-index": "0.3s" }}
               >
-                <div className="text-4xl font-bold text-indigo-600 mb-2">
-                  5★
+                <div className="text-4xl font-bold text-indigo-600 mb-2 flex items-center justify-center">
+                  <span className="mr-1">5</span>
+                  <Star className="w-8 h-8 fill-current" />
                 </div>
                 <div className="text-sm text-slate-600">Average Rating</div>
               </div>
@@ -371,7 +373,7 @@ const ServicesPage = () => {
                   Get Free Consultation
                 </button>
               </Link>
-              <Link href="/pricing" className="flex-1">
+              <Link href="/get-started" className="flex-1">
                 <button className="w-full border-2 border-slate-300 text-slate-700 font-semibold py-4 px-8 rounded-xl hover:bg-slate-100 transition-all duration-300">
                   View Pricing
                 </button>

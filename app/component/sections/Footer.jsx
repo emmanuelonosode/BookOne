@@ -2,17 +2,19 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaTwitter, FaLinkedin, FaInstagram, FaGithub } from "react-icons/fa";
+import Link from "next/link";
 // Mock data - replace with your actual imports
 const quickLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
+  { href: "/get-started", label: "Get Quote" },
   { href: "/services", label: "Services" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/#contact", label: "Contact" },
 ];
 
 const resources = [
-  { href: "/blog", label: "Blogs" },
+  { href: "/blogs", label: "Blogs" },
   { href: "/resources", label: "Resources" },
   { href: "mailto:officialbookone@gmail.com", label: "Support" },
   { href: "tel:+2348077080903", label: "Call Us" },
@@ -93,41 +95,59 @@ function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             {/* Brand Section */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
-              <motion.a
-                href="/"
-                className="inline-block"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.2 }}
-              >
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                  BookOne
-                </h2>
-                <p className="text-gray-300 text-lg">Unlock digital profit</p>
-              </motion.a>
+              <Link href="/" className="inline-block">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                    BookOne
+                  </h2>
+                  <p className="text-gray-300 text-lg">Unlock digital profit</p>
+                </motion.div>
+              </Link>
 
               {/* Social Links */}
               <div className="flex space-x-4 mt-8">
-                {["Twitter", "LinkedIn", "Instagram", "GitHub"].map(
-                  (platform, index) => (
-                    <motion.a
-                      key={platform}
-                      href={`#${platform.toLowerCase()}`}
-                      className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-all duration-300 border border-white/20"
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
-                    >
-                      <span className="text-white text-xs font-medium">
-                        {platform === "Twitter" && <FaTwitter />}
-                        {platform === "LinkedIn" && <FaLinkedin />}
-                        {platform === "Instagram" && <FaInstagram />}
-                        {platform === "GitHub" && <FaGithub />}
-                      </span>
-                    </motion.a>
-                  )
-                )}
+                {[
+                  {
+                    platform: "Twitter",
+                    icon: <FaTwitter />,
+                    href: "https://twitter.com/@Emmanuelonosod1",
+                  },
+                  {
+                    platform: "LinkedIn",
+                    icon: <FaLinkedin />,
+                    href: "https://www.linkedin.com/emmanuelonosode",
+                  },
+                  {
+                    platform: "Instagram",
+                    icon: <FaInstagram />,
+                    href: "https://instagram.com/emmanuelonosode",
+                  },
+                  {
+                    platform: "GitHub",
+                    icon: <FaGithub />,
+                    href: "https://github.com/emmanuelonosode",
+                  },
+                ].map(({ platform, icon, href }, index) => (
+                  <motion.a
+                    key={platform}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-all duration-300 border border-white/20"
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
+                  >
+                    <span className="text-white text-xs font-medium">
+                      {icon}
+                    </span>
+                  </motion.a>
+                ))}
               </div>
             </motion.div>
 
@@ -145,7 +165,7 @@ function Footer() {
                     transition={{ delay: 0.6 + index * 0.1, duration: 0.4 }}
                     viewport={{ once: true }}
                   >
-                    <a
+                    <Link
                       href={href}
                       className="block text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2 group"
                     >
@@ -153,7 +173,7 @@ function Footer() {
                         <span className="w-0 h-px bg-white transition-all duration-300 group-hover:w-4 mr-0 group-hover:mr-1"></span>
                         {label}
                       </span>
-                    </a>
+                    </Link>
                   </motion.div>
                 ))}
               </div>
@@ -173,7 +193,7 @@ function Footer() {
                     transition={{ delay: 0.6 + index * 0.1, duration: 0.4 }}
                     viewport={{ once: true }}
                   >
-                    <a
+                    <Link
                       href={href}
                       className="block text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2 group"
                     >
@@ -181,7 +201,7 @@ function Footer() {
                         <span className="w-0 h-px bg-white transition-all duration-300 group-hover:w-4 mr-0 group-hover:mr-1"></span>
                         {label}
                       </span>
-                    </a>
+                    </Link>
                   </motion.div>
                 ))}
               </div>
@@ -264,12 +284,12 @@ function Footer() {
 
               <p className="text-xs text-gray-400 mt-4 leading-relaxed">
                 By subscribing, you consent to our{" "}
-                <a
+                <Link
                   href="/privacy-policy"
                   className="text-primary-400 hover:text-primary-300 transition-colors"
                 >
                   Privacy Policy
-                </a>{" "}
+                </Link>{" "}
                 and agree to receive updates.
               </p>
             </motion.div>
@@ -297,15 +317,16 @@ function Footer() {
                 { href: "/terms-and-conditions", label: "Terms of Service" },
                 { href: "/cookies-policy", label: "Cookie Settings" },
               ].map(({ href, label }, index) => (
-                <motion.a
+                <Link
                   key={index}
                   href={href}
                   className="text-gray-400 hover:text-white transition-colors duration-300 relative group"
-                  whileHover={{ y: -1 }}
                 >
-                  {label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
-                </motion.a>
+                  <motion.div whileHover={{ y: -1 }}>
+                    {label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-px bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
+                  </motion.div>
+                </Link>
               ))}
             </div>
           </div>

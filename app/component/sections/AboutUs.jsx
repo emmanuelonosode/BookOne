@@ -3,13 +3,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Chart, registerables } from "chart.js";
 import Tagline from "../tagline";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useInView,
-  AnimatePresence,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { TrendingUp, DollarSign, Zap, Target } from "lucide-react";
 
 // Register all Chart.js components
 Chart.register(...registerables);
@@ -42,14 +37,7 @@ const AnimatedCounter = ({ value, duration = 2000, delay = 0 }) => {
           numericValue = parseFloat(value.replace(/[^\d.]/g, "")) || 0;
         }
 
-        console.log(
-          `AnimatedCounter: value="${value}", numericValue=${numericValue}`
-        );
-
         if (numericValue === 0) {
-          console.warn(
-            `AnimatedCounter: Invalid value "${value}" - setting to 0`
-          );
           setCount(0);
           return;
         }
@@ -409,25 +397,25 @@ export default function AboutSection({
 
   const impactHighlights = [
     {
-      icon: "📈",
+      icon: <TrendingUp className="w-6 h-6" />,
       title: "Lead Generation",
       value: "300%",
       description: "Average increase in qualified leads",
     },
     {
-      icon: "💰",
+      icon: <DollarSign className="w-6 h-6" />,
       title: "Revenue Growth",
       value: "$150K+",
       description: "Generated for our clients",
     },
     {
-      icon: "⚡",
+      icon: <Zap className="w-6 h-6" />,
       title: "Efficiency Boost",
       value: "85%",
       description: "Reduction in manual processes",
     },
     {
-      icon: "🎯",
+      icon: <Target className="w-6 h-6" />,
       title: "Conversion Rate",
       value: "4.2x",
       description: "Improvement in conversions",
@@ -527,15 +515,15 @@ export default function AboutSection({
             <Tagline tag="Our Impact Story" />
           </motion.div>
 
-          <motion.h1
+          <motion.h2
             variants={itemVariants}
-            className="text-4xl md:text-6xl font-black text-gray-900 mb-8 leading-tight"
+            className="text-5xl md:text-6xl font-black text-gray-900 mb-8 leading-tight"
           >
             We Don't Just Build,{" "}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               We Transform
             </span>
-          </motion.h1>
+          </motion.h2>
 
           <motion.p
             variants={itemVariants}

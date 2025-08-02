@@ -49,8 +49,8 @@ export default function NotFound() {
               View services
             </Link>
             {" • "}
-            <Link href="/contact" className="hover:text-blue-600">
-              Contact us
+            <Link href="/get-started" className="hover:text-blue-600">
+              Get a Quote
             </Link>
           </div>
         </div>

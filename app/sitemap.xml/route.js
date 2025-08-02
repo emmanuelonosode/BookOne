@@ -24,7 +24,10 @@ export async function GET() {
       url: `${baseUrl}/blogs`,
       lastModified: new Date().toISOString(),
     },
-
+    {
+      url: `${baseUrl}/get-started`,
+      lastModified: new Date().toISOString(),
+    },
     {
       url: `${baseUrl}/privacy-policy`,
       lastModified: new Date().toISOString(),

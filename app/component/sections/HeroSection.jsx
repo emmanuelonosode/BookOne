@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { FancyCtaButton } from "../Btn";
+import Link from "next/link";
 
 function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -106,7 +107,9 @@ function HeroSection() {
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <FancyCtaButton text="Propel Your Business Forward" />
+              <Link href="/get-started">
+                <FancyCtaButton text="Propel Your Business Forward" />
+              </Link>
             </motion.div>
           </div>
 

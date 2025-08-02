@@ -7,6 +7,7 @@ import AiAutomationDetails from "../../component/aiAutomation";
 import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
+import { ArrowLeft } from "lucide-react";
 
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
@@ -244,8 +245,8 @@ export default async function PortfolioDetailPage(props) {
         <main className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
           <div className="py-12">
             <Link href="/portfolio">
-              <p className="text-blue-400 hover:underline mb-8 block">
-                ← Back to Portfolio
+              <p className="text-blue-400 hover:underline mb-8 block flex items-center gap-2">
+                <ArrowLeft className="w-4 h-4" /> Back to Portfolio
               </p>
             </Link>
             <span className="text-sm font-semibold text-purple-400 uppercase tracking-wider">

@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { faq } from "../../Commons/details";
 import { motion, AnimatePresence } from "framer-motion";
+import { Lightbulb } from "lucide-react";
 
 function FAQ() {
   const [selectedTest, setSelectedTest] = useState(null);
@@ -178,12 +179,12 @@ function FAQ() {
         </motion.div>
 
         <h2
-          className="text-4xl md:text-5xl font-black text-gray-800 mb-4 leading-tight"
+          className="text-5xl md:text-6xl font-black text-gray-800 mb-4 leading-tight"
           tabIndex={0}
         >
-          WE KNOW{" "}
+          We Know{" "}
           <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            WHAT YOU THINK
+            What You Think
           </span>
         </h2>
 
@@ -354,7 +355,8 @@ function FAQ() {
                           className="mt-4 p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400"
                         >
                           <p className="text-sm text-blue-800 font-medium">
-                            💡 Still have questions?
+                            <Lightbulb className="w-4 h-4 inline mr-1" /> Still
+                            have questions?
                             <a
                               href="#contact"
                               className="ml-2 underline hover:no-underline transition-all duration-200"

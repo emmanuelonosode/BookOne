@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Check, X } from "lucide-react";
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState("");
@@ -82,14 +83,15 @@ export default function NewsletterSignup() {
           </div>
 
           {status === "success" && (
-            <p className="mt-3 text-green-200 text-sm">
-              ✅ Thanks for subscribing! Check your email for confirmation.
+            <p className="mt-3 text-green-200 text-sm flex items-center justify-center gap-2">
+              <Check className="w-4 h-4" /> Thanks for subscribing! Check your
+              email for confirmation.
             </p>
           )}
 
           {status === "error" && (
-            <p className="mt-3 text-red-200 text-sm">
-              ❌ Something went wrong. Please try again.
+            <p className="mt-3 text-red-200 text-sm flex items-center justify-center gap-2">
+              <X className="w-4 h-4" /> Something went wrong. Please try again.
             </p>
           )}
         </form>

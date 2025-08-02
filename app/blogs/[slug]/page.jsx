@@ -13,6 +13,20 @@ import {
 } from "@/components/BlogClientComponents";
 import CodeBlock from "@/components/CodeBlock";
 import BackToTop from "@/components/BackToTop";
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { PortableText } from "@portabletext/react";
+import { urlFor } from "../../../sanity/lib/image";
+import { client } from "../../../sanity/lib/client";
+import { formatDistanceToNow } from "date-fns";
+import {
+  AlertTriangle,
+  X,
+  Lightbulb,
+  FileText,
+  ArrowRight,
+} from "lucide-react";
 
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
@@ -56,11 +70,13 @@ const portableComponents = {
       >
         <div className="flex items-start">
           <div className="text-2xl mr-3">
-            {value.type === "warning"
-              ? "⚠️"
-              : value.type === "error"
-              ? "❌"
-              : "💡"}
+            {value.type === "warning" ? (
+              <AlertTriangle className="w-8 h-8 text-yellow-500" />
+            ) : value.type === "error" ? (
+              <X className="w-8 h-8 text-red-500" />
+            ) : (
+              <Lightbulb className="w-8 h-8 text-blue-500" />
+            )}
           </div>
           <div className="flex-1">
             {value.title && (
@@ -408,7 +424,7 @@ export default async function BlogDetailPage({ params }) {
             {category && (
               <div className="mb-6">
                 <span className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm text-white text-sm font-medium rounded-full border border-white/30">
-                  📝 {category}
+                  <FileText className="w-4 h-4 mr-2" /> {category}
                 </span>
               </div>
             )}
@@ -565,9 +581,9 @@ export default async function BlogDetailPage({ params }) {
                       <div className="flex gap-4">
                         <a
                           href={`/authors/${blog.author.slug?.current}`}
-                          className="text-blue-600 hover:text-blue-800 font-medium"
+                          className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1"
                         >
-                          View all posts →
+                          View all posts <ArrowRight className="w-4 h-4" />
                         </a>
                       </div>
                     </div>
