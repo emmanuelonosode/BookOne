@@ -34,12 +34,6 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-
-  // Experimental features for performance
-  experimental: {
-    optimizeCss: true,
-    optimizePackageImports: ["lucide-react", "framer-motion"],
-  },
 };
 
 initOpenNextCloudflareForDev();

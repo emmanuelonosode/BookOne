@@ -2,7 +2,7 @@
 
 import { Prosto_One, Poppins, Geist, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
-import CookieConsent from "../app/component/CookieConsentBoss";
+import CookieConsent from "./component/CookieConsentBoss";
 import "./globals.css";
 import Nav from "./component/sections/nav.jsx";
 import Footer from "./component/sections/Footer.jsx";
