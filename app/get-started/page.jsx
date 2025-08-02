@@ -272,7 +272,6 @@ const ContactPage = () => {
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
   const [isVisible, setIsVisible] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
   const [submittedName, setSubmittedName] = useState("");

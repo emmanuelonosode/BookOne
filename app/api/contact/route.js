@@ -47,13 +47,6 @@ export async function POST(request) {
       );
     }
 
-    // Rate limiting check (basic implementation)
-    const clientIP =
-      request.headers.get("x-forwarded-for") ||
-      request.headers.get("x-real-ip") ||
-      "unknown";
-    const rateLimitKey = `contact_${clientIP}`;
-
     // In a production environment, you'd want to use Redis or similar for rate limiting
     // For now, we'll just proceed with the request
 

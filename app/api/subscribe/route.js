@@ -17,12 +17,6 @@ export async function POST(request) {
 
     const sanitizedEmail = email.toLowerCase().trim();
 
-    // Basic rate limiting check
-    const clientIP =
-      request.headers.get("x-forwarded-for") ||
-      request.headers.get("x-real-ip") ||
-      "unknown";
-
     // In production, implement proper rate limiting with Redis or similar
     // For now, we'll proceed with the request
 
