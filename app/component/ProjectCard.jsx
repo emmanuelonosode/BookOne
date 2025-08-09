@@ -122,7 +122,7 @@ export default function ProjectCard({ project }) {
   return (
     <motion.div
       ref={cardRef}
-      className="group relative w-full h-screen sm:h-96 md:h-screen lg:h-screen rounded-lg md:rounded-xl shadow-lg md:shadow-xl overflow-hidden cursor-pointer transform transition-all duration-500 hover:shadow-2xl md:hover:-translate-y-2"
+      className="group relative w-full  h-auto rounded-lg md:rounded-xl shadow-lg md:shadow-xl overflow-hidden cursor-pointer transform transition-all duration-500 hover:shadow-2xl md:hover:-translate-y-2"
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"

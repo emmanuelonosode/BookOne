@@ -1,14 +1,13 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 
 // Mock data - replace with actual imports
 const navDetails = [
   { id: 1, name: "Portfolio", href: "/portfolio" },
   { id: 2, name: "About", href: "/about" },
   { id: 3, name: "Services", href: "/services" },
-  { id: 4, name: "Blogs", href: "/blogs" },
+  { id: 4, name: "Blog", href: "/blogs" },
 ];
 
 const socialIcons = [
@@ -31,59 +30,25 @@ const socialIcons = [
 
 function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  // const [scrolled, setScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [consultationDropdownOpen, setConsultationDropdownOpen] =
     useState(false);
 
+
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      let ticking = false;
-      let lastScrollY = 0;
-      let scrollThreshold = 5; // Minimum scroll distance to trigger nav change
-
-      const handleScroll = () => {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            const currentScrollY = window.scrollY;
-            const scrollDelta = Math.abs(currentScrollY - lastScrollY);
-
-            // Only update if scroll distance is significant enough
-            if (scrollDelta > scrollThreshold) {
-              // Check if scrolled past threshold for background change
-              setScrolled(currentScrollY > 20);
-
-              // Determine scroll direction and show/hide nav
-              if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                // Scrolling down - hide nav
-                setIsVisible(false);
-              } else if (currentScrollY < lastScrollY) {
-                // Scrolling up - show nav
-                setIsVisible(true);
-              }
-
-              lastScrollY = currentScrollY;
-            }
-
-            ticking = false;
-          });
-          ticking = true;
-        }
-      };
-
-      window.addEventListener("scroll", handleScroll, { passive: true });
-      return () => window.removeEventListener("scroll", handleScroll);
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
     }
-  }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
 
-  // Close consultation dropdown when clicking outside
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -94,92 +59,75 @@ function Nav() {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, [consultationDropdownOpen]);
 
-  const menuVariants = {
-    closed: {
-      x: "100%",
-      opacity: 0,
-      transition: { duration: 0.3 },
-    },
-    open: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-        staggerChildren: 0.1,
-        delayChildren: 0.1,
-      },
-    },
-  };
+  // Close mobile menu when window resizes
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
 
-  const itemVariants = {
-    closed: { opacity: 0, x: 20 },
-    open: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.3 },
-    },
-  };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [menuOpen]);
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const toggleDropdown = () =>
+    setConsultationDropdownOpen(!consultationDropdownOpen);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <header
+      role="banner"
+      aria-label="Main Navigation"
+      className="fixed top-0 left-0 right-0 z-50"
+    >
       <motion.nav
-        className={`transition-all duration-300 ${
-          scrolled
-            ? "bg-white/100 backdrop-blur-xl border-b border-gray-200/50 shadow-lg"
-            : "bg-white/40 backdrop-blur-xl"
-        }`}
+        className="transition-all duration-300 bg-white/80 backdrop-blur-sm"
         initial={{ y: -100 }}
         animate={{ y: isVisible ? 0 : -100 }}
-        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        <div className="container mx-auto px-6 md:px-8">
-          <div className="flex items-center justify-between h-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
-            <Link
-              href="/"
-              className="text-2xl md:text-3xl font-bold text-black hover:text-gray-600 transition-colors"
-              aria-label="BookOne - Home"
-            >
-              BookOne
-            </Link>
+            <div className="flex-shrink-0">
+              <a
+                href="/"
+                className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 hover:text-gray-700 transition-colors"
+              >
+                BookOne
+              </a>
+            </div>
 
             {/* Desktop Navigation */}
-            <ul className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
               {navDetails.map(({ name, href, id }) => (
-                <motion.li key={id}>
-                  <Link
-                    href={href}
-                    className="text-gray-700 hover:text-gray-900 font-medium transition-colors relative group"
-                    aria-label={`Navigate to ${name}`}
-                  >
-                    {name}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                  </Link>
-                </motion.li>
+                <a
+                  key={id}
+                  href={href}
+                  className="px-3 lg:px-4 py-2 text-sm lg:text-base font-medium text-gray-700 hover:text-gray-900 rounded-lg hover:bg-gray-50 transition-all duration-200 relative group"
+                >
+                  {name}
+                  <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-[#6b46c1] transition-all duration-300 group-hover:w-4/5 group-hover:left-[10%]"></span>
+                </a>
               ))}
-            </ul>
+            </nav>
 
-            {/* CTA & Hamburger */}
-            <div className="flex items-center space-x-4">
-              {/* Consultation Dropdown */}
+            {/* CTA & Mobile Menu */}
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              {/* Desktop CTA Dropdown */}
               <div className="hidden sm:block relative consultation-dropdown">
                 <motion.button
-                  onClick={() =>
-                    setConsultationDropdownOpen(!consultationDropdownOpen)
-                  }
-                  className="bg-gray-800 text-white px-6 py-3 rounded-full hover:bg-gray-700 transition-colors text-sm font-medium flex items-center space-x-2"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label="Open consultation options dropdown"
-                  aria-expanded={consultationDropdownOpen}
-                  aria-haspopup="true"
+                  onClick={toggleDropdown}
+                  className="bg-[#6b46c1] text-white px-4 lg:px-6 py-2 lg:py-3 rounded-full hover:bg-[#553c9a] transition-all duration-200 text-sm lg:text-base font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <span>Get a free consultation</span>
+                  <span>Get Free Consultation</span>
                   <motion.svg
                     className="w-4 h-4"
                     animate={{ rotate: consultationDropdownOpen ? 180 : 0 }}
@@ -201,51 +149,51 @@ function Nav() {
                 <AnimatePresence>
                   {consultationDropdownOpen && (
                     <motion.div
-                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      initial={{ opacity: 0, y: 8, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50"
+                      exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50"
                     >
                       <div className="py-2">
                         <motion.a
                           href="https://calendar.notion.so/meet/officialbookone/call"
-                          className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
-                          whileHover={{ x: 4 }}
+                          className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors group"
                           onClick={() => setConsultationDropdownOpen(false)}
-                          aria-label="Book a call - Schedule a free consultation"
                         >
-                          <svg
-                            className="w-5 h-5 mr-3 text-blue-600"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                            />
-                          </svg>
+                          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3 group-hover:bg-blue-200 transition-colors">
+                            <svg
+                              className="w-5 h-5 text-blue-600"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                              />
+                            </svg>
+                          </div>
                           <div>
-                            <div className="font-medium">Book a Call</div>
+                            <div className="font-semibold text-gray-900">
+                              Book a Call
+                            </div>
                             <div className="text-xs text-gray-500">
-                              Schedule a free consultation
+                              Free 30-min consultation
                             </div>
                           </div>
                         </motion.a>
-                        <Link
+
+                        <a
                           href="/get-started"
-                          aria-label="Get a quote - View pricing and get started"
+                          onClick={() => setConsultationDropdownOpen(false)}
+                          className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors group"
                         >
-                          <motion.div
-                            className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
-                            whileHover={{ x: 4 }}
-                            onClick={() => setConsultationDropdownOpen(false)}
-                          >
+                          <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3 group-hover:bg-purple-200 transition-colors">
                             <svg
-                              className="w-5 h-5 mr-3 text-purple-600"
+                              className="w-5 h-5 text-purple-600"
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
@@ -257,192 +205,204 @@ function Nav() {
                                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                               />
                             </svg>
-                            <div>
-                              <div className="font-medium">Get a Quote</div>
-                              <div className="text-xs text-gray-500">
-                                Request a custom proposal
-                              </div>
+                          </div>
+                          <div>
+                            <div className="font-semibold text-gray-900">
+                              Get Quote
                             </div>
-                          </motion.div>
-                        </Link>
+                            <div className="text-xs text-gray-500">
+                              Custom project proposal
+                            </div>
+                          </div>
+                        </a>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
 
-              {/* Hamburger */}
-              <motion.button
-                className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                onClick={() => setMenuOpen(!menuOpen)}
-                whileTap={{ scale: 0.95 }}
-                aria-label="Toggle mobile menu"
-                aria-expanded={menuOpen}
-                aria-controls="mobile-menu"
-              >
-                <motion.div
-                  className="w-6 h-5 flex flex-col justify-between"
-                  animate={menuOpen ? "open" : "closed"}
+              {/* Mobile CTA Button */}
+              <div className="sm:hidden">
+                <a
+                  href="https://calendar.notion.so/meet/officialbookone/call"
+                  className="bg-[#6b46c1] text-white px-4 py-2 rounded-full hover:bg-[#553c9a] transition-colors text-sm font-semibold shadow-lg"
                 >
-                  <motion.span
-                    className="w-full h-0.5 bg-gray-800 origin-center"
-                    variants={{
-                      closed: { rotate: 0, y: 0 },
-                      open: { rotate: 45, y: 9 },
-                    }}
-                    transition={{ duration: 0.3 }}
+                  Book Call
+                </a>
+              </div>
+
+              {/* Mobile Menu Button */}
+              <button
+                className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors z-50 relative"
+                onClick={toggleMenu}
+                aria-label="Toggle menu"
+              >
+                <div className="w-6 h-5 flex flex-col justify-between">
+                  <span
+                    className={`w-full h-0.5 bg-gray-800 transition-all duration-300 origin-center ${
+                      menuOpen ? "rotate-45 translate-y-2" : ""
+                    }`}
                   />
-                  <motion.span
-                    className="w-full h-0.5 bg-gray-800"
-                    variants={{
-                      closed: { opacity: 1 },
-                      open: { opacity: 0 },
-                    }}
-                    transition={{ duration: 0.3 }}
+                  <span
+                    className={`w-full h-0.5 bg-gray-800 transition-all duration-300 ${
+                      menuOpen ? "opacity-0" : "opacity-100"
+                    }`}
                   />
-                  <motion.span
-                    className="w-full h-0.5 bg-gray-800 origin-center"
-                    variants={{
-                      closed: { rotate: 0, y: 0 },
-                      open: { rotate: -45, y: -9 },
-                    }}
-                    transition={{ duration: 0.3 }}
+                  <span
+                    className={`w-full h-0.5 bg-gray-800 transition-all duration-300 origin-center ${
+                      menuOpen ? "-rotate-45 -translate-y-2" : ""
+                    }`}
                   />
-                </motion.div>
-              </motion.button>
+                </div>
+              </button>
             </div>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <>
-            {/* Backdrop Fullscreen Blur */}
+            {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setMenuOpen(false)}
+              transition={{ duration: 0.2 }}
+              onClick={toggleMenu}
             />
 
-            {/* Mobile Sidebar */}
+            {/* Mobile Menu Panel */}
             <motion.div
-              className="fixed top-20 right-0 h-screen w-full bg-white shadow-2xl border-l border-gray-200 z-50 md:hidden"
-              style={{
-                backdropFilter: "blur(10px)",
-                backgroundColor: "rgba(255, 255, 255, 0.98)",
-                WebkitBackdropFilter: "blur(10px)",
-              }}
-              variants={menuVariants}
-              initial="closed"
-              animate="open"
-              exit="closed"
+              className="fixed top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl z-50 md:hidden"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <div className="p-8 bg-white/100 backdrop-blur-sm rounded-lg ">
-                {navDetails.map(({ name, href, id }) => (
-                  <motion.div key={id} variants={itemVariants}>
-                    <Link
-                      href={href}
-                      onClick={() => setMenuOpen(false)}
-                      className="flex items-center justify-between py-4 border-b border-gray-200/50 group"
-                      aria-label={`Navigate to ${name}`}
+              <div className="flex flex-col h-full">
+                {/* Header */}
+                <div className="flex items-center justify-between p-6 border-b border-gray-100">
+                  <span className="text-xl font-bold text-gray-900">Menu</span>
+                  <button
+                    onClick={toggleMenu}
+                    className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                  >
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      <span className="text-lg font-medium text-gray-800 group-hover:text-gray-600 transition-colors">
-                        {name}
-                      </span>
-                      <motion.div
-                        className="text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all"
-                        whileHover={{ x: 4 }}
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Navigation Links */}
+                <div className="flex-1 py-6">
+                  <nav className="px-6 space-y-2">
+                    {navDetails.map(({ name, href, id }) => (
+                      <a
+                        key={id}
+                        href={href}
+                        onClick={toggleMenu}
+                        className="flex items-center justify-between py-4 text-lg font-medium text-gray-900 hover:text-[#6b46c1] transition-colors group"
                       >
+                        <span>{name}</span>
                         <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
+                          className="w-5 h-5 text-gray-400 group-hover:text-[#6b46c1] transition-colors"
                           fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
                         >
                           <path
-                            d="M9 6L15 12L9 18"
-                            stroke="currentColor"
-                            strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
                           />
                         </svg>
-                      </motion.div>
-                    </Link>
-                  </motion.div>
-                ))}
+                      </a>
+                    ))}
+                  </nav>
 
-                {/* CTA Options */}
-                <motion.div variants={itemVariants} className="mt-8 space-y-3">
-                  <a
-                    href="https://calendar.notion.so/meet/officialbookone/call"
-                    onClick={() => setMenuOpen(false)}
-                    className="w-full inline-flex items-center justify-center bg-gray-800 text-white px-6 py-4 rounded-full hover:bg-gray-700 transition-colors font-medium"
-                    aria-label="Book a call - Schedule a free consultation"
-                  >
-                    <svg
-                      className="w-5 h-5 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                  {/* Mobile CTA Buttons */}
+                  <div className="px-6 mt-8 space-y-4">
+                    <a
+                      href="https://calendar.notion.so/meet/officialbookone/call"
+                      onClick={toggleMenu}
+                      className="w-full bg-[#6b46c1] text-white py-4 px-6 rounded-2xl font-semibold text-center hover:bg-[#553c9a] transition-colors shadow-lg flex items-center justify-center space-x-2"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                    Book a Call
-                  </a>
-                  <Link
-                    href="/get-started"
-                    onClick={() => setMenuOpen(false)}
-                    className="w-full inline-flex items-center justify-center bg-white text-gray-800 px-6 py-4 rounded-full hover:bg-gray-50 transition-colors font-medium border border-gray-200"
-                    aria-label="Get a quote - View pricing and get started"
-                  >
-                    <svg
-                      className="w-5 h-5 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                      />
-                    </svg>
-                    Get a Quote
-                  </Link>
-                </motion.div>
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                      <span>Book Free Consultation</span>
+                    </a>
 
-                {/* Social Links */}
-                <motion.div variants={itemVariants} className="mt-12">
-                  <h4 className="text-sm font-medium text-gray-600 mb-4 uppercase tracking-wider">
-                    Follow us on all platforms
-                  </h4>
-                  <div className="flex space-x-6">
+                    <a
+                      href="/get-started"
+                      onClick={toggleMenu}
+                      className="w-full bg-gray-100 text-gray-900 py-4 px-6 rounded-2xl font-semibold text-center hover:bg-gray-200 transition-colors flex items-center justify-center space-x-2"
+                    >
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        />
+                      </svg>
+                      <span>Get Custom Quote</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div className="p-6 border-t border-gray-100">
+                  <p className="text-sm font-medium text-gray-600 mb-4">
+                    Follow us
+                  </p>
+                  <div className="flex space-x-4">
                     {socialIcons.map(({ src, alt, href }, index) => (
-                      <motion.a
+                      <a
                         key={index}
                         href={href}
-                        className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        aria-label={`Follow us on ${alt}`}
+                        className="w-12 h-12 rounded-full bg-gray-100 hover:bg-[#6b46c1] hover:text-white transition-colors flex items-center justify-center group"
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
-                        <img src={src} alt={alt} className="w-6 h-6" />
-                      </motion.a>
+                        <img
+                          src={src}
+                          alt={alt}
+                          className="w-6 h-6 group-hover:filter group-hover:brightness-0 group-hover:invert transition-all"
+                        />
+                      </a>
                     ))}
                   </div>
-                </motion.div>
+                </div>
               </div>
             </motion.div>
           </>

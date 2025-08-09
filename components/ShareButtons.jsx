@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ShareButtons({ url, title, className = "" }) {
   const [copied, setCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const shareData = {
     title: title,
@@ -11,53 +12,66 @@ export default function ShareButtons({ url, title, className = "" }) {
   };
 
   const handleShare = async (platform) => {
+    if (!mounted) return;
     switch (platform) {
       case "twitter":
-        window.open(
-          `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-            title
-          )}&url=${encodeURIComponent(url)}`,
-          "_blank"
-        );
+        if (typeof window !== "undefined") {
+          window.open(
+            `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+              title
+            )}&url=${encodeURIComponent(url)}`,
+            "_blank"
+          );
+        }
         break;
       case "facebook":
-        window.open(
-          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            url
-          )}`,
-          "_blank"
-        );
+        if (typeof window !== "undefined") {
+          window.open(
+            `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+              url
+            )}`,
+            "_blank"
+          );
+        }
         break;
       case "linkedin":
-        window.open(
-          `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-            url
-          )}`,
-          "_blank"
-        );
+        if (typeof window !== "undefined") {
+          window.open(
+            `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+              url
+            )}`,
+            "_blank"
+          );
+        }
         break;
       case "copy":
         try {
-          await navigator.clipboard.writeText(url);
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
+          if (typeof navigator !== "undefined" && navigator.clipboard) {
+            await navigator.clipboard.writeText(url);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          }
         } catch (err) {
-          console.error("Failed to copy: ", err);
+          // Removed console.error for production cleanliness
         }
         break;
       default:
-        if (navigator.share) {
+        if (typeof navigator !== "undefined" && navigator.share) {
           try {
             await navigator.share(shareData);
           } catch (err) {
-            console.error("Error sharing:", err);
+            // Removed console.error for production cleanliness
           }
         }
     }
   };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
+  if (!mounted) return null;
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
+    <div className={`flex flex-wrap items-center  gap-3 ${className}`}>
       <span className="text-black text-sm font-medium">Share:</span>
 
       <button
@@ -66,7 +80,7 @@ export default function ShareButtons({ url, title, className = "" }) {
         aria-label="Share on Twitter"
       >
         <svg
-          className="w-5 h-5 text-white"
+          className="w-3 h-3 w-md-5 h-md-5 text-white"
           fill="currentColor"
           viewBox="0 0 24 24"
         >

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 export default function BackToTop() {
   const [isVisible, setIsVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -17,12 +18,17 @@ export default function BackToTop() {
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
+useEffect(() => {
+  setMounted(true);
+}, []);  if (typeof window === "undefined") return;
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
-  if (!isVisible) return null;
+  if (!mounted || !isVisible) return null;
 
   return (
     <button

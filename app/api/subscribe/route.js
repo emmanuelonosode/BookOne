@@ -49,14 +49,14 @@ export async function POST(request) {
         sheetDbSuccess = true;
         // Email subscription saved to SheetDB successfully
       } else {
-        console.error("SheetDB Error:", await response.text());
+        // Removed console.error for production cleanliness
         // Continue with email sending even if SheetDB fails
       }
     } catch (sheetError) {
       if (sheetError.name === "AbortError") {
-        console.error("SheetDB request timed out");
+        // Removed console.error for production cleanliness
       } else {
-        console.error("SheetDB Error:", sheetError);
+        // Removed console.error for production cleanliness
       }
       // Continue with email sending even if SheetDB fails
     }
@@ -73,7 +73,7 @@ export async function POST(request) {
 
     return res;
   } catch (error) {
-    console.error("Subscribe API Error:", error);
+    // Removed console.error for production cleanliness
     return NextResponse.json(
       { success: false, error: "Something went wrong. Please try again." },
       { status: 500 }
@@ -86,7 +86,7 @@ async function sendConfirmationEmail(email) {
   try {
     // Validate email credentials
     if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
-      console.error("Missing Gmail credentials for newsletter subscription");
+      // Removed console.error for production cleanliness
       return;
     }
 
@@ -113,10 +113,7 @@ async function sendConfirmationEmail(email) {
       await transporter.verify();
       // Newsletter email transporter verified successfully
     } catch (verifyError) {
-      console.error(
-        "Newsletter email transporter verification failed:",
-        verifyError
-      );
+      // Removed console.error for production cleanliness
       throw new Error(
         "Email service configuration is invalid. Please check Gmail credentials and App Password settings."
       );
@@ -173,10 +170,7 @@ async function sendConfirmationEmail(email) {
     await Promise.race([emailPromise, timeoutPromise]);
     // Newsletter confirmation email sent successfully
   } catch (error) {
-    console.error(
-      "Failed to send newsletter confirmation email:",
-      error.message
-    );
+    // Removed console.error for production cleanliness
     // In production, you might want to log this to a monitoring service
   }
 }

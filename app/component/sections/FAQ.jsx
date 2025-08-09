@@ -9,6 +9,7 @@ import React, {
 import { faq } from "../../Commons/details";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lightbulb } from "lucide-react";
+import Link from "next/link";
 
 function FAQ() {
   const [selectedTest, setSelectedTest] = useState(null);
@@ -151,7 +152,7 @@ function FAQ() {
 
   return (
     <section
-      id="faq"
+      id="faqs"
       className="container py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto"
       aria-label="Frequently Asked Questions"
       role="region"
@@ -401,10 +402,9 @@ function FAQ() {
           Our team is here to help! Get in touch with us for personalized
           answers to your specific questions.
         </p>
-        <motion.a
+        <Link
           href="mailto:officialbookone@gmail.com"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+       
           className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
           tabIndex={0}
         >
@@ -422,7 +422,7 @@ function FAQ() {
             />
           </svg>
           Get Personal Support
-        </motion.a>
+        </Link>
       </motion.div>
 
       {/* Live region for screen reader announcements */}

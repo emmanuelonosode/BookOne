@@ -51,10 +51,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="ltr">
       <head>
-        {/* Preload critical resources */}
-        <link rel="preload" href="/hero.avif" as="image" type="image/avif" />
-        <link rel="preload" href="/logo.png" as="image" type="image/png" />
-
+     
         {/* DNS prefetch for external domains */}
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
         <link rel="dns-prefetch" href="//cdn.sanity.io" />
@@ -85,13 +82,8 @@ export default function RootLayout({ children }) {
         )}
       </head>
       <body className={`${poppins.className} antialiased`}>
-        <header
-          className="backdrop-blur-2xl w-full fixed z-20"
-          role="banner"
-          aria-label="Main Navigation"
-        >
+       
           <Nav />
-        </header>
 
         <main aria-label="Main Content">{children}</main>
 

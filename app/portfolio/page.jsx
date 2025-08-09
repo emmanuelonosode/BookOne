@@ -99,7 +99,7 @@ export default async function PortfolioPage() {
             </p>
 
             {/* Stats Row */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div className="flex justify-between max-w-md mx-auto">
               {stats.map((stat, index) => {
                 const IconComponent = stat.icon;
                 return (

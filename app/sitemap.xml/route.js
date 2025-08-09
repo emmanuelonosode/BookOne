@@ -57,7 +57,7 @@ export async function GET() {
       lastModified: new Date(project._updatedAt).toISOString(),
     }));
   } catch (error) {
-    console.error("Error fetching projects:", error);
+    // Removed console.error for production cleanliness
   }
 
   try {
@@ -72,7 +72,7 @@ export async function GET() {
       lastModified: new Date(blog.publishedAt).toISOString(),
     }));
   } catch (error) {
-    console.error("Error fetching blogs:", error);
+    // Removed console.error for production cleanliness
   }
 
   try {
@@ -87,7 +87,7 @@ export async function GET() {
       lastModified: new Date(author._updatedAt).toISOString(),
     }));
   } catch (error) {
-    console.error("Error fetching authors:", error);
+    // Removed console.error for production cleanliness
   }
 
   const allPages = [

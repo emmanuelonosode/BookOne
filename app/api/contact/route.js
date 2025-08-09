@@ -75,7 +75,7 @@ export async function POST(request) {
 
     return response;
   } catch (error) {
-    console.error("API Error:", error);
+    // Removed console.error for production cleanliness
     return NextResponse.json(
       { success: false, error: "Internal server error" },
       { status: 500 }
@@ -149,13 +149,13 @@ async function processQuoteRequest(
           sheetDbSuccess = true;
           // Quote request data sent to SheetDB successfully
         } else {
-          console.error("SheetDB Error:", await sheetResponse.text());
+          // Removed console.error for production cleanliness
         }
       } catch (sheetError) {
         if (sheetError.name === "AbortError") {
-          console.error("SheetDB request timed out");
+          // Removed console.error for production cleanliness
         } else {
-          console.error("SheetDB Error:", sheetError);
+          // Removed console.error for production cleanliness
         }
       }
     }
@@ -177,7 +177,7 @@ async function processQuoteRequest(
       sheetDbSuccess
     );
   } catch (error) {
-    console.error("Background quote request processing error:", error);
+    // Removed console.error for production cleanliness
   }
 }
 
@@ -200,10 +200,7 @@ async function sendQuoteEmail(
   try {
     // Validate email credentials
     if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
-      console.error("Missing Gmail credentials:", {
-        user: process.env.GMAIL_USER ? "Set" : "Missing",
-        password: process.env.GMAIL_PASS ? "Set" : "Missing",
-      });
+      // Removed console.error for production cleanliness
       throw new Error("Email service configuration is incomplete.");
     }
 
@@ -230,7 +227,7 @@ async function sendQuoteEmail(
       await transporter.verify();
       // Email transporter verified successfully
     } catch (verifyError) {
-      console.error("Email transporter verification failed:", verifyError);
+      // Removed console.error for production cleanliness
       throw new Error(
         "Email service configuration is invalid. Please check Gmail credentials and App Password settings."
       );
@@ -446,7 +443,7 @@ async function sendQuoteEmail(
     await Promise.race([emailPromise, timeoutPromise]);
     // Quote request email sent successfully
   } catch (error) {
-    console.error("Failed to send quote request email:", error);
+    // Removed console.error for production cleanliness
     // Don't throw the error to prevent the entire request from failing
     // The user has already received a success response
   }

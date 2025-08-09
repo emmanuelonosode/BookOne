@@ -31,7 +31,7 @@ export default function RelatedPosts({ currentSlug, category }) {
 
         setRelatedPosts(posts);
       } catch (error) {
-        console.error("Error fetching related posts:", error);
+        // Removed console.error for production cleanliness
       } finally {
         setLoading(false);
       }

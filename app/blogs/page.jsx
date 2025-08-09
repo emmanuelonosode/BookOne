@@ -121,14 +121,14 @@ export default async function BlogListPage(props) {
 
               {/* Content */}
               <div className="lg:w-1/2 p-6 lg:p-8 flex flex-col justify-center">
-                <h3 className="text-2xl lg:text-3xl font-semibold text-gray-900 mb-4 group-hover:text-gray-700 transition-colors">
+                <h2 className="text-2xl lg:text-3xl font-semibold text-gray-900 mb-4 group-hover:text-gray-700 transition-colors">
                   <Link
                     href={`/blogs/${blogs[0].slug.current}`}
                     aria-label={`Read ${blogs[0].title}`}
                   >
                     {blogs[0].title}
                   </Link>
-                </h3>
+                </h2>
                 <p className="text-gray-600 leading-relaxed mb-6 text-base line-clamp-4">
                   {blogs[0].body &&
                   blogs[0].body[0]?.children &&

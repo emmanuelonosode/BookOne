@@ -6,7 +6,7 @@ export default function CodeBlock({ value }) {
       await navigator.clipboard.writeText(value.code);
       // You could add a toast notification here
     } catch (err) {
-      console.error("Failed to copy code:", err);
+      // Removed console.error for production cleanliness
     }
   };
 

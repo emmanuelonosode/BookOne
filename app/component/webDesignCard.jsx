@@ -8,11 +8,13 @@ export default function WebDesignDetails({ details }) {
     <div className="space-y-8">
       {details.heroImage && (
         <div className="relative w-full h-96 rounded-lg overflow-hidden shadow-xl">
-          <img
+          <Image
             src={urlFor(details.heroImage).url()}
             alt="Hero Image"
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: "cover" }}
+            sizes="(max-width: 768px) 100vw, 700px"
+            priority
           />
         </div>
       )}
@@ -20,23 +22,25 @@ export default function WebDesignDetails({ details }) {
       <div>
         <h3 className="text-2xl font-bold text-white mb-4">Key Features</h3>
         <ul className="list-disc list-inside space-y-2 text-gray-300">
-          {details.keyFeatures?.map((feature, index) => (
-            <li key={index}>{feature}</li>
-          ))}
+          {Array.isArray(details.keyFeatures) &&
+            details.keyFeatures.map((feature, index) => (
+              <li key={index}>{feature}</li>
+            ))}
         </ul>
       </div>
 
       <div>
         <h3 className="text-2xl font-bold text-white mb-4">Technology Stack</h3>
         <div className="flex flex-wrap gap-2">
-          {details.techStack?.map((tech) => (
-            <span
-              key={tech}
-              className="bg-blue-500 text-white px-3 py-1 text-sm rounded-full"
-            >
-              {tech}
-            </span>
-          ))}
+          {Array.isArray(details.techStack) &&
+            details.techStack.map((tech) => (
+              <span
+                key={tech}
+                className="bg-blue-500 text-white px-3 py-1 text-sm rounded-full"
+              >
+                {tech}
+              </span>
+            ))}
         </div>
       </div>
 

@@ -8,12 +8,15 @@ export default function NewsletterSignup() {
   const [status, setStatus] = useState("idle"); // idle, loading, success, error
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [hasSubscribed, setHasSubscribed] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // Check if user has already subscribed on component mount
   useEffect(() => {
-    const subscribed = localStorage.getItem("newsletterSubscribed");
-    if (subscribed === "true") {
-      setHasSubscribed(true);
+    setMounted(true);
+    if (typeof window !== "undefined") {
+      const subscribed = localStorage.getItem("newsletterSubscribed");
+      if (subscribed === "true") {
+        setHasSubscribed(true);
+      }
     }
   }, []);
 
@@ -34,8 +37,9 @@ export default function NewsletterSignup() {
         setStatus("success");
         setEmail("");
         // Save to localStorage so user won't see form again
-        localStorage.setItem("newsletterSubscribed", "true");
-        // Hide the form after successful submission
+        if (typeof window !== "undefined") {
+          localStorage.setItem("newsletterSubscribed", "true");
+        }
         setTimeout(() => {
           setIsSubmitted(true);
         }, 2000); // Show success message for 2 seconds, then hide
@@ -43,18 +47,20 @@ export default function NewsletterSignup() {
         setStatus("error");
       }
     } catch (error) {
-      console.error("Newsletter signup error:", error);
+      // Removed console.error for production cleanliness
       setStatus("error");
     }
   };
 
+  // If not mounted, don't render (prevents hydration mismatch)
+  if (!mounted) return null;
   // If user has already subscribed or form has been submitted and hidden, don't render anything
   if (hasSubscribed || isSubmitted) {
     return null;
   }
 
   return (
-    <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+    <div className="bg-gradient-to-r  from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
       <div className="text-center">
         <h3 className="text-2xl font-bold mb-2">Stay Updated</h3>
         <p className="text-blue-100 mb-6">
@@ -63,7 +69,7 @@ export default function NewsletterSignup() {
         </p>
 
         <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-          <div className="flex gap-3">
+          <div className="flex max-md:flex-col gap-3">
             <input
               type="email"
               value={email}

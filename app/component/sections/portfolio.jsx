@@ -49,7 +49,7 @@ export default async function PortfolioPage() {
           </p>
 
           {/* Stats Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
+          <div className="flex items-center justify-center gap-8 max-w-2xl mx-auto">
             {stats.map((stat, index) => {
               const IconComponent = stat.icon;
               return (
@@ -57,7 +57,7 @@ export default async function PortfolioPage() {
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-purple-100 rounded-full mb-3">
                     <IconComponent className="w-6 h-6 text-purple-600" />
                   </div>
-                  <div className="text-3xl font-bold text-gray-900 mb-1">
+                  <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
                     {stat.value}
                   </div>
                   <div className="text-sm text-gray-600 font-medium">
@@ -71,17 +71,13 @@ export default async function PortfolioPage() {
 
         {/* Featured Project Highlight */}
         {allProjects.length > 0 && (
-          <div className="mb-20">
-            <div className="p-8 sm:p-12">
-              <div className="flex items-center justify-between mb-6">
-                <div className="inline-flex items-center bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
+            <div className=" pb-8 sm:p-12">
+                <div className="inline-flex mb-10 items-center bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
                   <Star className="w-4 h-4 mr-2" />
                   Featured Project
-                </div>
               </div>
               <ProjectCard project={allProjects[0]} featured={true} />
             </div>
-          </div>
         )}
 
         {/* Section Header for Other Projects */}
@@ -99,7 +95,7 @@ export default async function PortfolioPage() {
           aria-label="Portfolio Projects"
         >
           {allProjects.slice(1).map((project, index) => (
-            <div key={project._id} className="p-6">
+            <div key={project._id} className="mb-8">
               <ProjectCard project={project} />
             </div>
           ))}

@@ -28,14 +28,14 @@ export default function manifest() {
     ],
     screenshots: [
       {
-        src: "/screenshot-desktop.png",
+        src: "/logo.png",
         sizes: "1280x720",
         type: "image/png",
         form_factor: "wide",
         label: "BookOne Portfolio - Desktop View",
       },
       {
-        src: "/screenshot-mobile.png",
+        src: "/logo.png",
         sizes: "390x844",
         type: "image/png",
         form_factor: "narrow",
