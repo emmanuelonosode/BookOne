@@ -72,7 +72,7 @@ console.log(error);
       lastModified: new Date(blog.publishedAt).toISOString(),
     }));
   } catch (error) {
-    // Removed console.error for production cleanliness
+    throw new Error(error);
   }
 
   try {
@@ -87,7 +87,7 @@ console.log(error);
       lastModified: new Date(author._updatedAt).toISOString(),
     }));
   } catch (error) {
-    // Removed console.error for production cleanliness
+    throw new Error(error);
   }
 
   const allPages = [

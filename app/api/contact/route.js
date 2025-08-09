@@ -72,11 +72,7 @@ export async function POST(request) {
 
     return response;
   } catch (error) {
-    // Removed console.error for production cleanliness
-    return NextResponse.json(
-      { success: false, error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error }, { status: 500 });
   }
 }
 
@@ -146,14 +142,9 @@ async function processQuoteRequest(
           sheetDbSuccess = true;
           // Quote request data sent to SheetDB successfully
         } else {
-          // Removed console.error for production cleanliness
         }
-      } catch (sheetError) {
-        if (sheetError.name === "AbortError") {
-          // Removed console.error for production cleanliness
-        } else {
-          // Removed console.error for production cleanliness
-        }
+      } catch (error) {
+       console.log(error)
       }
     }
 
@@ -226,6 +217,7 @@ async function sendQuoteEmail(
     } catch (verifyError) {
       console.log(verifyError);
       throw new Error(
+        verifyError,
         "Email service configuration is invalid. Please check Gmail credentials and App Password settings."
       );
     }
@@ -440,8 +432,6 @@ async function sendQuoteEmail(
     await Promise.race([emailPromise, timeoutPromise]);
     // Quote request email sent successfully
   } catch (error) {
-    // Removed console.error for production cleanliness
-    // Don't throw the error to prevent the entire request from failing
-    // The user has already received a success response
+    throw new Error(error);
   }
 }
