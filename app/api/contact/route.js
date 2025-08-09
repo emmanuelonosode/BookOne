@@ -164,8 +164,7 @@ async function processQuoteRequest(
       systemInfo,
       sheetDbSuccess
     );
-  } catch (error) {
-    // Removed console.error for production cleanliness
+  } catch  {
   }
 }
 

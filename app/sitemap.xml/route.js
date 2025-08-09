@@ -56,8 +56,8 @@ export async function GET() {
       url: `${baseUrl}/portfolio/${project.slug}`,
       lastModified: new Date(project._updatedAt).toISOString(),
     }));
-  } catch (error) {
-console.log(error); 
+  } catch {
+    // Removed unused error variable
   }
 
   try {
@@ -71,8 +71,8 @@ console.log(error);
       url: `${baseUrl}/blogs/${blog.slug}`,
       lastModified: new Date(blog.publishedAt).toISOString(),
     }));
-  } catch (error) {
-    throw new Error(error);
+  } catch {
+    // Removed unused error variable
   }
 
   try {
@@ -86,8 +86,8 @@ console.log(error);
       url: `${baseUrl}/authors/${author.slug}`,
       lastModified: new Date(author._updatedAt).toISOString(),
     }));
-  } catch (error) {
-    throw new Error(error);
+  } catch {
+    // Removed unused error variable
   }
 
   const allPages = [
