@@ -17,9 +17,6 @@ export async function POST(request) {
 
     const sanitizedEmail = email.toLowerCase().trim();
 
-    // In production, implement proper rate limiting with Redis or similar
-    // For now, we'll proceed with the request
-
     // Save email to SheetDB with timeout
     let sheetDbSuccess = false;
     try {
@@ -73,8 +70,9 @@ export async function POST(request) {
 
     return res;
   } catch (error) {
-    // Removed console.error for production cleanliness
-    return NextResponse.json(
+console.log(error) 
+
+return NextResponse.json(
       { success: false, error: "Something went wrong. Please try again." },
       { status: 500 }
     );
@@ -113,7 +111,7 @@ async function sendConfirmationEmail(email) {
       await transporter.verify();
       // Newsletter email transporter verified successfully
     } catch (verifyError) {
-      // Removed console.error for production cleanliness
+console.log(verifyError); 
       throw new Error(
         "Email service configuration is invalid. Please check Gmail credentials and App Password settings."
       );
@@ -170,7 +168,6 @@ async function sendConfirmationEmail(email) {
     await Promise.race([emailPromise, timeoutPromise]);
     // Newsletter confirmation email sent successfully
   } catch (error) {
-    // Removed console.error for production cleanliness
-    // In production, you might want to log this to a monitoring service
+   console.log(error)
   }
 }

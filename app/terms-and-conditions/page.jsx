@@ -134,20 +134,20 @@ export default function TermsOfServicePage() {
         <li>
           Email:{" "}
           <a
-            href="mailto:hello@bookone.agency"
+            href="mailto:info@bookone.dev"
             className="text-purple-700 underline"
           >
-            hello@bookone.agency
+            info@bookone.dev
           </a>
         </li>
         <li>
           Contact page:{" "}
           <a href="/get-started" className="text-purple-700 underline">
-            bookone.agency/get-started
+          Start a project
           </a>
         </li>
-        <li>Phone: +234 (your business number here)</li>
-        <li>Address: Lagos, Nigeria (or your full office address)</li>
+        <li>Phone: +234 807 7080 903</li>
+        <li>Address: Lagos, Nigeria </li>
       </ul>
     </main>
   );

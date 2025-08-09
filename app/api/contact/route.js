@@ -47,9 +47,6 @@ export async function POST(request) {
       );
     }
 
-    // In a production environment, you'd want to use Redis or similar for rate limiting
-    // For now, we'll just proceed with the request
-
     // ✅ Send immediate response to user (fire-and-forget pattern)
     const response = NextResponse.json({
       success: true,
@@ -227,7 +224,7 @@ async function sendQuoteEmail(
       await transporter.verify();
       // Email transporter verified successfully
     } catch (verifyError) {
-      // Removed console.error for production cleanliness
+      console.log(verifyError);
       throw new Error(
         "Email service configuration is invalid. Please check Gmail credentials and App Password settings."
       );

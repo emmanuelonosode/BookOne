@@ -57,7 +57,7 @@ export async function GET() {
       lastModified: new Date(project._updatedAt).toISOString(),
     }));
   } catch (error) {
-    // Removed console.error for production cleanliness
+console.log(error); 
   }
 
   try {

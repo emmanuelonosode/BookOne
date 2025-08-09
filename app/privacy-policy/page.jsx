@@ -75,7 +75,7 @@ export default function PrivacyPolicyPage() {
       <h2>5. Contact Us</h2>
       <p>
         If you have questions about this policy, contact us at
-        privacy@bookone.agency.
+        info@bookone.dev
       </p>
     </LegalPageLayout>
   );
