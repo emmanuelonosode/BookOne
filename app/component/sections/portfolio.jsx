@@ -49,7 +49,7 @@ export default async function PortfolioPage() {
           </p>
 
           {/* Stats Row */}
-          <div className="flex items-center justify-center gap-8 max-w-2xl mx-auto">
+          <div className="flex items-center justify-center max-w-2xl mx-auto">
             {stats.map((stat, index) => {
               const IconComponent = stat.icon;
               return (

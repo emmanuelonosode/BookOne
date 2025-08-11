@@ -27,7 +27,7 @@ export const seoConfig = {
   // Analytics
   analytics: {
     googleAnalytics: {
-      measurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
+      measurementId: process.env.NEXT_PUBLIC_GA_ID,
     },
     googleTagManager: {
       containerId: process.env.NEXT_PUBLIC_GTM_CONTAINER_ID,
@@ -116,10 +116,10 @@ export const seoConfig = {
       logo: "https://bookone.dev/logo.png",
       description:
         "Professional web design, SEO & marketing, and AI automation services for businesses",
-      foundingDate: "2023",
+      foundingDate: "2025",
       address: {
         "@type": "PostalAddress",
-        addressCountry: "US",
+        addressCountry: "Nigeria",
       },
       contactPoint: {
         "@type": "ContactPoint",

@@ -1,18 +1,23 @@
 // app/layout.jsx or layout.tsx
 
-import { Poppins } from "next/font/google";
-import { Suspense } from "react";
+import { Poppins, Roboto } from "next/font/google";
 import CookieConsent from "./component/CookieConsentBoss";
 import "./globals.css";
 import Nav from "./component/sections/nav.jsx";
 import Footer from "./component/sections/Footer.jsx";
 import Script from "next/script";
-import GoogleAnalytics from "../lib/gtag";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 // Optimize font loading with minimal weights and preloading
 const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"], // Reduced weights for faster loading
+  display: "swap",
+  preload: true,
+  fallback: ["system-ui", "arial"],
+});
+const roboto = Roboto({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"], // Reduced weights for faster loading
   display: "swap",
@@ -51,7 +56,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="ltr">
       <head>
-     
         {/* DNS prefetch for external domains */}
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
         <link rel="dns-prefetch" href="//cdn.sanity.io" />
@@ -81,21 +85,12 @@ export default function RootLayout({ children }) {
           </>
         )}
       </head>
-      <body className={`${poppins.className} antialiased`}>
-       
-          <Nav />
+      <body className={`${poppins.className} ${roboto.className} antialiased`}>
+        <Nav />
 
         <main aria-label="Main Content">{children}</main>
 
-        <footer role="contentinfo" aria-label="Footer">
-          <Footer />
-        </footer>
-
-        {GA_MEASUREMENT_ID && (
-          <Suspense fallback={null}>
-            <GoogleAnalytics GA_MEASUREMENT_ID={GA_MEASUREMENT_ID} />
-          </Suspense>
-        )}
+        <Footer />
 
         <CookieConsent />
       </body>

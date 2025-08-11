@@ -1,94 +1,141 @@
 "use client";
-import { FancyCtaButton } from "../Btn";
+import React from "react";
+import { motion as m } from "framer-motion";
+import { Palette, Zap, Database, Code, Sparkles, Globe } from "lucide-react";
 import Link from "next/link";
 
-function HeroSection() {
+const floatingVariants = (delay = 0) => ({
+  animate: {
+    y: [-10, 10, -10],
+    rotate: [-2, 2, -2],
+    transition: {
+      duration: 4,
+      ease: "easeInOut",
+      repeat: Infinity,
+      repeatType: "reverse",
+      delay,
+    },
+  },
+});
 
+const pulseVariants = {
+  animate: {
+    scale: [1, 1.05, 1],
+    transition: {
+      duration: 2,
+      ease: "easeInOut",
+      repeat: Infinity,
+      repeatType: "reverse",
+    },
+  },
+};
+
+export default function HeroSection() {
   return (
-    <div className="min-h-screen bg-gradient-to-br pt-20 from-gray-100 via-gray-50 to-white relative overflow-hidden">
-      {/* Main Content */}
-      <div
-        className="container mx-auto px-6 md:px-8 relative z-10"
+    <div className="relative min-h-screen bg-white overflow-hidden">
+      {/* Floating icons */}
+      <m.div
+        className="hidden md:flex absolute top-20 left-20 w-16 h-16 bg-white rounded-2xl shadow-lg items-center justify-center"
+        variants={floatingVariants(0)}
+        animate="animate"
       >
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
-          {/* Left Content */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <h1 className="text-4xl md:text-6xl font-light text-gray-800">
-                Transform Your Business Online <br />
-                <span className="text-gray-600">
-                  with Our Digital Solutions.
-                </span>
-              </h1>
+        <Palette aria-hidden="true" className="w-8 h-8 text-purple-600" />
+      </m.div>
 
-              <p className="text-lg text-gray-600 max-w-lg leading-relaxed">
-                Attract quality leads, and achieve sustainable growth through
-                bespoke web design, advanced SEO, powerful AI automation, and
-                compelling content.
-              </p>
-            </div>
+      <m.div
+        className="hidden md:flex absolute top-32 right-24 w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg items-center justify-center"
+        variants={floatingVariants(1)}
+        animate="animate"
+      >
+        <Zap aria-hidden="true" className="w-7 h-7 text-white" />
+      </m.div>
 
-            <div>
-              <Link
-                href="/get-started"
-                aria-label="Get started - View pricing and begin your project"
-              >
-                <FancyCtaButton text="Propel Your Business Forward" />
-              </Link>
-            </div>
-          </div>
+      <m.div
+        className="hidden md:flex absolute top-60 left-16 w-12 h-12 bg-white rounded-lg shadow-md items-center justify-center"
+        variants={floatingVariants(2)}
+        animate="animate"
+      >
+        <Database aria-hidden="true" className="w-6 h-6 text-green-600" />
+      </m.div>
 
-          {/* Right Content - Simplified */}
-          <div className="relative flex flex-col items-center space-y-8">
-            {/* Simplified Glowing Orb */}
-            <div className="relative">
-              <div
-               
-                className="w-80 h-80 md:w-96 md:h-96 relative"
-              >
-                {/* Main orb with gradient */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/35 via-primary/35 to-primary/35 opacity-80 blur-sm"></div>
-                <div className="absolute inset-2 rounded-full bg-gradient-to-br from-white via-primary/15 to-primary/15 opacity-90"></div>
+      <m.div
+        className="hidden md:flex absolute bottom-40 left-32 w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl shadow-lg items-center justify-center"
+        variants={floatingVariants(1.5)}
+        animate="animate"
+      >
+        <Code aria-hidden="true" className="w-7 h-7 text-white" />
+      </m.div>
 
-                
+      <m.div
+        className="hidden md:flex absolute bottom-60 right-20 w-16 h-16 bg-white rounded-2xl shadow-lg items-center justify-center"
+        variants={floatingVariants(0.5)}
+        animate="animate"
+      >
+        <Sparkles aria-hidden="true" className="w-8 h-8 text-yellow-500" />
+      </m.div>
 
+      <m.div
+        className="hidden md:flex absolute top-80 right-16 w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg shadow-md items-center justify-center"
+        variants={floatingVariants(2.5)}
+        animate="animate"
+      >
+        <Globe aria-hidden="true" className="w-6 h-6 text-white" />
+      </m.div>
 
-              </div>
-            </div>
+      {/* Main Content */}
+      <div className=" z-10 min-h-screen  flex flex-col justify-center  text-center">
+        <m.h1
+          className="text-5xl md:text-7xl font-mono px-1 font-extrabold text-gray-900 mb-8 leading-tight"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          Turn Your
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
+            &nbsp;Website
+          </span>
+          &nbsp;Into a
+          <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
+            &nbsp;Sales
+          </span>
+          &nbsp;Machine
+        </m.h1>
+<div className="w-screen ">
 
-            {/* Bottom Text */}
-            <div
-              className="text-center space-y-4 max-w-md"
-            >
-              <p className="text-gray-600 leading-relaxed">
-                Whether through intuitive interfaces, immersive AI Automation,
-                or bold visual storytelling,
-                <span className="text-gray-800 font-medium">
-                  {" "}
-                  we design moments that people don't just see, they feel.
-                </span>
-              </p>
+       <m.p
+          className="text-lg md:text-xl w-full mx-auto  text-gray-600 mb-12 max-w-2xl leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          At BookOne, we blend stunning web design, advanced SEO, and powerful
+          AI automation to help businesses attract more leads, close more sales,
+          and operate smarter — all without adding more hours to your day.
+        </m.p>
+</div>
 
-              <div className="flex flex-wrap justify-center gap-3 text-sm">
-                <span className="px-4 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
-                  UI/UX
-                </span>
-                <span className="px-4 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
-                  AI Automation
-                </span>
-                <span className="px-4 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
-                  SEO Optimization
-                </span>
-                <span className="px-4 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
-                  +
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Link href="/get-started"
+        className="w-full flex justify-center"
+        >
+          <m.button
+            aria-label="Get a quote from BookOne"
+            className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition-all duration-200 flex items-center gap-3"
+            variants={pulseVariants}
+            animate="animate"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <div className="w-3 h-3 bg-white rounded-full animate-pulse" />
+            Get Quote
+          </m.button>
+        </Link>
+      </div>
+
+      {/* Bottom Gradient */}
+      <div className="absolute bottom-0 left-0 right-0 flex pointer-events-none">
+        <div className="h-40 w-1/3 bg-purple-500/50 blur-3xl rounded-full" />
+        <div className="h-40 w-1/3 bg-yellow-400/40 blur-3xl rounded-full" />
+        <div className="h-40 w-1/3 bg-blue-500/40 blur-3xl rounded-full" />
       </div>
     </div>
   );
 }
-
-export default HeroSection;

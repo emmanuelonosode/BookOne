@@ -16,8 +16,8 @@ const contactMethods = [
     icon: <Mail className="w-6 h-6 text-white" />,
     label: "Email Us",
     description: "Send us an email and we'll get back to you within 24 hours",
-    value: "officialbookone@gmail.com",
-    href: "mailto:officialbookone@gmail.com",
+    value: "info@bookone.dev",
+    href: "mailto:info@bookone.dev",
     cta: "Send Email",
     responseTime: "24 hours",
     type: "email",
@@ -288,7 +288,7 @@ function Contact() {
               reach out directly.
             </p>
             <Link
-              href="/faq"
+              href="/#faqs"
               className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-medium transition-colors"
             >
               View FAQ

@@ -90,7 +90,7 @@ function Footer() {
         opacity: 1,
         transition: {
           staggerChildren: 0.1,
-          delayChildren: 0.2,
+          delayChildren: 0.1,
         },
       },
     }),
@@ -104,7 +104,7 @@ function Footer() {
         opacity: 1,
         y: 0,
         transition: {
-          duration: 0.6,
+          duration: 0.2,
           ease: "easeOut",
         },
       },
@@ -116,7 +116,11 @@ function Footer() {
   const currentYear = useMemo(() => new Date().getFullYear(), []);
 
   return (
-    <footer className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white overflow-hidden">
+    <footer
+      role="contentinfo"
+      aria-label="Footer"
+      className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white overflow-hidden"
+    >
       {/* Background Elements - Reduced for performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-primary-400/20 to-transparent rounded-full blur-xl"></div>

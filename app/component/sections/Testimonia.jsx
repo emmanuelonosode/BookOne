@@ -28,12 +28,7 @@ const TestimonialCard = memo(({ testimonial, isActive }) => {
 
         <div className="relative z-10">
           {/* Star rating */}
-          <div className="flex items-center gap-1 mb-4 sm:mb-6">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-yellow-400 text-yellow-400" />
-            ))}
-            <span className="ml-2 text-sm text-gray-500 font-medium">5.0</span>
-          </div>
+        
 
           {/* Main testimonial content */}
           <div className="mb-6 sm:mb-8">
@@ -46,37 +41,7 @@ const TestimonialCard = memo(({ testimonial, isActive }) => {
           </div>
 
           {/* Results metrics (if available) */}
-          {testimonial.metrics && (
-            <div className="grid grid-cols-3 gap-4 mb-6 sm:mb-8 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl">
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-1">
-                  <TrendingUp className="w-4 h-4 text-purple-600 mr-1" />
-                </div>
-                <div className="text-lg sm:text-xl font-bold text-purple-600">
-                  {testimonial.metrics.growth || '+300%'}
-                </div>
-                <div className="text-xs sm:text-sm text-gray-600">Growth</div>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-1">
-                  <DollarSign className="w-4 h-4 text-green-600 mr-1" />
-                </div>
-                <div className="text-lg sm:text-xl font-bold text-green-600">
-                  {testimonial.metrics.revenue || '$50K+'}
-                </div>
-                <div className="text-xs sm:text-sm text-gray-600">Revenue</div>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-1">
-                  <Users className="w-4 h-4 text-blue-600 mr-1" />
-                </div>
-                <div className="text-lg sm:text-xl font-bold text-blue-600">
-                  {testimonial.metrics.leads || '500+'}
-                </div>
-                <div className="text-xs sm:text-sm text-gray-600">Leads</div>
-              </div>
-            </div>
-          )}
+         
 
           {/* Client info */}
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
@@ -158,11 +123,6 @@ const Testimonia = () => {
         // Add default metrics for demo purposes if not present
         const enrichedData = data.map(item => ({
           ...item,
-          metrics: item.metrics || {
-            growth: '+300%',
-            revenue: '$50K+',
-            leads: '500+'
-          },
           company: item.company || 'BookOne Client',
           projectType: item.projectType || 'Website Design & Development'
         }));

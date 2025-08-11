@@ -1,5 +1,6 @@
-import { sanity, urlFor } from "@/lib/sanity";
-import { projects } from "@/lib/queries";
+import { sanity, urlFor } from "../../lib/sanity";
+// import { projects } from "@/lib/queries";
+import {projects} from "../../lib/queries"
 import Script from "next/script";
 import { ArrowUpRight, Users, Award, Star } from "lucide-react";
 import ProjectCard from "../component/ProjectCard";

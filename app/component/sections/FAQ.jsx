@@ -6,7 +6,6 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import { faq } from "../../Commons/details";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lightbulb } from "lucide-react";
 import Link from "next/link";
@@ -15,6 +14,34 @@ function FAQ() {
   const [selectedTest, setSelectedTest] = useState(null);
   const [focusedIndex, setFocusedIndex] = useState(null);
   const faqRefs = useRef([]);
+
+
+  const faq = [
+    {
+      title: "What is BookOne?",
+      desc: "BookOne is an all-in-one digital growth platform that combines high-converting website design, AI automation, and advanced SEO to help your business attract more leads and close more sales.",
+    },
+    {
+      title: "Who is BookOne for?",
+      desc: "Our services are designed for entrepreneurs, startups, and established businesses who want to turn their website into a powerful sales and marketing machine without adding extra hours to their workday.",
+    },
+    {
+      title: "Do I need technical skills to use BookOne?",
+      desc: "Not at all. We handle all the design, development, and optimization for you so you can focus on running your business.",
+    },
+    {
+      title: "Can BookOne integrate with my existing tools?",
+      desc: "Yes. BookOne can connect with popular CRMs, payment processors, email marketing platforms, and other third-party tools to create a seamless workflow.",
+    },
+    {
+      title: "How long does it take to see results?",
+      desc: "Most clients start seeing measurable improvements in website performance and lead generation within the first few weeks after launch.",
+    },
+    {
+      title: "Do you provide ongoing support?",
+      desc: "Yes. We offer ongoing maintenance, updates, and strategy sessions to ensure your website continues to perform at its best.",
+    },
+  ];
 
   // Memoize the keyboard navigation handler
   const handleKeyDown = useCallback(
@@ -346,7 +373,7 @@ function FAQ() {
                     exit="exit"
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6">
+                    <div className="md:px-6  pb-6">
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -405,7 +432,7 @@ function FAQ() {
         <Link
           href="mailto:officialbookone@gmail.com"
        
-          className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+          className="inline-flex items-center sm:px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
           tabIndex={0}
         >
           <svg
