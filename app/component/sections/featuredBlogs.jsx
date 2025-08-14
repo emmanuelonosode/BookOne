@@ -2,17 +2,15 @@ import React, { useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { sanity, urlFor } from "@/lib/sanity";
-import { paginatedBlogsQuery } from "@/lib/queries";
+import { homepageBlogsQuery } from "@/lib/queries";
 import { formatRelativeDate } from "../../utils/dateUtils";
 
 export default async function FeaturedBlogs() {
-  // Fetch top 4 recent blogs from Sanity (1 featured + 3 grid)
+  // Fetch top 3 recent blogs for homepage
   const blogs = await sanity.fetch(
-    paginatedBlogsQuery
-      .replace("$categoryFilter", "")
-      .replace("$searchFilter", "")
-      .replace("$start", 0)
-      .replace("$end", 3)
+    homepageBlogsQuery,
+    {},
+    { cache: "force-cache" }
   );
 
   return (
@@ -182,14 +180,15 @@ export default async function FeaturedBlogs() {
                       </Link>
                       <div className="flex items-center gap-2 text-xs text-gray-500">
                         <time dateTime={blog._createdAt}>
-                          {new Date(blog._createdAt).toLocaleDateString(
+                          {/* {new Date(blog._createdAt).toLocaleDateString(
                             "en-US",
                             {
                               month: "short",
                               day: "numeric",
                               year: "numeric",
                             }
-                          )}
+                          )} */}
+                          {formatRelativeDate(blog._createdAt)}
                         </time>
                         <span>•</span>
                         <span>5 min read</span>

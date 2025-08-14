@@ -1,22 +1,23 @@
 import { sanity } from "@/lib/sanity";
-import { projects } from "@/lib/queries";
-import React, { useMemo } from "react";
+import { homepageProjectsQuery } from "@/lib/queries";
 import ProjectCard from "../ProjectCard";
 import Link from "next/link";
 import { ArrowRight, Star, Users, Award } from "lucide-react";
 
-const allProjects = await sanity.fetch(projects);
+export const revalidate = 3600; // Enable ISR for portfolio section
 
-export default async function PortfolioPage() {
-  // Memoize stats data to prevent recreation
-  const stats = useMemo(
-    () => [
-      { icon: Users, label: "Happy Clients", value: "50+" },
-      { icon: Award, label: "Projects Completed", value: "50+" },
-      { icon: Star, label: "5-Star Reviews", value: "98%" },
-    ],
-    []
+export default async function PortfolioSection() {
+  const allProjects = await sanity.fetch(
+    homepageProjectsQuery,
+    {},
+    { cache: "force-cache" }
   );
+console.log(allProjects)
+  const stats = [
+    { icon: Users, label: "Happy Clients", value: "50+" },
+    { icon: Award, label: "Projects Completed", value: "50+" },
+    { icon: Star, label: "5-Star Reviews", value: "98%" },
+  ];
 
   return (
     <section
@@ -49,18 +50,21 @@ export default async function PortfolioPage() {
           </p>
 
           {/* Stats Row */}
-          <div className="flex items-center justify-center max-w-2xl mx-auto">
+          <div className="flex flex-wrap items-center  justify-between gap-6 sm:gap-8 max-w-3xl mx-auto px-4">
             {stats.map((stat, index) => {
               const IconComponent = stat.icon;
               return (
-                <div key={index} className="text-center">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-purple-100 rounded-full mb-3">
-                    <IconComponent className="w-6 h-6 text-purple-600" />
+                <div
+                  key={index}
+                  className="flex flex-col items-center text-center w-[140px] sm:w-[160px] md:w-[180px]"
+                >
+                  <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-purple-100 rounded-full mb-3">
+                    <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-purple-600" />
                   </div>
-                  <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-gray-600 font-medium">
+                  <div className="text-xs sm:text-sm md:text-base text-gray-600 font-medium">
                     {stat.label}
                   </div>
                 </div>
@@ -71,13 +75,13 @@ export default async function PortfolioPage() {
 
         {/* Featured Project Highlight */}
         {allProjects.length > 0 && (
-            <div className=" pb-8 sm:p-12">
-                <div className="inline-flex mb-10 items-center bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
-                  <Star className="w-4 h-4 mr-2" />
-                  Featured Project
-              </div>
-              <ProjectCard project={allProjects[0]} featured={true} />
+          <div className=" pb-8 sm:p-12">
+            <div className="inline-flex mb-10 items-center bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
+              <Star className="w-4 h-4 mr-2" />
+              Featured Project
             </div>
+            <ProjectCard allProjects={allProjects[0]} featured={true} />
+          </div>
         )}
 
         {/* Section Header for Other Projects */}
@@ -96,7 +100,7 @@ export default async function PortfolioPage() {
         >
           {allProjects.slice(1).map((project, index) => (
             <div key={project._id} className="mb-8">
-              <ProjectCard project={project} />
+              <ProjectCard allProjects={project} />
             </div>
           ))}
         </div>

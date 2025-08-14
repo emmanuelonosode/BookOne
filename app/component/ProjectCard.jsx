@@ -4,10 +4,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { urlFor } from "@/lib/sanity";
 import Link from "next/link";
 
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ allProjects: projectData }) {
   // State for mobile tap interaction
   const [isTapped, setIsTapped] = useState(false);
-
+  console.log("this is the projectCard ", projectData);
   // Ref for the card to track its scroll position
   const cardRef = useRef(null);
 
@@ -129,22 +129,22 @@ export default function ProjectCard({ project }) {
       viewport={{ once: true, amount: 0.3 }}
       whileHover={{ scale: hoverScale }}
       role="article"
-      aria-labelledby={`project-title-${project.slug?.current}`}
-      aria-describedby={`project-description-${project.slug?.current}`}
+      aria-labelledby={`project-title-${projectData.slug.current}`}
+      aria-describedby={`project-description-${projectData.slug.current}`}
     >
       <Link
-        href={`/portfolio/${project.slug?.current}`}
+        href={`/portfolio/${projectData.slug?.current}`}
         className="block w-full h-full"
-        aria-label={`View details for ${project.title}`}
-        title={`Learn more about ${project.title}`}
+        aria-label={`View details for ${projectData.title}`}
+        title={`Learn more about ${projectData.title}`}
         onClick={handleMobileTap}
       >
         {/* Background Image with Parallax */}
         <motion.div style={{ y: imageY }} className="absolute inset-0">
-          {project.mainImage && (
+          {projectData.mainImage && (
             <img
-              src={urlFor(project.mainImage).url()}
-              alt={`Screenshot or visual for ${project.title} project`}
+              src={urlFor(projectData.mainImage).url()}
+              alt={`Screenshot or visual for ${projectData.title} project`}
               className="object-cover w-full h-full"
               loading="lazy"
             />
@@ -162,18 +162,18 @@ export default function ProjectCard({ project }) {
           whileHover="visible"
         >
           <motion.h3
-            id={`project-title-${project.slug?.current}`}
+            id={`project-title-${projectData.slug?.current}`}
             variants={contentItemVariants}
             className="text-2xl lg:text-3xl font-semibold mb-3"
           >
-            {project.title}
+            {projectData.title}
           </motion.h3>
           <motion.p
-            id={`project-description-${project.slug?.current}`}
+            id={`project-description-${projectData.slug?.current}`}
             variants={contentItemVariants}
             className="text-base lg:text-lg leading-relaxed mb-4 line-clamp-3"
           >
-            {project.overview}
+            {projectData.overview}
           </motion.p>
           <motion.span
             variants={contentItemVariants}
@@ -218,11 +218,11 @@ export default function ProjectCard({ project }) {
 
           {/* Always visible title */}
           <motion.h3
-            id={`project-title-${project.slug?.current}`}
+            id={`project-title-${projectData.slug?.current}`}
             variants={contentItemVariants}
             className="text-xl sm:text-2xl font-bold mb-2 drop-shadow-lg"
           >
-            {project.title}
+            {projectData.title}
           </motion.h3>
 
           {/* Expandable content on mobile */}
@@ -232,13 +232,13 @@ export default function ProjectCard({ project }) {
             className="space-y-2"
           >
             <motion.p
-              id={`project-description-${project.slug?.current}`}
+              id={`project-description-${projectData.slug?.current}`}
               variants={contentItemVariants}
               className={`text-sm sm:text-base leading-relaxed drop-shadow-md transition-all duration-300 ${
                 isTapped ? "line-clamp-none" : "line-clamp-2"
               }`}
             >
-              {project.overview}
+              {projectData.overview}
             </motion.p>
 
             <motion.div

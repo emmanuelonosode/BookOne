@@ -54,7 +54,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" dir="ltr">
+    <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
         {/* DNS prefetch for external domains */}
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
@@ -85,7 +85,10 @@ export default function RootLayout({ children }) {
           </>
         )}
       </head>
-      <body className={`${poppins.className} ${roboto.className} antialiased`}>
+      <body
+        className={`${poppins.className} ${roboto.className} antialiased`}
+        suppressHydrationWarning
+      >
         <Nav />
 
         <main aria-label="Main Content">{children}</main>

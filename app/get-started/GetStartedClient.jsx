@@ -19,6 +19,7 @@ import {
   Shield,
   Loader2,
 } from "lucide-react";
+import Link from "next/link";
 
 // Optimized service options
 const serviceOptions = [
@@ -566,7 +567,14 @@ const ContactPage = () => {
                     className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   />
                   <span className="text-sm text-gray-700">
-                    I agree to the privacy policy and terms of service *
+                    I agree to the 
+                    
+                  <Link href="/privacy-policy" className="text-blue-400 underline"> privacy policy </Link>
+                    
+                     and 
+
+                   <Link href="/terms-and-conditions" className="text-blue-500 underline"> terms of service *</Link>  
+
                   </span>
                 </label>
                 {errors.privacy && (
