@@ -93,7 +93,7 @@ export default function HeroSection() {
 
       {/* Animated gradient orbs */}
       <m.div
-        className="absolute top-1/4 left-1/4 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-gradient-to-r from-purple-200/30 to-blue-200/40 rounded-full blur-3xl"
+        className=" absolute top-1/4 left-1/4 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-gradient-to-r from-purple-200/30 to-blue-200/40 rounded-full blur-3xl"
         animate={{
           x: [0, 30, 0],
           y: [0, -20, 0],
@@ -128,7 +128,7 @@ export default function HeroSection() {
         <>
           {/* Top Left - Palette */}
           <m.div
-            className="absolute top-16 left-4 sm:top-20 sm:left-8 lg:top-20 lg:left-20 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center border border-white/20"
+            className="absolute max-md:hidden top-16 left-4 sm:top-20 sm:left-8 lg:top-20 lg:left-20 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center border border-white/20"
             variants={floatingVariants(0)}
             animate="animate"
           >
@@ -137,7 +137,7 @@ export default function HeroSection() {
 
           {/* Top Right - Zap */}
           <m.div
-            className="absolute top-24 right-4 sm:top-32 sm:right-12 lg:top-32 lg:right-24 w-11 h-11 sm:w-13 sm:h-13 lg:w-14 lg:h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg flex items-center justify-center"
+            className="absolute max-md:hidden top-24 right-4 sm:top-32 sm:right-12 lg:top-32 lg:right-24 w-11 h-11 sm:w-13 sm:h-13 lg:w-14 lg:h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg flex items-center justify-center"
             variants={floatingVariants(1)}
             animate="animate"
           >
@@ -146,7 +146,7 @@ export default function HeroSection() {
 
           {/* Middle Left - Database */}
           <m.div
-            className="absolute top-48 left-2 sm:top-60 sm:left-8 lg:top-60 lg:left-16 w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-white/90 backdrop-blur-sm rounded-lg shadow-md flex items-center justify-center border border-white/20"
+            className="absolute max-md:hidden top-48 left-2 sm:top-60 sm:left-8 lg:top-60 lg:left-16 w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-white/90 backdrop-blur-sm rounded-lg shadow-md flex items-center justify-center border border-white/20"
             variants={floatingVariants(2)}
             animate="animate"
           >
@@ -155,7 +155,7 @@ export default function HeroSection() {
 
           {/* Bottom Left - Code */}
           <m.div
-            className="absolute bottom-32 left-6 sm:bottom-40 sm:left-16 lg:bottom-40 lg:left-32 w-11 h-11 sm:w-13 sm:h-13 lg:w-14 lg:h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl shadow-lg flex items-center justify-center"
+            className="absolute max-md:hidden bottom-32 left-6 sm:bottom-40 sm:left-16 lg:bottom-40 lg:left-32 w-11 h-11 sm:w-13 sm:h-13 lg:w-14 lg:h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl shadow-lg flex items-center justify-center"
             variants={floatingVariants(1.5)}
             animate="animate"
           >
@@ -164,7 +164,7 @@ export default function HeroSection() {
 
           {/* Bottom Right - Sparkles */}
           <m.div
-            className="absolute bottom-48 right-4 sm:bottom-60 sm:right-10 lg:bottom-60 lg:right-20 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center border border-white/20"
+            className="absolute max-md:hidden bottom-48 right-4 sm:bottom-60 sm:right-10 lg:bottom-60 lg:right-20 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center border border-white/20"
             variants={floatingVariants(0.5)}
             animate="animate"
           >
@@ -173,7 +173,7 @@ export default function HeroSection() {
 
           {/* Middle Right - Globe */}
           <m.div
-            className="absolute top-64 right-2 sm:top-80 sm:right-8 lg:top-80 lg:right-16 w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg shadow-md flex items-center justify-center"
+            className="absolute max-md:hidden top-64 right-2 sm:top-80 sm:right-8 lg:top-80 lg:right-16 w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg shadow-md flex items-center justify-center"
             variants={floatingVariants(2.5)}
             animate="animate"
           >
@@ -183,32 +183,32 @@ export default function HeroSection() {
       )}
 
       {/* Main Content */}
-      <div className="relative z-10 min-h-screen flex flex-col justify-center items-center text-center px-4 py-22 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      <div className="relative z-10 min-h-screen flex flex-col justify-center items-center text-center px-4 py-22 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Main Heading with staggered animation */}
         <m.h1
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-gray-900 mb-6 sm:mb-8 leading-[1.1] sm:leading-tight max-w-5xl"
           initial="hidden"
           animate="visible"
         >
-          <m.span className="" custom={0} variants={textRevealVariants}>
-          Turn Your
+          <m.span custom={0} variants={textRevealVariants}>
+            Turn Your
           </m.span>
           <m.span
-            className=" mx-1 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600"
+            className="mx-1 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600"
             custom={1}
             variants={textRevealVariants}
           >
-            &nbsp;Website
+            Website
           </m.span>
           <m.span className="mx-2" custom={2} variants={textRevealVariants}>
-            &nbsp;Into a
+            Into a
           </m.span>
           <m.span
             className="text-transparent mx-1 bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600"
             custom={3}
             variants={textRevealVariants}
           >
-            &nbsp;Sales Machine
+            Sales Machine
           </m.span>
         </m.h1>
 
@@ -231,9 +231,9 @@ export default function HeroSection() {
           variants={buttonVariants}
           className="flex flex-col sm:flex-row gap-4 items-center"
         >
-          <Link href="/get-started" className="group">
-            <m.button
-              className="relative bg-gray-900 hover:bg-gray-800 text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-full text-base sm:text-lg lg:text-xl font-semibold shadow-lg transition-all duration-300 flex items-center gap-3 overflow-hidden"
+          <Link href="/get-started" passHref>
+            <m.a
+              className="group relative bg-gray-900 hover:bg-gray-800 text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-full text-base sm:text-lg lg:text-xl font-semibold shadow-lg transition-all duration-300 flex items-center gap-3 overflow-hidden"
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"
@@ -276,7 +276,7 @@ export default function HeroSection() {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </m.svg>
-            </m.button>
+            </m.a>
           </Link>
 
           {/* Secondary action */}

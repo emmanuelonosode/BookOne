@@ -27,7 +27,7 @@ const Testimonia = dynamic(
   }
 );
 
-const AboutUs = dynamic(() => import("./component/sections/AboutUs"), {
+const AboutUs = dynamic(() => import("./component/sections/AboutUs.jsx"), {
   loading: () => <div className="h-96 bg-gray-50 animate-pulse rounded-lg" />,
   ssr: true,
 });
