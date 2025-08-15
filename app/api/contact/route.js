@@ -233,7 +233,6 @@ async function sendQuoteEmail(
       await transporter.verify();
     } catch (verifyError) {
       console.error("Email transporter verify failed:", verifyError);
-      throw new Error("Email service configuration is invalid.");
     }
 
     const mailOptions = {
@@ -449,6 +448,5 @@ async function sendQuoteEmail(
     }
   } catch (error) {
     console.error("sendQuoteEmail fatal error:", error);
-+    throw error;
   }
 }
