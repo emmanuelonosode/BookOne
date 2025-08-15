@@ -2,7 +2,6 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { FaTwitter, FaLinkedin, FaInstagram, FaGithub } from "react-icons/fa";
-import Link from "next/link";
 
 // Mock data - replace with your actual imports
 const quickLinks = [
@@ -82,36 +81,6 @@ function Footer() {
     }
   }, [email]);
 
-  // Memoize animation variants to prevent recreation on every render
-  const containerVariants = useMemo(
-    () => ({
-      hidden: { opacity: 0 },
-      visible: {
-        opacity: 1,
-        transition: {
-          staggerChildren: 0.1,
-          delayChildren: 0.1,
-        },
-      },
-    }),
-    []
-  );
-
-  const itemVariants = useMemo(
-    () => ({
-      hidden: { opacity: 0, y: 20 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration: 0.2,
-          ease: "easeOut",
-        },
-      },
-    }),
-    []
-  );
-
   // Memoize current year to prevent recalculation
   const currentYear = useMemo(() => new Date().getFullYear(), []);
 
@@ -119,129 +88,123 @@ function Footer() {
     <footer
       role="contentinfo"
       aria-label="Footer"
-      className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white overflow-hidden"
+      className="relative bg-gradient-to-br from-slate-900  to-zinc-900 text-white"
     >
-      {/* Background Elements - Reduced for performance */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-primary-400/20 to-transparent rounded-full blur-xl"></div>
-        <div className="absolute bottom-40 right-20 w-40 h-40 bg-gradient-to-br from-blue-400/20 to-transparent rounded-full blur-xl"></div>
+      {/* Inspiring Quote Section */}
+      <div className="relative z-10 text-center py-16 px-6 md:px-8 border-b border-white/10">
+        <div className="container mx-auto max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <blockquote className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed mb-6">
+              <span className="bg-gradient-to-r from-purple-200 via-white to-blue-200 bg-clip-text text-transparent">
+                "Every great business was once just an idea waiting for the
+                right partner to bring it to life."
+              </span>
+            </blockquote>
+            <p className="text-lg text-gray-300 font-medium">
+              Let's build something extraordinary together.
+            </p>
+          </motion.div>
+        </div>
       </div>
 
       {/* Main Content */}
-      <motion.div
-        className="relative z-10 py-20 px-6 md:px-8"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-      >
+      <div className="relative z-10 py-16 px-6 md:px-8">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             {/* Brand Section */}
-            <motion.div variants={itemVariants} className="lg:col-span-1">
-              <Link
-                href="/"
-                className="inline-block"
-                aria-label="BookOne - Home"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                    BookOne
-                  </h2>
-                  <p className="text-gray-300 text-lg">Unlock digital profit</p>
-                </motion.div>
-              </Link>
+            <div className="lg:col-span-1">
+              <a href="/" className="inline-block" aria-label="BookOne - Home">
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 hover:text-purple-200 transition-colors duration-300">
+                  BookOne
+                </h2>
+                <p className="text-gray-300 text-lg mb-4">
+                  Unlock digital profit
+                </p>
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  Transforming dreams into digital reality, one project at a
+                  time.
+                </p>
+              </a>
 
-              {/* Social Links - Optimized animations */}
+              {/* Social Links */}
               <div className="flex space-x-4 mt-8">
-                {socialLinks.map(({ platform, icon, href }, index) => (
-                  <motion.a
-                    aria-label={`Follow us on ${platform}`}
+                {socialLinks.map(({ platform, icon, href }) => (
+                  <a
                     key={platform}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-all duration-300 border border-white/20"
-                    whileHover={{ scale: 1.05, y: -1 }}
-                    whileTap={{ scale: 0.95 }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.2 + index * 0.03, duration: 0.2 }}
+                    className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-purple-600/30 transition-all duration-300 border border-white/20 group"
+                    aria-label={`Follow us on ${platform}`}
                   >
-                    <span className="text-white text-xs font-medium">
+                    <span className="text-white text-base group-hover:scale-110 transition-transform duration-200">
                       {icon}
                     </span>
-                  </motion.a>
+                  </a>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
-            {/* Quick Links - Simplified animations */}
-            <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h3 className="text-lg font-semibold text-white mb-6">
-                Quick Links
+            {/* Quick Links */}
+            <div className="lg:col-span-1">
+              <h3 className="text-xl font-semibold text-white mb-6 relative">
+                Navigate
+                <div className="w-12 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 mt-2"></div>
               </h3>
-              {quickLinks.map(({ href, label }, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 + index * 0.05, duration: 0.3 }}
-                  viewport={{ once: true }}
-                >
-                  <Link
+              <div className="space-y-4">
+                {quickLinks.map(({ href, label }) => (
+                  <a
+                    key={label}
                     href={href}
+                    className="block text-gray-300 hover:text-white hover:translate-x-2 transition-all duration-300 group"
                     aria-label={`Navigate to ${label}`}
-                    className="block text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2 group"
                   >
                     <span className="inline-flex items-center">
-                      <span className="w-0 h-px bg-white transition-all duration-300 group-hover:w-4 mr-0 group-hover:mr-1"></span>
+                      <span className="w-0 h-px bg-purple-400 transition-all duration-300 group-hover:w-4 mr-0 group-hover:mr-3"></span>
                       {label}
                     </span>
-                  </Link>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* Resources - Simplified animations */}
-            <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h3 className="text-lg font-semibold text-white mb-6">
-                Resources
-              </h3>
-              <div className="space-y-3">
-                {resources.map(({ href, label }, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 + index * 0.05, duration: 0.3 }}
-                    viewport={{ once: true }}
-                  >
-                    <Link
-                      href={href}
-                      className="block text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2 group"
-                    >
-                      <span className="inline-flex items-center">
-                        <span className="w-0 h-px bg-white transition-all duration-300 group-hover:w-4 mr-0 group-hover:mr-1"></span>
-                        {label}
-                      </span>
-                    </Link>
-                  </motion.div>
+                  </a>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
-            {/* Newsletter */}
-            <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h3 className="text-lg font-semibold text-white mb-6">
-                Stay Updated
+            {/* Resources */}
+            <div className="lg:col-span-1">
+              <h3 className="text-xl font-semibold text-white mb-6 relative">
+                Connect
+                <div className="w-12 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 mt-2"></div>
+              </h3>
+              <div className="space-y-4">
+                {resources.map(({ href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    className="block text-gray-300 hover:text-white hover:translate-x-2 transition-all duration-300 group"
+                  >
+                    <span className="inline-flex items-center">
+                      <span className="w-0 h-px bg-blue-400 transition-all duration-300 group-hover:w-4 mr-0 group-hover:mr-3"></span>
+                      {label}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Newsletter - More Inspiring */}
+            <div className="lg:col-span-1">
+              <h3 className="text-xl font-semibold text-white mb-6 relative">
+                Join the Journey
+                <div className="w-12 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 mt-2"></div>
               </h3>
               <p className="text-gray-300 text-sm mb-6 leading-relaxed">
-                Join our newsletter for the latest updates, insights, and
-                exclusive content delivered to your inbox.
+                Be part of a community that turns visions into victories. Get
+                exclusive insights, success stories, and actionable tips
+                delivered weekly.
               </p>
 
               <div className="space-y-4">
@@ -250,112 +213,72 @@ function Footer() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
+                    placeholder="Your email for success stories"
                     required
-                    className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all duration-300"
+                    className="w-full px-4 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300 focus:bg-white/15"
                   />
                 </div>
 
-                <motion.button
+                <button
                   type="button"
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-primary to-blue-500 text-white font-medium rounded-lg hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                  whileHover={{ scale: 1.02, y: -1 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-purple-500/25 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
                   aria-label="Subscribe to newsletter"
                 >
-                  {isSubmitting ? (
-                    <span className="inline-flex items-center">
-                      <svg
-                        className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        ></circle>
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
-                      </svg>
-                      Subscribing...
-                    </span>
-                  ) : (
-                    "Subscribe"
-                  )}
-                </motion.button>
+                  <span className="relative z-10">
+                    {isSubmitting
+                      ? "Starting Your Journey..."
+                      : "Start Your Success Journey"}
+                  </span>
+                  <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
+                </button>
 
                 {submitStatus && (
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className={`text-xs ${
-                      submitStatus.includes("Successfully")
+                  <p
+                    className={`text-sm text-center ${
+                      submitStatus.includes("confirmation")
                         ? "text-green-400"
                         : "text-red-400"
                     }`}
                   >
                     {submitStatus}
-                  </motion.p>
+                  </p>
                 )}
               </div>
 
-              <p className="text-xs text-gray-400 mt-4 leading-relaxed">
-                By subscribing, you consent to our{" "}
-                <Link
-                  href="/privacy-policy"
-                  className="text-primary-400 hover:text-primary-300 transition-colors"
-                  aria-label="View privacy policy"
-                >
-                  Privacy Policy
-                </Link>{" "}
-                and agree to receive updates.
+              <p className="text-xs text-gray-400 mt-6 leading-relaxed">
+                🚀 Join 1000+ entrepreneurs who trust us with their digital
+                transformation.
               </p>
-            </motion.div>
+            </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
-      {/* Footer Bottom - Simplified animations */}
-      <div className="relative z-10 border-t border-white/10 backdrop-blur-sm">
-        <motion.div
-          className="container mx-auto px-6 md:px-8 py-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.6 }}
-          viewport={{ once: true }}
-        >
+      {/* Footer Bottom */}
+      <div className="relative z-10 border-t border-white/10">
+        <div className="container mx-auto px-6 md:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-gray-400">
-              © {currentYear} BookOne. All rights reserved.
+              © {currentYear} BookOne. Crafted with passion for your success.
             </p>
 
             <div className="flex flex-wrap justify-center md:justify-end space-x-6 text-sm">
-              {footerLinks.map(({ href, label }, index) => (
-                <Link
-                  key={index}
+              {footerLinks.map(({ href, label }) => (
+                <a
+                  key={label}
                   href={href}
                   className="text-gray-400 hover:text-white transition-colors duration-300 relative group"
                   aria-label={`View ${label.toLowerCase()}`}
                 >
-                  <motion.div whileHover={{ y: -1 }}>
-                    {label}
-                    <span className="absolute -bottom-1 left-0 w-0 h-px bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
-                  </motion.div>
-                </Link>
+                  {label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );

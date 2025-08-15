@@ -20,6 +20,7 @@ import {
   Loader2,
 } from "lucide-react";
 import Link from "next/link";
+import { trackLeadSubmission } from "../../lib/analytics";
 
 // Optimized service options
 const serviceOptions = [
@@ -74,8 +75,16 @@ const SuccessNotification = ({ show, onClose, userName }) => {
   if (!show) return null;
 
   return (
-    <div className="fixed top-4 right-4 z-50 max-w-md">
-      <div className="bg-white rounded-lg shadow-lg border border-green-200 p-4">
+    <div
+      id="success-notification"
+      tabIndex={-1}
+      className="fixed top-4 right-4 z-50 max-w-md"
+    >
+      <div
+        className="bg-white rounded-lg shadow-lg border border-green-200 p-4"
+        role="status"
+        aria-live="polite"
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="flex-shrink-0">
@@ -120,6 +129,8 @@ const ContactPage = () => {
     timeline: "",
     newsletter: true,
     privacy: false,
+    // honeypot hidden field to trap bots
+    honeypot: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -205,8 +216,24 @@ const ContactPage = () => {
           timeline: "",
           newsletter: true,
           privacy: false,
+          honeypot: "",
         });
         setTimeout(() => setShowSuccess(false), 5000);
+
+        // Fire a conversion event (safe helper prefers dataLayer then gtag)
+        try {
+          trackLeadSubmission({
+            lead_source: "get_started_form",
+            lead_name: `${formData.firstName} ${formData.lastName}`.trim(),
+            lead_email: formData.email,
+          });
+        } catch (err) {
+          // swallow analytics errors
+        }
+
+        // Move focus to success notification for accessibility
+        const notif = document.querySelector("#success-notification");
+        if (notif) notif.focus();
       } else {
         setErrors((prev) => ({
           ...prev,
@@ -369,6 +396,19 @@ const ContactPage = () => {
                   </h3>
 
                   <form className="grid grid-cols-2 gap-4">
+                    {/* Honeypot field - hidden from users but visible to simple bots */}
+                    <input
+                      type="text"
+                      name="company_website"
+                      value={formData.honeypot}
+                      onChange={(e) =>
+                        handleInputChange("honeypot", e.target.value)
+                      }
+                      autoComplete="off"
+                      tabIndex={-1}
+                      aria-hidden="true"
+                      style={{ display: "none" }}
+                    />
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         First Name *
@@ -567,14 +607,22 @@ const ContactPage = () => {
                     className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   />
                   <span className="text-sm text-gray-700">
-                    I agree to the 
-                    
-                  <Link href="/privacy-policy" className="text-blue-400 underline"> privacy policy </Link>
-                    
-                     and 
-
-                   <Link href="/terms-and-conditions" className="text-blue-500 underline"> terms of service *</Link>  
-
+                    I agree to the
+                    <Link
+                      href="/privacy-policy"
+                      className="text-blue-400 underline"
+                    >
+                      {" "}
+                      privacy policy{" "}
+                    </Link>
+                    and
+                    <Link
+                      href="/terms-and-conditions"
+                      className="text-blue-500 underline"
+                    >
+                      {" "}
+                      terms of service *
+                    </Link>
                   </span>
                 </label>
                 {errors.privacy && (

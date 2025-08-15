@@ -266,11 +266,7 @@ export default function AboutSection({
       description: "Average Lead Increase",
       subtext: "Within 6 months",
     },
-    {
-      value: "$4M+",
-      description: "Revenue Generated",
-      subtext: "For our clients",
-    },
+  
     {
       value: "98%",
       description: "Client Retention Rate",
@@ -322,12 +318,7 @@ export default function AboutSection({
         value: "300%",
         description: "Average increase in qualified leads",
       },
-      {
-        icon: <DollarSign className="w-5 h-5" />,
-        title: "Revenue Growth",
-        value: "$4M+",
-        description: "Generated for our clients",
-      },
+   
       {
         icon: <Zap className="w-5 h-5" />,
         title: "Efficiency Boost",

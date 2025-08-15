@@ -2,9 +2,18 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+// Helper to return consistent JSON with non-cacheable headers for sensitive endpoints
+const CACHE_HEADERS = {
+  "Cache-Control": "no-store, no-cache, must-revalidate, private",
+};
+
+function jsonResponse(payload, status = 200) {
+  return NextResponse.json(payload, { status, headers: CACHE_HEADERS });
+}
+
 export async function POST(request) {
   try {
-    const body = await request.json();
+  const body = await request.json();
 
     // Extract form data from get-started form
     const {
@@ -22,40 +31,46 @@ export async function POST(request) {
       systemInfo,
     } = body;
 
+    // Honeypot spam check
+    if (body.honeypot) {
+      // Treat as bad request from bot sender
+      return jsonResponse({ success: false, error: "Bot detected" }, 400);
+    }
+
     // Validate required fields
     if (!firstName || !lastName || !email || !message || !privacy) {
-      return NextResponse.json(
-        { success: false, error: "Missing required fields" },
-        { status: 400 }
-      );
+      return jsonResponse({ success: false, error: "Missing required fields" }, 400);
     }
 
     // Validate email format with more robust regex
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { success: false, error: "Invalid email format" },
-        { status: 400 }
-      );
+      return jsonResponse({ success: false, error: "Invalid email format" }, 400);
     }
 
     // Validate services array
     if (!Array.isArray(services) || services.length === 0) {
-      return NextResponse.json(
-        { success: false, error: "Please select at least one service" },
-        { status: 400 }
-      );
+      return jsonResponse({ success: false, error: "Please select at least one service" }, 400);
+    }
+
+    // Basic length/size limits to avoid abuse
+    if (message && message.length > 5000) {
+      return jsonResponse({ success: false, error: "Message too long" }, 400);
+    }
+    if (services.length > 10) {
+      return jsonResponse({ success: false, error: "Too many services selected" }, 400);
     }
 
     // ✅ Send immediate response to user (fire-and-forget pattern)
-    const response = NextResponse.json({
+    const response = jsonResponse({
       success: true,
       message: `Thanks for this, ${firstName}. We'll get back to you soon.`,
       dataStored: "SheetDB + Email",
     });
 
     // ⏳ Process background tasks (fire-and-forget)
-    void processQuoteRequest(
+  // Fire-and-forget processing (background)
+  void processQuoteRequest(
       firstName,
       lastName,
       email,
@@ -70,9 +85,11 @@ export async function POST(request) {
       systemInfo
     );
 
-    return response;
+  return response;
   } catch (error) {
-    return NextResponse.json({ success: false, error }, { status: 500 });
+  // Return a safe error message and log
+  console.error("/api/contact error:", error);
+  return jsonResponse({ success: false, error: "Something went wrong" }, 500);
   }
 }
 
@@ -140,11 +157,11 @@ async function processQuoteRequest(
 
         if (sheetResponse.ok) {
           sheetDbSuccess = true;
-          // Quote request data sent to SheetDB successfully
         } else {
+          console.error("SheetDB response not OK", sheetResponse.status);
         }
       } catch (error) {
-       console.log(error)
+        console.error("SheetDB error:", error);
       }
     }
 
@@ -165,6 +182,9 @@ async function processQuoteRequest(
       sheetDbSuccess
     );
   } catch  {
+    // Ensure background task doesn't throw unhandled errors
+  } catch (err) {
+    console.error("processQuoteRequest error:", err);
   }
 }
 
@@ -212,13 +232,9 @@ async function sendQuoteEmail(
     // Verify transporter configuration
     try {
       await transporter.verify();
-      // Email transporter verified successfully
     } catch (verifyError) {
-      console.log(verifyError);
-      throw new Error(
-        verifyError,
-        "Email service configuration is invalid. Please check Gmail credentials and App Password settings."
-      );
+      console.error("Email transporter verify failed:", verifyError);
+      throw new Error("Email service configuration is invalid.");
     }
 
     const mailOptions = {
@@ -422,15 +438,18 @@ async function sendQuoteEmail(
 </body>`,
     };
 
-    // Send email with timeout
-    const emailPromise = transporter.sendMail(mailOptions);
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Email sending timeout")), 30000)
-    );
-
-    await Promise.race([emailPromise, timeoutPromise]);
-    // Quote request email sent successfully
+    // Send email with timeout and reasonable failure handling
+    try {
+      const emailPromise = transporter.sendMail(mailOptions);
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Email sending timeout")), 30000)
+      );
+      await Promise.race([emailPromise, timeoutPromise]);
+    } catch (err) {
+      console.error("sendQuoteEmail error:", err);
+    }
   } catch (error) {
-    throw new Error(error);
+    console.error("sendQuoteEmail fatal error:", error);
++    throw error;
   }
 }
