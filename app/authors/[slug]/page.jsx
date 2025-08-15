@@ -2,6 +2,7 @@ import { sanity, urlFor } from "@/lib/sanity";
 import { authorBySlugQuery, blogsByAuthorQuery } from "@/lib/queries";
 import { generateMetaTags } from "../../seo-config";
 import Link from "next/link";
+import Image from "next/image";
 
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
@@ -117,11 +118,13 @@ export default async function AuthorPage({ params }) {
               {/* Author Image */}
               {author.image && (
                 <div className="flex-shrink-0">
-                  <div className="relative">
-                    <img
+                  <div className="relative w-32 h-32">
+                    <Image
                       src={urlFor(author.image).url()}
                       alt={author.name}
-                      className="w-32 h-32 rounded-full object-cover shadow-lg border-4 border-white hover:scale-105 transition-transform duration-300"
+                      width={128}
+                      height={128}
+                      className="rounded-full object-cover shadow-lg border-4 border-white hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 border-4 border-white rounded-full animate-pulse"></div>
                   </div>

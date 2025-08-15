@@ -1,6 +1,6 @@
 import { sanity, urlFor } from "../../lib/sanity";
 // import { projects } from "@/lib/queries";
-import {projects} from "../../lib/queries"
+import {allProjectsQuery} from "../../lib/queries"
 import Script from "next/script";
 import { ArrowUpRight, Users, Award, Star } from "lucide-react";
 import ProjectCard from "../component/ProjectCard";
@@ -9,7 +9,7 @@ export const revalidate = 3600; // Revalidate every hour
 
 // --- PortfolioPage Component ---
 export default async function PortfolioPage() {
-  const allProjects = await sanity.fetch(projects);
+  const project = await sanity.fetch(allProjectsQuery);
 
   // Generate structured data for the portfolio page
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
@@ -23,7 +23,7 @@ export default async function PortfolioPage() {
     url: `${baseUrl}/portfolio`,
     mainEntity: {
       "@type": "ItemList",
-      itemListElement: allProjects.map((project, index) => ({
+      itemListElement: project.map((project, index) => ({
         "@type": "ListItem",
         position: index + 1,
         item: {
@@ -53,7 +53,7 @@ export default async function PortfolioPage() {
 
   // Sample stats - replace with real data
   const stats = [
-    { icon: Users, label: "Happy Clients", value: "50+" },
+    { icon: Users, label: "Happy Clients", value: "100+" },
     { icon: Award, label: "Projects Delivered", value: "100+" },
     { icon: Star, label: "Client Satisfaction", value: "95%" },
   ];
@@ -121,7 +121,7 @@ export default async function PortfolioPage() {
           </div>
 
           {/* Featured Project */}
-          {allProjects.length > 0 && (
+          {project.length > 0 && (
             <div className="mb-16">
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-gray-900 mb-2">
@@ -130,7 +130,7 @@ export default async function PortfolioPage() {
                 <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto rounded-full"></div>
               </div>
               <div className="max-w-7xl mx-auto">
-                <ProjectCard project={allProjects[0]} featured={true} />
+                <ProjectCard project={project[0]} featured={true} />
               </div>
             </div>
           )}
@@ -153,7 +153,7 @@ export default async function PortfolioPage() {
               role="group"
               aria-label="Portfolio Projects"
             >
-              {allProjects.map((project) => (
+              {project.slice(1).map((project) => (
                 <ProjectCard key={project._id} project={project} />
               ))}
             </div>

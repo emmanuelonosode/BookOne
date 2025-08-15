@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
 
 // Mock data - replace with actual imports
 const navDetails = [
@@ -34,7 +36,6 @@ function Nav() {
   const [isVisible, setIsVisible] = useState(true);
   const [consultationDropdownOpen, setConsultationDropdownOpen] =
     useState(false);
-
 
   useEffect(() => {
     if (menuOpen) {
@@ -95,25 +96,25 @@ function Nav() {
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <a
+              <Link
                 href="/"
                 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 hover:text-gray-700 transition-colors"
               >
                 BookOne
-              </a>
+              </Link>
             </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
               {navDetails.map(({ name, href, id }) => (
-                <a
+                <Link
                   key={id}
                   href={href}
                   className="px-3 lg:px-4 py-2 text-sm lg:text-base font-medium text-gray-700 hover:text-gray-900 rounded-lg hover:bg-gray-50 transition-all duration-200 relative group"
                 >
                   {name}
                   <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-[#6b46c1] transition-all duration-300 group-hover:w-4/5 group-hover:left-[10%]"></span>
-                </a>
+                </Link>
               ))}
             </nav>
 
@@ -156,10 +157,12 @@ function Nav() {
                       className="absolute top-full right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50"
                     >
                       <div className="py-2">
-                        <motion.a
+                        <a
                           href="https://calendar.notion.so/meet/officialbookone/call"
                           className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors group"
                           onClick={() => setConsultationDropdownOpen(false)}
+                          target="_blank"
+                          rel="noopener noreferrer"
                         >
                           <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3 group-hover:bg-blue-200 transition-colors">
                             <svg
@@ -184,9 +187,9 @@ function Nav() {
                               Free 30-min consultation
                             </div>
                           </div>
-                        </motion.a>
+                        </a>
 
-                        <a
+                        <Link
                           href="/get-started"
                           onClick={() => setConsultationDropdownOpen(false)}
                           className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors group"
@@ -214,7 +217,7 @@ function Nav() {
                               Custom project proposal
                             </div>
                           </div>
-                        </a>
+                        </Link>
                       </div>
                     </motion.div>
                   )}
@@ -226,6 +229,8 @@ function Nav() {
                 <a
                   href="https://calendar.notion.so/meet/officialbookone/call"
                   className="bg-[#6b46c1] text-white px-4 py-2 rounded-full hover:bg-[#553c9a] transition-colors text-sm font-semibold shadow-lg"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Book Call
                 </a>
@@ -310,7 +315,7 @@ function Nav() {
                 <div className="flex-1 py-6">
                   <nav className="px-6 space-y-2">
                     {navDetails.map(({ name, href, id }) => (
-                      <a
+                      <Link
                         key={id}
                         href={href}
                         onClick={toggleMenu}
@@ -330,7 +335,7 @@ function Nav() {
                             d="M9 5l7 7-7 7"
                           />
                         </svg>
-                      </a>
+                      </Link>
                     ))}
                   </nav>
 
@@ -340,6 +345,8 @@ function Nav() {
                       href="https://calendar.notion.so/meet/officialbookone/call"
                       onClick={toggleMenu}
                       className="w-full bg-[#6b46c1] text-white py-4 px-6 rounded-2xl font-semibold text-center hover:bg-[#553c9a] transition-colors shadow-lg flex items-center justify-center space-x-2"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <svg
                         className="w-5 h-5"
@@ -357,7 +364,7 @@ function Nav() {
                       <span>Book Free Consultation</span>
                     </a>
 
-                    <a
+                    <Link
                       href="/get-started"
                       onClick={toggleMenu}
                       className="w-full bg-gray-100 text-gray-900 py-4 px-6 rounded-2xl font-semibold text-center hover:bg-gray-200 transition-colors flex items-center justify-center space-x-2"
@@ -376,7 +383,7 @@ function Nav() {
                         />
                       </svg>
                       <span>Get Custom Quote</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
 
@@ -394,10 +401,12 @@ function Nav() {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <img
+                        <Image
                           src={src}
                           alt={alt}
-                          className="w-6 h-6 group-hover:filter group-hover:brightness-0 group-hover:invert transition-all"
+                          width={24}
+                          height={24}
+                          className="group-hover:filter group-hover:brightness-0 group-hover:invert transition-all"
                         />
                       </a>
                     ))}

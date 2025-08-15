@@ -278,9 +278,7 @@ const Testimonia = () => {
               <span className="font-medium">4.9/5 Average Rating</span>
             </div>
             <div className="hidden sm:block w-px h-4 bg-gray-300" />
-            <span className="font-medium">50+ Happy Clients</span>
-            <div className="hidden sm:block w-px h-4 bg-gray-300" />
-            <span className="font-medium">$2M+ Revenue Generated</span>
+            <span className="font-medium">100+ Happy Clients</span>
           </div>
         </header>
 
@@ -348,23 +346,7 @@ const Testimonia = () => {
           )}
         </div>
 
-        {/* CTA Section */}
-        <div className="text-center mt-12 sm:mt-16">
-          <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-            Ready to Join Our Success Stories?
-          </h3>
-          <p className="text-gray-600 mb-6 sm:mb-8 max-w-xl mx-auto">
-            Let's discuss how we can help transform your business with a custom web solution.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-              Start Your Project
-            </button>
-            <button className="border-2 border-purple-600 text-purple-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-purple-50 transition-all duration-300">
-              View Our Portfolio
-            </button>
-          </div>
-        </div>
+    
       </div>
     </section>
   );

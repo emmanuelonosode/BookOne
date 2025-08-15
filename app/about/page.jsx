@@ -40,7 +40,7 @@ export default function AboutPage() {
   const stats = useMemo(
     () => [
       {
-        number: "50+",
+        number: "100+",
         label: "Projects Delivered",
         icon: <BarChart3 className="w-5 h-5" aria-hidden="true" />,
         ariaLabel: "50 plus projects delivered",

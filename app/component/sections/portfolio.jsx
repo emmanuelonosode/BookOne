@@ -12,10 +12,9 @@ export default async function PortfolioSection() {
     {},
     { cache: "force-cache" }
   );
-console.log(allProjects)
   const stats = [
-    { icon: Users, label: "Happy Clients", value: "50+" },
-    { icon: Award, label: "Projects Completed", value: "50+" },
+    { icon: Users, label: "Happy Clients", value: "100+" },
+    { icon: Award, label: "Projects Completed", value: "100+" },
     { icon: Star, label: "5-Star Reviews", value: "98%" },
   ];
 
@@ -80,7 +79,7 @@ console.log(allProjects)
               <Star className="w-4 h-4 mr-2" />
               Featured Project
             </div>
-            <ProjectCard allProjects={allProjects[0]} featured={true} />
+            <ProjectCard project={allProjects[0]} featured={true} />
           </div>
         )}
 
@@ -98,9 +97,9 @@ console.log(allProjects)
           role="group"
           aria-label="Portfolio Projects"
         >
-          {allProjects.slice(1).map((project, index) => (
+          {allProjects.slice(1).map((project) => (
             <div key={project._id} className="mb-8">
-              <ProjectCard allProjects={project} />
+              <ProjectCard project={project} />
             </div>
           ))}
         </div>

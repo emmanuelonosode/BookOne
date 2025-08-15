@@ -30,11 +30,11 @@ const ServicesPage = () => {
   // Memoize data arrays for better performance
   const stats = useMemo(
     () => [
-      { value: "50+", label: "Projects Completed", color: "text-blue-600" },
+      { value: "100+", label: "Projects Completed", color: "text-blue-600" },
       { value: "98%", label: "Client Satisfaction", color: "text-purple-600" },
       { value: "24/7", label: "Support Available", color: "text-green-600" },
       {
-        value: "5",
+        value: "4.8",
         label: "Average Rating",
         color: "text-indigo-600",
         icon: true,

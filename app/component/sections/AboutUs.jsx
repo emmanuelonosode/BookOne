@@ -8,6 +8,7 @@ import React, {
   useCallback,
   memo,
 } from "react";
+import Image from "next/image";
 import { Chart, registerables } from "chart.js";
 import { motion, useInView } from "framer-motion";
 import { TrendingUp, DollarSign, Zap, Target } from "lucide-react";
@@ -31,7 +32,7 @@ const AnimatedCounter = memo(({ value, duration = 1500, delay = 0 }) => {
         return `$${num}`;
       }
       if (value.includes("x")) return `${num}x`;
-      if (value.includes("K")) {
+      if (value.includes("M")) {
         const suffix = value.replace(/[\dK]/g, "");
         return `${num}K${suffix}`;
       }
@@ -198,9 +199,7 @@ const RoiChart = memo(({ className }) => {
         viewport={{ once: true }}
         transition={{ delay: 0.8, duration: 0.3 }} // Reduced
         className="absolute inset-0 flex items-center justify-center py-4 my-4 pointer-events-none"
-      >
-        
-      </motion.div>
+      ></motion.div>
     </motion.div>
   );
 });
@@ -258,7 +257,7 @@ export default function AboutSection({
   statsParagraph = "Numbers don't lie. Our systematic approach to digital transformation has consistently delivered exceptional results for businesses across Nigeria and beyond. Every project is a testament to our commitment to driving measurable growth and sustainable success.",
   statsData = [
     {
-      value: "50+",
+      value: "100+",
       description: "Successful Projects",
       subtext: "Average 4.9/5 rating",
     },
@@ -268,7 +267,7 @@ export default function AboutSection({
       subtext: "Within 6 months",
     },
     {
-      value: "150K+",
+      value: "$4M+",
       description: "Revenue Generated",
       subtext: "For our clients",
     },
@@ -326,13 +325,13 @@ export default function AboutSection({
       {
         icon: <DollarSign className="w-5 h-5" />,
         title: "Revenue Growth",
-        value: "$150K+",
+        value: "$4M+",
         description: "Generated for our clients",
       },
       {
         icon: <Zap className="w-5 h-5" />,
         title: "Efficiency Boost",
-        value: "85%",
+        value: "95%",
         description: "Reduction in manual processes",
       },
       {
@@ -518,14 +517,15 @@ export default function AboutSection({
             transition={{ duration: 0.5 }}
             className="order-1 lg:order-2 flex justify-center"
           >
-            <img
-              src={statsImageUrl}
+            <Image
+              src={
+                statsImageUrl ||
+                "https://placehold.co/600x600/3B82F6/FFFFFF?text=Growth+Analytics"
+              }
               alt={statsImageAlt}
+              width={700}
+              height={700}
               className="w-full max-w-md rounded-2xl shadow-2xl object-cover hover:shadow-3xl transition-shadow duration-300"
-              onError={(e) => {
-                e.currentTarget.src =
-                  "https://placehold.co/600x600/3B82F6/FFFFFF?text=Growth+Analytics";
-              }}
             />
           </motion.div>
         </div>
