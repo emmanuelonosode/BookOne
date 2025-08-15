@@ -181,8 +181,7 @@ async function processQuoteRequest(
       systemInfo,
       sheetDbSuccess
     );
-  } catch  {
-    // Ensure background task doesn't throw unhandled errors
+ // Ensure background task doesn't throw unhandled errors
   } catch (err) {
     console.error("processQuoteRequest error:", err);
   }
