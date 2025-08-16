@@ -231,52 +231,47 @@ export default function HeroSection() {
           variants={buttonVariants}
           className="flex flex-col sm:flex-row gap-4 items-center"
         >
-          <Link href="/get-started" passHref>
-            <m.a
-              className="group relative bg-gray-900 hover:bg-gray-800 text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-full text-base sm:text-lg lg:text-xl font-semibold shadow-lg transition-all duration-300 flex items-center gap-3 overflow-hidden"
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
+          <Link
+            href="/get-started"
+            className="group relative bg-gray-900 hover:bg-gray-800 text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-full text-base sm:text-lg lg:text-xl font-semibold shadow-lg transition-all duration-300 flex items-center gap-3 overflow-hidden"
+          >
+            <m.div
+              className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              initial={{ x: "-100%" }}
+              whileHover={{ x: "0%" }}
+              transition={{ duration: 0.3 }}
+            />
+
+            <m.div
+              className="relative w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [1, 0.7, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <span className="relative z-10">Get Your Quote</span>
+
+            {/* Arrow icon with slide animation */}
+            <m.svg
+              className="relative w-4 h-4 sm:w-5 sm:h-5 opacity-0 group-hover:opacity-100 transition-all duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              animate={{ x: [0, 3, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
             >
-              {/* Animated background gradient */}
-              <m.div
-                className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: "0%" }}
-                transition={{ duration: 0.3 }}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
-
-              <m.div
-                className="relative w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"
-                animate={{
-                  scale: [1, 1.3, 1],
-                  opacity: [1, 0.7, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-              <span className="relative z-10">Get Your Quote</span>
-
-              {/* Arrow icon with slide animation */}
-              <m.svg
-                className="relative w-4 h-4 sm:w-5 sm:h-5 opacity-0 group-hover:opacity-100 transition-all duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                animate={{ x: [0, 3, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </m.svg>
-            </m.a>
+            </m.svg>
           </Link>
 
           {/* Secondary action */}
