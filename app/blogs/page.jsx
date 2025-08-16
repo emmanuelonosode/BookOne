@@ -46,7 +46,9 @@ export default async function BlogListPage(props) {
       .replace("$categoryFilter", "")
       .replace("$searchFilter", searchFilter)
       .replace("$start", start)
-      .replace("$end", end)
+      .replace("$end", end),
+    {},
+    { cache: "force-cache" }
   );
 
   // For pagination, get total count

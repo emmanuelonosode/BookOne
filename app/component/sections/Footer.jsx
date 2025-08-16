@@ -100,7 +100,7 @@ function Footer() {
             viewport={{ once: true }}
           >
             <blockquote className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed mb-6">
-              <span className="bg-gradient-to-r from-purple-200 via-white to-blue-200 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-purple-200 via-white to-blue-200 bg-clip-text text-transparent dark:from-purple-900 dark:via-black dark:to-blue-900">
                 "Every great business was once just an idea waiting for the
                 right partner to bring it to life."
               </span>

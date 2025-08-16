@@ -49,13 +49,13 @@ export default async function PortfolioSection() {
           </p>
 
           {/* Stats Row */}
-          <div className="flex flex-wrap items-center  justify-between gap-6 sm:gap-8 max-w-3xl mx-auto px-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-12  max-w-3xl mx-auto px-4">
             {stats.map((stat, index) => {
               const IconComponent = stat.icon;
               return (
                 <div
                   key={index}
-                  className="flex flex-col items-center text-center w-[140px] sm:w-[160px] md:w-[180px]"
+                  className=" flex flex-col justify-center items-center"
                 >
                   <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-purple-100 rounded-full mb-3">
                     <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-purple-600" />

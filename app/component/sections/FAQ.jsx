@@ -432,7 +432,7 @@ function FAQ() {
         <Link
           href="mailto:officialbookone@gmail.com"
        
-          className="inline-flex items-center sm:px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+          className="inline-flex items-center sm:px-8 p-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
           tabIndex={0}
         >
           <svg

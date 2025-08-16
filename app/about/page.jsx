@@ -155,7 +155,7 @@ export default function AboutPage() {
   );
 
   return (
-    <main className="bg-white" role="main">
+    <>
       {/* Hero Section */}
       <section
         className="relative pt-22 pb-12 px-4 bg-gradient-to-br from-blue-50 via-white to-purple-50 overflow-hidden"
@@ -172,7 +172,7 @@ export default function AboutPage() {
                 className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"
                 aria-hidden="true"
               ></span>
-              Trusted by 50+ Growing Businesses
+              Trusted by 100+ Growing Businesses
             </div>
             <h1
               id="hero-heading"
@@ -208,14 +208,14 @@ export default function AboutPage() {
 
       {/* Stats Section */}
       <section
-        className="py-6 px-4 bg-white border-t border-gray-100"
+        className="py-12 px-4 bg-white border-t border-gray-100"
         aria-labelledby="stats-heading"
       >
         <div className="max-w-5xl mx-auto">
           <h2 id="stats-heading" className="sr-only">
             Our Achievements
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <div
@@ -307,13 +307,16 @@ export default function AboutPage() {
               story we create together.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-white to-gray-50 p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition-all duration-300"
+                className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-all duration-300"
               >
-                <div className="text-3xl mb-4" aria-hidden="true">
+                <div
+                  className="text-3xl mb-4 bg-blue-100 text-blue-600 w-12 h-12 flex items-center justify-center rounded-full"
+                  aria-hidden="true"
+                >
                   {value.icon}
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-3">
@@ -473,6 +476,6 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
-    </main>
+    </>
   );
 }
