@@ -21,6 +21,7 @@ import {
   FileText,
   ArrowRight,
 } from "lucide-react";
+import { name } from "platform";
 
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
@@ -685,13 +686,14 @@ export async function generateMetadata({ params }) {
   ].filter(Boolean);
 
   return {
-    title: `${blog.title} | BookOne Blog`,
+    title: blog.title,
     description,
     keywords,
     authors: [author],
     creator: author,
     publisher: "BookOne",
     category,
+    name: blog.title,
     classification: "Blog Post",
     robots: {
       index: true,

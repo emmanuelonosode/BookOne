@@ -1,18 +1,17 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion as m } from "framer-motion";
 import { Palette, Zap, Database, Code, Sparkles, Globe } from "lucide-react";
 import Link from "next/link";
 
 const floatingVariants = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
   animate: {
-    y: [-8, 12, -8],
-    rotate: [-3, 3, -3],
+    opacity: 1,
+    y: 0,
     transition: {
-      duration: 6,
-      ease: "easeInOut",
-      repeat: Infinity,
-      repeatType: "reverse",
+      duration: 0.8,
+      ease: "easeOut",
       delay,
     },
   },
@@ -80,12 +79,6 @@ const buttonVariants = {
 };
 
 export default function HeroSection() {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/30 overflow-hidden">
       {/* Enhanced Background Elements */}
@@ -94,93 +87,87 @@ export default function HeroSection() {
       {/* Animated gradient orbs */}
       <m.div
         className=" absolute top-1/4 left-1/4 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-gradient-to-r from-purple-200/30 to-blue-200/40 rounded-full blur-3xl"
-        animate={{
-          x: [0, 30, 0],
-          y: [0, -20, 0],
-          scale: [1, 1.1, 1],
-        }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{
-          duration: 8,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
+          duration: 1,
+          ease: "easeOut",
         }}
       />
 
       <m.div
         className="absolute bottom-1/4 right-1/4 w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 bg-gradient-to-r from-yellow-200/25 to-orange-200/30 rounded-full blur-3xl"
-        animate={{
-          x: [0, -25, 0],
-          y: [0, 15, 0],
-          scale: [1, 0.9, 1],
-        }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{
-          duration: 10,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-          delay: 1,
+          duration: 1,
+          ease: "easeOut",
+          delay: 0.2,
         }}
       />
 
       {/* Responsive Floating icons */}
-      {isMounted && (
-        <>
-          {/* Top Left - Palette */}
-          <m.div
-            className="absolute max-md:hidden top-16 left-4 sm:top-20 sm:left-8 lg:top-20 lg:left-20 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center border border-white/20"
-            variants={floatingVariants(0)}
-            animate="animate"
-          >
-            <Palette className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-purple-600" />
-          </m.div>
+      <div className="max-md:hidden">
+        {/* Top Left - Palette */}
+        <m.div
+          className="absolute max-md:hidden top-16 left-4 sm:top-20 sm:left-8 lg:top-20 lg:left-20 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center border border-white/20"
+          variants={floatingVariants(0.5)}
+          initial="initial"
+          animate="animate"
+        >
+          <Palette className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-purple-600" />
+        </m.div>
 
-          {/* Top Right - Zap */}
-          <m.div
-            className="absolute max-md:hidden top-24 right-4 sm:top-32 sm:right-12 lg:top-32 lg:right-24 w-11 h-11 sm:w-13 sm:h-13 lg:w-14 lg:h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg flex items-center justify-center"
-            variants={floatingVariants(1)}
-            animate="animate"
-          >
-            <Zap className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" />
-          </m.div>
+        {/* Top Right - Zap */}
+        <m.div
+          className="absolute max-md:hidden top-24 right-4 sm:top-32 sm:right-12 lg:top-32 lg:right-24 w-11 h-11 sm:w-13 sm:h-13 lg:w-14 lg:h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg flex items-center justify-center"
+          variants={floatingVariants(0.6)}
+          initial="initial"
+          animate="animate"
+        >
+          <Zap className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" />
+        </m.div>
 
-          {/* Middle Left - Database */}
-          <m.div
-            className="absolute max-md:hidden top-48 left-2 sm:top-60 sm:left-8 lg:top-60 lg:left-16 w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-white/90 backdrop-blur-sm rounded-lg shadow-md flex items-center justify-center border border-white/20"
-            variants={floatingVariants(2)}
-            animate="animate"
-          >
-            <Database className="w-5 h-5 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-green-600" />
-          </m.div>
+        {/* Middle Left - Database */}
+        <m.div
+          className="absolute max-md:hidden top-48 left-2 sm:top-60 sm:left-8 lg:top-60 lg:left-16 w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-white/90 backdrop-blur-sm rounded-lg shadow-md flex items-center justify-center border border-white/20"
+          variants={floatingVariants(0.7)}
+          initial="initial"
+          animate="animate"
+        >
+          <Database className="w-5 h-5 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-green-600" />
+        </m.div>
 
-          {/* Bottom Left - Code */}
-          <m.div
-            className="absolute max-md:hidden bottom-32 left-6 sm:bottom-40 sm:left-16 lg:bottom-40 lg:left-32 w-11 h-11 sm:w-13 sm:h-13 lg:w-14 lg:h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl shadow-lg flex items-center justify-center"
-            variants={floatingVariants(1.5)}
-            animate="animate"
-          >
-            <Code className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" />
-          </m.div>
+        {/* Bottom Left - Code */}
+        <m.div
+          className="absolute max-md:hidden bottom-32 left-6 sm:bottom-40 sm:left-16 lg:bottom-40 lg:left-32 w-11 h-11 sm:w-13 sm:h-13 lg:w-14 lg:h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl shadow-lg flex items-center justify-center"
+          variants={floatingVariants(0.8)}
+          initial="initial"
+          animate="animate"
+        >
+          <Code className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white" />
+        </m.div>
 
-          {/* Bottom Right - Sparkles */}
-          <m.div
-            className="absolute max-md:hidden bottom-48 right-4 sm:bottom-60 sm:right-10 lg:bottom-60 lg:right-20 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center border border-white/20"
-            variants={floatingVariants(0.5)}
-            animate="animate"
-          >
-            <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-yellow-500" />
-          </m.div>
+        {/* Bottom Right - Sparkles */}
+        <m.div
+          className="absolute max-md:hidden bottom-48 right-4 sm:bottom-60 sm:right-10 lg:bottom-60 lg:right-20 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center border border-white/20"
+          variants={floatingVariants(0.9)}
+          initial="initial"
+          animate="animate"
+        >
+          <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-yellow-500" />
+        </m.div>
 
-          {/* Middle Right - Globe */}
-          <m.div
-            className="absolute max-md:hidden top-64 right-2 sm:top-80 sm:right-8 lg:top-80 lg:right-16 w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg shadow-md flex items-center justify-center"
-            variants={floatingVariants(2.5)}
-            animate="animate"
-          >
-            <Globe className="w-5 h-5 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
-          </m.div>
-        </>
-      )}
+        {/* Middle Right - Globe */}
+        <m.div
+          className="absolute max-md:hidden top-64 right-2 sm:top-80 sm:right-8 lg:top-80 lg:right-16 w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg shadow-md flex items-center justify-center"
+          variants={floatingVariants(1)}
+          initial="initial"
+          animate="animate"
+        >
+          <Globe className="w-5 h-5 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
+        </m.div>
+      </div>
 
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex flex-col justify-center items-center text-center px-4 py-22 sm:px-6 lg:px-8 max-w-7xl mx-auto">

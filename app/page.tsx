@@ -78,7 +78,7 @@ export const metadata = generateMetaTags({
     canonical: "https://bookone.dev",
   },
   openGraph: {
-    title: "BookOne | Website Design, SEO & AI Automation for Modern Brands",
+    title: "BookOne - Website Design, SEO & AI Automation for Modern Brands",
     description:
       "Boost your online presence with BookOne, Nigeria's digital agency for website design, SEO optimization, AI automation, and content strategy. Grow smarter online.",
     url: "https://bookone.dev",
@@ -97,7 +97,7 @@ export const metadata = generateMetaTags({
   },
   twitter: {
     card: "summary_large_image",
-    title: "BookOne | Website Design, SEO & AI Automation for Modern Brands",
+    title: "BookOne - Website Design, SEO & AI Automation for Modern Brands",
     description:
       "Boost your online presence with BookOne, Nigeria's digital agency for website design, SEO optimization, AI automation, and content strategy. Grow smarter online.",
     images: ["/opengraph-image.png"],

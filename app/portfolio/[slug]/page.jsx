@@ -173,16 +173,15 @@ export default async function PortfolioDetailPage(props) {
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
   const category = categoryLabels[project.category] || project.category;
-  const imageUrl =
-    project.images && project.images[0]
-      ? urlFor(project.images[0])
-          .width(1200)
-          .height(630)
-          .fit("crop")
-          .crop("focalpoint")
-          .focalPoint(0.5, 0.5)
-          .url()
-      : undefined;
+  const imageUrl = project.mainImage
+    ? urlFor(project.mainImage)
+        .width(1200)
+        .height(630)
+        .fit("crop")
+        .crop("focalpoint")
+        .focalPoint(0.5, 0.5)
+        .url()
+    : undefined;
 
   // Generate structured data for the project
   const structuredData = {
