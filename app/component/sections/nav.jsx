@@ -95,21 +95,38 @@ function Nav() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 ">
               <Link
                 href="/"
-                className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 hover:text-gray-700 transition-colors"
+                className="flex items-center space-x-2"
+                role="BookOne Logo"
               >
-                BookOne
+                <Image
+                  src="/logo.svg"
+                  width={34}
+                  height={34}
+                  className="py-4"
+                  alt="BookOne Logo"
+                />
+                <span className="hidden sm:block text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-gray-900 hover:text-gray-700 transition-colors">
+                  BookOne
+                </span>
               </Link>
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
+            <nav
+              aria-roledescription="Main Navigation"
+              role="navigation"
+              aria-label="Main Navigation"
+              className="hidden md:flex items-center space-x-1 lg:space-x-2"
+            >
               {navDetails.map(({ name, href, id }) => (
                 <Link
                   key={id}
                   href={href}
+                  aria-label={name}
+                  role="menuitem"
                   className="px-3 lg:px-4 py-2 text-sm lg:text-base font-medium text-gray-700 hover:text-gray-900 rounded-lg hover:bg-gray-50 transition-all duration-200 relative group"
                 >
                   {name}

@@ -2,6 +2,8 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { FaTwitter, FaLinkedin, FaInstagram, FaGithub } from "react-icons/fa";
+import Link from "next/link";
+import Image from "next/image";
 
 // Mock data - replace with your actual imports
 const quickLinks = [
@@ -100,7 +102,7 @@ function Footer() {
             viewport={{ once: true }}
           >
             <blockquote className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed mb-6">
-              <span className="bg-gradient-to-r from-purple-200 via-white to-blue-200 bg-clip-text text-transparent dark:from-purple-900 dark:via-black dark:to-blue-900">
+              <span className="">
                 "Every great business was once just an idea waiting for the
                 right partner to bring it to life."
               </span>
@@ -118,9 +120,16 @@ function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             {/* Brand Section */}
             <div className="lg:col-span-1">
-              <a href="/" className="inline-block" aria-label="BookOne - Home">
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 hover:text-purple-200 transition-colors duration-300">
-                  BookOne
+              <Link href="/" className="inline-block" aria-label="BookOne - Home">
+              <Image
+              src="/logo.svg"
+              width={34}
+              height={34}
+              className="py-4"
+              alt="bookone logo"
+              />
+                <h2 className="text-4xl md:text-5xl font-serif font-semibold text-white mb-4 hover:text-purple-200 transition-colors duration-300">
+                  BOOKONE
                 </h2>
                 <p className="text-gray-300 text-lg mb-4">
                   Unlock digital profit
@@ -129,7 +138,7 @@ function Footer() {
                   Transforming dreams into digital reality, one project at a
                   time.
                 </p>
-              </a>
+              </Link>
 
               {/* Social Links */}
               <div className="flex space-x-4 mt-8">

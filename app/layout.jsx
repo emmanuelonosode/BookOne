@@ -1,6 +1,6 @@
 // app/layout.jsx or layout.tsx
 
-import { Poppins, Roboto } from "next/font/google";
+import { Poppins, Roboto, Montserrat } from "next/font/google";
 import CookieConsent from "./component/CookieConsentBoss";
 import "./globals.css";
 import Nav from "./component/sections/nav.jsx";
@@ -19,7 +19,14 @@ const poppins = Poppins({
 });
 const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"], // Reduced weights for faster loading
+  weight: ["300", "400", "500", "600","700","800","900",], // Reduced weights for faster loading
+  display: "swap",
+  preload: true,
+  fallback: ["system-ui", "arial"],
+});
+const mont = Montserrat({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600","800"], // Reduced weights for faster loading
   display: "swap",
   preload: true,
   fallback: ["system-ui", "arial"],
@@ -86,7 +93,7 @@ export default function RootLayout({ children }) {
         )}
       </head>
       <body
-        className={`${poppins.className} ${roboto.className} antialiased`}
+        className={`${poppins.className} ${mont.className} ${roboto.className} antialiased`}
         suppressHydrationWarning
       >
         <Nav />

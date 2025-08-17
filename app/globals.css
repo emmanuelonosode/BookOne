@@ -11,6 +11,7 @@ html {
 @theme {
   --font-sans: var(--font-poppins) sans-serif;
   --font-mono: var(--font-roboto) sans-serif;
+  --font-serif: var(--font-montserrat) sans-serif;
   --color-primary: #6b46c1;
   --color-secondary: #800080;
   --color-dark: #2e073f;
