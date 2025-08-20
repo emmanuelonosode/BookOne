@@ -4,10 +4,7 @@ Allow: /
 # Sitemap location
 Sitemap: https://bookone.com/sitemap.xml
 
-# Disallow admin or private areas (if any)
-Disallow: /api/
-Disallow: /_next/
-Disallow: /admin/
+
 
 # Allow important pages
 Allow: /
