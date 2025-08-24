@@ -14,11 +14,29 @@ const nextConfig: NextConfig = {
 
   // Experimental features for better performance
   experimental: {
-    optimizePackageImports: ["framer-motion", "lucide-react", "react-icons"],
+    optimizePackageImports: [
+      "framer-motion",
+      "lucide-react",
+      "react-icons",
+      "@sanity/image-url",
+      "date-fns",
+      "chart.js",
+    ],
     optimizeCss: true,
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
+        },
+      },
+    },
   },
 
-  // Turbopack configuration (moved from experimental.turbo)
+  // Server external packages (moved from experimental)
+  serverExternalPackages: ["@sanity/client"],
+
+  // Turbopack configuration for development
   turbopack: {
     rules: {
       "*.svg": {
@@ -42,27 +60,85 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Enable modern image formats
+    unoptimized: false,
+    // Optimize for performance
+    loader: "default",
+    loaderFile: undefined,
   },
 
-  // Webpack optimization
-  webpack: (config, { dev, isServer }) => {
-    // Optimize bundle size
+  // Advanced Webpack optimization
+  webpack: (config, { dev, isServer, webpack }) => {
+    // Production optimizations only
     if (!dev && !isServer) {
+      // Advanced bundle splitting
       config.optimization.splitChunks = {
         chunks: "all",
         cacheGroups: {
+          // Vendor chunks
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: "vendors",
             chunks: "all",
+            priority: 10,
+            reuseExistingChunk: true,
           },
+          // Framer Motion (heavy library)
           framer: {
             test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
             name: "framer-motion",
             chunks: "all",
-            priority: 10,
+            priority: 20,
+            reuseExistingChunk: true,
+          },
+          // Sanity CMS
+          sanity: {
+            test: /[\\/]node_modules[\\/]@sanity[\\/]/,
+            name: "sanity",
+            chunks: "all",
+            priority: 15,
+            reuseExistingChunk: true,
+          },
+          // Chart.js
+          charts: {
+            test: /[\\/]node_modules[\\/]chart\.js[\\/]/,
+            name: "charts",
+            chunks: "all",
+            priority: 15,
+            reuseExistingChunk: true,
+          },
+          // React and React DOM
+          react: {
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            name: "react",
+            chunks: "all",
+            priority: 25,
+            reuseExistingChunk: true,
+          },
+          // Common utilities
+          common: {
+            name: "common",
+            minChunks: 2,
+            chunks: "all",
+            priority: 5,
+            reuseExistingChunk: true,
           },
         },
+      };
+
+      // Enable tree shaking
+      config.optimization.usedExports = true;
+      config.optimization.sideEffects = false;
+
+      // Optimize module resolution
+      config.resolve.modules = ["node_modules"];
+      config.resolve.extensions = [".js", ".jsx", ".ts", ".tsx", ".json"];
+
+      // Add performance hints
+      config.performance = {
+        hints: "warning",
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000,
       };
     }
 
@@ -71,6 +147,30 @@ const nextConfig: NextConfig = {
       test: /\.svg$/,
       use: ["@svgr/webpack"],
     });
+
+    // Add compression plugin for production
+    if (!dev && !isServer) {
+      const CompressionPlugin = require("compression-webpack-plugin");
+      config.plugins.push(
+        new CompressionPlugin({
+          filename: "[path][base].gz",
+          algorithm: "gzip",
+          test: /\.(js|css|html|svg)$/,
+          threshold: 10240,
+          minRatio: 0.8,
+        })
+      );
+    }
+
+    // Optimize for Cloudflare Workers
+    if (!dev && isServer) {
+      config.externals = config.externals || [];
+      config.externals.push({
+        "node:fs": "commonjs node:fs",
+        "node:path": "commonjs node:path",
+        "node:os": "commonjs node:os",
+      });
+    }
 
     return config;
   },
@@ -90,6 +190,8 @@ const nextConfig: NextConfig = {
             value: "camera=(), microphone=(), geolocation=()",
           },
           { key: "X-DNS-Prefetch-Control", value: "on" },
+          // Performance headers
+          { key: "X-Response-Time", value: "0" },
         ],
       },
       {
@@ -127,6 +229,45 @@ const nextConfig: NextConfig = {
             value: "no-cache, no-store, must-revalidate",
           },
         ],
+      },
+      // Font optimization
+      {
+        source: "/fonts/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
+  },
+
+  // Redirects for performance
+  async redirects() {
+    return [
+      // Redirect www to non-www for better performance
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "www.bookone.dev",
+          },
+        ],
+        destination: "https://bookone.dev/:path*",
+        permanent: true,
+      },
+    ];
+  },
+
+  // Rewrites for performance
+  async rewrites() {
+    return [
+      // Optimize API routes
+      {
+        source: "/api/:path*",
+        destination: "/api/:path*",
       },
     ];
   },
