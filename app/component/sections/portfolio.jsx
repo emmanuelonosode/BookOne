@@ -12,11 +12,7 @@ export default async function PortfolioSection() {
     {},
     { cache: "force-cache" }
   );
-  const stats = [
-    { icon: Users, label: "Happy Clients", value: "100+" },
-    { icon: Award, label: "Projects Completed", value: "100+" },
-    { icon: Star, label: "5-Star Reviews", value: "98%" },
-  ];
+
 
   return (
     <section
@@ -42,40 +38,19 @@ export default async function PortfolioSection() {
             </span>
           </h2>
 
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed mb-12">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
             Discover how we've helped businesses across industries transform
             their digital presence, drive growth, and achieve remarkable results
             through innovative design and strategic thinking.
           </p>
 
-          {/* Stats Row */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-12  max-w-3xl mx-auto px-4">
-            {stats.map((stat, index) => {
-              const IconComponent = stat.icon;
-              return (
-                <div
-                  key={index}
-                  className=" flex flex-col justify-center items-center"
-                >
-                  <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-purple-100 rounded-full mb-3">
-                    <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-purple-600" />
-                  </div>
-                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs sm:text-sm md:text-base text-gray-600 font-medium">
-                    {stat.label}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+         
         </div>
 
         {/* Featured Project Highlight */}
         {allProjects.length > 0 && (
           <div className=" pb-8 sm:p-12">
-            <div className="inline-flex mb-10 items-center bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
+            <div className="inline-flex mb-6 items-center bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
               <Star className="w-4 h-4 mr-2" />
               Featured Project
             </div>

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const ProcessStep = ({ step, title, description, icon, delay = 0 }) => {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 50, sc  ale: 0.8 }}
+      initial={{ opacity: 0, y: 50, scale: 0.8 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.5, delay, type: "spring", stiffness: 100 }}

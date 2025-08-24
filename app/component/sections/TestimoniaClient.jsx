@@ -233,7 +233,7 @@ const Testimonia = ({ testimonia: initialTestimonia }) => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <header className="text-center mb-12 sm:mb-16">
+        <header className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium mb-4">
             <Star className="w-4 h-4" />
             Client Success Stories
@@ -250,22 +250,7 @@ const Testimonia = ({ testimonia: initialTestimonia }) => {
             solutions.
           </p>
 
-          {/* Trust indicators */}
-          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 mt-6 sm:mt-8 text-sm text-gray-500">
-            <div className="flex items-center gap-2">
-              <div className="flex">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-4 h-4 fill-yellow-400 text-yellow-400"
-                  />
-                ))}
-              </div>
-              <span className="font-medium">4.9/5 Average Rating</span>
-            </div>
-            <div className="hidden sm:block w-px h-4 bg-gray-300" />
-            <span className="font-medium">100+ Happy Clients</span>
-          </div>
+      
         </header>
 
         {/* Testimonials Slider */}

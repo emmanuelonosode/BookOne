@@ -12,6 +12,22 @@ const nextConfig: NextConfig = {
   generateEtags: false,
   productionBrowserSourceMaps: false,
 
+  // Experimental features for better performance
+  experimental: {
+    optimizePackageImports: ["framer-motion", "lucide-react", "react-icons"],
+    optimizeCss: true,
+  },
+
+  // Turbopack configuration (moved from experimental.turbo)
+  turbopack: {
+    rules: {
+      "*.svg": {
+        loaders: ["@svgr/webpack"],
+        as: "*.js",
+      },
+    },
+  },
+
   // Image optimization settings
   images: {
     remotePatterns: [
@@ -21,11 +37,42 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "cdn.sanity.io", pathname: "/**" },
     ],
     formats: ["image/webp", "image/avif"],
-    minimumCacheTTL: 60,
+    minimumCacheTTL: 31536000, // 1 year cache
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  },
+
+  // Webpack optimization
+  webpack: (config, { dev, isServer }) => {
+    // Optimize bundle size
+    if (!dev && !isServer) {
+      config.optimization.splitChunks = {
+        chunks: "all",
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendors",
+            chunks: "all",
+          },
+          framer: {
+            test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+            name: "framer-motion",
+            chunks: "all",
+            priority: 10,
+          },
+        },
+      };
+    }
+
+    // Optimize SVG loading
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
+
+    return config;
   },
 
   // Custom headers for security & caching
@@ -56,6 +103,15 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/_next/static/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/images/(.*)",
         headers: [
           {
             key: "Cache-Control",

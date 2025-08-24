@@ -380,7 +380,7 @@ export default function AboutSection({
           </motion.p>
 
           {/* Quick Impact Highlights */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-10 max-w-4xl mx-auto">
             {impactHighlights.map((highlight, index) => (
               <motion.div
                 key={index}
@@ -408,36 +408,6 @@ export default function AboutSection({
           </div>
         </motion.div>
 
-        {/* Process Flow Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-20"
-        >
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Proven Process
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Every success story follows our systematic approach to digital
-              transformation
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {processSteps.map((step, index) => (
-              <ProcessStep
-                key={index}
-                step={step.step}
-                title={step.title}
-                description={step.description}
-                delay={index * 0.1}
-              />
-            ))}
-          </div>
-        </motion.div>
 
         {/* Enhanced Statistics Section */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
@@ -521,74 +491,6 @@ export default function AboutSection({
           </motion.div>
         </div>
 
-        {/* ROI Chart Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl border border-white/30"
-        >
-          <div className="">
-            <div>
-              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Your ROI,{" "}
-                <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                  Visualized
-                </span>
-              </h3>
-
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                Every service we provide is strategically designed to maximize
-                your return on investment.
-              </p>
-
-              <div className="space-y-4 py-6">
-                {[
-                  {
-                    color: "bg-blue-500",
-                    label: "Lead Generation",
-                    desc: "40% - Direct customer acquisition",
-                  },
-                  {
-                    color: "bg-purple-500",
-                    label: "Conversion Optimization",
-                    desc: "30% - Improved sales funnel",
-                  },
-                  {
-                    color: "bg-green-500",
-                    label: "Efficiency Gains",
-                    desc: "20% - Automated processes",
-                  },
-                  {
-                    color: "bg-amber-500",
-                    label: "Brand Equity",
-                    desc: "10% - Long-term value building",
-                  },
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1, duration: 0.3 }}
-                    className="flex items-center space-x-3"
-                  >
-                    <div className={`w-4 h-4 rounded-full ${item.color}`}></div>
-                    <div>
-                      <div className="font-semibold text-gray-800">
-                        {item.label}
-                      </div>
-                      <div className="text-sm text-gray-600">{item.desc}</div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            <RoiChart />
-          </div>
-        </motion.div>
       </div>
     </section>
   );

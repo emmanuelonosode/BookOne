@@ -50,6 +50,11 @@ const Contact = dynamic(() => import("./component/sections/contact.jsx"), {
   ssr: true,
 });
 
+const ForWhoSection = dynamic(() => import("./component/sections/forWho.jsx"), {
+  loading: () => <div className="h-96 bg-gray-50 animate-pulse rounded-lg" />,
+  ssr: true,
+});
+
 // Import HeroSection normally as it's above the fold
 import HeroSection from "./component/sections/HeroSection.jsx";
 
@@ -117,7 +122,11 @@ function HomePage() {
       >
         <Service />
       </Suspense>
-
+      <Suspense
+        fallback={<div className="h-96 bg-gray-50 animate-pulse rounded-lg" />}
+      >
+        <ForWhoSection />
+      </Suspense>
       <Suspense
         fallback={<div className="h-96 bg-gray-50 animate-pulse rounded-lg" />}
       >

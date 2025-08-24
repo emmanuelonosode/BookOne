@@ -98,7 +98,7 @@ function Nav() {
             <div className="flex-shrink-0 ">
               <Link
                 href="/"
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-4"
                 role="BookOne Logo"
               >
                 <Image
@@ -108,8 +108,8 @@ function Nav() {
                   className="py-4"
                   alt="BookOne Logo"
                 />
-                <span className="hidden sm:block text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-gray-900 hover:text-gray-700 transition-colors">
-                  BookOne
+                <span className="hidden sm:block text-xl sm:text-2xl lg:text-2xl font-serif font-bold text-gray-900 hover:text-gray-700 transition-colors">
+                  BOOKONE
                 </span>
               </Link>
             </div>
@@ -174,7 +174,7 @@ function Nav() {
                       className="absolute top-full right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50"
                     >
                       <div className="py-2">
-                        <a
+                        <Link
                           href="https://calendar.notion.so/meet/officialbookone/call"
                           className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors group"
                           onClick={() => setConsultationDropdownOpen(false)}
@@ -204,7 +204,7 @@ function Nav() {
                               Free 30-min consultation
                             </div>
                           </div>
-                        </a>
+                        </Link>
 
                         <Link
                           href="/get-started"
@@ -243,14 +243,14 @@ function Nav() {
 
               {/* Mobile CTA Button */}
               <div className="sm:hidden">
-                <a
+                <Link
                   href="https://calendar.notion.so/meet/officialbookone/call"
                   className="bg-[#6b46c1] text-white px-4 py-2 rounded-full hover:bg-[#553c9a] transition-colors text-sm font-semibold shadow-lg"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Book Call
-                </a>
+                </Link>
               </div>
 
               {/* Mobile Menu Button */}
@@ -358,7 +358,7 @@ function Nav() {
 
                   {/* Mobile CTA Buttons */}
                   <div className="px-6 mt-8 space-y-4">
-                    <a
+                    <Link
                       href="https://calendar.notion.so/meet/officialbookone/call"
                       onClick={toggleMenu}
                       className="w-full bg-[#6b46c1] text-white py-4 px-6 rounded-2xl font-semibold text-center hover:bg-[#553c9a] transition-colors shadow-lg flex items-center justify-center space-x-2"
@@ -379,7 +379,7 @@ function Nav() {
                         />
                       </svg>
                       <span>Book Free Consultation</span>
-                    </a>
+                    </Link>
 
                     <Link
                       href="/get-started"
@@ -411,7 +411,7 @@ function Nav() {
                   </p>
                   <div className="flex space-x-4">
                     {socialIcons.map(({ src, alt, href }, index) => (
-                      <a
+                      <Link
                         key={index}
                         href={href}
                         className="w-12 h-12 rounded-full bg-gray-100 hover:bg-[#6b46c1] hover:text-white transition-colors flex items-center justify-center group"
@@ -425,7 +425,7 @@ function Nav() {
                           height={24}
                           className="group-hover:filter group-hover:brightness-0 group-hover:invert transition-all"
                         />
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
