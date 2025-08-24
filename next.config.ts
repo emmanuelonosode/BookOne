@@ -1,5 +1,6 @@
 import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 import { NextConfig } from "next";
+import path from "path";
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
@@ -71,56 +72,89 @@ const nextConfig: NextConfig = {
   webpack: (config, { dev, isServer, webpack }) => {
     // Production optimizations only
     if (!dev && !isServer) {
-      // Advanced bundle splitting
+      // Advanced bundle splitting with size optimization
       config.optimization.splitChunks = {
         chunks: "all",
+        maxSize: 244000, // Limit chunk size to ~244KB
         cacheGroups: {
-          // Vendor chunks
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: "vendors",
+          // React and React DOM (highest priority)
+          react: {
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            name: "react",
             chunks: "all",
-            priority: 10,
+            priority: 30,
             reuseExistingChunk: true,
+            enforce: true,
           },
           // Framer Motion (heavy library)
           framer: {
             test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
             name: "framer-motion",
             chunks: "all",
-            priority: 20,
+            priority: 25,
             reuseExistingChunk: true,
+            enforce: true,
           },
           // Sanity CMS
           sanity: {
             test: /[\\/]node_modules[\\/]@sanity[\\/]/,
             name: "sanity",
             chunks: "all",
-            priority: 15,
+            priority: 20,
             reuseExistingChunk: true,
+            enforce: true,
           },
           // Chart.js
           charts: {
             test: /[\\/]node_modules[\\/]chart\.js[\\/]/,
             name: "charts",
             chunks: "all",
+            priority: 20,
+            reuseExistingChunk: true,
+            enforce: true,
+          },
+          // Lucide React (icons)
+          lucide: {
+            test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
+            name: "lucide",
+            chunks: "all",
             priority: 15,
             reuseExistingChunk: true,
+            enforce: true,
           },
-          // React and React DOM
-          react: {
-            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-            name: "react",
+          // React Icons
+          reactIcons: {
+            test: /[\\/]node_modules[\\/]react-icons[\\/]/,
+            name: "react-icons",
             chunks: "all",
-            priority: 25,
+            priority: 15,
             reuseExistingChunk: true,
+            enforce: true,
+          },
+          // Date utilities
+          dateUtils: {
+            test: /[\\/]node_modules[\\/]date-fns[\\/]/,
+            name: "date-utils",
+            chunks: "all",
+            priority: 10,
+            reuseExistingChunk: true,
+            enforce: true,
+          },
+          // Remaining vendor chunks
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendors",
+            chunks: "all",
+            priority: 5,
+            reuseExistingChunk: true,
+            enforce: true,
           },
           // Common utilities
           common: {
             name: "common",
             minChunks: 2,
             chunks: "all",
-            priority: 5,
+            priority: 1,
             reuseExistingChunk: true,
           },
         },
@@ -137,8 +171,23 @@ const nextConfig: NextConfig = {
       // Add performance hints
       config.performance = {
         hints: "warning",
-        maxEntrypointSize: 512000,
-        maxAssetSize: 512000,
+        maxEntrypointSize: 244000, // Reduced from 512KB to 244KB
+        maxAssetSize: 244000, // Reduced from 512KB to 244KB
+      };
+
+      // Enable aggressive tree shaking
+      config.optimization.usedExports = true;
+      config.optimization.sideEffects = false;
+      config.optimization.providedExports = true;
+
+      // Optimize module resolution for faster builds
+      config.resolve.modules = ["node_modules"];
+      config.resolve.extensions = [".js", ".jsx", ".ts", ".tsx", ".json"];
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        // Optimize React imports
+        react: path.resolve(__dirname, "node_modules/react"),
+        "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
       };
     }
 
