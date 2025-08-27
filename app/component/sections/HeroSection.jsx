@@ -53,73 +53,100 @@ const useFloatingIcons = () => {
   );
 };
 
+// Memoized animation styles to prevent re-creation
+const animationStyles = {
+  fadeInUp: "animate-fade-in-up",
+  headingDelays: [
+    { animationDelay: "0.6s" },
+    { animationDelay: "0.8s" },
+    { animationDelay: "1.0s" },
+    { animationDelay: "1.2s" },
+  ],
+  descriptionDelay: { animationDelay: "1.4s" },
+  ctaDelay: { animationDelay: "1.6s" },
+};
+
 export default function HeroSection() {
   const floatingIcons = useFloatingIcons();
+
+  // Memoized floating icon elements to prevent re-creation
+  const floatingIconElements = useMemo(() => (
+    <div className="max-md:hidden">
+      {floatingIcons.map((iconData, index) => {
+        const IconComponent = iconData.icon;
+        return (
+          <div
+            key={index}
+            className={iconData.className}
+            style={{ animationDelay: `${iconData.delay}s` }}
+          >
+            <IconComponent className={iconData.iconClassName} />
+          </div>
+        );
+      })}
+    </div>
+  ), [floatingIcons]);
+
+  // Memoized background elements
+  const backgroundElements = useMemo(() => (
+    <>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 via-transparent to-purple-50/30"></div>
+      <div
+        className="absolute top-1/4 left-1/4 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-gradient-to-r from-purple-200/30 to-blue-200/40 rounded-full blur-3xl animate-fade-in-up"
+      />
+      <div
+        className="absolute bottom-1/4 right-1/4 w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 bg-gradient-to-r from-yellow-200/25 to-orange-200/30 rounded-full blur-3xl animate-fade-in-up"
+      />
+    </>
+  ), []);
+
+  // Memoized heading elements
+  const headingElements = useMemo(() => (
+    <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 mb-6 sm:mb-8 leading-[1.1] sm:leading-tight max-w-5xl animate-fade-in-up">
+      <span
+        className="inline-block animate-fade-in-up"
+        style={animationStyles.headingDelays[0]}
+      >
+        Turn Your
+      </span>
+      <span
+        className="mx-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 inline-block animate-fade-in-up"
+        style={animationStyles.headingDelays[1]}
+      >
+        Website
+      </span>
+      <span
+        className="mx-2 inline-block animate-fade-in-up"
+        style={animationStyles.headingDelays[2]}
+      >
+        Into a
+      </span>
+      <span
+        className="text-transparent mx-2 bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 inline-block animate-fade-in-up"
+        style={animationStyles.headingDelays[3]}
+      >
+        Sales Machine
+      </span>
+    </h1>
+  ), []);
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/30 overflow-hidden">
       {/* Enhanced Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 via-transparent to-purple-50/30"></div>
-
-      {/* Animated gradient orbs */}
-      <div
-        className="absolute top-1/4 left-1/4 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-gradient-to-r from-purple-200/30 to-blue-200/40 rounded-full blur-3xl animate-fade-in-up"
-      />
-
-      <div
-        className="absolute bottom-1/4 right-1/4 w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 bg-gradient-to-r from-yellow-200/25 to-orange-200/30 rounded-full blur-3xl animate-fade-in-up"
-      />
+      {backgroundElements}
 
       {/* Responsive Floating icons */}
-      <div className="max-md:hidden">
-        {floatingIcons.map((iconData, index) => {
-          const IconComponent = iconData.icon;
-          return (
-            <div
-              key={index}
-              className={iconData.className}
-              style={{ animationDelay: `${iconData.delay}s` }}
-            >
-              <IconComponent className={iconData.iconClassName} />
-            </div>
-          );
-        })}
-      </div>
+      {floatingIconElements}
 
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex flex-col justify-center items-center text-center px-4 py-22 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Main Heading with staggered animation */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 mb-6 sm:mb-8 leading-[1.1] sm:leading-tight max-w-5xl animate-fade-in-up">
-          <span
-            className="inline-block animate-fade-in-up"
-            style={{ animationDelay: "0.6s" }}
-          >
-            Turn Your
-          </span>
-          <span
-            className="mx-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 inline-block animate-fade-in-up"
-            style={{ animationDelay: "0.8s" }}
-          >
-            Website
-          </span>
-          <span
-            className="mx-2 inline-block animate-fade-in-up"
-            style={{ animationDelay: "1.0s" }}
-          >
-            Into a
-          </span>
-          <span
-            className="text-transparent mx-2 bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 inline-block animate-fade-in-up"
-            style={{ animationDelay: "1.2s" }}
-          >
-            Sales Machine
-          </span>
-        </h1>
+        {headingElements}
 
         {/* Description with fade in */}
         <p
           className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-8 sm:mb-12 max-w-4xl leading-relaxed px-2 sm:px-4 animate-fade-in-up"
-          style={{ animationDelay: "1.4s" }}
+          style={animationStyles.descriptionDelay}
         >
           At BookOne, we blend stunning web design, advanced SEO, and powerful
           AI automation to help businesses attract more leads, close more sales,
@@ -129,7 +156,7 @@ export default function HeroSection() {
         {/* CTA Button with enhanced animations */}
         <div
           className="flex flex-col sm:flex-row gap-4 items-center animate-fade-in-up"
-          style={{ animationDelay: "1.6s" }}
+          style={animationStyles.ctaDelay}
         >
           <Link
             href="/get-started"
@@ -156,10 +183,45 @@ export default function HeroSection() {
             </svg>
           </Link>
 
-         
+          <Link
+            href="/portfolio"
+            className="group text-gray-700 hover:text-gray-900 px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-full text-base sm:text-lg lg:text-xl font-semibold border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 flex items-center gap-3 hover:scale-105"
+          >
+            <span>View Our Work</span>
+            <svg
+              className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+          </Link>
         </div>
 
-        
+        {/* Trust indicators */}
+        <div
+          className="mt-12 sm:mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 text-sm text-gray-500 animate-fade-in-up"
+          style={{ animationDelay: "1.8s" }}
+        >
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span>100+ Projects Completed</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span>5-Star Client Reviews</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span>24/7 Support</span>
+          </div>
+        </div>
       </div>
 
       {/* Enhanced Bottom Gradient */}

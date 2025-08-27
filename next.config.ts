@@ -24,20 +24,9 @@ const nextConfig: NextConfig = {
       "chart.js",
     ],
     optimizeCss: true,
-    turbo: {
-      rules: {
-        "*.svg": {
-          loaders: ["@svgr/webpack"],
-          as: "*.js",
-        },
-      },
-    },
   },
 
-  // Server external packages (moved from experimental)
-  serverExternalPackages: ["@sanity/client"],
-
-  // Turbopack configuration for development
+  // Turbopack configuration (stable)
   turbopack: {
     rules: {
       "*.svg": {
@@ -46,6 +35,9 @@ const nextConfig: NextConfig = {
       },
     },
   },
+
+  // Server external packages (moved from experimental)
+  serverExternalPackages: ["@sanity/client"],
 
   // Image optimization settings
   images: {
@@ -72,6 +64,35 @@ const nextConfig: NextConfig = {
   webpack: (config, { dev, isServer, webpack }) => {
     // Production optimizations only
     if (!dev && !isServer) {
+      // Enable aggressive optimizations for main thread performance
+      config.optimization.minimize = true;
+      config.optimization.minimizer = config.optimization.minimizer || [];
+
+      // Add Terser plugin for better minification
+      const TerserPlugin = require("terser-webpack-plugin");
+      config.optimization.minimizer.push(
+        new TerserPlugin({
+          terserOptions: {
+            compress: {
+              drop_console: true, // Remove console.log in production
+              drop_debugger: true,
+              pure_funcs: [
+                "console.log",
+                "console.info",
+                "console.debug",
+                "console.warn",
+              ],
+            },
+            mangle: {
+              safari10: true, // Better Safari compatibility
+            },
+            format: {
+              comments: false,
+            },
+          },
+          extractComments: false,
+        })
+      );
       // Advanced bundle splitting with size optimization
       config.optimization.splitChunks = {
         chunks: "all",

@@ -110,7 +110,7 @@ export default async function AuthorPage({ params }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
-      <div className="max-w-4xl mx-auto px-4 py-16">
+      <div className="max-w-4xl mx-auto px-4 py-22">
         {/* Hero Section */}
         <div className="relative mb-16">
           <div className="relative bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-12">

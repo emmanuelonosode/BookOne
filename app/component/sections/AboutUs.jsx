@@ -266,7 +266,7 @@ export default function AboutSection({
       description: "Average Lead Increase",
       subtext: "Within 6 months",
     },
-  
+
     {
       value: "98%",
       description: "Client Retention Rate",
@@ -318,7 +318,7 @@ export default function AboutSection({
         value: "300%",
         description: "Average increase in qualified leads",
       },
-   
+
       {
         icon: <Zap className="w-5 h-5" />,
         title: "Efficiency Boost",
@@ -408,7 +408,6 @@ export default function AboutSection({
           </div>
         </motion.div>
 
-
         {/* Enhanced Statistics Section */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
           {/* Stats Content */}
@@ -480,8 +479,9 @@ export default function AboutSection({
           >
             <Image
               src={
-                statsImageUrl ||
-                "https://placehold.co/600x600/3B82F6/FFFFFF?text=Growth+Analytics"
+                statsImageUrl && statsImageUrl.trim() !== ""
+                  ? statsImageUrl
+                  : "https://placehold.co/600x600/3B82F6/FFFFFF?text=Growth+Analytics"
               }
               alt={statsImageAlt}
               width={700}
@@ -490,7 +490,6 @@ export default function AboutSection({
             />
           </motion.div>
         </div>
-
       </div>
     </section>
   );
