@@ -70,65 +70,54 @@ export default function HeroSection() {
   const floatingIcons = useFloatingIcons();
 
   // Memoized floating icon elements to prevent re-creation
-  const floatingIconElements = useMemo(() => (
-    <div className="max-md:hidden">
-      {floatingIcons.map((iconData, index) => {
-        const IconComponent = iconData.icon;
-        return (
-          <div
-            key={index}
-            className={iconData.className}
-            style={{ animationDelay: `${iconData.delay}s` }}
-          >
-            <IconComponent className={iconData.iconClassName} />
-          </div>
-        );
-      })}
-    </div>
-  ), [floatingIcons]);
+  const floatingIconElements = useMemo(
+    () => (
+      <div className="max-md:hidden">
+        {floatingIcons.map((iconData, index) => {
+          const IconComponent = iconData.icon;
+          return (
+            <div
+              key={index}
+              className={iconData.className}
+              style={{ animationDelay: `${iconData.delay}s` }}
+            >
+              <IconComponent className={iconData.iconClassName} />
+            </div>
+          );
+        })}
+      </div>
+    ),
+    [floatingIcons]
+  );
 
   // Memoized background elements
-  const backgroundElements = useMemo(() => (
-    <>
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 via-transparent to-purple-50/30"></div>
-      <div
-        className="absolute top-1/4 left-1/4 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-gradient-to-r from-purple-200/30 to-blue-200/40 rounded-full blur-3xl animate-fade-in-up"
-      />
-      <div
-        className="absolute bottom-1/4 right-1/4 w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 bg-gradient-to-r from-yellow-200/25 to-orange-200/30 rounded-full blur-3xl animate-fade-in-up"
-      />
-    </>
-  ), []);
+  const backgroundElements = useMemo(
+    () => (
+      <>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 via-transparent to-purple-50/30"></div>
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-gradient-to-r from-purple-200/30 to-blue-200/40 rounded-full blur-3xl animate-fade-in-up" />
+        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 bg-gradient-to-r from-yellow-200/25 to-orange-200/30 rounded-full blur-3xl animate-fade-in-up" />
+      </>
+    ),
+    []
+  );
 
   // Memoized heading elements
-  const headingElements = useMemo(() => (
-    <h1 className=" max-md:text-4xl text-6xl font-extrabold text-gray-900 mb-6 sm:mb-8 leading-[1.1] sm:leading-tight max-w-5xl animate-fade-in-up">
-      <span
-        className="inline-block animate-fade-in-up"
-        style={animationStyles.headingDelays[0]}
-      >
-        Turn Your
-      </span>
-      <span
-        className="mx-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 inline-block animate-fade-in-up"
-        style={animationStyles.headingDelays[1]}
-      >
-        Website
-      </span>
-      <span
-        className="mx-2 inline-block animate-fade-in-up"
-        style={animationStyles.headingDelays[2]}
-      >
-        Into a
-      </span>
-      <span
-        className="text-transparent mx-2 bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 inline-block animate-fade-in-up"
-        style={animationStyles.headingDelays[3]}
-      >
-        Sales Machine
-      </span>
-    </h1>
-  ), []);
+  const headingElements = useMemo(
+    () => (
+      <h1 className="text-6xl  md:text-6xl font-extrabold text-gray-900 mb-6 sm:mb-8 leading-[1.1] sm:leading-tight max-w-5xl animate-fade-in-up">
+        <span className="inline-block animate-fade-in-up">Turn Your</span>
+        <span className="mx-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 inline-block animate-fade-in-up">
+          Website
+        </span>
+        <span className="mx-2 inline-block animate-fade-in-up">Into a</span>
+        <span className="text-transparent mx-2 bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 inline-block animate-fade-in-up">
+          Sales Machine
+        </span>
+      </h1>
+    ),
+    []
+  );
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/30 overflow-hidden">
@@ -155,7 +144,7 @@ export default function HeroSection() {
 
         {/* CTA Button with enhanced animations */}
         <div
-          className="flex flex-col sm:flex-row gap-4 items-center animate-fade-in-up"
+          className="flex max-sm:w-full  flex-col sm:flex-row gap-4 items-center animate-fade-in-up"
           style={animationStyles.ctaDelay}
         >
           <Link
@@ -185,7 +174,7 @@ export default function HeroSection() {
 
           <Link
             href="/portfolio"
-            className="group text-gray-700 hover:text-gray-900 px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-full text-base sm:text-lg lg:text-xl font-semibold border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 flex items-center gap-3 hover:scale-105"
+            className="group text-gray-700 max-sm:w-full hover:text-gray-900 px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-full text-base sm:text-lg lg:text-xl font-semibold border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 flex items-center gap-3 hover:scale-105"
           >
             <span>View Our Work</span>
             <svg
@@ -213,14 +202,7 @@ export default function HeroSection() {
             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
             <span>100+ Projects Completed</span>
           </div>
-          <div className="md:flex hidden  items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span>5-Star Client Reviews</span>
-          </div>
-          <div className="md:flex hidden items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span>24/7 Support</span>
-          </div>
+        
         </div>
       </div>
 
