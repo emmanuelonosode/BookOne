@@ -13,7 +13,18 @@ export interface SanityImage {
 export interface Author {
   _id: string;
   name: string;
-  bio?: any[];
+  bio?: {
+    _type: string;
+    children: Array<{
+      _type: string;
+      text: string;
+      marks?: string[];
+    }>;
+    markDefs?: Array<{
+      _type: string;
+      href?: string;
+    }>;
+  }[];
   image?: SanityImage;
 }
 
@@ -32,7 +43,19 @@ export interface BlogPost {
     current: string;
   };
   mainImage?: SanityImage;
-  body: any[];
+  body: Array<{
+    _type: string;
+    children: Array<{
+      _type: string;
+      text: string;
+      marks?: string[];
+    }>;
+    markDefs?: Array<{
+      _type: string;
+      href?: string;
+    }>;
+    asset?: SanityReference<SanityImageAsset>;
+  }>;
   excerpt?: string;
   author?: Author;
   categories?: Category[];
@@ -43,5 +66,23 @@ export interface QueryOptions {
   next?: {
     revalidate?: number;
   };
-  fallback?: any;
+  fallback?: unknown;
+}
+
+// Types for Sanity block content
+export interface SanityBlock {
+  _type: string;
+  children: Array<{
+    _type: string;
+    text: string;
+    marks?: string[];
+  }>;
+  markDefs?: Array<{
+    _type: string;
+    href?: string;
+  }>;
+  asset?: {
+    _ref: string;
+    _type: "reference";
+  };
 }

@@ -1,6 +1,6 @@
 import { createClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
-import { BlogPost, QueryOptions } from "./types";
+import { BlogPost, QueryOptions, SanityImage } from "./types";
 import { validateBlogPost } from "./validation";
 
 // Validate configuration
@@ -22,7 +22,7 @@ export const sanity = createClient(config);
 const builder = imageUrlBuilder(sanity);
 
 // Cache with proper typing
-const QUERY_CACHE = new Map<string, any>();
+const QUERY_CACHE = new Map<string, unknown>();
 
 // Helper for retry logic with proper typing
 async function fetchWithRetry<T>(
@@ -49,9 +49,9 @@ async function fetchWithRetry<T>(
 }
 
 // Type-safe fetch with validation
-export async function fetchSanityData<T = any>(
+export async function fetchSanityData<T = unknown>(
   query: string,
-  params: Record<string, any> = {},
+  params: Record<string, unknown> = {},
   options: QueryOptions = {}
 ): Promise<T> {
   const cacheKey = JSON.stringify({ query, params });
@@ -113,7 +113,7 @@ export async function fetchBlogPost(
 }
 
 // Type-safe image URL functions
-export function urlFor(source: any) {
+export function urlFor(source: SanityImage | null | undefined) {
   if (!source) return null;
   try {
     return builder.image(source);
@@ -123,7 +123,9 @@ export function urlFor(source: any) {
   }
 }
 
-export function urlForImage(source: any): string | null {
+export function urlForImage(
+  source: SanityImage | null | undefined
+): string | null {
   if (!source) return null;
   try {
     return builder.image(source).url();
@@ -134,7 +136,7 @@ export function urlForImage(source: any): string | null {
 }
 
 export function getImageUrl(
-  source: any,
+  source: SanityImage | null | undefined,
   fallback = "/placeholder-image.jpg"
 ): string {
   const url = urlForImage(source);
