@@ -1,11 +1,14 @@
-import {
-  SanityImageAsset,
-  SanityReference,
-} from "@sanity/image-url/lib/types/types";
+// Avoid importing internal Sanity runtime types from image-url package because
+// their exports can vary between versions. Declare minimal compatible types
+// here so the rest of the codebase can rely on a stable shape.
+export interface SanityReference {
+  _ref: string;
+  _type?: "reference";
+}
 
 export interface SanityImage {
   _type: "image";
-  asset: SanityReference<SanityImageAsset>;
+  asset: SanityReference;
   alt?: string;
   caption?: string;
 }
@@ -54,7 +57,7 @@ export interface BlogPost {
       _type: string;
       href?: string;
     }>;
-    asset?: SanityReference<SanityImageAsset>;
+    asset?: SanityReference;
   }>;
   excerpt?: string;
   author?: Author;
