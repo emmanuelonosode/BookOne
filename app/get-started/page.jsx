@@ -52,29 +52,27 @@ export default function EnhancedContactPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  async function handleSubmit  (e)  {
     e.preventDefault();
-
     if (!validateForm()) return;
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus("success");
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        previousWebsite: "",
-        services: [],
-        message: "",
-      });
+   const res = await fetch("/api/contact", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  });
 
-      setTimeout(() => setSubmitStatus(null), 5000);
-    }, 2000);
+  const result = await res.json();
+  if (result.success) {
+    alert("Message sent successfully!");
+  } else {
+    alert("Something went wrong.");
+  }
   };
 
+  
   const handleServiceToggle = (serviceId) => {
     setFormData((prev) => ({
       ...prev,

@@ -1,25 +1,29 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 import axios from 'axios';
 
 export async function POST(req) {
-  const { name, email, message, company, phone, service } = await req.json();
+  const { firstName, lastName,
+    email,
+    previousWebsite,
+    services,
+    message, } = await req.json();
 
   // Basic validation
-  if (!name || !email || !message) {
-    return NextResponse.json({ error: 'Name, email, and message are required' }, { status: 400 });
+  if (!firstName || !lastName || !email ) {
+    return NextResponse.json({ error: 'Name and email are required' }, { status: 400 });
   }
 
   try {
     // Save data to SheetDB
     await axios.post(process.env.SHEETDB_URL, {
       data: {
-        name,
+        firstName,
+        lastName,
+        previousWebsite: previousWebsite || '',
         email,
         message,
-        company: company || '',
-        phone: phone || '',
-        service: service || '',
+        services: services || '',
         date: new Date().toISOString(),
       },
     });
@@ -36,14 +40,14 @@ export async function POST(req) {
     });
 
     await transporter.sendMail({
-      from: `"JulyPort" <${process.env.EMAIL_USER}>`,
+      from: `"BookOne" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: 'Thank you for contacting us!',
       html: `
-        <h1>Hi ${name},</h1>
+        <h1>Hi ${firstName} ${lastName},</h1>
         <p>Thanks for reaching out. We've received your message and will get back to you shortly.</p>
         <p>Best,</p>
-        <p>The JulyPort Team</p>
+        <p>The BookOne Team</p>
       `,
     });
 
