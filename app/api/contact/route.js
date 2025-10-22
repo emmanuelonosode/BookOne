@@ -1,38 +1,41 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import axios from 'axios';
+import axios from "axios";
+
+export const runtime = "nodejs"; // crucial for nodemailer
 
 export async function POST(req) {
-  const { firstName, lastName,
-    email,
-    previousWebsite,
-    services,
-    message, } = await req.json();
+  const { firstName, lastName, email, previousWebsite, services, message } =
+    await req.json();
 
-  // Basic validation
-  if (!firstName || !lastName || !email ) {
-    return NextResponse.json({ error: 'Name and email are required' }, { status: 400 });
+  if (!firstName || !lastName || !email) {
+    return NextResponse.json(
+      { error: "Name and email are required" },
+      { status: 400 }
+    );
   }
 
   try {
-    // Save data to SheetDB
+    // Save to SheetDB (array required)
     await axios.post(process.env.SHEETDB_URL, {
-      data: {
-        firstName,
-        lastName,
-        previousWebsite: previousWebsite || '',
-        email,
-        message,
-        services: services || '',
-        date: new Date().toISOString(),
-      },
+      data: [
+        {
+          firstName,
+          lastName,
+          previousWebsite: previousWebsite || "",
+          email,
+          message,
+          services: services || "",
+          date: new Date().toISOString(),
+        },
+      ],
     });
 
-    // Send confirmation email
+    // Nodemailer setup
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
-      secure: true,
+      port: Number(process.env.EMAIL_PORT),
+      secure: Number(process.env.EMAIL_PORT) === 465,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -42,7 +45,7 @@ export async function POST(req) {
     await transporter.sendMail({
       from: `"BookOne" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'Thank you for contacting us!',
+      subject: "Thank you for contacting us!",
       html: `
         <h1>Hi ${firstName} ${lastName},</h1>
         <p>Thanks for reaching out. We've received your message and will get back to you shortly.</p>
@@ -51,9 +54,17 @@ export async function POST(req) {
       `,
     });
 
-    return NextResponse.json({ message: 'Your message has been sent successfully!' });
+    return NextResponse.json({
+      message: "Your message has been sent successfully!",
+    });
   } catch (error) {
-    console.error('Error in contact route:', error);
-    return NextResponse.json({ error: 'Something went wrong. Please try again later.' }, { status: 500 });
+    console.error(
+      "Error in contact route:",
+      error.response?.data || error.message
+    );
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again later." },
+      { status: 500 }
+    );
   }
 }
