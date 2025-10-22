@@ -180,27 +180,7 @@ export default function HeroSection() {
           </Link>
         </div>
 
-        {/* Trust indicators */}
-        <div
-          className="mt-12 sm:mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 text-sm text-gray-500 animate-fade-in-up"
-        >
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span>100+ Projects Completed</span>
-          </div>
-<<<<<<< HEAD
-          <div className="md:flex hidden  items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span>5-Star Client Reviews</span>
-          </div>
-          <div className="md:flex hidden items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span>24/7 Support</span>
-          </div>
-=======
-        
->>>>>>> 5088310 (changed the contact design)
-        </div>
+      
       </div>
 
       {/* Enhanced Bottom Gradient */}
