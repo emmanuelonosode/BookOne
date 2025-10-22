@@ -1,5 +1,5 @@
-"use client"
-import React, { useState } from "react";
+"use client";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
@@ -52,27 +52,46 @@ export default function EnhancedContactPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  async function handleSubmit  (e)  {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+    setSubmitStatus(null);
+    console.log(formData);
 
-   const res = await fetch("/api/contact", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData),
-  });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-  const result = await res.json();
-  if (result.success) {
-    alert("Message sent successfully!");
-  } else {
-    alert("Something went wrong.");
+      const result = await res.json();
+
+      if (result.success) {
+        setSubmitStatus("success");
+        // Reset form
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          previousWebsite: "",
+          services: [],
+          message: "",
+        });
+      } else {
+        setSubmitStatus("error");
+        throw new Error(result.message || "Failed to send message");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
-  };
 
-  
   const handleServiceToggle = (serviceId) => {
     setFormData((prev) => ({
       ...prev,
@@ -119,8 +138,111 @@ export default function EnhancedContactPage() {
     { name: "X (Twitter)", url: "#" },
   ];
 
+  // Confetti canvas ref
+  const confettiRef = useRef(null);
+
+  // Launch a lightweight canvas confetti animation
+  const launchConfetti = () => {
+    const canvas = confettiRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let w = (canvas.width = window.innerWidth);
+    let h = (canvas.height = window.innerHeight);
+
+    const colors = [
+      "#7c3aed",
+      "#06b6d4",
+      "#f97316",
+      "#10b981",
+      "#ef4444",
+      "#f59e0b",
+    ];
+    let particles = [];
+
+    const createParticles = (count = 120) => {
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h * 0.2,
+          vx: (Math.random() - 0.5) * 8,
+          vy: Math.random() * 6 + 2,
+          size: Math.random() * 8 + 6,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rot: Math.random() * Math.PI * 2,
+          spin: (Math.random() - 0.5) * 0.2,
+          life: 0,
+          ttl: 80 + Math.random() * 40,
+        });
+      }
+    };
+
+    createParticles();
+
+    let raf;
+    const update = () => {
+      ctx.clearRect(0, 0, w, h);
+      for (let p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.15; // gravity
+        p.vx *= 0.99; // air resistance
+        p.rot += p.spin;
+        p.life++;
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+        ctx.restore();
+      }
+
+      particles = particles.filter((p) => p.life < p.ttl && p.y < h + 50);
+      if (particles.length) {
+        raf = requestAnimationFrame(update);
+      } else {
+        cancelAnimationFrame(raf);
+        // clear canvas after animation ends
+        ctx.clearRect(0, 0, w, h);
+      }
+    };
+
+    // handle resize
+    const onResize = () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    };
+    window.addEventListener("resize", onResize);
+
+    update();
+
+    // stop and cleanup after 6s
+    setTimeout(() => {
+      particles = [];
+      window.removeEventListener("resize", onResize);
+      if (raf) cancelAnimationFrame(raf);
+      ctx.clearRect(0, 0, w, h);
+    }, 6000);
+  };
+
+  // Trigger confetti when submitStatus becomes success
+  useEffect(() => {
+    if (submitStatus === "success") {
+      // small timeout to allow UI update
+      setTimeout(() => launchConfetti(), 100);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [submitStatus]);
+
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Confetti canvas overlay */}
+      <canvas
+        ref={confettiRef}
+        className="pointer-events-none fixed inset-0 w-full h-full z-50"
+        aria-hidden="true"
+      />
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -283,6 +405,19 @@ export default function EnhancedContactPage() {
                     <CheckCircle className="w-5 h-5 text-green-600 mr-3" />
                     <p className="text-green-800">
                       Message sent successfully! We'll get back to you soon.
+                    </p>
+                  </motion.div>
+                )}
+                {submitStatus === "error" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center"
+                  >
+                    <AlertCircle className="w-5 h-5 text-red-600 mr-3" />
+                    <p className="text-red-800">
+                      Failed to send message. Please try again later.
                     </p>
                   </motion.div>
                 )}
