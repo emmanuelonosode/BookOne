@@ -11,42 +11,36 @@ const useFloatingIcons = () => {
         className:
           "absolute max-md:hidden top-16 left-4 sm:top-20 sm:left-8 lg:top-20 lg:left-20 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center border border-white/20 animate-fade-in-up",
         iconClassName: "w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-purple-600",
-        delay: 0.5,
       },
       {
         icon: Zap,
         className:
           "absolute max-md:hidden top-24 right-4 sm:top-32 sm:right-12 lg:top-32 lg:right-24 w-11 h-11 sm:w-13 sm:h-13 lg:w-14 lg:h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg flex items-center justify-center animate-fade-in-up",
         iconClassName: "w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white",
-        delay: 0.6,
       },
       {
         icon: Database,
         className:
           "absolute max-md:hidden top-48 left-2 sm:top-60 sm:left-8 lg:top-60 lg:left-16 w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-white/90 backdrop-blur-sm rounded-lg shadow-md flex items-center justify-center border border-white/20 animate-fade-in-up",
         iconClassName: "w-5 h-5 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-green-600",
-        delay: 0.7,
       },
       {
         icon: Code,
         className:
           "absolute max-md:hidden bottom-32 left-6 sm:bottom-40 sm:left-16 lg:bottom-40 lg:left-32 w-11 h-11 sm:w-13 sm:h-13 lg:w-14 lg:h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl shadow-lg flex items-center justify-center animate-fade-in-up",
         iconClassName: "w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white",
-        delay: 0.8,
       },
       {
         icon: Sparkles,
         className:
           "absolute max-md:hidden bottom-48 right-4 sm:bottom-60 sm:right-10 lg:bottom-60 lg:right-20 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center border border-white/20 animate-fade-in-up",
         iconClassName: "w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-yellow-500",
-        delay: 0.9,
       },
       {
         icon: Globe,
         className:
           "absolute max-md:hidden top-64 right-2 sm:top-80 sm:right-8 lg:top-80 lg:right-16 w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg shadow-md flex items-center justify-center animate-fade-in-up",
         iconClassName: "w-5 h-5 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white",
-        delay: 1.0,
       },
     ],
     []
@@ -54,21 +48,10 @@ const useFloatingIcons = () => {
 };
 
 // Memoized animation styles to prevent re-creation
-const animationStyles = {
-  fadeInUp: "animate-fade-in-up",
-  headingDelays: [
-    { animationDelay: "0.6s" },
-    { animationDelay: "0.8s" },
-    { animationDelay: "1.0s" },
-    { animationDelay: "1.2s" },
-  ],
-  descriptionDelay: { animationDelay: "1.4s" },
-  ctaDelay: { animationDelay: "1.6s" },
-};
+
 
 export default function HeroSection() {
   const floatingIcons = useFloatingIcons();
-
   // Memoized floating icon elements to prevent re-creation
   const floatingIconElements = useMemo(() => (
     <div className="max-md:hidden">
@@ -78,7 +61,6 @@ export default function HeroSection() {
           <div
             key={index}
             className={iconData.className}
-            style={{ animationDelay: `${iconData.delay}s` }}
           >
             <IconComponent className={iconData.iconClassName} />
           </div>
@@ -105,25 +87,21 @@ export default function HeroSection() {
     <h1 className=" max-md:text-4xl text-6xl font-extrabold text-gray-900 mb-6 sm:mb-8 leading-[1.1] sm:leading-tight max-w-5xl animate-fade-in-up">
       <span
         className="inline-block animate-fade-in-up"
-        style={animationStyles.headingDelays[0]}
       >
         Turn Your
       </span>
       <span
         className="mx-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 inline-block animate-fade-in-up"
-        style={animationStyles.headingDelays[1]}
       >
         Website
       </span>
       <span
         className="mx-2 inline-block animate-fade-in-up"
-        style={animationStyles.headingDelays[2]}
       >
         Into a
       </span>
       <span
         className="text-transparent mx-2 bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 inline-block animate-fade-in-up"
-        style={animationStyles.headingDelays[3]}
       >
         Sales Machine
       </span>
@@ -146,7 +124,6 @@ export default function HeroSection() {
         {/* Description with fade in */}
         <p
           className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-8 sm:mb-12 max-w-4xl leading-relaxed px-2 sm:px-4 animate-fade-in-up"
-          style={animationStyles.descriptionDelay}
         >
           At BookOne, we blend stunning web design, advanced SEO, and powerful
           AI automation to help businesses attract more leads, close more sales,
@@ -156,7 +133,6 @@ export default function HeroSection() {
         {/* CTA Button with enhanced animations */}
         <div
           className="flex flex-col sm:flex-row gap-4 items-center animate-fade-in-up"
-          style={animationStyles.ctaDelay}
         >
           <Link
             href="/get-started"
@@ -207,12 +183,12 @@ export default function HeroSection() {
         {/* Trust indicators */}
         <div
           className="mt-12 sm:mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 text-sm text-gray-500 animate-fade-in-up"
-          style={{ animationDelay: "1.8s" }}
         >
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
             <span>100+ Projects Completed</span>
           </div>
+<<<<<<< HEAD
           <div className="md:flex hidden  items-center gap-2">
             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
             <span>5-Star Client Reviews</span>
@@ -221,6 +197,9 @@ export default function HeroSection() {
             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
             <span>24/7 Support</span>
           </div>
+=======
+        
+>>>>>>> 5088310 (changed the contact design)
         </div>
       </div>
 

@@ -13,7 +13,6 @@ export default async function PortfolioSection() {
     { cache: "force-cache" }
   );
 
-
   return (
     <section
       id="portfolio-section"
@@ -22,38 +21,35 @@ export default async function PortfolioSection() {
     >
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-10">
           <div className="inline-flex items-center bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Star className="w-4 h-4 mr-2" />
             Our Work Speaks for Itself
           </div>
 
-          <h2
-            id="portfolio-heading"
-            className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6 leading-tight"
-          >
-            Success Stories &
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
-              Digital Transformations
-            </span>
-          </h2>
+          <div className="flex justify-between">
+            <h2
+              id="portfolio-heading"
+              className="text-4xl text-left sm:text-5xl font-bold text-gray-900 mb-6 leading-tight"
+            >
+              Case{" "}
+              <span className="block text-transparent  bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
+                Studies{" "}
+              </span>
+            </h2>
 
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
-            Discover how we've helped businesses across industries transform
-            their digital presence, drive growth, and achieve remarkable results
-            through innovative design and strategic thinking.
-          </p>
-
-         
+            <p className="text-lg text-right text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
+              Discover how we've helped businesses across industries transform
+              their digital presence, drive growth, and achieve remarkable
+              results through innovative design and strategic thinking.
+            </p>
+          </div>
         </div>
 
         {/* Featured Project Highlight */}
         {allProjects.length > 0 && (
           <div className=" pb-8 sm:p-12">
-            <div className="inline-flex mb-6 items-center bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
-              <Star className="w-4 h-4 mr-2" />
-              Featured Project
-            </div>
+         
             <ProjectCard project={allProjects[0]} featured={true} />
           </div>
         )}

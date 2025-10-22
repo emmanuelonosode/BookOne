@@ -27,10 +27,7 @@ const Testimonia = dynamic(
   }
 );
 
-const AboutUs = dynamic(() => import("./component/sections/AboutUs.jsx"), {
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse rounded-lg" />,
-  ssr: true,
-});
+
 
 const FeaturedBlog = dynamic(
   () => import("./component/sections/featuredBlogs.jsx"),
@@ -139,11 +136,7 @@ function HomePage() {
         <Testimonia />
       </Suspense>
 
-      <Suspense
-        fallback={<div className="h-96 bg-gray-50 animate-pulse rounded-lg" />}
-      >
-        <AboutUs />
-      </Suspense>
+    
 
       <Suspense
         fallback={<div className="h-96 bg-gray-50 animate-pulse rounded-lg" />}
