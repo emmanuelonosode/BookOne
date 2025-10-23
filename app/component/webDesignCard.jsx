@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { urlFor } from "@/lib/sanity";
+import { getImageUrl } from "@/lib/sanity";
 
 export default function WebDesignDetails({ details }) {
   if (!details) return null;
@@ -9,7 +9,7 @@ export default function WebDesignDetails({ details }) {
       {details.heroImage && (
         <div className="relative w-full h-96 rounded-lg overflow-hidden shadow-xl">
           <Image
-            src={urlFor(details.heroImage).url()}
+            src={getImageUrl(details.heroImage)}
             alt="Hero Image"
             fill
             style={{ objectFit: "cover" }}

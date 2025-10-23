@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { urlFor } from "@/lib/sanity";
+import { getImageUrl } from "@/lib/sanity";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
@@ -30,7 +30,7 @@ export default function ProjectCard({ project, index = 0 }) {
         <div className="relative h-64 sm:h-72 lg:h-80 overflow-hidden bg-gray-50">
           {project.mainImage ? (
             <Image
-              src={urlFor(project.mainImage).url()}
+              src={getImageUrl(project.mainImage)}
               alt={`${project.title} project preview`}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -115,7 +115,7 @@ export function FeaturedProjectCard({ project }) {
           <div className="relative h-64 lg:h-96 overflow-hidden">
             {project.mainImage ? (
               <Image
-                src={urlFor(project.mainImage).url()}
+                src={getImageUrl(project.mainImage)}
                 alt={`${project.title} project preview`}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

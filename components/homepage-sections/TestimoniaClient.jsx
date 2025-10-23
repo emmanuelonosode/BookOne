@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback, memo } from "react";
-import { sanity, urlFor } from "@/lib/sanity";
+import { sanity, getImageUrl } from "@/lib/sanity";
 import { allTestimoniaQuery } from "@/lib/queries";
 import Image from "next/image";
 import {
@@ -63,11 +63,7 @@ const TestimonialCard = memo(({ testimonial, isActive }) => {
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
             <div className="flex-shrink-0">
               <Image
-                src={urlFor(testimonial.image)
-                  .width(128) // Double size for retina displays
-                  .height(128)
-                  .quality(90)
-                  .url()}
+                src={getImageUrl(testimonial.image)}
                 alt={`${testimonial.name}, ${testimonial.position}`}
                 width={64}
                 height={64}
@@ -75,12 +71,7 @@ const TestimonialCard = memo(({ testimonial, isActive }) => {
                 loading="lazy"
                 sizes="64px"
                 placeholder="blur"
-                blurDataURL={urlFor(testimonial.image)
-                  .width(20)
-                  .height(20)
-                  .quality(20)
-                  .blur(10)
-                  .url()}
+                blurDataURL={getImageUrl(testimonial.image)}
                 onError={(e) => {
                   e.currentTarget.src = `data:image/svg+xml,${encodeURIComponent(`
                     <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">

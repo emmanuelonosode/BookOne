@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { urlFor } from "@/lib/sanity";
+import { getImageUrl } from "@/lib/sanity";
 
 export default function SeoDetails({ details }) {
   if (!details) return null;
@@ -29,7 +29,7 @@ export default function SeoDetails({ details }) {
           </h3>
           <div className="relative w-full h-80 rounded-lg overflow-hidden border border-gray-700">
             <Image
-              src={urlFor(details.keywordRankings).url()}
+              src={getImageUrl(details.keywordRankings)}
               alt="Keyword Ranking Graph"
               layout="fill"
               objectFit="contain"

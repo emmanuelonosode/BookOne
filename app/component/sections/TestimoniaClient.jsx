@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback, memo } from "react";
-import { sanity, urlFor } from "@/lib/sanity";
+import { sanity, getImageUrl } from "@/lib/sanity";
 import { allTestimoniaQuery } from "@/lib/queries";
 import Image from "next/image";
 import {
@@ -53,7 +53,7 @@ const TestimonialCard = memo(({ testimonial, isActive }) => {
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
             <div className="flex-shrink-0">
               <Image
-                src={urlFor(testimonial.image).url()}
+                src={getImageUrl(testimonial.image)}
                 alt={`${testimonial.name}, ${testimonial.position}`}
                 width={64}
                 height={64}
@@ -249,8 +249,6 @@ const Testimonia = ({ testimonia: initialTestimonia }) => {
             through strategic web design, development, and digital marketing
             solutions.
           </p>
-
-      
         </header>
 
         {/* Testimonials Slider */}

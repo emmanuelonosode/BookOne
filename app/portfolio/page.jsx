@@ -1,4 +1,4 @@
-import { sanity, urlFor } from "../../lib/sanity";
+import { sanity, getImageUrl } from "../../lib/sanity";
 import { allProjectsQuery } from "../../lib/queries";
 import Script from "next/script";
 import { ArrowUpRight, Star } from "lucide-react";
@@ -31,9 +31,7 @@ export default async function PortfolioPage() {
           name: project.title,
           description: project.overview,
           url: `${baseUrl}/portfolio/${project.slug?.current}`,
-          image: project.mainImage
-            ? urlFor(project.mainImage).url()
-            : undefined,
+          image: project.mainImage ? getImageUrl(project.mainImage) : undefined,
           creator: {
             "@type": "Organization",
             name: "BookOne",
@@ -50,7 +48,6 @@ export default async function PortfolioPage() {
       },
     },
   };
-
 
   return (
     <>
@@ -94,7 +91,6 @@ export default async function PortfolioPage() {
             </p>
 
             {/* Stats Row - Made Responsive */}
-            
           </div>
 
           {/* Featured Project */}

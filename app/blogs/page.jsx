@@ -1,4 +1,4 @@
-import { sanity, urlFor } from "@/lib/sanity";
+import { sanity, getImageUrl } from "@/lib/sanity";
 import { paginatedBlogsQuery } from "@/lib/queries";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,8 +28,7 @@ export const metadata = generateMetaTags({
 
 const PAGE_SIZE = 7; // 1 featured + 6 grid (2 rows of 3)
 
-export default async function BlogListPage(props) {
-  const searchParams = await props.searchParams;
+export default async function BlogListPage({ searchParams }) {
   const page = parseInt(searchParams?.page || "1", 10);
   const search = searchParams?.search || "";
 
@@ -99,7 +98,7 @@ export default async function BlogListPage(props) {
                     aria-label={`Read full article: ${blogs[0].title}`}
                   >
                     <Image
-                      src={urlFor(blogs[0].mainImage).url()}
+                      src={getImageUrl(blogs[0].mainImage)}
                       alt={blogs[0].title}
                       width={800}
                       height={400}
@@ -145,7 +144,7 @@ export default async function BlogListPage(props) {
                     {blogs[0].author?.image && (
                       <div className="relative">
                         <Image
-                          src={urlFor(blogs[0].author.image).url()}
+                          src={getImageUrl(blogs[0].author.image)}
                           alt={blogs[0].author.name}
                           width={44}
                           height={44}
@@ -218,7 +217,7 @@ export default async function BlogListPage(props) {
                   >
                     <div className="relative overflow-hidden h-48">
                       <Image
-                        src={urlFor(blog.mainImage).url()}
+                        src={getImageUrl(blog.mainImage)}
                         alt={blog.title}
                         width={400}
                         height={200}
@@ -258,7 +257,7 @@ export default async function BlogListPage(props) {
                       {blog.author?.image && (
                         <div className="relative">
                           <Image
-                            src={urlFor(blog.author.image).url()}
+                            src={getImageUrl(blog.author.image)}
                             alt={blog.author.name}
                             width={32}
                             height={32}

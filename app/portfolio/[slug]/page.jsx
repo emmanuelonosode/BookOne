@@ -1,4 +1,4 @@
-import { sanity, urlFor } from "@/lib/sanity";
+import { sanity, getImageUrl } from "@/lib/sanity";
 import { projectsBySlug } from "../../../lib/queries";
 import TestimonialCard from "../../component/testimonialCard";
 import WebDesignDetails from "../../component/webDesignCard";
@@ -27,13 +27,7 @@ export async function generateMetadata(props) {
   const description = project.overview?.slice(0, 160) || project.title;
   const imageUrl =
     project.images && project.images[0]
-      ? urlFor(project.images[0])
-          .width(1200)
-          .height(630)
-          .fit("crop")
-          .crop("focalpoint")
-          .focalPoint(0.5, 0.5)
-          .url()
+      ? getImageUrl(project.images[0])
       : undefined;
   const category = categoryLabels[project.category] || project.category;
 
@@ -174,13 +168,7 @@ export default async function PortfolioDetailPage(props) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
   const category = categoryLabels[project.category] || project.category;
   const imageUrl = project.mainImage
-    ? urlFor(project.mainImage)
-        .width(1200)
-        .height(630)
-        .fit("crop")
-        .crop("focalpoint")
-        .focalPoint(0.5, 0.5)
-        .url()
+    ? getImageUrl(project.mainImage)
     : undefined;
 
   // Generate structured data for the project
@@ -263,14 +251,14 @@ export default async function PortfolioDetailPage(props) {
 
             {project.images && project.images[0] && (
               <Image
-                src={urlFor(project.images[0]).url()}
+                src={getImageUrl(project.images[0])}
                 alt={project.title}
                 width={1200}
                 height={400}
                 className="mb-6 rounded-lg w-full max-h-96 object-cover"
                 priority={true}
                 placeholder="blur"
-                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                blurDataURL="/placeholder-image.jpg"
               />
             )}
 

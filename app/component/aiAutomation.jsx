@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { urlFor } from "@/lib/sanity";
+import { getImageUrl } from "@/lib/sanity";
 
 export default function AiAutomationDetails({ details }) {
   if (!details) return null;
@@ -30,7 +30,7 @@ export default function AiAutomationDetails({ details }) {
           </h3>
           <div className="relative w-full h-96 rounded-lg overflow-hidden border border-gray-700">
             <Image
-              src={urlFor(details.automationWorkflow).url()}
+              src={getImageUrl(details.automationWorkflow)}
               alt="Automation Workflow Diagram"
               fill
               sizes="(max-width: 1024px) 100vw, 800px"

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { sanity, urlFor } from "@/lib/sanity";
+import { sanity, getImageUrl } from "@/lib/sanity";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -84,7 +84,7 @@ export default function RelatedPosts({ currentSlug, category }) {
               <div className="relative h-48 overflow-hidden">
                 {post.mainImage ? (
                   <Image
-                    src={urlFor(post.mainImage).url()}
+                    src={getImageUrl(post.mainImage)}
                     alt={post.title}
                     fill
                     className="object-cover hover:scale-105 transition-transform duration-300"
@@ -124,7 +124,7 @@ export default function RelatedPosts({ currentSlug, category }) {
                 <div className="flex items-center gap-3 text-sm text-gray-600">
                   {post.author?.image && (
                     <Image
-                      src={urlFor(post.author.image).url()}
+                      src={getImageUrl(post.author.image)}
                       alt={post.author.name}
                       width={24}
                       height={24}

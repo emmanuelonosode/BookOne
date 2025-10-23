@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { sanity, urlFor } from "@/lib/sanity";
+import { sanity, getImageUrl } from "@/lib/sanity";
 import { paginatedBlogsQuery } from "@/lib/queries";
 import { formatRelativeDate } from "@/app/utils/dateUtils";
 
@@ -14,7 +14,7 @@ export default async function FeaturedBlogs() {
       .replace("$start", 0)
       .replace("$end", 3)
   );
-
+  console.log(blogs);
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-slate-50 via-white to-blue-50">
       <div className="max-w-7xl mx-auto">
@@ -75,7 +75,7 @@ export default async function FeaturedBlogs() {
                     aria-label={`Read full article: ${blog.title}`}
                   >
                     <Image
-                      src={urlFor(blog.mainImage).url()}
+                      src={getImageUrl(blog.mainImage)}
                       alt={blog.title}
                       width={600}
                       height={400}
@@ -160,7 +160,7 @@ export default async function FeaturedBlogs() {
                     {blog.author?.image && (
                       <div className="relative">
                         <Image
-                          src={urlFor(blog.author.image).url()}
+                          src={getImageUrl(blog.author.image)}
                           alt={blog.author.name}
                           width={44}
                           height={44}

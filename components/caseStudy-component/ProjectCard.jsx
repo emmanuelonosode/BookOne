@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState, useCallback, useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { urlFor } from "@/lib/sanity";
+import { getImageUrl } from "@/lib/sanity";
 import Link from "next/link";
 
 export default function ProjectCard({ project: projectData }) {
@@ -146,7 +146,7 @@ export default function ProjectCard({ project: projectData }) {
         <motion.div style={{ y: imageY }} className="absolute inset-0">
           {projectData.mainImage && (
             <img
-              src={urlFor(projectData.mainImage).url()}
+              src={getImageUrl(projectData.mainImage)}
               alt={`Screenshot or visual for ${projectData.title} project`}
               className="object-cover w-full h-full"
               loading="lazy"

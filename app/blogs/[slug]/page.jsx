@@ -1,4 +1,4 @@
-import { sanity, urlFor } from "@/lib/sanity";
+import { sanity, getImageUrl } from "@/lib/sanity";
 import { blogBySlugQuery } from "@/lib/queries";
 import { PortableText } from "@portabletext/react";
 import { formatDistanceToNow } from "date-fns";
@@ -34,7 +34,7 @@ const portableComponents = {
         <figure className="my-8 group">
           <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
             <Image
-              src={urlFor(value).url()}
+              src={getImageUrl(value)}
               alt={value.alt || "Blog image"}
               width={800}
               height={600}
@@ -302,15 +302,9 @@ export default async function BlogDetailPage({ params }) {
 
   // Generate structured data
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
-  const imageUrl = blog.mainImage
-    ? urlFor(blog.mainImage)
-        .width(1200)
-        .height(630)
-        .fit("crop")
-        .crop("focalpoint")
-        .focalPoint(0.5, 0.5)
-        .url()
-    : undefined;
+  // Use the safe helper to get an image URL; keep undefined if no main image so
+  // downstream logic can fall back to a default Open Graph image when needed.
+  const imageUrl = blog.mainImage ? getImageUrl(blog.mainImage) : undefined;
   const author = blog.author?.name || "BookOne";
   const category = blog.category
     ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
@@ -434,7 +428,7 @@ export default async function BlogDetailPage({ params }) {
               {blog.author?.image && (
                 <div className="flex items-center gap-3">
                   <Image
-                    src={urlFor(blog.author.image).url()}
+                    src={getImageUrl(blog.author.image)}
                     alt={blog.author.name}
                     width={48}
                     height={48}
@@ -526,7 +520,7 @@ export default async function BlogDetailPage({ params }) {
               {blog.mainImage && (
                 <div className="relative mb-8 md:mb-12 rounded-xl md:rounded-2xl overflow-hidden shadow-xl md:shadow-2xl group">
                   <Image
-                    src={urlFor(blog.mainImage).url()}
+                    src={getImageUrl(blog.mainImage)}
                     alt={blog.title}
                     width={1200}
                     height={600}
@@ -558,7 +552,7 @@ export default async function BlogDetailPage({ params }) {
                   <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                     {blog.author.image && (
                       <Image
-                        src={urlFor(blog.author.image).url()}
+                        src={getImageUrl(blog.author.image)}
                         alt={blog.author.name}
                         width={80}
                         height={80}
@@ -655,15 +649,7 @@ export async function generateMetadata({ params }) {
   if (!description) description = blog.title;
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
-  const imageUrl = blog.mainImage
-    ? urlFor(blog.mainImage)
-        .width(1200)
-        .height(630)
-        .fit("crop")
-        .crop("focalpoint")
-        .focalPoint(0.5, 0.5)
-        .url()
-    : undefined;
+  const imageUrl = blog.mainImage ? getImageUrl(blog.mainImage) : undefined;
   const author = blog.author?.name || "BookOne";
   const category = blog.category
     ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())

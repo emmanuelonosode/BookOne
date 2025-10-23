@@ -1,4 +1,4 @@
-import { sanity, urlFor } from "@/lib/sanity";
+import { sanity, getImageUrl } from "@/lib/sanity";
 import { authorBySlugQuery, blogsByAuthorQuery } from "@/lib/queries";
 import { generateMetaTags } from "../../seo-config";
 import Link from "next/link";
@@ -12,15 +12,7 @@ export async function generateMetadata({ params }) {
   if (!author) return {};
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
-  const authorImageUrl = author.image
-    ? urlFor(author.image)
-        .width(1200)
-        .height(630)
-        .fit("crop")
-        .crop("focalpoint")
-        .focalPoint(0.5, 0.5)
-        .url()
-    : undefined;
+  const authorImageUrl = author.image ? getImageUrl(author.image) : undefined;
 
   return {
     title: `${author.name} | Author at BookOne`,
@@ -120,7 +112,7 @@ export default async function AuthorPage({ params }) {
                 <div className="flex-shrink-0">
                   <div className="relative w-32 h-32">
                     <Image
-                      src={urlFor(author.image).url()}
+                      src={getImageUrl(author.image)}
                       alt={author.name}
                       width={128}
                       height={128}
