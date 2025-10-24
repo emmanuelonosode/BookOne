@@ -117,14 +117,14 @@ const nextConfig: NextConfig = {
             enforce: true,
           },
           // Sanity CMS
-          sanity: {
-            test: /[\\/]node_modules[\\/]@sanity[\\/]/,
-            name: "sanity",
-            chunks: "all",
-            priority: 20,
-            reuseExistingChunk: true,
-            enforce: true,
-          },
+          // sanity: {
+          //   test: /[\\/]node_modules[\\/]@sanity[\\/]/,
+          //   name: "sanity",
+          //   chunks: "all",
+          //   priority: 20,
+          //   reuseExistingChunk: true,
+          //   enforce: true,
+          // },
           // Chart.js
           charts: {
             test: /[\\/]node_modules[\\/]chart\.js[\\/]/,
