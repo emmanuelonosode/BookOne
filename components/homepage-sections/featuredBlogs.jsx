@@ -7,14 +7,36 @@ import { formatRelativeDate } from "@/app/utils/dateUtils";
 
 export default async function FeaturedBlogs() {
   // Fetch top 4 recent blogs from Sanity (1 featured + 3 grid)
-  const blogs = await sanity.fetch(
-    paginatedBlogsQuery
-      .replace("$categoryFilter", "")
-      .replace("$searchFilter", "")
-      .replace("$start", 0)
-      .replace("$end", 3)
-  );
-  console.log(blogs);
+  let blogs = [];
+  try {
+    blogs = await sanity.fetch(
+      paginatedBlogsQuery
+        .replace("$categoryFilter", "")
+        .replace("$searchFilter", "")
+        .replace("$start", 0)
+        .replace("$end", 3)
+    );
+  } catch (err) {
+    // Log server-side so we can inspect the real error in logs without
+    // leaking details to production responses. Return a benign fallback
+    // UI so the page still renders.
+    console.error("FeaturedBlogs fetch error:", err);
+    return (
+      <section className="py-20 px-4 bg-gradient-to-br from-slate-50 via-white to-blue-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-4">
+              Featured Stories
+            </h2>
+            <p className="text-base text-gray-600">
+              We couldn't load the featured stories right now. Please try again
+              later.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-slate-50 via-white to-blue-50">
       <div className="max-w-7xl mx-auto">

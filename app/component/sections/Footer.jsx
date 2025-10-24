@@ -124,8 +124,8 @@ function Footer() {
       className="relative bg-black text-white overflow-hidden"
     >
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-br from-black via-gray-900 to-black" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-px bg-linear-to-r from-transparent via-purple-500/50 to-transparent" />
       
       {/* Main Content */}
       <div className="relative z-10 px-6 lg:px-8">
@@ -149,7 +149,7 @@ function Footer() {
                 
                 {/* Newsletter Form */}
                 <div className="max-w-md mx-auto">
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 max-md:flex-col max-md:items-center max-md:mb-4 ">
                     <input
                       type="email"
                       value={email}
