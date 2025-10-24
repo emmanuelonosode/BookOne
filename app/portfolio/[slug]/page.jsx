@@ -26,9 +26,7 @@ export async function generateMetadata(props) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
   const description = project.overview?.slice(0, 160) || project.title;
   const imageUrl =
-    project.images && project.images[0]
-      ? getImageUrl(project.images[0])
-      : undefined;
+    project.mainImage  ? getImageUrl(project.mainImage) : getImageUrl(project.images[0]);
   const category = categoryLabels[project.category] || project.category;
 
   // Enhanced keywords based on project category and content
