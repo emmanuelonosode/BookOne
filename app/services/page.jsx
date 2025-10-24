@@ -178,7 +178,7 @@ const ServicesPage = () => {
               Trusted by 50+ businesses worldwide
             </div>
 
-            <h1 className="text-5xl md:text-6xl font-black mb-6 leading-tight">
+            <h1 className="text-5xl md:text-8xl font-black mb-6 leading-tight">
               <span className="gradient-text">Transform Your</span>
               <br />
               <span className="text-slate-800">Digital Presence</span>

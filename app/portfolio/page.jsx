@@ -75,7 +75,7 @@ export default async function PortfolioPage() {
             {/* Main Heading */}
             <h1
               id="portfolio-heading"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight px-2"
+              className="text-5xl  md:text-8xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight px-2"
             >
               Our
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">

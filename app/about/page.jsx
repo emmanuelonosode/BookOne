@@ -176,7 +176,7 @@ export default function AboutPage() {
             </div>
             <h1
               id="hero-heading"
-              className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-6"
+              className="text-5xl md:text-8xl font-bold bg-linear-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-6"
             >
               We Turn Ideas Into
               <span className="block">Digital Success</span>
