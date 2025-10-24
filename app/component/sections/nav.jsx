@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 
+import {companySocialLinks} from "../../data.js"
+import { Instagram } from "lucide-react";
 // Mock data - replace with actual imports
 const navDetails = [
   { id: 1, name: "Portfolio", href: "/portfolio" },
@@ -12,23 +14,7 @@ const navDetails = [
   { id: 4, name: "Blog", href: "/blogs" },
 ];
 
-const socialIcons = [
-  {
-    src: "/social-1.svg",
-    alt: "Twitter",
-    href: "https://twitter.com/@Emmanuelonosod1",
-  },
-  {
-    src: "/social-2.svg",
-    alt: "LinkedIn",
-    href: "https://www.linkedin.com/emmanuelonosode",
-  },
-  {
-    src: "/social-3.svg",
-    alt: "GitHub",
-    href: "https://github.com/emmanuelonosode",
-  },
-];
+
 
 function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -410,21 +396,15 @@ function Nav() {
                     Follow us
                   </p>
                   <div className="flex space-x-4">
-                    {socialIcons.map(({ src, alt, href }, index) => (
+                    {companySocialLinks.map(({icon,  name, url }, index) => (
                       <Link
                         key={index}
-                        href={href}
+                        href={url}
                         className="w-12 h-12 rounded-full bg-gray-100 hover:bg-[#6b46c1] hover:text-white transition-colors flex items-center justify-center group"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Image
-                          src={src}
-                          alt={alt}
-                          width={24}
-                          height={24}
-                          className="group-hover:filter group-hover:brightness-0 group-hover:invert transition-all"
-                        />
+                        {icon}
                       </Link>
                     ))}
                   </div>

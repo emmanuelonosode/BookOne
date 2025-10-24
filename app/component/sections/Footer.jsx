@@ -149,7 +149,7 @@ function Footer() {
                 
                 {/* Newsletter Form */}
                 <div className="max-w-md mx-auto">
-                  <div className="flex gap-3 max-md:flex-col max-md:items-center max-md:mb-4 ">
+                  <div className="flex gap-3 max-sm:flex-col max-sm:items-center max-sm:mb-4 ">
                     <input
                       type="email"
                       value={email}
