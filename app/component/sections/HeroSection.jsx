@@ -84,7 +84,7 @@ export default function HeroSection() {
 
   // Memoized heading elements
   const headingElements = useMemo(() => (
-    <h1 className=" max-md:text-4xl text-6xl font-extrabold text-gray-900 mb-6 sm:mb-8 leading-[1.1] sm:leading-tight max-w-5xl animate-fade-in-up">
+    <h1 className=" text-4xl md:text-8xl font-extrabold text-gray-900 mb-6 sm:mb-8 leading-[1.1] sm:leading-tight max-w-5xl animate-fade-in-up">
       <span
         className="inline-block animate-fade-in-up"
       >
@@ -123,7 +123,7 @@ export default function HeroSection() {
 
         {/* Description with fade in */}
         <p
-          className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-8 sm:mb-12 max-w-4xl leading-relaxed px-2 sm:px-4 animate-fade-in-up"
+          className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-8 sm:mb-4 max-w-4xl leading-relaxed px-2 sm:px-4 animate-fade-in-up"
         >
           At BookOne, we blend stunning web design, advanced SEO, and powerful
           AI automation to help businesses attract more leads, close more sales,
