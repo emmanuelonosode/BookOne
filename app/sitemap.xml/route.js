@@ -6,39 +6,57 @@ export async function GET() {
   const staticPages = [
     {
       url: baseUrl,
-      lastModified: new Date().toISOString(),
+      lastModified: "2025-10-29T00:00:00.000Z",
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/portfolio`,
-      lastModified: new Date().toISOString(),
+      lastModified: "2025-10-29T00:00:00.000Z",
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/services`,
-      lastModified: new Date().toISOString(),
+      lastModified: "2025-10-29T00:00:00.000Z",
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date().toISOString(),
+      lastModified: "2025-10-29T00:00:00.000Z",
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/blogs`,
-      lastModified: new Date().toISOString(),
+      lastModified: "2025-10-29T00:00:00.000Z",
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/get-started`,
-      lastModified: new Date().toISOString(),
+      lastModified: "2025-10-29T00:00:00.000Z",
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/privacy-policy`,
-      lastModified: new Date().toISOString(),
+      lastModified: "2025-10-29T00:00:00.000Z",
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/cookies-policy`,
-      lastModified: new Date().toISOString(),
+      lastModified: "2025-10-29T00:00:00.000Z",
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/terms-and-conditions`,
-      lastModified: new Date().toISOString(),
+      lastModified: "2025-10-29T00:00:00.000Z",
+      changefreq: "daily",
+      priority: 0.7,
     },
   ];
 
@@ -55,9 +73,11 @@ export async function GET() {
     portfolioPages = projects.map((project) => ({
       url: `${baseUrl}/portfolio/${project.slug}`,
       lastModified: new Date(project._updatedAt).toISOString(),
+      changefreq: "daily",
+      priority: 0.7,
     }));
-  } catch {
-    // Removed unused error variable
+  } catch (error) {
+    console.error("Error fetching portfolio pages:", error);
   }
 
   try {
@@ -66,13 +86,15 @@ export async function GET() {
         "slug": slug.current,
         publishedAt
       }
-    `);
+g    `);
     blogPages = blogs.map((blog) => ({
       url: `${baseUrl}/blogs/${blog.slug}`,
       lastModified: new Date(blog.publishedAt).toISOString(),
+      changefreq: "daily",
+      priority: 0.7,
     }));
-  } catch {
-    // Removed unused error variable
+  } catch (error) {
+    console.error("Error fetching blog pages:", error);
   }
 
   try {
@@ -85,9 +107,11 @@ export async function GET() {
     authorPages = authors.map((author) => ({
       url: `${baseUrl}/authors/${author.slug}`,
       lastModified: new Date(author._updatedAt).toISOString(),
+      changefreq: "daily",
+      priority: 0.7,
     }));
-  } catch {
-    // Removed unused error variable
+  } catch (error) {
+    console.error("Error fetching author pages:", error);
   }
 
   const allPages = [
@@ -104,6 +128,8 @@ ${allPages
     (page) => `<url>
   <loc>${page.url}</loc>
   <lastmod>${page.lastModified}</lastmod>
+  <changefreq>${page.changefreq}</changefreq>
+  <priority>${page.priority}</priority>
 </url>`
   )
   .join("")}

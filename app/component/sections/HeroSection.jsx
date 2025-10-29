@@ -91,7 +91,7 @@ export default function HeroSection() {
         Turn Your
       </span>
       <span
-        className="mx-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 inline-block animate-fade-in-up"
+        className="mx-2 text-transparent bg-clip-text bg-linear-to-r from-purple-600 to-blue-600 inline-block animate-fade-in-up"
       >
         Website
       </span>
