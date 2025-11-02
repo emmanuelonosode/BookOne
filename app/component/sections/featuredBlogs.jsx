@@ -10,7 +10,7 @@ export default async function FeaturedBlogs() {
   const blogs = await sanity.fetch(
     homepageBlogsQuery,
     {},
-    { cache: "force-cache" }
+    { next: { revalidate: 200 } } // Revalidate 
   );
 
   return (
@@ -185,14 +185,7 @@ export default async function FeaturedBlogs() {
                       </Link>
                       <div className="flex items-center gap-2 text-xs text-gray-500">
                         <time dateTime={blog._createdAt}>
-                          {/* {new Date(blog._createdAt).toLocaleDateString(
-                            "en-US",
-                            {
-                              month: "short",
-                              day: "numeric",
-                              year: "numeric",
-                            }
-                          )} */}
+                    
                           {formatRelativeDate(blog._createdAt)}
                         </time>
                         <span>•</span>

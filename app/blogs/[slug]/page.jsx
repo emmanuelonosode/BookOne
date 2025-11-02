@@ -24,8 +24,127 @@ import {
 import { name } from "platform";
 
 // Add caching configuration
-export const revalidate = 3600; // Revalidate every hour
 
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params;
+ const blog = await sanity.fetch(
+   blogBySlugQuery, // 1️⃣ GROQ query
+   { slug: resolvedParams.slug }, // 2️⃣ Parameters
+   { next: { revalidate: 60 } } // 3️⃣ Revalidation config (every 60 seconds)
+ );
+
+  if (!blog) return {};
+
+  // Get a plain text summary from the body (first 160 chars for better SEO)
+  let description = "";
+  if (Array.isArray(blog.body) && blog.body.length > 0) {
+    const firstBlock = blog.body.find((b) => b._type === "block" && b.children);
+    if (firstBlock) {
+      description = firstBlock.children
+        .map((c) => c.text)
+        .join(" ")
+        .slice(0, 160);
+    }
+  }
+  if (!description) description = blog.title;
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
+  const imageUrl = blog.mainImage ? getImageUrl(blog.mainImage) : undefined;
+  const author = blog.author?.name || "BookOne";
+  const category = blog.category
+    ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+    : undefined;
+
+  // Enhanced keywords based on content
+  const keywords = [
+    blog.title,
+    author,
+    category,
+    "BookOne Blog",
+    "web design",
+    "SEO optimization",
+    "AI automation",
+    "digital marketing",
+    "business growth",
+    "website development",
+    "content strategy",
+    "Nigeria digital agency",
+  ].filter(Boolean);
+
+  return {
+    title: blog.title,
+    description,
+    keywords,
+    authors: [author],
+    creator: author,
+    publisher: "BookOne",
+    category,
+    name: blog.title,
+    classification: "Blog Post",
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    alternates: {
+      canonical: `${baseUrl}/blogs/${resolvedParams.slug}`,
+    },
+    openGraph: {
+      title: blog.title,
+      description,
+      type: "article",
+      url: `${baseUrl}/blogs/${resolvedParams.slug}`,
+      siteName: "BookOne",
+      locale: "en_US",
+      images: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: blog.title,
+              type: "image/jpeg",
+            },
+          ]
+        : [
+            {
+              url: "/opengraph-image.png",
+              width: 1200,
+              height: 630,
+              alt: "BookOne Blog",
+            },
+          ],
+      article: {
+        publishedTime: blog._createdAt,
+        modifiedTime: blog._updatedAt || blog._createdAt,
+        authors: [author],
+        tags: [category, "web design", "SEO", "AI automation"].filter(Boolean),
+        section: category,
+      },
+    },
+    twitter: {
+      card: imageUrl ? "summary_large_image" : "summary",
+      title: blog.title,
+      description,
+      images: imageUrl ? [imageUrl] : ["/opengraph-image.png"],
+      creator: "@EmmanuelOnosod1",
+      site: "@bookonedotdev",
+    },
+    other: {
+      "article:published_time": blog._createdAt,
+      "article:modified_time": blog._updatedAt || blog._createdAt,
+      "article:author": author,
+      "article:section": category,
+      "article:tag": keywords.join(", "),
+    },
+  };
+}
 // Enhanced portable text components with better styling
 const portableComponents = {
   types: {
@@ -628,120 +747,4 @@ export default async function BlogDetailPage({ params }) {
   );
 }
 
-export async function generateMetadata({ params }) {
-  const resolvedParams = await params;
-  const blog = await sanity.fetch(blogBySlugQuery, {
-    slug: resolvedParams.slug,
-  });
-  if (!blog) return {};
 
-  // Get a plain text summary from the body (first 160 chars for better SEO)
-  let description = "";
-  if (Array.isArray(blog.body) && blog.body.length > 0) {
-    const firstBlock = blog.body.find((b) => b._type === "block" && b.children);
-    if (firstBlock) {
-      description = firstBlock.children
-        .map((c) => c.text)
-        .join(" ")
-        .slice(0, 160);
-    }
-  }
-  if (!description) description = blog.title;
-
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
-  const imageUrl = blog.mainImage ? getImageUrl(blog.mainImage) : undefined;
-  const author = blog.author?.name || "BookOne";
-  const category = blog.category
-    ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
-    : undefined;
-
-  // Enhanced keywords based on content
-  const keywords = [
-    blog.title,
-    author,
-    category,
-    "BookOne Blog",
-    "web design",
-    "SEO optimization",
-    "AI automation",
-    "digital marketing",
-    "business growth",
-    "website development",
-    "content strategy",
-    "Nigeria digital agency",
-  ].filter(Boolean);
-
-  return {
-    title: blog.title,
-    description,
-    keywords,
-    authors: [author],
-    creator: author,
-    publisher: "BookOne",
-    category,
-    name: blog.title,
-    classification: "Blog Post",
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
-    },
-    alternates: {
-      canonical: `${baseUrl}/blogs/${resolvedParams.slug}`,
-    },
-    openGraph: {
-      title: blog.title,
-      description,
-      type: "article",
-      url: `${baseUrl}/blogs/${resolvedParams.slug}`,
-      siteName: "BookOne",
-      locale: "en_US",
-      images: imageUrl
-        ? [
-            {
-              url: imageUrl,
-              width: 1200,
-              height: 630,
-              alt: blog.title,
-              type: "image/jpeg",
-            },
-          ]
-        : [
-            {
-              url: "/opengraph-image.png",
-              width: 1200,
-              height: 630,
-              alt: "BookOne Blog",
-            },
-          ],
-      article: {
-        publishedTime: blog._createdAt,
-        modifiedTime: blog._updatedAt || blog._createdAt,
-        authors: [author],
-        tags: [category, "web design", "SEO", "AI automation"].filter(Boolean),
-        section: category,
-      },
-    },
-    twitter: {
-      card: imageUrl ? "summary_large_image" : "summary",
-      title: blog.title,
-      description,
-      images: imageUrl ? [imageUrl] : ["/opengraph-image.png"],
-      creator: "@EmmanuelOnosod1",
-      site: "@EmmanuelOnosod1",
-    },
-    other: {
-      "article:published_time": blog._createdAt,
-      "article:modified_time": blog._updatedAt || blog._createdAt,
-      "article:author": author,
-      "article:section": category,
-      "article:tag": keywords.join(", "),
-    },
-  };
-}

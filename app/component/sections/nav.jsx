@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 import {companySocialLinks} from "../../data.js"
-import { Instagram } from "lucide-react";
 // Mock data - replace with actual imports
 const navDetails = [
   { id: 1, name: "Portfolio", href: "/portfolio" },

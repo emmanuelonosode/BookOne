@@ -70,46 +70,30 @@ export default function HeroSection() {
   ), [floatingIcons]);
 
   // Memoized background elements
-  const backgroundElements = useMemo(() => (
-    <>
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 via-transparent to-purple-50/30"></div>
-      <div
-        className="absolute top-1/4 left-1/4 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-gradient-to-r from-purple-200/30 to-blue-200/40 rounded-full blur-3xl animate-fade-in-up"
-      />
-      <div
-        className="absolute bottom-1/4 right-1/4 w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 bg-gradient-to-r from-yellow-200/25 to-orange-200/30 rounded-full blur-3xl animate-fade-in-up"
-      />
-    </>
-  ), []);
+  const backgroundElements = useMemo(
+    () => (
+      <>
+        <div className="absolute inset-0 bg-linear-to-br from-blue-50/20 via-transparent to-purple-50/30"></div>
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-linear-to-r from-purple-200/30 to-blue-200/40 rounded-full blur-3xl animate-fade-in-up" />
+        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 bg-linear-to-r from-yellow-200/25 to-orange-200/30 rounded-full blur-3xl animate-fade-in-up" />
+      </>
+    ),
+    []
+  );
 
   // Memoized heading elements
-  const headingElements = useMemo(() => (
-    <h1 className=" text-5xl md:text-8xl font-extrabold text-gray-900 mb-6 sm:mb-8 leading-[1.1] sm:leading-tight max-w-5xl animate-fade-in-up">
-      <span
-        className="inline-block animate-fade-in-up"
-      >
-        Turn Your
-      </span>
-      <span
-        className="mx-2 text-transparent bg-clip-text bg-linear-to-r from-purple-600 to-blue-600 inline-block animate-fade-in-up"
-      >
-        Website
-      </span>
-      <span
-        className="mx-2 inline-block animate-fade-in-up"
-      >
-        Into a
-      </span>
-      <span
-        className="text-transparent mx-2 bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 inline-block animate-fade-in-up"
-      >
-        Sales Machine
-      </span>
-    </h1>
-  ), []);
+  const headingElements = useMemo(
+    () => (
+      <h1 className=" text-5xl md:text-8xl leading-[-10] font-extrabold text-gray-900 mb-6 sm:mb-8  sm:leading-tight max-w-5xl animate-fade-in-up">
+        Web Design
+        <span className="text-[#6b46c1]">+ AI Automation</span>
+      </h1>
+    ),
+    []
+  );
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/30 overflow-hidden">
+    <div className="relative min-h-screen bg-linear-to-br from-slate-50 via-white to-purple-50/30 overflow-hidden">
       {/* Enhanced Background Elements */}
       {backgroundElements}
 
@@ -122,26 +106,21 @@ export default function HeroSection() {
         {headingElements}
 
         {/* Description with fade in */}
-        <p
-          className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-8 sm:mb-4 max-w-4xl leading-relaxed px-2 sm:px-4 animate-fade-in-up"
-        >
-          At BookOne, we blend stunning web design, advanced SEO, and powerful
-          AI automation to help businesses attract more leads, close more sales,
-          and operate smarter, all without adding more hours to your day.
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-8 sm:mb-4 max-w-4xl leading-relaxed px-2 sm:px-4 animate-fade-in-up">
+          We design smart, fast, conversion-driven websites and automate your
+          workflows to help your business grow effortlessly.
         </p>
 
         {/* CTA Button with enhanced animations */}
-        <div
-          className="flex flex-col sm:flex-row gap-4 items-center animate-fade-in-up"
-        >
+        <div className="flex flex-col sm:flex-row gap-4 items-center animate-fade-in-up">
           <Link
             href="/get-started"
             className="group relative bg-gray-900 hover:bg-gray-800 text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-full text-base sm:text-lg lg:text-xl font-semibold shadow-lg transition-all duration-300 flex items-center gap-3 overflow-hidden hover:scale-105"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-linear-to-r from-purple-600 via-blue-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
             <div className="relative w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full animate-pulse-subtle" />
-            <span className="relative z-10">Get Your Quote</span>
+            <span className="relative z-10">Start Your Project</span>
 
             {/* Arrow icon with slide animation */}
             <svg
@@ -163,7 +142,7 @@ export default function HeroSection() {
             href="/portfolio"
             className="group text-gray-700 hover:text-gray-900 px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 rounded-full text-base sm:text-lg lg:text-xl font-semibold border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 flex items-center gap-3 hover:scale-105"
           >
-            <span>View Our Work</span>
+            <span>See Our Work</span>
             <svg
               className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1"
               fill="none"
@@ -179,21 +158,13 @@ export default function HeroSection() {
             </svg>
           </Link>
         </div>
-
-      
       </div>
 
       {/* Enhanced Bottom Gradient */}
       <div className="absolute bottom-0 left-0 right-0 flex pointer-events-none animate-fade-in-up">
         <div className="h-32 sm:h-40 lg:h-48 w-1/3 bg-purple-500/30 blur-3xl rounded-full animate-float" />
-        <div
-          className="h-32 sm:h-40 lg:h-48 w-1/3 bg-yellow-400/25 blur-3xl rounded-full animate-float"
-          style={{ animationDelay: "1s" }}
-        />
-        <div
-          className="h-32 sm:h-40 lg:h-48 w-1/3 bg-blue-500/30 blur-3xl rounded-full animate-float"
-          style={{ animationDelay: "2s" }}
-        />
+        <div className="h-32 sm:h-40 lg:h-48 w-1/3 bg-yellow-400/25 blur-3xl rounded-full animate-float" />
+        <div className="h-32 sm:h-40 lg:h-48 w-1/3 bg-blue-500/30 blur-3xl rounded-full animate-float" />
       </div>
     </div>
   );
