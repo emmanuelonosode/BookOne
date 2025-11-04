@@ -18,4 +18,5 @@ Allow: /terms-and-conditions
 Allow: /cookies-policy
 
 # Crawl delay (optional - helps with server load)
-Crawl-delay: 1 
+Crawl-delay: 2
+ 

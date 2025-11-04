@@ -1,0 +1,33 @@
+# BookOne.dev — Comprehensive LLMS Map
+> BookOne helps businesses grow by providing web design, brand identity, SEO, and AI automation services. This document outlines all major pages and content clusters to help language models and automated agents understand site structure and content priorities.
+
+/
+/
+/portfolio
+/about
+/services
+/blogs
+/get-started
+/portfolio/automating-customer-engagement-for-peak-fitness-gym-with-ai
+/portfolio/artisans-nook-ecommerce-redesign
+/blogs/web-design-ai-automation-build-a-website-that-converts-and-works-for-you
+/authors/undefined
+/blogs/unlocking-content-superpowers-how-ai-autonomous-blog-writers-are-reshaping-your-digital-strategy
+/blogs/beyond-busywork-how-bookone-ai-automation-unlocks-unprecedented-success-for-your-business
+/authors
+/privacy-policy
+/terms-and-conditions
+/cookies-policy
+/authors/emmanuel-onosode
+/blogs/what-makes-a-great-small-busines-website-key-elements-explained
+/blogs/the-first-king-aegon-targaryen-and-the-forging-of-the-seven-kingdoms
+/authors/aegon-targaryen
+/blogs/how-bookone-builds-seo-ready-websites-that-grow-your-business
+/blogs/what-makes-a-high-converting-landing-page-your-blueprint-for-more-leads-and-sales
+/blogs?page=1
+/blogs?page=2
+/contact
+/blogs/reclaim-your-time-how-ai-automation-empowers-small-business-owners
+/blogs/is-your-website-accidentally-chasing-customers-away-avoid-these-5-mistakes
+/blogs/why-your-business-needs-a-website-in-2025
+/blogs/this-is-the-title

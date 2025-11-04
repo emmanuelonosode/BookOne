@@ -1,0 +1,21 @@
+# BookOne.dev  
+> BookOne provides expert web design, SEO, and AI automation services to help businesses build high-performing digital presences that convert visitors into clients.
+
+We specialise in crafting conversion-first websites, brand identity, and workflow automations for service-based businesses. The links below highlight our primary service offerings, case studies, and educational content — all important for understanding our expertise and how we deliver value.
+
+## Services  
+- [Web Design & Development](https://bookone.dev/services/) : Custom websites built for performance and conversions.  
+- [Brand Identity](https://bookone.dev/services/) : Logos, colour systems, typography and full brand identity packages.  
+- [AI Automation & Workflow](https://bookone.dev/services) : Automation of marketing, booking, CRM and internal workflows.  
+
+## Case Studies  
+- [Portfolio](https://bookone.dev/portfolio) : Selected project examples showing real-world results and client outcomes.  
+- [Testimonials](https://bookone.dev/#testimonials) : Client feedback and success stories.
+
+## Resources  
+- [Blog](https://bookone.dev/blogs) : In-depth articles on web design, SEO, automation and growing service businesses.  
+- [Lead Magnet & Checklist](https://bookone.dev/blogs) : Free resource to help visitors improve their website conversion.
+
+## Optional  
+- [About Us](https://bookone.dev/about) : Meet the team and understand our approach.  
+- [Contact](https://bookone.dev/contact) : Schedule a discovery call or request a quote.
