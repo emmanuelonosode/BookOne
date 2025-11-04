@@ -27,7 +27,7 @@ export default async function PortfolioSection() {
             Our Work Speaks for Itself
           </div>
 
-          <div className="flex justify-between">
+          <div className="">
             <h2
               id="portfolio-heading"
               className="text-4xl text-left sm:text-5xl font-bold text-gray-900 mb-6 leading-tight"

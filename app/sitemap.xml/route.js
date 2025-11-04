@@ -82,14 +82,14 @@ export async function GET() {
 
   try {
     const blogs = await sanity.fetch(`
-      *[_type == "post" && publishedAt != null] {
+      *[_type == "post"] {
         "slug": slug.current,
-        publishedAt
+        _updatedAt
       }
-g    `);
+    `);
     blogPages = blogs.map((blog) => ({
       url: `${baseUrl}/blogs/${blog.slug}`,
-      lastModified: new Date(blog.publishedAt).toISOString(),
+      lastModified: new Date(blog._updatedAt).toISOString(),
       changefreq: "daily",
       priority: 0.7,
     }));
