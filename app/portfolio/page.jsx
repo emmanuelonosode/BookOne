@@ -5,11 +5,13 @@ import { ArrowUpRight, Star } from "lucide-react";
 import ProjectCard from "../component/ProjectCard";
 
 // Add caching configuration
-export const revalidate = 3600; // Revalidate every hour
 
 // --- PortfolioPage Component ---
 export default async function PortfolioPage() {
-  const project = await sanity.fetch(allProjectsQuery);
+  const project = await sanity.fetch(allProjectsQuery
+    , {},
+    { cache: "force-cache" }
+  );
 
   // Generate structured data for the portfolio page
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
