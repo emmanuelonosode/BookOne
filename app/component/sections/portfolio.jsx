@@ -30,15 +30,15 @@ export default async function PortfolioSection() {
           <div className="">
             <h2
               id="portfolio-heading"
-              className="text-4xl text-left sm:text-5xl font-bold text-gray-900 mb-6 leading-tight"
+              className="text-4xl text-center sm:text-5xl font-bold text-gray-900 mb-6 leading-tight"
             >
               Case{" "}
-              <span className="block text-transparent  bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
+              <span className=" text-transparent  bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
                 Studies{" "}
               </span>
             </h2>
 
-            <p className="text-lg text-right text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
+            <p className="text-lg text-center text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
               Discover how we've helped businesses across industries transform
               their digital presence, drive growth, and achieve remarkable
               results through innovative design and strategic thinking.
