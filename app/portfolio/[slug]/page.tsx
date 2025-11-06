@@ -1,32 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
+import type { PortableTextBlock } from "@portabletext/types";
+import type { SanityImage } from "@/lib/types";
 import { sanity, getImageUrl } from "@/lib/sanity";
 
-type Highlight = { title: string; description?: string; image?: any };
+type Highlight = { title: string; description?: string; image?: SanityImage };
 type Metric = { label: string; value: string; delta?: string };
 type Testimonial = {
   quote: string;
   author: string;
   role?: string;
-  photo?: any;
+  photo?: SanityImage;
 };
 
 type CaseStudy = {
   title: string;
   slug: string;
   shortDescription?: string;
-  heroMedia?: any;
+  heroMedia?: SanityImage;
   services?: string[];
   industry?: string;
   location?: string;
   liveUrl?: string;
-  overview?: any[];
+  overview?: PortableTextBlock[];
   highlights?: Highlight[];
-  screenshots?: any[];
+  screenshots?: SanityImage[];
   results?: Metric[];
   testimonial?: Testimonial;
-  seo?: { metaTitle?: string; metaDescription?: string; ogImage?: any };
+  seo?: { metaTitle?: string; metaDescription?: string; ogImage?: SanityImage };
   publishedAt?: string;
 };
 
@@ -52,10 +54,11 @@ const CASE_STUDY_QUERY = `
 console.log(CASE_STUDY_QUERY);
 const CASE_STUDY_SLUGS = `*[_type == "caseStudy" && defined(slug.current)].slug.current`;
 
+// Enable ISR for this route instead of passing revalidate to fetch
+export const revalidate = 60;
+
 export async function generateStaticParams() {
-  const slugs: string[] = await sanity.fetch(CASE_STUDY_SLUGS, {}, {
-    next: { revalidate: 300 },
-  } as any);
+  const slugs: string[] = await sanity.fetch(CASE_STUDY_SLUGS);
   return slugs?.map((slug) => ({ slug })) ?? [];
 }
 
@@ -64,11 +67,9 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }) {
-  const data: CaseStudy | null = await sanity.fetch(
-    CASE_STUDY_QUERY,
-    { slug: params.slug },
-    { next: { revalidate: 60 } } as any
-  );
+  const data: CaseStudy | null = await sanity.fetch(CASE_STUDY_QUERY, {
+    slug: params.slug,
+  });
   if (!data) return {} as any;
   const title = data.seo?.metaTitle ?? `${data.title} — Portfolio`;
   const description = data.seo?.metaDescription ?? data.shortDescription ?? "";
@@ -92,11 +93,9 @@ export default async function CaseStudyPage({
 }: {
   params: { slug: string };
 }) {
-  const caseStudy: CaseStudy | null = await sanity.fetch(
-    CASE_STUDY_QUERY,
-    { slug: params.slug },
-    { next: { revalidate: 60 } } as any
-  );
+  const caseStudy: CaseStudy | null = await sanity.fetch(CASE_STUDY_QUERY, {
+    slug: params.slug,
+  });
   if (!caseStudy)
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -146,7 +145,7 @@ export default async function CaseStudyPage({
                 View live site
               </a>
             ) : null}
-            <Link href="/contact" className="btn btn-outline">
+            <Link href="/get-started" className="btn btn-outline">
               Talk to us
             </Link>
           </div>
