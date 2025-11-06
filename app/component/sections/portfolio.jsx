@@ -1,5 +1,5 @@
 import { sanity } from "@/lib/sanity";
-import { homepageProjectsQuery } from "@/lib/queries";
+import { homepageCaseStudiesQuery } from "@/lib/queries";
 import ProjectCard from "../ProjectCard";
 import Link from "next/link";
 import { ArrowRight, Star, Users, Award } from "lucide-react";
@@ -7,10 +7,10 @@ import { ArrowRight, Star, Users, Award } from "lucide-react";
 export const revalidate = 3600; // Enable ISR for portfolio section
 
 export default async function PortfolioSection() {
-  const allProjects = await sanity.fetch(
-    homepageProjectsQuery,
+  const allCaseStudies = await sanity.fetch(
+    homepageCaseStudiesQuery,
     {},
-    { cache: "force-cache" }
+    { next: { revalidate: 3600 } }
   );
 
   return (
@@ -46,31 +46,30 @@ export default async function PortfolioSection() {
           </div>
         </div>
 
-        {/* Featured Project Highlight */}
-        {allProjects.length > 0 && (
+        {/* Featured Case Study Highlight */}
+        {allCaseStudies.length > 0 && (
           <div className=" pb-8 sm:p-12">
-         
-            <ProjectCard project={allProjects[0]} featured={true} />
+            <ProjectCard project={allCaseStudies[0]} featured={true} />
           </div>
         )}
 
-        {/* Section Header for Other Projects */}
+        {/* Section Header for Other Case Studies */}
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            More Amazing Projects
+            More Amazing Case Studies
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto rounded-full"></div>
         </div>
 
-        {/* Projects Grid */}
+        {/* Case Studies Grid */}
         <div
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20"
           role="group"
-          aria-label="Portfolio Projects"
+          aria-label="Portfolio Case Studies"
         >
-          {allProjects.slice(1).map((project) => (
-            <div key={project._id} className="mb-8">
-              <ProjectCard project={project} />
+          {allCaseStudies.slice(1).map((caseStudy, index) => (
+            <div key={caseStudy._id} className="mb-8">
+              <ProjectCard project={caseStudy} index={index} />
             </div>
           ))}
         </div>

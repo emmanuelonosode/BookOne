@@ -19,7 +19,7 @@ const TestimonialCard = memo(({ testimonial, isActive }) => {
   return (
     <article
       className={`
-        flex-shrink-0 w-full p-6 sm:p-8 lg:p-12 transition-all duration-500
+        shrink-0 w-full p-6 sm:p-8 lg:p-12 transition-all duration-500
         ${isActive ? "opacity-100 scale-100" : "opacity-90 scale-95"}
       `}
       role="group"
@@ -222,7 +222,7 @@ const Testimonia = ({ testimonia: initialTestimonia }) => {
 
   return (
     <section
-      className="py-16 md:py-24 bg-gradient-to-br from-purple-50 via-white to-indigo-50 relative overflow-hidden"
+      className="py-16 md:py-24 bg-purple-200 relative overflow-hidden"
       aria-label="Client Testimonials"
     >
       {/* Background decoration */}

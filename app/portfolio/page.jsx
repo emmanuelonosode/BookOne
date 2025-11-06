@@ -1,16 +1,17 @@
 import { sanity, getImageUrl } from "../../lib/sanity";
-import { allProjectsQuery } from "../../lib/queries";
 import Script from "next/script";
 import { ArrowUpRight, Star } from "lucide-react";
 import ProjectCard from "../component/ProjectCard";
+import { allCaseStudiesQuery } from "@/lib/queries";
 
 // Add caching configuration
 
 // --- PortfolioPage Component ---
 export default async function PortfolioPage() {
-  const project = await sanity.fetch(allProjectsQuery
-    , {},
-    { cache: "force-cache" }
+  const caseStudies = await sanity.fetch(
+    allCaseStudiesQuery,
+    {},
+    { next: { revalidate: 3600 } }
   );
 
   // Generate structured data for the portfolio page
@@ -25,15 +26,17 @@ export default async function PortfolioPage() {
     url: `${baseUrl}/portfolio`,
     mainEntity: {
       "@type": "ItemList",
-      itemListElement: project.map((project, index) => ({
+      itemListElement: caseStudies.map((caseStudy, index) => ({
         "@type": "ListItem",
         position: index + 1,
         item: {
           "@type": "CreativeWork",
-          name: project.title,
-          description: project.overview,
-          url: `${baseUrl}/portfolio/${project.slug?.current}`,
-          image: project.mainImage ? getImageUrl(project.mainImage) : undefined,
+          name: caseStudy.title,
+          description: caseStudy.shortDescription,
+          url: `${baseUrl}/portfolio/${caseStudy.slug}`,
+          image: caseStudy.heroMedia
+            ? getImageUrl(caseStudy.heroMedia)
+            : undefined,
           creator: {
             "@type": "Organization",
             name: "BookOne",
@@ -95,26 +98,26 @@ export default async function PortfolioPage() {
             {/* Stats Row - Made Responsive */}
           </div>
 
-          {/* Featured Project */}
-          {project.length > 0 && (
+          {/* Featured Case Study */}
+          {caseStudies.length > 0 && (
             <div className="mb-12 lg:mb-16">
               <div className="text-center mb-6 sm:mb-8">
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 px-4">
-                  Featured Project
+                  Featured Case Study
                 </h2>
                 <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto rounded-full"></div>
               </div>
               <div className="max-w-7xl mx-auto px-2 sm:px-0">
-                <ProjectCard project={project[0]} featured={true} />
+                <ProjectCard project={caseStudies[0]} featured={true} />
               </div>
             </div>
           )}
 
-          {/* All Projects Section */}
+          {/* All Case Studies Section */}
           <div className="mb-12 lg:mb-16">
             <div className="text-center mb-8 sm:mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 px-4">
-                All Projects
+                All Case Studies
               </h2>
               <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto px-4">
                 Explore our complete collection of successful projects across
@@ -122,14 +125,18 @@ export default async function PortfolioPage() {
               </p>
             </div>
 
-            {/* Projects Grid - Enhanced Responsiveness */}
+            {/* Case Studies Grid - Enhanced Responsiveness */}
             <div
               className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8"
               role="group"
-              aria-label="Portfolio Projects"
+              aria-label="Portfolio Case Studies"
             >
-              {project.slice(1).map((project) => (
-                <ProjectCard key={project._id} project={project} />
+              {caseStudies.slice(1).map((caseStudy, index) => (
+                <ProjectCard
+                  key={caseStudy._id}
+                  project={caseStudy}
+                  index={index}
+                />
               ))}
             </div>
           </div>

@@ -7,6 +7,11 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 export default function ProjectCard({ project, index = 0 }) {
+  // Support both old project schema and new case study schema
+  const image = project.mainImage || project.heroMedia;
+  const description = project.overview || project.shortDescription;
+  const slug = project.slug?.current || project.slug;
+
   return (
     <motion.article
       className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-lg"
@@ -19,18 +24,18 @@ export default function ProjectCard({ project, index = 0 }) {
       }}
       viewport={{ once: true, amount: 0.3 }}
       role="article"
-      aria-labelledby={`project-title-${project.slug?.current}`}
+      aria-labelledby={`project-title-${slug}`}
     >
       <Link
-        href={`/portfolio/${project.slug?.current}`}
+        href={`/portfolio/${slug}`}
         className="block h-full"
         aria-label={`View ${project.title} project details`}
       >
         {/* Image Section */}
-        <div className="relative h-64 sm:h-72 lg:h-80 overflow-hidden bg-gray-50">
-          {project.mainImage ? (
+        <div className="relative h-64 sm:h-72 lg:h-screen overflow-hidden bg-gray-50">
+          {image ? (
             <Image
-              src={getImageUrl(project.mainImage)}
+              src={getImageUrl(image)}
               alt={`${project.title} project preview`}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -71,16 +76,18 @@ export default function ProjectCard({ project, index = 0 }) {
         <div className="p-6 sm:p-8">
           {/* Title */}
           <h3
-            id={`project-title-${project.slug?.current}`}
+            id={`project-title-${slug}`}
             className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors duration-300 line-clamp-2"
           >
             {project.title}
           </h3>
 
           {/* Description */}
-          <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-6 line-clamp-3">
-            {project.overview}
-          </p>
+          {description && (
+            <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-6 line-clamp-3">
+              {description}
+            </p>
+          )}
 
           {/* Footer */}
           <div className="flex items-center justify-between pt-2 border-t border-gray-50">
@@ -98,6 +105,11 @@ export default function ProjectCard({ project, index = 0 }) {
 
 // Optional: Enhanced version for featured projects
 export function FeaturedProjectCard({ project }) {
+  // Support both old project schema and new case study schema
+  const image = project.mainImage || project.heroMedia;
+  const description = project.overview || project.shortDescription;
+  const slug = project.slug?.current || project.slug;
+
   return (
     <motion.article
       className="group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-500"
@@ -106,16 +118,13 @@ export function FeaturedProjectCard({ project }) {
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.2 }}
     >
-      <Link
-        href={`/portfolio/${project.slug?.current}`}
-        className="block h-full"
-      >
+      <Link href={`/portfolio/${slug}`} className="block h-full">
         <div className="grid lg:grid-cols-2 gap-0">
           {/* Image */}
           <div className="relative h-64 lg:h-96 overflow-hidden">
-            {project.mainImage ? (
+            {image ? (
               <Image
-                src={getImageUrl(project.mainImage)}
+                src={getImageUrl(image)}
                 alt={`${project.title} project preview`}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -139,9 +148,11 @@ export function FeaturedProjectCard({ project }) {
               {project.title}
             </h3>
 
-            <p className="text-gray-600 text-base lg:text-lg leading-relaxed mb-8">
-              {project.overview}
-            </p>
+            {description && (
+              <p className="text-gray-600 text-base lg:text-lg leading-relaxed mb-8">
+                {description}
+              </p>
+            )}
 
             <div className="flex items-center text-purple-600 font-semibold group-hover:text-purple-700 transition-colors duration-300">
               <span>Explore Project</span>
