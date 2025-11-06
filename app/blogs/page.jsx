@@ -131,11 +131,7 @@ export default async function BlogListPage({ searchParams }) {
                   </Link>
                 </h2>
                 <p className="text-gray-600 leading-relaxed mb-6 text-base line-clamp-4">
-                  {blogs[0].body &&
-                  blogs[0].body[0]?.children &&
-                  blogs[0].body[0].children[0]?.text
-                    ? blogs[0].body[0].children[0].text.slice(0, 200) + "..."
-                    : "Discover insights and expertise on this topic..."}
+                  {blogs.description}
                 </p>
 
                 {/* Author & Meta */}
@@ -244,11 +240,7 @@ export default async function BlogListPage({ searchParams }) {
 
                   {/* Excerpt */}
                   <p className="text-gray-600 leading-relaxed mb-4 text-sm line-clamp-3">
-                    {blog.body &&
-                    blog.body[0]?.children &&
-                    blog.body[0].children[0]?.text
-                      ? blog.body[0].children[0].text.slice(0, 120) + "..."
-                      : "Discover insights and expertise on this topic..."}
+                    {blog.description}
                   </p>
 
                   {/* Author & Meta */}

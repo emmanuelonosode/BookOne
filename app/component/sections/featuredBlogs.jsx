@@ -140,18 +140,7 @@ export default async function FeaturedBlogs() {
                     index === 0 ? "text-base lg:text-lg" : "text-sm"
                   }`}
                 >
-                  {blog.body &&
-                  blog.body[0]?.children &&
-                  blog.body[0].children[0]?.text
-                    ? blog.body[0].children[0].text.slice(
-                        0,
-                        index === 0 ? 180 : 120
-                      ) +
-                      (blog.body[0].children[0].text.length >
-                      (index === 0 ? 180 : 120)
-                        ? "..."
-                        : "")
-                    : "Discover more about this fascinating topic and gain valuable insights..."}
+                  {blog.description}
                 </p>
 
                 {/* Author & Meta */}

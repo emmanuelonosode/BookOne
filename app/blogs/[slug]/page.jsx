@@ -35,18 +35,7 @@ export async function generateMetadata({ params }) {
 
   if (!blog) return {};
 
-  // Get a plain text summary from the body (first 160 chars for better SEO)
-  let description = "";
-  if (Array.isArray(blog.body) && blog.body.length > 0) {
-    const firstBlock = blog.body.find((b) => b._type === "block" && b.children);
-    if (firstBlock) {
-      description = firstBlock.children
-        .map((c) => c.text)
-        .join(" ")
-        .slice(0, 160);
-    }
-  }
-  if (!description) description = blog.title;
+  
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
   const imageUrl = blog.mainImage ? getImageUrl(blog.mainImage) : undefined;
@@ -73,7 +62,7 @@ export async function generateMetadata({ params }) {
 
   return {
     title: blog.title,
-    description,
+    description: blog.description,
     keywords,
     authors: [author],
     creator: author,
@@ -97,7 +86,7 @@ export async function generateMetadata({ params }) {
     },
     openGraph: {
       title: blog.title,
-      description,
+      description: blog.description,
       type: "article",
       url: `${baseUrl}/blogs/${resolvedParams.slug}`,
       siteName: "BookOne",
@@ -131,7 +120,7 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: imageUrl ? "summary_large_image" : "summary",
       title: blog.title,
-      description,
+      description: blog.description,
       images: imageUrl ? [imageUrl] : ["/opengraph-image.png"],
       creator: "@EmmanuelOnosod1",
       site: "@bookonedotdev",
