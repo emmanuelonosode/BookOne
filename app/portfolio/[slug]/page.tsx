@@ -66,10 +66,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const resolvedParams = await params;
   const data: CaseStudy | null = await sanity.fetch(CASE_STUDY_QUERY, {
-    slug: params.slug,
+    slug: resolvedParams.slug,
   });
   if (!data) return {};
   const title = data.seo?.metaTitle ?? `${data.title} — Portfolio`;
@@ -92,10 +93,11 @@ export async function generateMetadata({
 export default async function CaseStudyPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const resolvedParams = await params;
   const caseStudy: CaseStudy | null = await sanity.fetch(CASE_STUDY_QUERY, {
-    slug: params.slug,
+    slug: resolvedParams.slug,
   });
   if (!caseStudy)
     return (
