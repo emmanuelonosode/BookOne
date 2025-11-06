@@ -4,6 +4,7 @@ import { PortableText } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
 import type { SanityImage } from "@/lib/types";
 import { sanity, getImageUrl } from "@/lib/sanity";
+import type { Metadata } from "next";
 
 type Highlight = { title: string; description?: string; image?: SanityImage };
 type Metric = { label: string; value: string; delta?: string };
@@ -66,11 +67,11 @@ export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
-}) {
+}): Promise<Metadata> {
   const data: CaseStudy | null = await sanity.fetch(CASE_STUDY_QUERY, {
     slug: params.slug,
   });
-  if (!data) return {} as any;
+  if (!data) return {};
   const title = data.seo?.metaTitle ?? `${data.title} — Portfolio`;
   const description = data.seo?.metaDescription ?? data.shortDescription ?? "";
   const images = [
@@ -85,7 +86,7 @@ export async function generateMetadata({
     description,
     openGraph: { title, description, images },
     twitter: { card: "summary_large_image", title, description, images },
-  } as any;
+  };
 }
 
 export default async function CaseStudyPage({
@@ -202,7 +203,7 @@ export default async function CaseStudyPage({
         <section className="mt-16">
           <h2 className="text-2xl font-semibold">Overview</h2>
           <div className="prose prose-slate max-w-none mt-4">
-            <PortableText value={caseStudy.overview as any} />
+            <PortableText value={caseStudy.overview as PortableTextBlock[]} />
           </div>
         </section>
       ) : null}
