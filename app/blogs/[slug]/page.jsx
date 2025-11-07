@@ -27,15 +27,13 @@ import { name } from "platform";
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
- const blog = await sanity.fetch(
-   blogBySlugQuery, // 1️⃣ GROQ query
-   { slug: resolvedParams.slug }, // 2️⃣ Parameters
-   { next: { revalidate: 60 } } // 3️⃣ Revalidation config (every 60 seconds)
- );
+  const blog = await sanity.fetch(
+    blogBySlugQuery, // 1️⃣ GROQ query
+    { slug: resolvedParams.slug }, // 2️⃣ Parameters
+    { next: { revalidate: 60 } } // 3️⃣ Revalidation config (every 60 seconds)
+  );
 
   if (!blog) return {};
-
-  
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
   const imageUrl = blog.mainImage ? getImageUrl(blog.mainImage) : undefined;
@@ -415,21 +413,11 @@ export default async function BlogDetailPage({ params }) {
   const imageUrl = blog.mainImage ? getImageUrl(blog.mainImage) : undefined;
   const author = blog.author?.name || "BookOne";
   const category = blog.category
-    ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
-    : undefined;
+  ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+  : undefined;
+  const description = blog.description;
 
-  // Get description for structured data
-  let description = "";
-  if (Array.isArray(blog.body) && blog.body.length > 0) {
-    const firstBlock = blog.body.find((b) => b._type === "block" && b.children);
-    if (firstBlock) {
-      description = firstBlock.children
-        .map((c) => c.text)
-        .join(" ")
-        .slice(0, 160);
-    }
-  }
-  if (!description) description = blog.title;
+ 
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -735,5 +723,3 @@ export default async function BlogDetailPage({ params }) {
     </>
   );
 }
-
-
