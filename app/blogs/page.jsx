@@ -131,7 +131,7 @@ export default async function BlogListPage({ searchParams }) {
                   </Link>
                 </h2>
                 <p className="text-gray-600 leading-relaxed mb-6 text-base line-clamp-4">
-                  {blogs.description}
+                  {blogs[0].description}
                 </p>
 
                 {/* Author & Meta */}

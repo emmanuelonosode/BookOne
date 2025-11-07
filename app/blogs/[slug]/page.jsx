@@ -1,4 +1,4 @@
-import { sanity, getImageUrl } from "@/lib/sanity";
+import { sanity, getImageUrl, getOGImageUrl } from "@/lib/sanity";
 import { blogBySlugQuery } from "@/lib/queries";
 import { PortableText } from "@portabletext/react";
 import { formatDistanceToNow } from "date-fns";
@@ -36,7 +36,8 @@ export async function generateMetadata({ params }) {
   if (!blog) return {};
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
-  const imageUrl = blog.mainImage ? getImageUrl(blog.mainImage) : undefined;
+  // Use OG image URL for Open Graph (1200x630)
+  const imageUrl = blog.mainImage ? getOGImageUrl(blog.mainImage) : undefined;
   const author = blog.author?.name || "BookOne";
   const category = blog.category
     ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
@@ -408,16 +409,13 @@ export default async function BlogDetailPage({ params }) {
 
   // Generate structured data
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
-  // Use the safe helper to get an image URL; keep undefined if no main image so
-  // downstream logic can fall back to a default Open Graph image when needed.
-  const imageUrl = blog.mainImage ? getImageUrl(blog.mainImage) : undefined;
+  // Use OG image URL for structured data (1200x630 optimized for social sharing)
+  const imageUrl = blog.mainImage ? getOGImageUrl(blog.mainImage) : undefined;
   const author = blog.author?.name || "BookOne";
   const category = blog.category
-  ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
-  : undefined;
+    ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+    : undefined;
   const description = blog.description;
-
- 
 
   const structuredData = {
     "@context": "https://schema.org",
