@@ -442,7 +442,7 @@ export default async function CaseStudyPage({
               </svg>
               <blockquote className="space-y-6">
                 <p className="text-2xl md:text-3xl font-medium leading-relaxed text-slate-100">
-                  "{caseStudy.testimonial.quote}"
+                  {caseStudy.testimonial.quote}
                 </p>
                 <footer className="flex items-center gap-4 pt-4 border-t border-slate-700">
                   {caseStudy.testimonial.photo && (
