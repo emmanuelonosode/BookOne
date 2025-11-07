@@ -481,8 +481,8 @@ export default async function CaseStudyPage({
             Ready to Start Your Project?
           </h2>
           <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
-            Let's create something extraordinary together. Every project is a
-            unique opportunity to deliver exceptional results.
+            Let&apos;s create something extraordinary together. Every project is
+            a unique opportunity to deliver exceptional results.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
@@ -490,7 +490,7 @@ export default async function CaseStudyPage({
               className="group relative px-10 py-5 bg-white text-slate-950 font-bold rounded-full hover:bg-blue-400 hover:text-white transition-all duration-300 shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105"
             >
               <span className="relative z-10 flex items-center gap-2">
-                Let's Talk
+                Let&apos;s Talk
                 <svg
                   className="w-5 h-5 group-hover:translate-x-1 transition-transform"
                   fill="none"
