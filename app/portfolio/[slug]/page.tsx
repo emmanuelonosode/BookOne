@@ -399,7 +399,7 @@ export default async function CaseStudyPage({
               </span>
               <h2 className="text-3xl md:text-4xl font-bold mt-3">Gallery</h2>
             </div>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="mb-8">
               {caseStudy.screenshots
                 .filter((s) => s && (s.asset || s._type === "image"))
                 .map((screenshot, idx) => {
@@ -415,7 +415,7 @@ export default async function CaseStudyPage({
                         src={imageUrl}
                         alt={`Screenshot ${idx + 1}`}
                         fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
+                        sizes="100%"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

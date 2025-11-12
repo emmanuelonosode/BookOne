@@ -4,7 +4,6 @@ import ProjectCard from "../ProjectCard";
 import Link from "next/link";
 import { ArrowRight, Star, Users, Award } from "lucide-react";
 
-export const revalidate = 3600; // Enable ISR for portfolio section
 
 export default async function PortfolioSection() {
   const allCaseStudies = await sanity.fetch(

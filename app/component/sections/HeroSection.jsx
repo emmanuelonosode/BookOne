@@ -84,7 +84,7 @@ export default function HeroSection() {
   // Memoized heading elements
   const headingElements = useMemo(
     () => (
-      <h1 className=" text-5xl md:text-7xl leading-[120%] font-extrabold text-gray-900 mb-6 sm:mb-8  max-w-5xl animate-fade-in-up">
+      <h1 className=" text-4xl md:text-7xl leading-[120%] font-extrabold text-gray-900 mb-6 sm:mb-8  max-w-5xl animate-fade-in-up">
         Transform Your Business with Smart Web Design and AI Automation
       </h1>
     ),
