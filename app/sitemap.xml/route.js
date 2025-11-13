@@ -65,7 +65,7 @@ export async function GET() {
   let authorPages = [];
   try {
     const projects = await sanity.fetch(`
-      *[_type == "project"] {
+      *[_type == "caseStudy"] {
         "slug": slug.current,
         _updatedAt
       }

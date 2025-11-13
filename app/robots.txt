@@ -1,22 +1,23 @@
+# Group 1: All Robots
 User-agent: *
+
+# Allow everything by default (Standard behavior)
 Allow: /
+
+# Disallow Admin and Backend areas (Best Practice)
+# If you use a CMS or Dashboard, you don't want Google indexing it.
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /api/
+
+# Prevent indexing of internal search results (Prevents duplicate content issues)
+Disallow: /search?*
+Disallow: *?s=*
+
+# Disallow specific private file types (Optional but recommended)
+Disallow: /*.json$
+Disallow: /*.lock$
 
 # Sitemap location
 Sitemap: https://bookone.com/sitemap.xml
-
-
-
-# Allow important pages
-Allow: /
-Allow: /about
-Allow: /services
-Allow: /portfolio
-Allow: /blogs
-Allow: /get-started
-Allow: /privacy-policy
-Allow: /terms-and-conditions
-Allow: /cookies-policy
-
-# Crawl delay (optional - helps with server load)
-Crawl-delay: 2
- 

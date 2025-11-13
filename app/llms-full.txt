@@ -1,5 +1,4 @@
 # BookOne.dev — Comprehensive LLMS Map
-> BookOne helps businesses grow by providing web design, brand identity, SEO, and AI automation services. This document outlines all major pages and content clusters to help language models and automated agents understand site structure and content priorities.
 
 /
 /
@@ -8,8 +7,9 @@
 /services
 /blogs
 /get-started
-/portfolio/automating-customer-engagement-for-peak-fitness-gym-with-ai
-/portfolio/artisans-nook-ecommerce-redesign
+/portfolio/redefining-luxury-online-the-prestige-auto-experience
+/portfolio/aquapro-pool-services-web-design
+/portfolio/bookone-real-estate-website-design
 /blogs/web-design-ai-automation-build-a-website-that-converts-and-works-for-you
 /authors/undefined
 /blogs/unlocking-content-superpowers-how-ai-autonomous-blog-writers-are-reshaping-your-digital-strategy
@@ -26,8 +26,7 @@
 /blogs/what-makes-a-high-converting-landing-page-your-blueprint-for-more-leads-and-sales
 /blogs?page=1
 /blogs?page=2
-/contact
+/blogs/website-content-strategy-guide
 /blogs/reclaim-your-time-how-ai-automation-empowers-small-business-owners
 /blogs/is-your-website-accidentally-chasing-customers-away-avoid-these-5-mistakes
 /blogs/why-your-business-needs-a-website-in-2025
-/blogs/this-is-the-title
