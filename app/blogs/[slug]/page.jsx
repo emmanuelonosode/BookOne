@@ -25,6 +25,8 @@ import { name } from "platform";
 
 // Add caching configuration
 
+export const revalidate = 60; // Revalidate individual blog pages every 60 seconds
+
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const blog = await sanity.fetch(

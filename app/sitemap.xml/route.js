@@ -138,6 +138,8 @@ ${allPages
   return new Response(sitemap, {
     headers: {
       "Content-Type": "application/xml",
+      // Ensure crawlers get the freshest sitemap; webhooks will revalidate application cache
+      "Cache-Control": "no-cache, no-store, must-revalidate",
     },
   });
 }

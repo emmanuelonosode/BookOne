@@ -20,4 +20,14 @@ Disallow: /*.json$
 Disallow: /*.lock$
 
 # Sitemap location
-Sitemap: https://bookone.com/sitemap.xml
+Sitemap: https://bookone.dev/sitemap.xml
+
+# Disallow indexing of common static assets
+Disallow: /favicon.ico
+Disallow: /manifest.webmanifest
+Disallow: /*.png$
+Disallow: /*.jpg$
+Disallow: /*.jpeg$
+Disallow: /*.avif$
+Disallow: /*.webp$
+Disallow: /*.svg$

@@ -25,6 +25,31 @@ if (!config.projectId || !config.dataset) {
 export const sanity = createClient(config);
 const builder = imageUrlBuilder(sanity);
 
+// Create a preview client for immediate/preview results (no CDN)
+// Use this when you want the latest published/draft content (e.g. during previews or after publish)
+const previewConfig: ClientConfig = {
+  ...config,
+  useCdn: false,
+  token: process.env.SANITY_API_TOKEN,
+  perspective: "previewDrafts" as ClientPerspective,
+};
+
+export const sanityPreview = createClient(previewConfig);
+
+/**
+ * Wrapper that chooses either the CDN-backed client or the preview client.
+ * - `preview: true` will use the preview client (fresh data, requires token)
+ * - otherwise the regular `sanity` client is used
+ */
+export async function sanityFetch<T = unknown>(
+  query: string,
+  params: Record<string, unknown> = {},
+  options: { preview?: boolean } = {}
+): Promise<T> {
+  const client = options.preview ? sanityPreview : sanity;
+  return client.fetch<T>(query, params) as Promise<T>;
+}
+
 // Cache with proper typing
 const QUERY_CACHE = new Map<string, unknown>();
 

@@ -257,6 +257,11 @@ export const generateMetaTags = (customMetadata = {}) => {
     creator: metadata.creator,
     publisher: metadata.publisher,
     robots: metadata.robots,
+    // Provide canonical URL for pages to avoid duplicate/no-canonical warnings
+    alternates: {
+      canonical: `${seoConfig.site.url}${customMetadata.url || "/"}`,
+      ...(customMetadata.alternates || {}),
+    },
     openGraph: {
       ...seoConfig.openGraph,
       title: metadata.title,

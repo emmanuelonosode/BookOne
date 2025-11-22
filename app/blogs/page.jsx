@@ -6,7 +6,7 @@ import { generateMetaTags } from "../seo-config";
 import { formatRelativeDate } from "../utils/dateUtils";
 
 // Add caching configuration
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 60; // Revalidate every 60 seconds to reduce ISR delay for new posts
 
 export const metadata = generateMetaTags({
   title: "BookOne Blog - Web Design, SEO & AI Automation Insights",

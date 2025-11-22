@@ -17,23 +17,28 @@ export function middleware(request) {
   response.headers.set("X-DNS-Prefetch-Control", "on");
 
   // SEO headers
-  response.headers.set("X-Robots-Tag", "index, follow");
+  // By default, mark HTML page responses as indexable. For static assets
+  // (images, favicon, manifest, etc.) and API responses, mark them as noindex.
+  const pathname = request.nextUrl.pathname || "";
+  const isStaticAsset =
+    pathname.includes(".") &&
+    /\.(js|css|png|jpg|jpeg|gif|svg|ico|webmanifest|json|avif|webp|woff2?|map)$/.test(
+      pathname
+    );
+  const isApi = pathname.startsWith("/api/");
+
+  if (isStaticAsset || isApi) {
+    // Prevent indexing of binary/static assets and API endpoints
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  } else {
+    response.headers.set("X-Robots-Tag", "index, follow");
+  }
 
   // Cache control for static assets
   if (
     request.nextUrl.pathname.startsWith("/_next/") ||
     request.nextUrl.pathname.startsWith("/static/") ||
-    (request.nextUrl.pathname.includes(".") &&
-      (request.nextUrl.pathname.endsWith(".js") ||
-        request.nextUrl.pathname.endsWith(".css") ||
-        request.nextUrl.pathname.endsWith(".png") ||
-        request.nextUrl.pathname.endsWith(".jpg") ||
-        request.nextUrl.pathname.endsWith(".jpeg") ||
-        request.nextUrl.pathname.endsWith(".gif") ||
-        request.nextUrl.pathname.endsWith(".svg") ||
-        request.nextUrl.pathname.endsWith(".ico") ||
-        request.nextUrl.pathname.endsWith(".woff") ||
-        request.nextUrl.pathname.endsWith(".woff2")))
+    isStaticAsset
   ) {
     response.headers.set(
       "Cache-Control",
