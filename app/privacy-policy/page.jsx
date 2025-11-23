@@ -1,10 +1,10 @@
 import LegalPageLayout from "../component/LegalPage";
-import { generateMetaTags } from "../seo-config";
+// seo-config removed — inline metadata for privacy policy
 
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
 
-export const metadata = generateMetaTags({
+export const metadata = {
   title: "Privacy Policy | BookOne - Data Protection & Privacy",
   description:
     "Learn how BookOne protects your privacy and personal data. Our comprehensive privacy policy explains how we collect, use, and safeguard your information.",
@@ -18,7 +18,12 @@ export const metadata = generateMetaTags({
     "data security",
     "privacy rights",
   ],
-});
+  alternates: {
+    canonical: `${
+      process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
+    }/privacy-policy`,
+  },
+};
 
 export default function PrivacyPolicyPage() {
   return (
@@ -74,8 +79,7 @@ export default function PrivacyPolicyPage() {
 
       <h2>5. Contact Us</h2>
       <p>
-        If you have questions about this policy, contact us at
-        info@bookone.dev
+        If you have questions about this policy, contact us at info@bookone.dev
       </p>
     </LegalPageLayout>
   );

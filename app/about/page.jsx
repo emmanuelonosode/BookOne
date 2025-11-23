@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { generateMetaTags } from "../seo-config";
+// seo-config removed — inline metadata for About page
 import {
   BarChart3,
   Star,
@@ -16,7 +16,7 @@ import {
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
 
-export const metadata = generateMetaTags({
+export const metadata = {
   title:
     "About BookOne - Our Story, Mission & Team | Web Design & AI Automation",
   description:
@@ -33,7 +33,12 @@ export const metadata = generateMetaTags({
     "business automation",
     "web development agency",
   ],
-});
+  alternates: {
+    canonical: `${
+      process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
+    }/about`,
+  },
+};
 
 export default function AboutPage() {
   // Memoize data arrays for better performance

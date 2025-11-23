@@ -13,7 +13,7 @@ import Link from "next/link";
 // Memoized contact data
 const contactMethods = [
   {
-    icon: <Mail className="w-6 h-6 text-white" />,
+    icon: <Mail className="w-6 h-6 text-black" />,
     label: "Email Us",
     description: "Send us an email and we'll get back to you within 24 hours",
     value: "info@bookone.dev",
@@ -23,7 +23,7 @@ const contactMethods = [
     type: "email",
   },
   {
-    icon: <Phone className="w-6 h-6 text-white" />,
+    icon: <Phone className="w-6 h-6 text-black" />,
     label: "Call Us",
     description:
       "Speak directly with our team during business hours (9 AM - 6 PM WAT)",
@@ -62,9 +62,9 @@ const ContactCard = memo(({ contact, index }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={`
-        block bg-white/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 
-        shadow-lg border border-white/40 group transition-all duration-300
-        hover:shadow-2xl hover:border-white/60 hover:-translate-y-1
+        block bg-white/90 rounded-2xl p-6 sm:p-8 
+        shadow-lg border border-gray-200 group transition-all duration-300
+        hover:shadow-2xl hover:translate-y-0.5
         ${isClicked ? "scale-95" : "scale-100"}
         relative overflow-hidden
       `}
@@ -72,7 +72,7 @@ const ContactCard = memo(({ contact, index }) => {
       {/* Animated background */}
       <div
         className={`
-          absolute inset-0 bg-gradient-to-r from-purple-500/5 to-indigo-500/5
+          absolute inset-0 bg-black/5
           transition-opacity duration-300 ${
             isHovered ? "opacity-100" : "opacity-0"
           }
@@ -91,32 +91,32 @@ const ContactCard = memo(({ contact, index }) => {
         {/* Icon */}
         <div
           className={`
-            w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 
-            flex items-center justify-center flex-shrink-0 
-            transition-transform duration-300
-            ${isHovered ? "scale-110 rotate-3" : "scale-100"}
-          `}
+              w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-black/5 
+              flex items-center justify-center flex-shrink-0 
+              transition-transform duration-300
+              ${isHovered ? "scale-110" : "scale-100"}
+            `}
         >
           {contact.icon}
         </div>
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2 group-hover:text-purple-600 transition-colors">
+          <h3 className="text-xl sm:text-2xl font-bold text-black mb-2 group-hover:text-black transition-colors">
             {contact.label}
           </h3>
           <p className="text-sm sm:text-base text-gray-600 mb-4 leading-relaxed">
             {contact.description}
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <p className="text-purple-600 font-semibold text-lg sm:text-xl break-all sm:break-normal">
+            <p className="text-black font-semibold text-lg sm:text-xl break-all sm:break-normal">
               {contact.value}
             </p>
             <span
               className={`
-                inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 
+                inline-flex items-center gap-2 px-4 py-2 bg-black/5 text-black 
                 rounded-lg font-medium text-sm transition-all duration-300
-                ${isHovered ? "bg-purple-200 translate-x-1" : ""}
+                ${isHovered ? "bg-black/10 translate-x-1" : ""}
               `}
             >
               {contact.cta}
@@ -132,10 +132,10 @@ const ContactCard = memo(({ contact, index }) => {
 // Memoized BenefitItem component
 const BenefitItem = memo(({ benefit, index }) => (
   <div
-    className="flex items-center gap-3 text-purple-100"
+    className="flex items-center gap-3 text-gray-900"
     style={{ animationDelay: `${index * 100}ms` }}
   >
-    <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
+    <CheckCircle className="w-5 h-5 text-black shrink-0" />
     <span className="text-sm sm:text-base">{benefit}</span>
   </div>
 ));
@@ -151,22 +151,19 @@ function Contact() {
   return (
     <section
       id="contact"
-      className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50 relative overflow-hidden py-12 sm:py-16 lg:py-20"
+      className="min-h-screen bg-white relative overflow-hidden py-12 sm:py-16 lg:py-20"
     >
       {/* Subtle background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -right-32 sm:-right-48 w-64 sm:w-80 h-64 sm:h-80 bg-gradient-to-br from-purple-200/30 to-indigo-200/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -left-32 sm:-left-48 w-48 sm:w-64 h-48 sm:h-64 bg-gradient-to-br from-indigo-200/30 to-purple-200/30 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -right-32 sm:-right-48 w-64 sm:w-80 h-64 sm:h-80 bg-black/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -left-32 sm:-left-48 w-48 sm:w-64 h-48 sm:h-64 bg-black/5 rounded-full blur-3xl" />
       </div>
 
       {/* Header Section */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 sm:mb-16 relative z-10">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-gray-800 mb-4 sm:mb-6 leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-black mb-4 sm:mb-6 leading-tight">
           Ready to bring your{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600 font-medium">
-            business
-          </span>{" "}
-          online?
+          <span className="font-medium text-black">business</span> online?
         </h1>
         <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed mb-6 sm:mb-8 px-4 sm:px-0">
           Let's talk about how BookOne can help you launch smarter and faster.
@@ -176,15 +173,15 @@ function Contact() {
         {/* Social proof */}
         <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-sm text-gray-500 mb-8">
           <div className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-green-500" />
+            <CheckCircle className="w-4 h-4 text-black" />
             <span>50+ Happy Clients</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-green-500" />
+            <CheckCircle className="w-4 h-4 text-black" />
             <span>24hr Response Time</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-green-500" />
+            <CheckCircle className="w-4 h-4 text-black" />
             <span>Free Consultation</span>
           </div>
         </div>
@@ -201,9 +198,9 @@ function Contact() {
           </div>
 
           {/* Enhanced CTA Section */}
-          <div className="bg-gradient-to-br from-purple-600 to-indigo-600 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 text-white relative overflow-hidden">
+          <div className="bg-black rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 text-white relative overflow-hidden">
             {/* Background pattern */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-400/10 to-transparent" />
+            <div className="absolute inset-0 bg-black/20" />
             <div className="absolute top-0 right-0 w-32 sm:w-64 h-32 sm:h-64 bg-white/5 rounded-full -translate-y-16 translate-x-16" />
 
             <div className="relative z-10">
@@ -211,14 +208,14 @@ function Contact() {
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
                   Ready to Get Started?
                 </h2>
-                <p className="text-purple-100 mb-6 sm:mb-8 leading-relaxed text-base sm:text-lg max-w-2xl mx-auto">
+                <p className="text-white/80 mb-6 sm:mb-8 leading-relaxed text-base sm:text-lg max-w-2xl mx-auto">
                   Join 50+ businesses that have transformed their digital
                   presence with BookOne. Start your journey today with a free
                   consultation.
                 </p>
 
                 {/* Benefits List */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 max-w-lg mx-auto mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-white/70 sm:gap-4 max-w-lg mx-auto mb-8">
                   {benefits.map((benefit, index) => (
                     <BenefitItem key={index} benefit={benefit} index={index} />
                   ))}
@@ -230,8 +227,8 @@ function Contact() {
                 <button
                   onClick={() => handleCtaClick("pricing")}
                   className={`
-                    bg-white text-purple-600 px-6 sm:px-8 py-4 rounded-xl font-semibold text-base sm:text-lg 
-                    hover:bg-purple-50 transition-all duration-300 relative overflow-hidden group
+                    bg-white text-black px-6 sm:px-8 py-4 rounded-xl font-semibold text-base sm:text-lg 
+                    hover:bg-gray-100 transition-all duration-300 relative overflow-hidden group
                     ${ctaClicked === "pricing" ? "scale-95" : "scale-100"}
                     flex-1 sm:flex-none
                   `}
@@ -250,7 +247,7 @@ function Contact() {
                   onClick={() => handleCtaClick("consultation")}
                   className={`
                     border-2 border-white text-white px-6 sm:px-8 py-4 rounded-xl font-semibold text-base sm:text-lg 
-                    hover:bg-white hover:text-purple-600 transition-all duration-300 group
+                    hover:bg-white hover:text-black transition-all duration-300 group
                     ${ctaClicked === "consultation" ? "scale-95" : "scale-100"}
                     flex-1 sm:flex-none
                   `}
@@ -270,7 +267,7 @@ function Contact() {
 
               {/* Additional trust signals */}
               <div className="text-center mt-6 sm:mt-8">
-                <p className="text-purple-200 text-sm">
+                <p className="text-white/70 text-sm">
                   🔒 No spam, no commitments. Just honest advice to help your
                   business grow.
                 </p>
@@ -289,7 +286,7 @@ function Contact() {
             </p>
             <Link
               href="/#faqs"
-              className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-medium transition-colors"
+              className="inline-flex items-center gap-2 text-black hover:text-gray-700 font-medium transition-colors"
             >
               View FAQ
               <ArrowRight className="w-4 h-4" />

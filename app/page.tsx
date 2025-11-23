@@ -1,62 +1,21 @@
-import React, { Suspense } from "react";
-import dynamic from "next/dynamic";
-import { generateMetaTags } from "./seo-config";
+import PortfolioSection from "./component/sections/portfolio.jsx";
 
-// Add caching configuration
-export const revalidate = 3600; // Revalidate every hour
+import Service from "./component/sections/Service.jsx";
 
-// Dynamically import non-critical components
-const PortfolioPreview = dynamic(
-  () => import("./component/sections/portfolio.jsx"),
-  {
-    loading: () => <div className="h-96 bg-gray-50 animate-pulse rounded-lg" />,
-    ssr: true,
-  }
-);
+import Testimonia from "./component/sections/Testimonia.jsx";
 
-const Service = dynamic(() => import("./component/sections/Service.jsx"), {
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse rounded-lg" />,
-  ssr: true,
-});
+import FeaturedBlog from "./component/sections/featuredBlogs.jsx";
 
-const Testimonia = dynamic(
-  () => import("./component/sections/Testimonia.jsx"),
-  {
-    loading: () => <div className="h-96 bg-gray-50 animate-pulse rounded-lg" />,
-    ssr: true,
-  }
-);
+import FAQ from "./component/sections/FAQ.jsx";
 
+import Contact from "./component/sections/contact.jsx";
 
+import ForWhoSection from "./component/sections/forWho.jsx";
 
-const FeaturedBlog = dynamic(
-  () => import("./component/sections/featuredBlogs.jsx"),
-  {
-    loading: () => <div className="h-96 bg-gray-50 animate-pulse rounded-lg" />,
-    ssr: true,
-  }
-);
-
-const FAQ = dynamic(() => import("./component/sections/FAQ.jsx"), {
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse rounded-lg" />,
-  ssr: true,
-});
-
-const Contact = dynamic(() => import("./component/sections/contact.jsx"), {
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse rounded-lg" />,
-  ssr: true,
-});
-
-const ForWhoSection = dynamic(() => import("./component/sections/forWho.jsx"), {
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse rounded-lg" />,
-  ssr: true,
-});
-
-// Import HeroSection normally as it's above the fold
 import HeroSection from "./component/sections/HeroSection.jsx";
 
 // Generate comprehensive metadata for the homepage
-export const metadata = generateMetaTags({
+export const metadata = {
   title: "BookOne | Professional Web Design, SEO & AI Automation Services",
   description:
     "Transform your business with BookOne's expert web design, SEO optimization, and AI automation services. Nigeria's leading digital agency helping businesses grow online.",
@@ -77,13 +36,13 @@ export const metadata = generateMetaTags({
   creator: "BookOne",
   publisher: "BookOne",
   alternates: {
-    canonical: "https://bookone.dev",
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}`,
   },
   openGraph: {
     title: "BookOne - Website Design, SEO & AI Automation for Modern Brands",
     description:
       "Boost your online presence with BookOne, Nigeria's digital agency for website design, SEO optimization, AI automation, and content strategy. Grow smarter online.",
-    url: "https://bookone.dev",
+    url: process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev",
     siteName: "BookOne",
     images: [
       {
@@ -103,58 +62,21 @@ export const metadata = generateMetaTags({
     description:
       "Boost your online presence with BookOne, Nigeria's digital agency for website design, SEO optimization, AI automation, and content strategy. Grow smarter online.",
     images: ["/opengraph-image.png"],
-    site: "@EmmanuelOnosod1",
+    site: "@bookone.dev",
   },
-});
+};
 
 function HomePage() {
   return (
     <main className="">
-      {/* Above the fold content - load immediately */}
       <HeroSection />
-
-      {/* Below the fold content - lazy load with suspense */}
-      <Suspense
-        fallback={<div className="h-96 bg-gray-50 animate-pulse rounded-lg" />}
-      >
-        <Service />
-      </Suspense>
-      <Suspense
-        fallback={<div className="h-96 bg-gray-50 animate-pulse rounded-lg" />}
-      >
-        <ForWhoSection />
-      </Suspense>
-      <Suspense
-        fallback={<div className="h-96 bg-gray-50 animate-pulse rounded-lg" />}
-      >
-        <PortfolioPreview />
-      </Suspense>
-
-      <Suspense
-        fallback={<div className="h-96 bg-gray-50 animate-pulse rounded-lg" />}
-      >
-        <Testimonia />
-      </Suspense>
-
-    
-
-      <Suspense
-        fallback={<div className="h-96 bg-gray-50 animate-pulse rounded-lg" />}
-      >
-        <FeaturedBlog />
-      </Suspense>
-
-      <Suspense
-        fallback={<div className="h-96 bg-gray-50 animate-pulse rounded-lg" />}
-      >
-        <FAQ />
-      </Suspense>
-
-      <Suspense
-        fallback={<div className="h-96 bg-gray-50 animate-pulse rounded-lg" />}
-      >
-        <Contact />
-      </Suspense>
+      <Service/>
+      <ForWhoSection />
+      <PortfolioSection/>
+      <Testimonia />
+      <FeaturedBlog />
+      <FAQ />
+      <Contact />
     </main>
   );
 }

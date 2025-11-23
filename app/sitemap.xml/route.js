@@ -70,6 +70,7 @@ export async function GET() {
         _updatedAt
       }
     `);
+    console.log(projects[0]._updatedAt)
     portfolioPages = projects.map((project) => ({
       url: `${baseUrl}/portfolio/${project.slug}`,
       lastModified: new Date(project._updatedAt).toISOString(),

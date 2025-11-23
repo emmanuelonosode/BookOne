@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   CheckCircle,
@@ -8,14 +9,13 @@ import {
   Search,
   TrendingUp,
   Globe,
-  Smartphone,
   Zap,
   BarChart3,
   MessageSquare,
   Bot,
 } from "lucide-react";
 
-// Sample data (replace with your actual data)
+// Sample data
 const mainServices = [
   {
     id: 1,
@@ -27,7 +27,7 @@ const mainServices = [
     textColor: "text-blue-700",
     keyFeatures: ["React", "Next.js", "Responsive"],
     description:
-      "Build powerful, scalable web applications with modern technologies that drive results.",
+      "Build powerful, scalable web applications with modern technologies that drive results for your Nigerian business.",
     services: [
       {
         title: "Custom Web Apps",
@@ -176,355 +176,298 @@ const processSteps = [
 
 const BookOneServices = () => {
   const [activeService, setActiveService] = useState(0);
-  const [isDetailVisible, setIsDetailVisible] = useState(false);
   const [isProcessVisible, setIsProcessVisible] = useState(false);
-  const detailRef = useRef(null);
+
+  const sectionRefs = useRef([]);
   const processRef = useRef(null);
 
-  // Intersection Observer for scroll-triggered animations
+  // 1. SCROLL OBSERVER FOR SERVICES (The Logic Logic)
   useEffect(() => {
-    const detailObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsDetailVisible(true);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    const options = {
+      root: null,
+      rootMargin: "-20% 0px -50% 0px", // Triggers when the element is near the center/top
+      threshold: 0.1,
+    };
 
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = Number(entry.target.getAttribute("data-index"));
+          setActiveService(index);
+        }
+      });
+    }, options);
+
+    // Observe each service section
+    sectionRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // 2. SCROLL OBSERVER FOR PROCESS SECTION
+  useEffect(() => {
     const processObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsProcessVisible(true);
-          }
+          if (entry.isIntersecting) setIsProcessVisible(true);
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.2 }
     );
 
-    const currentDetailRef = detailRef.current;
-    const currentProcessRef = processRef.current;
-
-    if (currentDetailRef) {
-      detailObserver.observe(currentDetailRef);
-    }
-
-    if (currentProcessRef) {
-      processObserver.observe(currentProcessRef);
-    }
-
-    return () => {
-      if (currentDetailRef) {
-        detailObserver.unobserve(currentDetailRef);
-      }
-      if (currentProcessRef) {
-        processObserver.unobserve(currentProcessRef);
-      }
-      detailObserver.disconnect();
-      processObserver.disconnect();
-    };
+    if (processRef.current) processObserver.observe(processRef.current);
+    return () => processObserver.disconnect();
   }, []);
 
-  // Animate detail view when active service changes
-  useEffect(() => {
-    if (isDetailVisible) {
-      setIsDetailVisible(false);
-      const timer = setTimeout(() => setIsDetailVisible(true), 50);
-      return () => clearTimeout(timer);
-    }
-  }, [activeService]);
-
   return (
-    <main className="scroll-smooth">
-      {/* Main Services Overview */}
-      <section
-        id="services"
-        className="py-20 bg-gradient-to-br from-slate-50 to-gray-50"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Animated Header */}
-          <div className="text-center mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Complete Digital Solutions
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Everything you need to build, optimize, and grow your digital
-              presence
-            </p>
-          </div>
+    <main className="scroll-smooth bg-slate-50">
+      {/* HEADER SECTION */}
+      <div className="pt-20 pb-10 text-center px-4">
+        <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 animate-[fadeInUp_0.6s_ease-out_forwards]">
+          Complete Digital Solutions
+        </h2>
+        <p className="text-xl text-gray-600 max-w-2xl mx-auto animate-[fadeInUp_0.6s_ease-out_forwards_0.2s] opacity-0">
+          Everything you need to build, optimize, and grow your digital presence
+          in Nigeria.
+        </p>
+      </div>
 
-          {/* Service Cards Grid with Staggered Animation */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-            {mainServices.map((service, index) => {
-              const IconComponent = service.icon;
-              return (
-                <div
-                  key={service.id}
-                  className="opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] group relative bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl border border-gray-100 hover:border-gray-200 transition-all duration-500 hover:-translate-y-2 cursor-pointer"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                  onClick={() => setActiveService(index)}
-                >
-                  {/* Active indicator */}
-                  {activeService === index && (
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-3xl opacity-20 animate-pulse" />
-                  )}
-
-                  <div className="relative">
-                    <div
-                      className={`w-16 h-16 bg-gradient-to-r ${service.bgGradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}
-                    >
-                      <IconComponent className="w-8 h-8 text-white" />
-                    </div>
-
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4">
-                      {service.subtitle}
-                    </p>
-
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {service.keyFeatures.map((feature, idx) => (
-                        <span
-                          key={feature}
-                          className={`px-2 py-1 ${service.lightBg} ${service.textColor} rounded-full text-xs font-medium transform transition-all duration-300 hover:scale-110`}
-                          style={{
-                            animation: `fadeIn 0.4s ease-out forwards`,
-                            animationDelay: `${index * 0.1 + idx * 0.05}s`,
-                            opacity: 0,
-                          }}
-                        >
-                          {feature}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div
-                      className={`w-full h-1 bg-gradient-to-r ${
-                        service.bgGradient
-                      } rounded-full transition-all duration-500 ${
-                        activeService === index
-                          ? "opacity-100 scale-x-100"
-                          : "opacity-0 scale-x-0"
-                      }`}
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Detailed Service View with Scroll Animation */}
-          <div
-            ref={detailRef}
-            className={`bg-white rounded-3xl shadow-lg overflow-hidden border border-gray-100 transform transition-all duration-1000 ease-out ${
-              isDetailVisible
-                ? "opacity-100 translate-y-0 scale-100"
-                : "opacity-0 translate-y-12 scale-95"
-            }`}
-          >
-            <div className="p-8 lg:p-12">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                {/* Left Column - Service Header */}
-                <div
-                  className={`transition-all duration-700 delay-100 ${
-                    isDetailVisible
-                      ? "opacity-100 translate-x-0"
-                      : "opacity-0 -translate-x-8"
-                  }`}
-                >
-                  <div className="flex items-center mb-6">
-                    {(() => {
-                      const IconComponent = mainServices[activeService].icon;
-                      return (
-                        <div
-                          className={`w-16 h-16 bg-gradient-to-r ${mainServices[activeService].bgGradient} rounded-2xl flex items-center justify-center mr-4 animate-[scaleIn_0.5s_ease-out]`}
-                        >
-                          <IconComponent className="w-8 h-8 text-white" />
-                        </div>
-                      );
-                    })()}
-                    <div>
-                      <h3 className="text-3xl font-bold text-gray-900 mb-1">
-                        {mainServices[activeService].title}
-                      </h3>
-                      <p className="text-gray-600">
-                        {mainServices[activeService].subtitle}
-                      </p>
-                    </div>
-                  </div>
-
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                    {mainServices[activeService].description}
-                  </p>
-
-                  <button
-                    className={`inline-flex items-center px-6 py-3 bg-gradient-to-r ${mainServices[activeService].bgGradient} text-white font-semibold rounded-full hover:scale-105 hover:shadow-xl transition-all duration-300 shadow-lg group`}
-                  >
-                    Get Started
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                  </button>
-                </div>
-
-                {/* Right Column - Service Details */}
-                <div className="space-y-4">
-                  {mainServices[activeService].services.map((item, index) => (
-                    <div
-                      key={item.title}
-                      className={`bg-gray-50 p-6 rounded-2xl hover:bg-gray-100 transition-all duration-500 hover:scale-[1.02] hover:shadow-md ${
-                        isDetailVisible
-                          ? "opacity-100 translate-x-0"
-                          : "opacity-0 translate-x-8"
-                      }`}
-                      style={{
-                        transitionDelay: `${200 + index * 100}ms`,
+      {/* STICKY SCROLL CONTAINER */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <div className="flex flex-col lg:flex-row gap-12 relative">
+          {/* LEFT SIDE: STICKY INFO (Changes on Scroll) */}
+          <div className="lg:w-1/3 order-1 lg:order-1">
+            <div className="sticky top-24 pt-4">
+              {/* We use a transition-all wrapper to smooth changes */}
+              <AnimatePresence mode="wait">
+                {(() => {
+                  const current = mainServices[activeService];
+                  const Icon = current.icon;
+                  return (
+                    <motion.div
+                      key={current.id}
+                      initial={{ opacity: 0, x: -40 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -40 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30,
                       }}
+                      className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 transition-all duration-500 ease-in-out transform hover:scale-[1.02]"
                     >
-                      <div className="flex items-start">
-                        {item.icon &&
-                          (() => {
-                            const ItemIcon = item.icon;
-                            return (
-                              <div
-                                className={`w-10 h-10 ${item.bgColor} rounded-xl flex items-center justify-center mr-4 mt-1 flex-shrink-0 transition-all duration-300 hover:scale-110 hover:rotate-6`}
-                              >
-                                <ItemIcon className={`w-5 h-5 ${item.color}`} />
-                              </div>
-                            );
-                          })()}
-                        <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900 mb-2">
-                            {item.title}
-                          </h4>
-                          <p className="text-gray-600 text-sm mb-3">
-                            {item.description}
-                          </p>
-
-                          {item.features && (
-                            <div className="flex flex-wrap gap-2 mb-2">
-                              {item.features.map((feature, idx) => (
-                                <span
-                                  key={feature}
-                                  className="flex items-center text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200"
-                                  style={{
-                                    animation: `fadeIn 0.4s ease-out forwards`,
-                                    animationDelay: `${
-                                      400 + index * 100 + idx * 50
-                                    }ms`,
-                                    opacity: 0,
-                                  }}
-                                >
-                                  <CheckCircle className="w-3 h-3 text-green-500 mr-1" />
-                                  {feature}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-
-                          {item.impact && (
-                            <div className="flex items-center mt-2 group/impact">
-                              <div className="w-2 h-2 bg-green-500 rounded-full mr-2 group-hover/impact:scale-150 transition-transform duration-300" />
-                              <span className="text-xs font-medium text-green-600 group-hover/impact:text-green-700 transition-colors duration-200">
-                                {item.impact}
-                              </span>
-                            </div>
-                          )}
-                        </div>
+                      {/* Icon */}
+                      <div
+                        className={`w-20 h-20 ${current.lightBg} rounded-2xl flex items-center justify-center mb-6`}
+                      >
+                        <Icon
+                          className={`w-10 h-10 ${current.textColor.replace(
+                            "text-",
+                            "stroke-"
+                          )}`}
+                          strokeWidth={1.5}
+                        />
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+
+                      {/* Title */}
+                      <h3 className="text-3xl font-bold text-gray-900 mb-2">
+                        {current.title}
+                      </h3>
+                      <p
+                        className={`text-lg font-medium ${current.textColor} mb-6`}
+                      >
+                        {current.subtitle}
+                      </p>
+
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {current.keyFeatures.map((feat) => (
+                          <span
+                            key={feat}
+                            className={`px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium`}
+                          >
+                            {feat}
+                          </span>
+                        ))}
+                      </div>
+
+                      <p className="text-gray-600 leading-relaxed mb-8">
+                        {current.description}
+                      </p>
+
+                      <button className="w-full bg-[#6b46c1] hover:bg-[#5a37a6] text-white py-4 rounded-xl font-semibold flex items-center justify-center group transition-all duration-300">
+                        Explore {current.title}
+                        <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </button>
+                    </motion.div>
+                  );
+                })()}
+              </AnimatePresence>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Process Section with Animations */}
+          {/* RIGHT SIDE: SCROLLABLE CONTENT (Triggers the change) */}
+          <div className="lg:w-2/3 order-2 lg:order-2 space-y-24 lg:space-y-32 py-4">
+            {mainServices.map((service, idx) => (
+              <div
+                key={service.id}
+                data-index={idx}
+                ref={(el) => (sectionRefs.current[idx] = el)}
+                className={`transition-all duration-700 ${
+                  activeService === idx
+                    ? "opacity-100 scale-100"
+                    : "opacity-40 scale-95 blur-[2px]"
+                }`}
+              >
+                {/* Mobile Header (Only visible on small screens to give context) */}
+                <div className="lg:hidden mb-6">
+                  <h3 className="text-2xl font-bold text-gray-900">
+                    {service.title}
+                  </h3>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  {service.services.map((subItem, sIdx) => {
+                    const SubIcon = subItem.icon;
+                    return (
+                      <motion.div
+                        key={sIdx}
+                        className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 group cursor-pointer"
+                        whileHover={{
+                          scale: 1.045,
+                          rotateZ: subItem.title.length % 2 === 0 ? 1.5 : -1.5,
+                          boxShadow: "0 8px 32px rgba(80,80,160,0.10)",
+                        }}
+                        whileTap={{
+                          scale: 0.98,
+                          rotateZ: 0,
+                        }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 30,
+                        }}
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 24 }}
+                      >
+                        <motion.div
+                          className={`w-12 h-12 ${subItem.bgColor} rounded-xl flex items-center justify-center mb-6`}
+                          whileHover={{ scale: 1.15, rotateZ: 8 }}
+                          whileTap={{ scale: 0.95, rotateZ: 0 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 20,
+                          }}
+                        >
+                          <SubIcon className={`w-6 h-6 ${subItem.color}`} />
+                        </motion.div>
+                        <h4 className="text-xl font-bold text-gray-900 mb-3">
+                          {subItem.title}
+                        </h4>
+                        <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                          {subItem.description}
+                        </p>
+
+                        <div className="space-y-3 pt-6 border-t border-gray-100">
+                          {subItem.features.map((f) => (
+                            <div
+                              key={f}
+                              className="flex items-center text-sm text-gray-500"
+                            >
+                              <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
+                              {f}
+                            </div>
+                          ))}
+                        </div>
+
+                        {subItem.impact && (
+                          <motion.div
+                            className="mt-6 inline-flex items-center bg-green-50 px-3 py-1 rounded-full"
+                            whileHover={{ scale: 1.1 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 250,
+                              damping: 18,
+                            }}
+                          >
+                            <TrendingUp className="w-3 h-3 text-green-600 mr-2" />
+                            <span className="text-xs font-bold text-green-700">
+                              {subItem.impact}
+                            </span>
+                          </motion.div>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* PROCESS SECTION */}
       <section
         ref={processRef}
-        className="py-20 bg-gradient-to-br from-gray-900 via-violet-900 to-purple-900 text-white overflow-hidden"
+        className="py-20 bg-gray-900 text-white overflow-hidden"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
-            className={`text-center mb-16 transform transition-all duration-1000 ${
+            className={`text-center mb-16 transition-all duration-1000 ${
               isProcessVisible
                 ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-12"
+                : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className="text-3xl lg:text-5xl font-bold mb-6">
               Our Proven Process
             </h2>
-            <p className="text-xl opacity-90 max-w-3xl mx-auto leading-relaxed">
-              A transparent, collaborative approach that ensures your project's
-              success
+            <p className="text-xl opacity-80 max-w-2xl mx-auto">
+              How BookOne delivers results for your business.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {processSteps.map((step, index) => {
-              const IconComponent = step.icon;
+              const Icon = step.icon;
               return (
                 <div
-                  key={step.title}
-                  className={`relative text-center transform transition-all duration-700 ${
-                    isProcessVisible
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-12"
-                  }`}
-                  style={{ transitionDelay: `${index * 150}ms` }}
+                  key={index}
+                  className={`relative text-center transition-all duration-700`}
+                  style={{
+                    opacity: isProcessVisible ? 1 : 0,
+                    transform: isProcessVisible
+                      ? "translateY(0)"
+                      : "translateY(20px)",
+                    transitionDelay: `${index * 150}ms`,
+                  }}
                 >
-                  {/* Animated connector line */}
+                  {/* Connector Line (Desktop) */}
                   {index < processSteps.length - 1 && (
                     <div
-                      className={`hidden lg:block absolute top-8 left-full h-0.5 bg-gradient-to-r from-violet-500 to-transparent z-0 transition-all duration-1000 ${
-                        isProcessVisible
-                          ? "w-full opacity-100"
-                          : "w-0 opacity-0"
-                      }`}
-                      style={{ transitionDelay: `${index * 150 + 300}ms` }}
+                      className={`hidden lg:block absolute top-10 left-1/2 w-full h-0.5 bg-gray-700 -z-10`}
                     />
                   )}
 
-                  <div className="relative z-10 bg-white/10 backdrop-blur-sm p-6 rounded-3xl hover:bg-white/20 hover:scale-105 transition-all duration-500 group">
-                    <div className="w-16 h-16 bg-violet-600 rounded-2xl flex items-center justify-center mx-auto mb-4 relative group-hover:bg-violet-500 group-hover:rotate-6 transition-all duration-500">
-                      <IconComponent className="w-8 h-8 text-white group-hover:scale-110 transition-transform duration-300" />
-                      <div className="absolute -top-2 -right-2 w-6 h-6 bg-white text-violet-600 rounded-full flex items-center justify-center text-sm font-bold group-hover:scale-125 transition-transform duration-300">
-                        {index + 1}
-                      </div>
+                  <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-3xl border border-gray-700 hover:bg-gray-800 transition-colors">
+                    <div className="w-20 h-20 bg-[#6b46c1] rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-purple-900/20">
+                      <Icon className="w-10 h-10 text-white" />
                     </div>
-
-                    <h3 className="text-lg font-bold mb-3 group-hover:text-violet-200 transition-colors duration-300">
-                      {step.title}
-                    </h3>
-                    <p className="text-white/80 text-sm mb-3 leading-relaxed">
+                    <h3 className="text-lg font-bold mb-2">{step.title}</h3>
+                    <p className="text-gray-400 text-sm mb-3">
                       {step.description}
                     </p>
-                    <div className="text-xs text-violet-200 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="text-xs font-mono text-[#6b46c1] bg-[#6b46c1]/10 px-2 py-1 rounded">
                       {step.duration}
-                    </div>
+                    </span>
                   </div>
                 </div>
               );
             })}
-          </div>
-
-          <div
-            className={`text-center transform transition-all duration-1000 ${
-              isProcessVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-12"
-            }`}
-            style={{ transitionDelay: "800ms" }}
-          >
-            <button className="inline-flex items-center justify-center px-8 py-4 bg-white text-violet-700 font-semibold rounded-full hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg group">
-              Start Your Project Today
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </button>
           </div>
         </div>
       </section>
@@ -533,40 +476,19 @@ const BookOneServices = () => {
         @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
           }
           to {
             opacity: 1;
             transform: translateY(0);
           }
         }
-
         @keyframes fadeIn {
           from {
             opacity: 0;
           }
           to {
             opacity: 1;
-          }
-        }
-
-        @keyframes scaleIn {
-          from {
-            transform: scale(0.8);
-            opacity: 0;
-          }
-          to {
-            transform: scale(1);
-            opacity: 1;
-          }
-        }
-
-        @keyframes expandWidth {
-          from {
-            width: 0;
-          }
-          to {
-            width: 100%;
           }
         }
       `}</style>

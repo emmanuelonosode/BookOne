@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { generateMetaTags } from "./seo-config";
+// seo-config removed — inline metadata for 404 page
 
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
 
-export const metadata = generateMetaTags({
+export const metadata = {
   title: "404 - Page Not Found | BookOne",
   description:
     "The page you're looking for doesn't exist. Navigate back to BookOne's home page or explore our services and blog.",
@@ -16,7 +16,12 @@ export const metadata = generateMetaTags({
     "web design services",
     "SEO services",
   ],
-});
+  alternates: {
+    canonical: `${
+      process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
+    }/404`,
+  },
+};
 
 export default function NotFound() {
   return (

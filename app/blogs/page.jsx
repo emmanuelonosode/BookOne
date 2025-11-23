@@ -2,17 +2,15 @@ import { sanity, getImageUrl } from "@/lib/sanity";
 import { paginatedBlogsQuery } from "@/lib/queries";
 import Image from "next/image";
 import Link from "next/link";
-import { generateMetaTags } from "../seo-config";
+// `seo-config` removed — inline metadata below to avoid external import
 import { formatRelativeDate } from "../utils/dateUtils";
 
 // Add caching configuration
-export const revalidate = 60; // Revalidate every 60 seconds to reduce ISR delay for new posts
 
-export const metadata = generateMetaTags({
+export const metadata = {
   title: "BookOne Blog - Web Design, SEO & AI Automation Insights",
   description:
     "Stay updated with the latest insights on web design, SEO strategies, AI automation, and digital marketing. Expert tips and industry trends from BookOne.",
-  url: "/blogs",
   keywords: [
     "web design blog",
     "SEO tips",
@@ -24,7 +22,36 @@ export const metadata = generateMetaTags({
     "BookOne blog",
     "Nigeria digital agency blog",
   ],
-});
+  alternates: {
+    canonical: `${
+      process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
+    }/blogs`,
+  },
+  openGraph: {
+    title: "BookOne Blog - Web Design, SEO & AI Automation Insights",
+    description:
+      "Stay updated with the latest insights on web design, SEO strategies, AI automation, and digital marketing. Expert tips and industry trends from BookOne.",
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}/blogs`,
+    siteName: "BookOne",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "BookOne Blog",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BookOne Blog - Web Design, SEO & AI Automation Insights",
+    description:
+      "Stay updated with the latest insights on web design, SEO strategies, AI automation, and digital marketing. Expert tips and industry trends from BookOne.",
+    images: ["/opengraph-image.png"],
+  },
+};
 
 const PAGE_SIZE = 7; // 1 featured + 6 grid (2 rows of 3)
 
@@ -47,7 +74,7 @@ export default async function BlogListPage({ searchParams }) {
       .replace("$start", start)
       .replace("$end", end),
     {},
-    { cache: "force-cache" }
+    { next: { revalidate: 200 } } // Revalidate
   );
 
   // For pagination, get total count

@@ -15,13 +15,13 @@ export default async function PortfolioSection() {
   return (
     <section
       id="portfolio-section"
-      className="min-h-screen bg-gradient-to-br from-gray-50 to-purple-50 py-16 px-4 sm:px-6 lg:px-8 text-gray-800"
+      className="min-h-screen bg-linear-to-br from-gray-50 to-purple-50 py-16 px-4 sm:px-6 lg:px-8 text-gray-800"
       aria-labelledby="portfolio-heading"
     >
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center bg-purple-100 px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Star className="w-4 h-4 mr-2" />
             Our Work Speaks for Itself
           </div>
@@ -32,9 +32,7 @@ export default async function PortfolioSection() {
               className="text-4xl text-center sm:text-5xl font-bold text-gray-900 mb-6 leading-tight"
             >
               Case{" "}
-              <span className=" text-transparent  bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
                 Studies{" "}
-              </span>
             </h2>
 
             <p className="text-lg text-center text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">

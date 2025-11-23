@@ -5,7 +5,6 @@ import {
 } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 import { BlogPost, QueryOptions, SanityImage } from "./types";
-import { validateBlogPost } from "./validation";
 
 // Validate configuration
 const config: ClientConfig = {
@@ -127,18 +126,11 @@ export async function fetchBlogPost(
   slug: string,
   options: QueryOptions = {}
 ): Promise<BlogPost | null> {
-  const data = await fetchSanityData(
+  return fetchSanityData<BlogPost | null>(
     `*[_type == "post" && slug.current == $slug][0]`,
     { slug },
     options
   );
-
-  try {
-    return data ? validateBlogPost(data) : null;
-  } catch (error) {
-    console.error("Blog post validation error:", error);
-    return null;
-  }
 }
 
 // Type-safe image URL functions

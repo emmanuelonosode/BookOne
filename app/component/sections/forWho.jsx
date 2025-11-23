@@ -1,5 +1,11 @@
 import Link from "next/link";
-
+import {
+  CheckCircle2,
+  TrendingUp,
+  Clock,
+  Star,
+  ArrowRight,
+} from "lucide-react";
 const ForWhoSection = () => {
   return (
     <section className="py-16 px-4 bg-gradient-to-br from-slate-50 via-white to-purple-50/30">
@@ -25,7 +31,7 @@ const ForWhoSection = () => {
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           {/* Small Businesses */}
           <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-linear-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mb-6">
               <svg
                 className="w-8 h-8 text-purple-600"
                 fill="none"
@@ -198,114 +204,104 @@ const ForWhoSection = () => {
         </div>
 
         {/* Social Proof */}
-        <div className="text-center mb-12">
-          <p className="text-gray-600 text-lg mb-8">
-            Trusted by 100+ growing businesses to scale smarter, not harder
-          </p>
+        <section className="w-full py-12 px-4 flex justify-center items-center bg-transparent">
+          {/* Main Container with ultra-soft shadow for a floating effect */}
+          <div className="max-w-5xl w-full bg-zinc-50 rounded-[3rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-zinc-100 overflow-hidden relative transition-all duration-500 hover:shadow-[0_30px_70px_-15px_rgba(0,0,0,0.08)]">
+            {/* Subtle background texture - fluid organic shapes using very light gray tones */}
+            <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-zinc-100/50 rounded-full blur-3xl opacity-40 pointer-events-none mix-blend-multiply" />
+            <div className="absolute bottom-[-30%] right-[-10%] w-[700px] h-[700px] bg-zinc-100/70 rounded-full blur-3xl opacity-40 pointer-events-none mix-blend-multiply" />
 
-          {/* Trust Indicators */}
-          <div className="flex flex-wrap justify-center items-center gap-8 mb-12 opacity-60">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-5 h-5 text-green-600"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
+            <div className="relative z-10 p-8 md:p-14 lg:p-20 text-center">
+              {/* Header Section */}
+              <div className="max-w-3xl mx-auto mb-16">
+                {/* Monochrome Badge */}
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm text-zinc-700 text-sm font-medium mb-8 border border-zinc-100">
+                  <CheckCircle2
+                    className="w-4 h-4 text-zinc-900"
+                    strokeWidth={1.5}
                   />
-                </svg>
+                  <span>Proven Results</span>
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6 tracking-tight leading-tight">
+                  Trusted by over 100 growing businesses.
+                </h2>
+                <p className="text-xl text-zinc-500 max-w-2xl mx-auto font-light leading-relaxed">
+                  Scale smarter with data-driven digital solutions designed for
+                  growth.
+                </p>
               </div>
-              <span className="text-sm font-medium text-gray-600">
-                47% Avg. Traffic Increase
-              </span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-5 h-5 text-blue-600"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
+
+              {/* Metrics Grid (Clean Monochrome Bento) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                {/* Metric 1 */}
+                <div className="group bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)] border border-zinc-50 hover:border-zinc-100 hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1">
+                  <div className="w-16 h-16 bg-zinc-50 text-zinc-900 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-105 transition-transform duration-500">
+                    <TrendingUp className="w-8 h-8" strokeWidth={1.2} />
+                  </div>
+                  <div className="text-5xl font-bold text-zinc-900 mb-2 tracking-tighter">
+                    47%
+                  </div>
+                  <div className="text-sm font-medium text-zinc-500 uppercase tracking-widest">
+                    Traffic Increase
+                  </div>
+                </div>
+
+                {/* Metric 2 */}
+                <div
+                  className="group bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)] border border-zinc-50 hover:border-zinc-100 hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1"
+                  style={{ transitionDelay: "100ms" }}
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <span className="text-sm font-medium text-gray-600">
-                20+ Hours Saved Weekly
-              </span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-5 h-5 text-purple-600"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
+                  <div className="w-16 h-16 bg-zinc-50 text-zinc-900 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-105 transition-transform duration-500">
+                    <Clock className="w-8 h-8" strokeWidth={1.2} />
+                  </div>
+                  <div className="text-5xl font-bold text-zinc-900 mb-2 tracking-tighter">
+                    20+
+                  </div>
+                  <div className="text-sm font-medium text-zinc-500 uppercase tracking-widest">
+                    Hours Saved Weekly
+                  </div>
+                </div>
+
+                {/* Metric 3 */}
+                <div
+                  className="group bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)] border border-zinc-50 hover:border-zinc-100 hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1"
+                  style={{ transitionDelay: "200ms" }}
                 >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
+                  <div className="w-16 h-16 bg-zinc-50 text-zinc-900 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-105 transition-transform duration-500">
+                    {/* Using fill-current to make the star solid black */}
+                    <Star className="w-8 h-8 fill-current" strokeWidth={1.2} />
+                  </div>
+                  <div className="text-5xl font-bold text-zinc-900 mb-2 tracking-tighter">
+                    4.9/5
+                  </div>
+                  <div className="text-sm font-medium text-zinc-500 uppercase tracking-widest">
+                    Client Rating
+                  </div>
+                </div>
               </div>
-              <span className="text-sm font-medium text-gray-600">
-                4.9/5 Client Rating
-              </span>
+
+              {/* Action Buttons (Monochrome) */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a
+                  href="https://calendar.notion.so/meet/officialbookone/call"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative inline-flex items-center justify-center px-10 py-4 bg-zinc-900 hover:bg-black text-white font-medium rounded-2xl transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 w-full sm:w-auto"
+                >
+                  Start Your Growth Journey
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                </a>
+
+                <a
+                  href="/get-started"
+                  className="group inline-flex items-center justify-center px-10 py-4 bg-white text-zinc-700 hover:text-zinc-900 font-medium rounded-2xl transition-all duration-300 border-2 border-zinc-100 hover:border-zinc-300 hover:bg-zinc-50 shadow-sm hover:shadow-md w-full sm:w-auto"
+                >
+                  Get Free Website Audit
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          {/* Primary CTA */}
-          <Link
-            href="https://calendar.notion.so/meet/officialbookone/call"
-            className="inline-flex items-center justify-center px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Start Your Growth Journey
-            <svg
-              className="ml-2 w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </Link>
-
-          {/* Secondary CTA - Lead Magnet */}
-          <Link
-            href="/get-started"
-            className="inline-flex items-center justify-center px-8 py-4 bg-white hover:bg-gray-50 text-purple-600 font-semibold rounded-xl transition-all duration-300 border-2 border-purple-600 hover:border-purple-700"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Get Free Website Audit
-            <svg
-              className="ml-2 w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
-          </Link>
-        </div>
+        </section>
       </div>
     </section>
   );

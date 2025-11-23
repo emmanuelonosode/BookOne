@@ -2,13 +2,13 @@
 
 import React, { useMemo, useCallback } from "react";
 import Link from "next/link";
-import { generateMetaTags } from "../seo-config"; // Assuming seo-config is server-compatible
+// seo-config removed — inline metadata for services page
 import { Star } from "lucide-react";
 
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
 
-export const metadata = generateMetaTags({
+export const metadata = {
   title: "Our Services - Web Design, SEO & AI Automation | BookOne",
   description:
     "Discover BookOne's comprehensive digital services including web design, SEO optimization, AI automation, and custom solutions. Transform your business online.",
@@ -23,7 +23,12 @@ export const metadata = generateMetaTags({
     "digital marketing",
     "business automation",
   ],
-});
+  alternates: {
+    canonical: `${
+      process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
+    }/services`,
+  },
+};
 
 // Main ServicesPage component for BookOne website
 const ServicesPage = () => {

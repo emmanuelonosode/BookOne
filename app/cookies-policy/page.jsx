@@ -1,11 +1,11 @@
 import Link from "next/link";
 import LegalPageLayout from "../component/LegalPage";
-import { generateMetaTags } from "../seo-config";
+// seo-config removed — inline metadata for cookies policy
 
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
 
-export const metadata = generateMetaTags({
+export const metadata = {
   title: "Cookie Policy | BookOne - Cookie Usage & Management",
   description:
     "Understand how BookOne uses cookies to improve your experience. Learn about cookie types, management options, and your privacy choices.",
@@ -19,7 +19,12 @@ export const metadata = generateMetaTags({
     "analytics cookies",
     "BookOne cookies",
   ],
-});
+  alternates: {
+    canonical: `${
+      process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
+    }/cookies-policy`,
+  },
+};
 
 export default function CookiePolicyPage() {
   return (

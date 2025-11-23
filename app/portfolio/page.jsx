@@ -3,6 +3,8 @@ import Script from "next/script";
 import { ArrowUpRight, Star } from "lucide-react";
 import ProjectCard from "../component/ProjectCard";
 import { allCaseStudiesQuery } from "@/lib/queries";
+import TypingHeadline from "../component/sections/TypingHeadline";
+import Link from "next/link";
 
 // Add caching configuration
 
@@ -13,7 +15,7 @@ export default async function PortfolioPage() {
     {},
     { next: { revalidate: 3600 } }
   );
-
+ 
   // Generate structured data for the portfolio page
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
 
@@ -65,7 +67,7 @@ export default async function PortfolioPage() {
       />
       <section
         id="portfolio-section"
-        className="min-h-screen bg-gradient-to-br from-gray-50 to-purple-50 py-20 px-4 sm:px-6 lg:px-8 text-gray-800"
+        className="min-h-screen bg-linear-to-br from-gray-50 to-purple-50 py-20 px-4 sm:px-6 lg:px-8 text-gray-800"
         aria-labelledby="portfolio-heading"
       >
         <div className="max-w-7xl mx-auto">
@@ -78,16 +80,11 @@ export default async function PortfolioPage() {
             </div>
 
             {/* Main Heading */}
-            <h1
-              id="portfolio-heading"
-              className="text-5xl  md:text-8xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight px-2"
-            >
-              Our
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
-                {" "}
-                Portfolio
-              </span>
-            </h1>
+            <TypingHeadline
+              text={"Innovative builds powering digital evolution."}
+              delay={50}
+              className="text-4xl md:text-7xl leading-[120%]  font-extrabold text-gray-900 mb-6 sm:mb-8 "
+            />
 
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8 sm:mb-12 px-4">
               Showcasing our impactful work across various industries. Each
@@ -105,7 +102,7 @@ export default async function PortfolioPage() {
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 px-4">
                   Featured Case Study
                 </h2>
-                <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto rounded-full"></div>
+                <div className="w-16 sm:w-20 h-1 bg-linear-to-r from-purple-600 to-blue-600 mx-auto rounded-full"></div>
               </div>
               <div className="max-w-7xl mx-auto px-2 sm:px-0">
                 <ProjectCard project={caseStudies[0]} featured={true} />
@@ -158,13 +155,13 @@ export default async function PortfolioPage() {
 
               {/* CTA Buttons - Stack on mobile, side by side on larger screens */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-                <a
+                <Link
                   href="/get-started"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 sm:py-4 px-6 sm:px-8 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-sm sm:text-base"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg- text-white py-3 sm:py-4 px-6 sm:px-8 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-sm sm:text-base"
                 >
                   <span>Start Your Project</span>
                   <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </a>
+                </Link>
 
                 <a
                   href="/about"

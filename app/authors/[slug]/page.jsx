@@ -1,6 +1,6 @@
 import { sanity, getImageUrl } from "@/lib/sanity";
 import { authorBySlugQuery, blogsByAuthorQuery } from "@/lib/queries";
-import { generateMetaTags } from "../../seo-config";
+// seo-config import removed; metadata generated inline below
 import Link from "next/link";
 import Image from "next/image";
 
