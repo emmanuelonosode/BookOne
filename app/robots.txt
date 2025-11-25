@@ -10,6 +10,11 @@ Disallow: /admin/
 Disallow: /dashboard/
 Disallow: /login/
 Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+Disallow: /favicon.ico/
+Disallow: /manifest.webmanifest/
+
 
 # Prevent indexing of internal search results (Prevents duplicate content issues)
 Disallow: /search?*
