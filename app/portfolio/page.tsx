@@ -1,12 +1,10 @@
 import { sanity, getImageUrl } from "../../lib/sanity";
 import Script from "next/script";
-import { ArrowUpRight, Star } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import ProjectCard from "../component/ProjectCard";
 import { allCaseStudiesQuery } from "@/lib/queries";
-import TypingHeadline from "../component/sections/TypingHeadline";
 import Link from "next/link";
-
-// Add caching configuration
+import { GlowWrapper } from "./PortfolioClientComponents";
 
 // --- PortfolioPage Component ---
 export default async function PortfolioPage() {
@@ -15,7 +13,7 @@ export default async function PortfolioPage() {
     {},
     { next: { revalidate: 3600 } }
   );
- 
+
   // Generate structured data for the portfolio page
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
 
@@ -67,111 +65,87 @@ export default async function PortfolioPage() {
       />
       <section
         id="portfolio-section"
-        className="min-h-screen bg-linear-to-br from-gray-50 to-purple-50 py-20 px-4 sm:px-6 lg:px-8 text-gray-800"
+        className="min-h-screen bg-[#FAFAFA] py-24 px-4 sm:px-6 lg:px-8 text-slate-900 font-sans selection:bg-[#6b46c1] selection:text-white"
         aria-labelledby="portfolio-heading"
       >
         <div className="max-w-7xl mx-auto">
           {/* Hero Section */}
-          <div className="text-center mb-16 lg:mb-20">
+          <div className="text-center mb-20 lg:mb-24">
             {/* Badge */}
-            <div className="inline-flex items-center bg-purple-100 text-purple-700 px-3 py-2 sm:px-4 rounded-full text-sm font-medium mb-4 sm:mb-6">
-              <Star className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-              Award-Winning Work
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm text-sm font-medium text-[#6b46c1] mb-8">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#6b46c1]"></span>
+              </span>
+              Our Work
             </div>
 
             {/* Main Heading */}
-            <TypingHeadline
-              text={"Innovative builds powering digital evolution."}
-              delay={50}
-              className="text-4xl md:text-7xl leading-[120%]  font-extrabold text-gray-900 mb-6 sm:mb-8 "
-            />
+            <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 mb-8 tracking-tight leading-[1.1]">
+              Innovative builds powering <br className="hidden md:block" />
+              <span className="text-slate-400">digital evolution.</span>
+            </h1>
 
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8 sm:mb-12 px-4">
+            <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-12">
               Showcasing our impactful work across various industries. Each
               project is a testament to our dedication to innovation and client
               success.
             </p>
-
-            {/* Stats Row - Made Responsive */}
           </div>
 
-          {/* Featured Case Study */}
-          {caseStudies.length > 0 && (
-            <div className="mb-12 lg:mb-16">
-              <div className="text-center mb-6 sm:mb-8">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 px-4">
-                  Featured Case Study
-                </h2>
-                <div className="w-16 sm:w-20 h-1 bg-linear-to-r from-purple-600 to-blue-600 mx-auto rounded-full"></div>
-              </div>
-              <div className="max-w-7xl mx-auto px-2 sm:px-0">
-                <ProjectCard project={caseStudies[0]} featured={true} />
-              </div>
-            </div>
-          )}
-
-          {/* All Case Studies Section */}
-          <div className="mb-12 lg:mb-16">
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 px-4">
-                All Case Studies
-              </h2>
-              <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto px-4">
-                Explore our complete collection of successful projects across
-                different industries and technologies.
-              </p>
-            </div>
-
-            {/* Case Studies Grid - Enhanced Responsiveness */}
+          {/* Case Studies Grid */}
+          <div className="mb-24">
             <div
-              className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8"
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
               role="group"
               aria-label="Portfolio Case Studies"
             >
-              {caseStudies.slice(1).map((caseStudy, index) => (
-                <ProjectCard
-                  key={caseStudy._id}
-                  project={caseStudy}
-                  index={index}
-                />
+              {caseStudies.map((caseStudy) => (
+                <GlowWrapper key={caseStudy._id}>
+                  <ProjectCard project={caseStudy} />
+                </GlowWrapper>
               ))}
             </div>
           </div>
 
-          {/* CTA Section - Enhanced Mobile Layout */}
-          <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 lg:p-12 text-center relative overflow-hidden border border-gray-100 mx-2 sm:mx-0">
-            {/* Background decoration - Adjusted for mobile */}
-            <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-purple-100 rounded-full -translate-y-12 translate-x-12 sm:-translate-y-16 sm:translate-x-16 opacity-50"></div>
-            <div className="absolute bottom-0 left-0 w-16 h-16 sm:w-24 sm:h-24 bg-blue-100 rounded-full translate-y-8 -translate-x-8 sm:translate-y-12 sm:-translate-x-12 opacity-50"></div>
+          {/* CTA Section */}
+          <GlowWrapper
+            className="!bg-slate-950 text-white border-slate-800"
+            gridColor="#FFF"
+          >
+            <div className="p-12 md:p-16 text-center relative overflow-hidden">
+              {/* Background decoration */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
-            <div className="relative z-10">
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 px-2">
-                Ready to Start Your Project?
-              </h3>
-              <p className="text-sm sm:text-base lg:text-lg text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-2">
-                Let's discuss your vision and create something amazing together.
-                Get in touch for a free consultation.
-              </p>
+              <div className="relative z-10 max-w-3xl mx-auto">
+                <h3 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
+                  Ready to Start Your Project?
+                </h3>
+                <p className="text-lg text-slate-200 mb-10 leading-relaxed">
+                  Let&apos;s discuss your vision and create something amazing together.
+                  Get in touch for a free consultation.
+                </p>
 
-              {/* CTA Buttons - Stack on mobile, side by side on larger screens */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-                <Link
-                  href="/get-started"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg- text-white py-3 sm:py-4 px-6 sm:px-8 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-sm sm:text-base"
-                >
-                  <span>Start Your Project</span>
-                  <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <Link
+                    href="/get-started"
+                    className="group inline-flex items-center justify-center px-8 py-4 bg-[#6b46c1] text-white font-bold rounded-full hover:bg-[#5a37a6] transition-all hover:-translate-y-1 shadow-lg shadow-purple-900/20"
+                  >
+                    <span>Start Your Project</span>
+                    <ArrowUpRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
 
-                <a
-                  href="/about"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-gray-300 text-gray-700 py-3 sm:py-4 px-6 sm:px-8 rounded-full font-semibold hover:border-purple-600 hover:text-purple-600 transition-all duration-300 text-sm sm:text-base"
-                >
-                  <span>Learn More About Us</span>
-                </a>
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-bold rounded-full hover:bg-white/20 transition-all border border-white/10"
+                  >
+                    <span>Learn More About Us</span>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          </GlowWrapper>
         </div>
       </section>
     </>

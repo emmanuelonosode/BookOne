@@ -1,0 +1,5 @@
+.next/types/app/portfolio/[slug]/page.ts(34,29): error TS2344: Type '{ params: { slug: string; }; }' does not satisfy the constraint 'PageProps'.
+  Types of property 'params' are incompatible.
+    Type '{ slug: string; }' is missing the following properties from type 'Promise<any>': then, catch, finally, [Symbol.toStringTag]
+.next/types/app/terms-and-conditions/page.ts(2,24): error TS2306: File 'C:/Users/emmanuel onosode/JulyPort/BookOne/app/terms-and-conditions/page.tsx' is not a module.
+.next/types/app/terms-and-conditions/page.ts(5,29): error TS2306: File 'C:/Users/emmanuel onosode/JulyPort/BookOne/app/terms-and-conditions/page.tsx' is not a module.

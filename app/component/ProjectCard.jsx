@@ -1,104 +1,215 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { getImageUrl } from "@/lib/sanity";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useMotionTemplate,
+} from "framer-motion";
 import Link from "next/link";
+import { getImageUrl } from "@/lib/sanity";
 import { ArrowUpRight } from "lucide-react";
 
+// Antigravity Light Mode ProjectCard
 export default function ProjectCard({ project, index = 0 }) {
-  // Support both old project schema and new case study schema
-  const image = project.mainImage || project.heroMedia;
-  const description = project.overview || project.shortDescription;
-  const slug = project.slug?.current || project.slug;
+  const image = project.mainImage || project.heroMedia || project.image;
+  const description =
+    project.overview || project.shortDescription || project.description;
+  const slug =
+    project.slug?.current || project.slug || project._id || project.id;
+
+  // Motion values for pointer and tilt
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+
+  // Normalized [-0.5, 0.5] values based on card width/height
+  const normX = useTransform(pointerX, (v, target) => v);
+  const normY = useTransform(pointerY, (v, target) => v);
+
+  // Map normalized ranges to degrees for tilt (X-axis rotates vertically)
+  const rotateY = useTransform(normX, [-0.5, 0.5], [18, -18]);
+  const rotateX = useTransform(normY, [-0.5, 0.5], [-18, 18]);
+
+  // Smooth springs
+  const springConfig = { stiffness: 200, damping: 20 };
+  const springRotY = useSpring(rotateY, springConfig);
+  const springRotX = useSpring(rotateX, springConfig);
+
+  // Parallax translateZ effect values (we'll approximate with translateY/translateX for browsers)
+  const imgOffsetX = useTransform(normX, [-0.5, 0.5], [12, -12]);
+  const imgOffsetY = useTransform(normY, [-0.5, 0.5], [-8, 8]);
+  const contentOffsetX = useTransform(normX, [-0.5, 0.5], [6, -6]);
+  const contentOffsetY = useTransform(normY, [-0.5, 0.5], [-4, 4]);
+
+  const springImgX = useSpring(imgOffsetX, { stiffness: 180, damping: 20 });
+  const springImgY = useSpring(imgOffsetY, { stiffness: 180, damping: 20 });
+  const springContentX = useSpring(contentOffsetX, {
+    stiffness: 180,
+    damping: 20,
+  });
+  const springContentY = useSpring(contentOffsetY, {
+    stiffness: 180,
+    damping: 20,
+  });
+
+  // Cursor glow radial background
+  const glowX = useTransform(pointerX, (v) => `${v}px`);
+  const glowY = useTransform(pointerY, (v) => `${v}px`);
+  const glow = useMotionTemplate`radial-gradient(300px circle at ${glowX} ${glowY}, rgba(107,70,193,0.15), transparent 40%)`;
+
+  // Hover/focus state
+  const [isHover, setIsHover] = React.useState(false);
+
+  function handleMove(e) {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5; // -0.5..0.5
+    pointerX.set(x);
+    pointerY.set(y);
+  }
+
+  function handleLeave() {
+    pointerX.set(0);
+    pointerY.set(0);
+    setIsHover(false);
+  }
+
+  function handleEnter(e) {
+    handleMove(e);
+    setIsHover(true);
+  }
+
+  const href = `/portfolio/${slug}`;
 
   return (
     <motion.article
-      className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-lg"
+      className="group relative bg-white border border-gray-200 rounded-4xl overflow-hidden will-change-transform"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.5,
-        delay: index * 0.1,
-        ease: "easeOut",
-      }}
-      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5, delay: index * 0.06 }}
+      viewport={{ once: true, amount: 0.4 }}
       role="article"
       aria-labelledby={`project-title-${slug}`}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      onMouseEnter={handleEnter}
+      onFocus={handleEnter}
+      onBlur={handleLeave}
+      tabIndex={0}
+      style={{
+        transformStyle: "preserve-3d",
+        perspective: 1200,
+        boxShadow: isHover
+          ? "0 30px 80px rgba(107,70,193,0.12)"
+          : "0 8px 30px rgba(16,24,40,0.06)",
+        transition: "box-shadow 0.35s ease, transform 0.35s ease",
+        translate: isHover ? "0px -8px" : "0px 0px",
+      }}
     >
-      <Link
-        href={`/portfolio/${slug}`}
-        className="block h-full"
-        aria-label={`View ${project.title} project details`}
+      {/* Cursor Glow Layer */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity"
+        style={{ background: glow, opacity: isHover ? 1 : 0 }}
+      />
+
+      {/* Interactive Inner Wrapper - apply tilt */}
+      <motion.div
+        className="relative z-10 overflow-hidden"
+        style={{
+          transform: useMotionValue(
+            `rotateX(${springRotX.get()}deg) rotateY(${springRotY.get()}deg)`
+          ),
+        }}
       >
-        {/* Image Section */}
-        <div className="relative h-64 sm:h-72 lg:h-screen overflow-hidden bg-gray-50">
+        {/* Media layer (appears closer - translateZ) */}
+        <motion.div
+          className="relative w-full aspect-video overflow-hidden bg-gray-50"
+          style={{
+            transformStyle: "preserve-3d",
+            translateZ: "30px",
+          }}
+        >
           {image ? (
-            <Image
+            // Use regular img to avoid Next.js Image SSR issues in some preview environments
+            <motion.img
               src={getImageUrl(image)}
-              alt={`${project.title} project preview`}
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              alt={`${project.title} preview`}
+              className="w-full h-full object-contain will-change-transform"
+              style={{
+                transformStyle: "preserve-3d",
+                translateZ: "30px",
+                x: springImgX,
+                y: springImgY,
+              }}
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-              <div className="text-gray-400">
-                <svg
-                  className="w-16 h-16"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-              </div>
+            <div className="w-full h-full bg-linear-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+              <div className="text-gray-300">No preview</div>
             </div>
           )}
 
-          {/* Subtle overlay */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300" />
+          {/* image overlay */}
+          <div className="absolute inset-0 bg-linear-to-t from-black/10 via-transparent to-transparent" />
+        </motion.div>
 
-          {/* View indicator */}
-          <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0">
-            <div className="bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-sm">
-              <ArrowUpRight className="w-4 h-4 text-gray-700" />
-            </div>
-          </div>
-        </div>
-
-        {/* Content Section */}
-        <div className="p-6 sm:p-8">
-          {/* Title */}
+        {/* Content layer (slightly behind) */}
+        <motion.div
+          className="p-6 md:p-8 bg-white"
+          style={{
+            transformStyle: "preserve-3d",
+            translateZ: "20px",
+            x: springContentX,
+            y: springContentY,
+          }}
+        >
           <h3
             id={`project-title-${slug}`}
-            className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors duration-300 line-clamp-2"
+            className="text-lg md:text-xl font-semibold text-slate-900 mb-2"
           >
             {project.title}
           </h3>
-
-          {/* Description */}
           {description && (
-            <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-6 line-clamp-3">
+            <p className="text-sm text-slate-600 mb-4 line-clamp-3">
               {description}
             </p>
           )}
 
-          {/* Footer */}
-          <div className="flex items-center justify-between pt-2 border-t border-gray-50">
-            <span className="text-sm font-medium text-purple-600 group-hover:text-purple-700 transition-colors duration-300">
-              View Case Study
-            </span>
-
-            <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-purple-600 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          <div className="flex items-center justify-between mt-2">
+            <div className="flex items-center gap-2">
+              {project.tags?.slice?.(0, 3).map((t) => (
+                <span
+                  key={t}
+                  className="text-xs px-2 py-1 rounded-full bg-gray-100 text-slate-700"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-sm font-medium text-[#6b46c1]">
+                View Project
+              </span>
+              <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-[#6b46c1]" />
+            </div>
           </div>
-        </div>
-      </Link>
+        </motion.div>
+      </motion.div>
+
+      {/* Clickable overlay link */}
+      {href ? (
+        <Link
+          href={href}
+          className="absolute inset-0 z-20"
+          aria-label={`Open ${project.title}`}
+        />
+      ) : (
+        <a
+          className="absolute inset-0 z-20"
+          aria-label={`Open ${project.title}`}
+        />
+      )}
     </motion.article>
   );
 }
@@ -131,10 +242,10 @@ export function FeaturedProjectCard({ project }) {
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200" />
+              <div className="w-full h-full bg-linear-to-br from-gray-100 to-gray-200" />
             )}
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent lg:bg-none" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent lg:bg-none" />
           </div>
 
           {/* Content */}

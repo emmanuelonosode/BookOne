@@ -1,6 +1,12 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
 import {
   ArrowRight,
   CheckCircle,
@@ -15,26 +21,22 @@ import {
   Bot,
 } from "lucide-react";
 
-// Sample data
+// ============================================================================
+// SAMPLE DATA
+// ============================================================================
 const mainServices = [
   {
     id: 1,
     icon: Code,
     title: "Web Development",
     subtitle: "Custom websites & applications",
-    bgGradient: "from-blue-500 to-blue-700",
-    lightBg: "bg-blue-50",
-    textColor: "text-blue-700",
-    keyFeatures: ["React", "Next.js", "Responsive"],
     description:
-      "Build powerful, scalable web applications with modern technologies that drive results for your Nigerian business.",
+      "Build powerful, scalable web applications with modern technologies that drive results for your Nigerian business. We focus on speed, security, and scalability.",
     services: [
       {
         title: "Custom Web Apps",
         description: "Tailored solutions for your unique business needs",
         icon: Code,
-        bgColor: "bg-blue-50",
-        color: "text-blue-600",
         features: ["React/Next.js", "API Integration", "Cloud Hosting"],
         impact: "3x faster load times",
       },
@@ -42,8 +44,6 @@ const mainServices = [
         title: "E-commerce Solutions",
         description: "Full-featured online stores that convert",
         icon: Globe,
-        bgColor: "bg-blue-50",
-        color: "text-blue-600",
         features: ["Payment Gateway", "Inventory", "Analytics"],
         impact: "40% higher conversion",
       },
@@ -54,19 +54,13 @@ const mainServices = [
     icon: Palette,
     title: "UI/UX Design",
     subtitle: "Beautiful, intuitive interfaces",
-    bgGradient: "from-purple-500 to-pink-600",
-    lightBg: "bg-purple-50",
-    textColor: "text-purple-700",
-    keyFeatures: ["Figma", "User Research", "Prototyping"],
     description:
-      "Create stunning user experiences that delight customers and drive engagement.",
+      "Create stunning user experiences that delight customers and drive engagement. We blend aesthetics with usability principles.",
     services: [
       {
         title: "Interface Design",
         description: "Pixel-perfect designs that users love",
         icon: Palette,
-        bgColor: "bg-purple-50",
-        color: "text-purple-600",
         features: ["Mobile First", "Accessibility", "Brand Identity"],
         impact: "2x user engagement",
       },
@@ -74,8 +68,6 @@ const mainServices = [
         title: "User Research",
         description: "Data-driven insights for better decisions",
         icon: BarChart3,
-        bgColor: "bg-purple-50",
-        color: "text-purple-600",
         features: ["User Testing", "Analytics", "A/B Testing"],
         impact: "60% better UX scores",
       },
@@ -86,19 +78,13 @@ const mainServices = [
     icon: Search,
     title: "SEO & Marketing",
     subtitle: "Get found, get customers",
-    bgGradient: "from-green-500 to-emerald-600",
-    lightBg: "bg-green-50",
-    textColor: "text-green-700",
-    keyFeatures: ["SEO", "Content", "Analytics"],
     description:
-      "Dominate search rankings and attract qualified leads with proven strategies.",
+      "Dominate search rankings and attract qualified leads with proven strategies. We help you rank for the keywords that actually bring money.",
     services: [
       {
         title: "Technical SEO",
         description: "Optimize for search engines and users",
         icon: Search,
-        bgColor: "bg-green-50",
-        color: "text-green-600",
         features: ["Site Speed", "Schema Markup", "Core Web Vitals"],
         impact: "10x organic traffic",
       },
@@ -106,8 +92,6 @@ const mainServices = [
         title: "Content Strategy",
         description: "Engaging content that ranks and converts",
         icon: MessageSquare,
-        bgColor: "bg-green-50",
-        color: "text-green-600",
         features: ["Keyword Research", "Blog Posts", "Video Content"],
         impact: "5x more leads",
       },
@@ -118,19 +102,13 @@ const mainServices = [
     icon: Bot,
     title: "AI Integration",
     subtitle: "Smart automation solutions",
-    bgGradient: "from-orange-500 to-red-600",
-    lightBg: "bg-orange-50",
-    textColor: "text-orange-700",
-    keyFeatures: ["ChatGPT", "Automation", "ML"],
     description:
-      "Leverage AI to automate workflows and enhance customer experiences.",
+      "Leverage AI to automate workflows and enhance customer experiences. Reduce busywork and focus on growing your business.",
     services: [
       {
         title: "AI Chatbots",
         description: "24/7 intelligent customer support",
         icon: Bot,
-        bgColor: "bg-orange-50",
-        color: "text-orange-600",
         features: ["NLP", "Multi-language", "CRM Integration"],
         impact: "80% faster response",
       },
@@ -138,8 +116,6 @@ const mainServices = [
         title: "Process Automation",
         description: "Streamline operations with AI",
         icon: Zap,
-        bgColor: "bg-orange-50",
-        color: "text-orange-600",
         features: ["Workflow AI", "Data Processing", "Smart Analytics"],
         impact: "70% cost reduction",
       },
@@ -174,6 +150,83 @@ const processSteps = [
   },
 ];
 
+// ============================================================================
+// GLOW CARD COMPONENT (Applied to Sub-Services)
+// ============================================================================
+const SubServiceCard = ({ item }) => {
+  const Icon = item.icon;
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springX = useSpring(mouseX, { stiffness: 100, damping: 30, mass: 0.5 });
+  const springY = useSpring(mouseY, { stiffness: 100, damping: 30, mass: 0.5 });
+
+  function handleMouseMove({ currentTarget, clientX, clientY }) {
+    const { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  return (
+    <div
+      className="group relative overflow-hidden bg-white border border-gray-200 rounded-4xl hover:border-[#6b46c1]/50 transition-colors duration-500 shadow-sm hover:shadow-md h-full"
+      onMouseMove={handleMouseMove}
+    >
+
+      {/* Grid Lines Overlay */}
+      <div
+        className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(to right, #000000 1px, transparent 1px), linear-gradient(to bottom, #000000 1px, transparent 1px)`,
+          backgroundSize: "40px 40px",
+        }}
+      />
+
+      <div className="relative z-10 p-8 h-full flex flex-col">
+        <div className="w-12 h-12 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-[#6b46c1] group-hover:border-[#6b46c1] transition-all duration-300">
+          <Icon
+            className="w-6 h-6 text-[#6b46c1] group-hover:text-white transition-colors"
+            strokeWidth={1.5}
+          />
+        </div>
+
+        <h4 className="text-xl font-bold text-slate-900 mb-3 tracking-tight">
+          {item.title}
+        </h4>
+        <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">
+          {item.description}
+        </p>
+
+        <div className="space-y-2 mb-6">
+          {item.features.map((f) => (
+            <div
+              key={f}
+              className="flex items-center text-xs font-medium text-slate-500"
+            >
+              <CheckCircle className="w-3.5 h-3.5 text-green-500 mr-2" />
+              {f}
+            </div>
+          ))}
+        </div>
+
+        {item.impact && (
+          <div className="pt-4 border-t border-gray-100 group-hover:border-[#6b46c1]/10">
+            <div className="inline-flex items-center bg-green-50 px-3 py-1.5 rounded-full border border-green-100">
+              <TrendingUp className="w-3.5 h-3.5 text-green-600 mr-2" />
+              <span className="text-xs font-bold text-green-700">
+                {item.impact}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// ============================================================================
+// MAIN COMPONENT
+// ============================================================================
 const BookOneServices = () => {
   const [activeService, setActiveService] = useState(0);
   const [isProcessVisible, setIsProcessVisible] = useState(false);
@@ -181,11 +234,11 @@ const BookOneServices = () => {
   const sectionRefs = useRef([]);
   const processRef = useRef(null);
 
-  // 1. SCROLL OBSERVER FOR SERVICES (The Logic Logic)
+  // Scroll Observer for Services
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: "-20% 0px -50% 0px", // Triggers when the element is near the center/top
+      rootMargin: "-20% 0px -50% 0px",
       threshold: 0.1,
     };
 
@@ -198,7 +251,6 @@ const BookOneServices = () => {
       });
     }, options);
 
-    // Observe each service section
     sectionRefs.current.forEach((ref) => {
       if (ref) observer.observe(ref);
     });
@@ -206,7 +258,7 @@ const BookOneServices = () => {
     return () => observer.disconnect();
   }, []);
 
-  // 2. SCROLL OBSERVER FOR PROCESS SECTION
+  // Scroll Observer for Process
   useEffect(() => {
     const processObserver = new IntersectionObserver(
       (entries) => {
@@ -222,25 +274,36 @@ const BookOneServices = () => {
   }, []);
 
   return (
-    <main className="scroll-smooth bg-slate-50">
+    <main className="scroll-smooth bg-[#FAFAFA] font-sans selection:bg-[#6b46c1] selection:text-white">
       {/* HEADER SECTION */}
-      <div className="pt-20 pb-10 text-center px-4">
-        <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 animate-[fadeInUp_0.6s_ease-out_forwards]">
+      <div className="pt-24 pb-16 text-center px-6 max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm text-sm font-medium text-[#6b46c1] mb-8"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#6b46c1]"></span>
+          </span>
+          Our Expertise
+        </motion.div>
+
+        <h2 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-[1.1]">
           Complete Digital Solutions
         </h2>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto animate-[fadeInUp_0.6s_ease-out_forwards_0.2s] opacity-0">
+        <p className="text-lg md:text-xl text-slate-600 leading-relaxed">
           Everything you need to build, optimize, and grow your digital presence
-          in Nigeria.
+          in Nigeria and beyond.
         </p>
       </div>
 
       {/* STICKY SCROLL CONTAINER */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div className="flex flex-col lg:flex-row gap-12 relative">
-          {/* LEFT SIDE: STICKY INFO (Changes on Scroll) */}
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 relative">
+          {/* LEFT SIDE: STICKY SERVICE IDENTITY */}
           <div className="lg:w-1/3 order-1 lg:order-1">
-            <div className="sticky top-24 pt-4">
-              {/* We use a transition-all wrapper to smooth changes */}
+            <div className="sticky top-32 pt-4">
               <AnimatePresence mode="wait">
                 {(() => {
                   const current = mainServices[activeService];
@@ -248,59 +311,36 @@ const BookOneServices = () => {
                   return (
                     <motion.div
                       key={current.id}
-                      initial={{ opacity: 0, x: -40 }}
+                      initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -40 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 30,
-                      }}
-                      className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 transition-all duration-500 ease-in-out transform hover:scale-[1.02]"
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.4 }}
+                      className="bg-transparent"
                     >
-                      {/* Icon */}
-                      <div
-                        className={`w-20 h-20 ${current.lightBg} rounded-2xl flex items-center justify-center mb-6`}
-                      >
-                        <Icon
-                          className={`w-10 h-10 ${current.textColor.replace(
-                            "text-",
-                            "stroke-"
-                          )}`}
-                          strokeWidth={1.5}
-                        />
+                      <div className="relative z-10">
+                        {/* Service Index */}
+                        <span className="text-[#6b46c1] font-mono text-sm mb-6 block tracking-wider font-bold">
+                          0{current.id} / SERVICE
+                        </span>
+
+                        {/* Title */}
+                        <h3 className="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight leading-[1.1]">
+                          {current.title}
+                        </h3>
+
+                        {/* Subtitle */}
+                        <p className="text-xl font-medium text-slate-400 mb-8 italic">
+                          — {current.subtitle}
+                        </p>
+
+                        {/* Icon - Decorative Large */}
+                        <div className="w-24 h-24 bg-white border border-gray-100 rounded-3xl flex items-center justify-center shadow-lg shadow-purple-900/5">
+                          <Icon
+                            className="w-12 h-12 text-[#6b46c1]"
+                            strokeWidth={1.5}
+                          />
+                        </div>
                       </div>
-
-                      {/* Title */}
-                      <h3 className="text-3xl font-bold text-gray-900 mb-2">
-                        {current.title}
-                      </h3>
-                      <p
-                        className={`text-lg font-medium ${current.textColor} mb-6`}
-                      >
-                        {current.subtitle}
-                      </p>
-
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {current.keyFeatures.map((feat) => (
-                          <span
-                            key={feat}
-                            className={`px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium`}
-                          >
-                            {feat}
-                          </span>
-                        ))}
-                      </div>
-
-                      <p className="text-gray-600 leading-relaxed mb-8">
-                        {current.description}
-                      </p>
-
-                      <button className="w-full bg-[#6b46c1] hover:bg-[#5a37a6] text-white py-4 rounded-xl font-semibold flex items-center justify-center group transition-all duration-300">
-                        Explore {current.title}
-                        <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                      </button>
                     </motion.div>
                   );
                 })()}
@@ -308,101 +348,42 @@ const BookOneServices = () => {
             </div>
           </div>
 
-          {/* RIGHT SIDE: SCROLLABLE CONTENT (Triggers the change) */}
-          <div className="lg:w-2/3 order-2 lg:order-2 space-y-24 lg:space-y-32 py-4">
+          {/* RIGHT SIDE: SCROLLABLE INFORMATION */}
+          <div className="lg:w-2/3 order-2 lg:order-2 py-4">
             {mainServices.map((service, idx) => (
               <div
                 key={service.id}
                 data-index={idx}
                 ref={(el) => (sectionRefs.current[idx] = el)}
-                className={`transition-all duration-700 ${
+                className={`transition-all duration-700 mb-32 lg:mb-40 ${
                   activeService === idx
-                    ? "opacity-100 scale-100"
-                    : "opacity-40 scale-95 blur-[2px]"
+                    ? "opacity-100"
+                    : "opacity-30 blur-[2px]"
                 }`}
               >
-                {/* Mobile Header (Only visible on small screens to give context) */}
-                <div className="lg:hidden mb-6">
-                  <h3 className="text-2xl font-bold text-gray-900">
+                {/* Mobile Section Header (Visible only on mobile) */}
+                <div className="lg:hidden mb-8">
+                  <span className="text-[#6b46c1] font-mono text-xs mb-2 block font-bold">
+                    0{service.id}
+                  </span>
+                  <h3 className="text-3xl font-bold text-slate-900 mb-2">
                     {service.title}
                   </h3>
+                  <p className="text-slate-400 italic">{service.subtitle}</p>
                 </div>
 
+                {/* Description (Information) */}
+                <div className="prose prose-lg max-w-none mb-12">
+                  <p className="text-slate-600 text-lg md:text-xl leading-relaxed">
+                    {service.description}
+                  </p>
+                </div>
+
+                {/* Sub Service Cards Grid */}
                 <div className="grid md:grid-cols-2 gap-6">
-                  {service.services.map((subItem, sIdx) => {
-                    const SubIcon = subItem.icon;
-                    return (
-                      <motion.div
-                        key={sIdx}
-                        className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 group cursor-pointer"
-                        whileHover={{
-                          scale: 1.045,
-                          rotateZ: subItem.title.length % 2 === 0 ? 1.5 : -1.5,
-                          boxShadow: "0 8px 32px rgba(80,80,160,0.10)",
-                        }}
-                        whileTap={{
-                          scale: 0.98,
-                          rotateZ: 0,
-                        }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 400,
-                          damping: 30,
-                        }}
-                        initial={{ opacity: 0, y: 24 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 24 }}
-                      >
-                        <motion.div
-                          className={`w-12 h-12 ${subItem.bgColor} rounded-xl flex items-center justify-center mb-6`}
-                          whileHover={{ scale: 1.15, rotateZ: 8 }}
-                          whileTap={{ scale: 0.95, rotateZ: 0 }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 300,
-                            damping: 20,
-                          }}
-                        >
-                          <SubIcon className={`w-6 h-6 ${subItem.color}`} />
-                        </motion.div>
-                        <h4 className="text-xl font-bold text-gray-900 mb-3">
-                          {subItem.title}
-                        </h4>
-                        <p className="text-gray-600 mb-6 text-sm leading-relaxed">
-                          {subItem.description}
-                        </p>
-
-                        <div className="space-y-3 pt-6 border-t border-gray-100">
-                          {subItem.features.map((f) => (
-                            <div
-                              key={f}
-                              className="flex items-center text-sm text-gray-500"
-                            >
-                              <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                              {f}
-                            </div>
-                          ))}
-                        </div>
-
-                        {subItem.impact && (
-                          <motion.div
-                            className="mt-6 inline-flex items-center bg-green-50 px-3 py-1 rounded-full"
-                            whileHover={{ scale: 1.1 }}
-                            transition={{
-                              type: "spring",
-                              stiffness: 250,
-                              damping: 18,
-                            }}
-                          >
-                            <TrendingUp className="w-3 h-3 text-green-600 mr-2" />
-                            <span className="text-xs font-bold text-green-700">
-                              {subItem.impact}
-                            </span>
-                          </motion.div>
-                        )}
-                      </motion.div>
-                    );
-                  })}
+                  {service.services.map((subItem, sIdx) => (
+                    <SubServiceCard key={sIdx} item={subItem} />
+                  ))}
                 </div>
               </div>
             ))}
@@ -413,31 +394,31 @@ const BookOneServices = () => {
       {/* PROCESS SECTION */}
       <section
         ref={processRef}
-        className="py-20 bg-gray-900 text-white overflow-hidden"
+        className="py-24 bg-white border-t border-gray-200"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6">
           <div
-            className={`text-center mb-16 transition-all duration-1000 ${
+            className={`text-center mb-20 transition-all duration-1000 ${
               isProcessVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-3xl lg:text-5xl font-bold mb-6">
+            <h2 className="text-3xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
               Our Proven Process
             </h2>
-            <p className="text-xl opacity-80 max-w-2xl mx-auto">
-              How BookOne delivers results for your business.
+            <p className="text-xl text-slate-500 max-w-2xl mx-auto">
+              A transparent, collaborative approach built for speed and impact.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             {processSteps.map((step, index) => {
               const Icon = step.icon;
               return (
                 <div
                   key={index}
-                  className={`relative text-center transition-all duration-700`}
+                  className="relative transition-all duration-700"
                   style={{
                     opacity: isProcessVisible ? 1 : 0,
                     transform: isProcessVisible
@@ -448,22 +429,28 @@ const BookOneServices = () => {
                 >
                   {/* Connector Line (Desktop) */}
                   {index < processSteps.length - 1 && (
-                    <div
-                      className={`hidden lg:block absolute top-10 left-1/2 w-full h-0.5 bg-gray-700 -z-10`}
-                    />
+                    <div className="hidden lg:block absolute top-10 left-1/2 w-full h-[1px] bg-gray-200 -z-10" />
                   )}
 
-                  <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-3xl border border-gray-700 hover:bg-gray-800 transition-colors">
-                    <div className="w-20 h-20 bg-[#6b46c1] rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-purple-900/20">
-                      <Icon className="w-10 h-10 text-white" />
+                  <div className="relative group">
+                    <div className="w-20 h-20 bg-white border border-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:border-[#6b46c1] group-hover:shadow-md transition-all duration-300 relative z-10">
+                      <Icon
+                        className="w-10 h-10 text-[#6b46c1]"
+                        strokeWidth={1.5}
+                      />
                     </div>
-                    <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-                    <p className="text-gray-400 text-sm mb-3">
-                      {step.description}
-                    </p>
-                    <span className="text-xs font-mono text-[#6b46c1] bg-[#6b46c1]/10 px-2 py-1 rounded">
-                      {step.duration}
-                    </span>
+
+                    <div className="text-center">
+                      <h3 className="text-lg font-bold text-slate-900 mb-2">
+                        {step.title}
+                      </h3>
+                      <p className="text-slate-500 text-sm mb-4 leading-relaxed">
+                        {step.description}
+                      </p>
+                      <span className="inline-block text-xs font-bold text-[#6b46c1] bg-[#6b46c1]/5 px-3 py-1 rounded-full border border-[#6b46c1]/10">
+                        {step.duration}
+                      </span>
+                    </div>
                   </div>
                 </div>
               );
@@ -471,27 +458,6 @@ const BookOneServices = () => {
           </div>
         </div>
       </section>
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-      `}</style>
     </main>
   );
 };

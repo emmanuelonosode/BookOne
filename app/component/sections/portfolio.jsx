@@ -15,7 +15,7 @@ export default async function PortfolioSection() {
   return (
     <section
       id="portfolio-section"
-      className="min-h-screen bg-linear-to-br from-gray-50 to-purple-50 py-16 px-4 sm:px-6 lg:px-8 text-gray-800"
+      className="min-h-screen bg-[#FAFAFA] py-16 px-4 sm:px-6 lg:px-8 text-gray-800"
       aria-labelledby="portfolio-heading"
     >
       <div className="max-w-7xl mx-auto">
@@ -55,7 +55,7 @@ export default async function PortfolioSection() {
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
             More Amazing Case Studies
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-[#6b46c1] mx-auto rounded-full"></div>
         </div>
 
         {/* Case Studies Grid */}
@@ -72,7 +72,7 @@ export default async function PortfolioSection() {
         </div>
 
         {/* Call to Action Section */}
-        <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl p-12 text-center text-white relative overflow-hidden">
+        <div className="bg-slate-900 rounded-3xl p-12 text-center text-white relative overflow-hidden">
           {/* Background decoration */}
           <div className="absolute inset-0 bg-black opacity-10"></div>
           <div className="absolute top-0 right-0 w-48 h-48 bg-white opacity-5 rounded-full -translate-y-24 translate-x-24"></div>

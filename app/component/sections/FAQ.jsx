@@ -197,7 +197,7 @@ function FAQ() {
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full text-sm font-medium text-blue-800 mb-6"
+          className="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full text-sm font-medium text-blue-800 mb-6"
         >
           <svg
             className="w-4 h-4 mr-2"
@@ -221,7 +221,7 @@ function FAQ() {
           tabIndex={0}
         >
           We Know{" "}
-          <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <span className="text-[#6b46c1]">
             What You Think
           </span>
         </h2>
@@ -264,7 +264,7 @@ function FAQ() {
                 group bg-white rounded-2xl border-2 transition-all duration-300 overflow-hidden
                 ${
                   isOpen
-                    ? "border-blue-500 shadow-xl bg-gradient-to-r from-blue-50 to-purple-50"
+                    ? "border-blue-500 shadow-xl bg-white"
                     : "border-gray-200 hover:border-gray-300 shadow-md hover:shadow-lg"
                 }
                 ${
@@ -281,7 +281,7 @@ function FAQ() {
                   w-full p-6 text-left focus:outline-none transition-all duration-300
                   ${
                     isOpen
-                      ? "bg-gradient-to-r from-blue-50 to-purple-50"
+                      ? "bg-white"
                       : "hover:bg-gray-50"
                   }
                 `}
@@ -302,7 +302,7 @@ function FAQ() {
                         flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300
                         ${
                           isOpen
-                            ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white"
+                            ? "bg-[#6b46c1] text-white"
                             : "bg-gray-100 text-gray-600 group-hover:bg-blue-100 group-hover:text-blue-600"
                         }
                       `}
@@ -380,7 +380,7 @@ function FAQ() {
                         transition={{ delay: 0.1, duration: 0.3 }}
                         className="pl-14 pr-4"
                       >
-                        <div className="h-px bg-gradient-to-r from-blue-200 to-purple-200 mb-4"></div>
+                        <div className="h-px bg-gray-200 mb-4"></div>
                         <p className="text-gray-700 leading-relaxed text-base md:text-lg">
                           {desc}
                         </p>
@@ -420,7 +420,7 @@ function FAQ() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.5, duration: 0.6 }}
-        className="mt-16 text-center bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-200"
+        className="mt-16 text-center bg-white rounded-2xl p-8 border border-blue-200"
       >
         <h3 className="text-2xl font-bold text-gray-800 mb-4">
           Didn't find what you were looking for?
@@ -432,7 +432,7 @@ function FAQ() {
         <Link
           href="mailto:officialbookone@gmail.com"
        
-          className="inline-flex items-center sm:px-8 p-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+          className="inline-flex items-center sm:px-8 p-3 bg-[#6b46c1] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
           tabIndex={0}
         >
           <svg

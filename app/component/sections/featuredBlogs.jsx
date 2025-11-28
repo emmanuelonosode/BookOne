@@ -14,11 +14,11 @@ export default async function FeaturedBlogs() {
   );
 
   return (
-    <section className="py-20 px-4 bg-linear-to-br from-slate-50 via-white to-blue-50">
+    <section className="py-20 px-4 bg-[#FAFAFA]">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-r from-blue-600 to-purple-600 rounded-2xl mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#6b46c1] rounded-2xl mb-6">
             <svg
               className="w-8 h-8 text-white"
               fill="none"
@@ -34,7 +34,7 @@ export default async function FeaturedBlogs() {
             </svg>
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold bg-linear-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
             Featured Stories
           </h2>
           <p className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
@@ -44,9 +44,9 @@ export default async function FeaturedBlogs() {
 
           {/* Decorative line */}
           <div className="flex items-center justify-center mt-8">
-            <div className="h-1 w-20 bg-linear-to-r from-blue-400 to-purple-400 rounded-full"></div>
-            <div className="h-2 w-2 bg-blue-400 rounded-full mx-4"></div>
-            <div className="h-1 w-20 bg-linear-to-r from-purple-400 to-pink-400 rounded-full"></div>
+            <div className="h-1 w-20 bg-[#6b46c1] rounded-full"></div>
+            <div className="h-2 w-2 bg-[#6b46c1] rounded-full mx-4"></div>
+            <div className="h-1 w-20 bg-[#6b46c1] rounded-full"></div>
           </div>
         </div>
 
@@ -87,12 +87,12 @@ export default async function FeaturedBlogs() {
                   </Link>
 
                   {/* Overlay gradient */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                   {/* Featured badge for first post */}
                   {index === 0 && (
                     <div className="absolute top-6 left-6">
-                      <span className="inline-flex items-center px-4 py-2 bg-linear-to-r from-yellow-400 to-orange-400 text-white text-sm font-bold rounded-full shadow-lg">
+                      <span className="inline-flex items-center px-4 py-2 bg-yellow-500 text-white text-sm font-bold rounded-full shadow-lg">
                         <svg
                           className="w-4 h-4 mr-2"
                           fill="currentColor"
@@ -115,7 +115,7 @@ export default async function FeaturedBlogs() {
                     {blog.categories.slice(0, 2).map((cat) => (
                       <span
                         key={cat._id}
-                        className="inline-flex items-center px-3 py-1 bg-linear-to-r from-blue-50 to-purple-50 border border-blue-100 text-blue-700 text-xs font-semibold rounded-full hover:bg-blue-100 transition-colors"
+                        className="inline-flex items-center px-3 py-1 bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold rounded-full hover:bg-blue-100 transition-colors"
                       >
                         {cat.title}
                       </span>
@@ -186,7 +186,7 @@ export default async function FeaturedBlogs() {
                   {/* Read more arrow */}
                   <Link
                     href={`/blogs/${blog.slug.current}`}
-                    className="inline-flex items-center justify-center w-10 h-10 bg-linear-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 group"
+                    className="inline-flex items-center justify-center w-10 h-10 bg-[#6b46c1] text-white rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 group"
                     aria-label={`Read full article: ${blog.title}`}
                   >
                     <svg
@@ -213,7 +213,7 @@ export default async function FeaturedBlogs() {
         <div className="text-center mt-16">
           <Link
             href="/blogs"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-linear-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-[#6b46c1] text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group"
             aria-label="View all articles"
           >
             View All Articles

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import Link from "next/link";
 import TypingHeadline from "./TypingHeadline";
-import { AuroraBackground } from "@/components/ui/shadcn-io/aurora-background";
+
 
 
 
@@ -20,7 +20,13 @@ export default function HeroSection() {
 
   return (
 
-    <AuroraBackground>
+    <section className="bg-[#FAFAFA] relative overflow-hidden">
+      {/* Background decoration - subtle blobs instead of gradients if needed, or just clean */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+         {/* Optional: Very subtle solid circles if "no gradient" allows solid shapes, 
+             but for strict "no gradient", we keep it clean or use very faint solid colors. 
+             Let's keep it strictly clean as requested. */}
+      </div>
 
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex flex-col justify-center items-center text-center px-4 py-22 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -80,6 +86,6 @@ export default function HeroSection() {
           </Link>
         </div>
       </div>
-    </AuroraBackground>
+    </section>
   );
 }

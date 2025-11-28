@@ -90,7 +90,7 @@ export const FancyCtaButton = ({ text = "Get Started" }) => {
       <motion.div
         className="absolute inset-0 -z-10 rounded-full"
         style={{
-          background: "linear-gradient(135deg, #6b46c1, #b794f4)",
+          background: "#6b46c1",
           x: translateX,
           y: translateY,
         }}

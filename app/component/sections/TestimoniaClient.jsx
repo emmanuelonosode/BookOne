@@ -19,69 +19,60 @@ const TestimonialCard = memo(({ testimonial, isActive }) => {
   return (
     <article
       className={`
-        shrink-0 w-full p-6 sm:p-8 lg:p-12 transition-all duration-500
-        ${isActive ? "opacity-100 scale-100" : "opacity-90 scale-95"}
+        shrink-0 w-full p-4 sm:p-6 lg:p-8 transition-all duration-500 ease-out
+        ${isActive ? "opacity-100 scale-100" : "opacity-50 scale-95"}
       `}
       role="group"
       aria-roledescription="testimonial"
     >
-      <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl border border-gray-100 relative overflow-hidden group hover:shadow-2xl transition-all duration-300">
-        {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-full -translate-y-16 translate-x-16 opacity-50" />
-
-        {/* Quote icon */}
-        <div className="absolute top-6 left-6 sm:top-8 sm:left-8">
-          <Quote className="w-8 h-8 sm:w-10 sm:h-10 text-purple-300 rotate-180" />
-        </div>
-
+      <div className="bg-white rounded-[2rem] p-8 sm:p-10 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden h-full flex flex-col justify-between">
+        
         <div className="relative z-10">
-          {/* Star rating */}
-
           {/* Main testimonial content */}
-          <div className="mb-6 sm:mb-8">
-            <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 leading-relaxed">
+          <div className="mb-8">
+            <div className="mb-6">
+               <Quote className="w-8 h-8 text-gray-300 rotate-180" />
+            </div>
+            <p className="text-xl sm:text-2xl font-semibold text-slate-900 mb-4 leading-tight">
               {testimonial.tag}
             </p>
-            <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
               {testimonial.desc}
             </p>
           </div>
 
-          {/* Results metrics (if available) */}
-
           {/* Client info */}
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+          <div className="flex items-center gap-4 pt-6 border-t border-gray-100 mt-auto">
             <div className="flex-shrink-0">
               <Image
                 src={getImageUrl(testimonial.image)}
                 alt={`${testimonial.name}, ${testimonial.position}`}
-                width={64}
-                height={64}
-                className="rounded-full object-cover w-16 h-16 border-4 border-purple-200 shadow-lg"
+                width={48}
+                height={48}
+                className="rounded-full object-cover w-12 h-12 bg-gray-100"
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                 onError={(e) => {
                   e.currentTarget.src =
-                    "https://placehold.co/64x64/8B5CF6/FFFFFF?text=" +
+                    "https://placehold.co/48x48/E2E8F0/64748B?text=" +
                     testimonial.name.charAt(0);
                 }}
               />
             </div>
-            <div className="text-center sm:text-left flex-1">
-              <h3 className="font-bold text-gray-900 text-lg mb-1">
+            <div>
+              <h3 className="font-semibold text-slate-900 text-base">
                 {testimonial.name}
               </h3>
-              <p className="text-purple-600 font-medium text-sm sm:text-base mb-1">
-                {testimonial.position}
-              </p>
-              {testimonial.company && (
-                <p className="text-gray-500 text-sm">{testimonial.company}</p>
-              )}
-              {/* Project type badge */}
-              <div className="mt-2">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                  {testimonial.projectType || "Website Design & Development"}
+              <div className="text-sm text-slate-500">
+                <span className="font-medium text-slate-700">
+                  {testimonial.position}
                 </span>
+                {testimonial.company && (
+                  <>
+                    <span className="mx-1.5 text-gray-300">•</span>
+                    <span>{testimonial.company}</span>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -222,32 +213,28 @@ const Testimonia = ({ testimonia: initialTestimonia }) => {
 
   return (
     <section
-      className="py-16 md:py-24 bg-purple-200 relative overflow-hidden"
+      className="py-24 bg-[#FAFAFA] relative overflow-hidden"
       aria-label="Client Testimonials"
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -right-32 sm:-right-48 w-64 sm:w-80 h-64 sm:h-80 bg-gradient-to-br from-purple-200/20 to-indigo-200/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -left-32 sm:-left-48 w-48 sm:w-64 h-48 sm:h-64 bg-gradient-to-br from-indigo-200/20 to-purple-200/20 rounded-full blur-3xl" />
-      </div>
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <header className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium mb-4">
-            <Star className="w-4 h-4" />
+        <header className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-gray-200 shadow-sm text-sm font-medium text-slate-700 mb-6">
+            <span className="relative flex h-2 w-2">
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#6b46c1]"></span>
+            </span>
             Client Success Stories
           </div>
-          <h2 className="text-3xl sm:text-4xl max-w-2xl mx-auto lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
-            Transforming Businesses,{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">
-              One Website at a Time
+
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+            Transforming Businesses, <br className="hidden md:block" />
+            <span className="text-slate-500">
+              One Website at a Time.
             </span>
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
             See how we've helped businesses like yours achieve remarkable growth
-            through strategic web design, development, and digital marketing
-            solutions.
+            through strategic web design and digital solutions.
           </p>
         </header>
 
@@ -280,7 +267,7 @@ const Testimonia = ({ testimonia: initialTestimonia }) => {
           {/* Pagination dots */}
           {hasMultipleTestimonials && (
             <nav
-              className="flex justify-center gap-2 sm:gap-3 mt-8 sm:mt-12"
+              className="flex justify-center gap-2 sm:gap-3 mt-8"
               role="tablist"
               aria-label="Testimonial pagination"
             >
@@ -289,12 +276,12 @@ const Testimonia = ({ testimonia: initialTestimonia }) => {
                   key={index}
                   onClick={() => goToSlide(index)}
                   className={`
-                    w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300
+                    w-2.5 h-2.5 rounded-full transition-all duration-300
                     focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2
                     ${
                       index === currentIndex
-                        ? "bg-purple-600 scale-125"
-                        : "bg-gray-300 hover:bg-gray-400 hover:scale-110"
+                        ? "bg-[#6b46c1] w-8"
+                        : "bg-gray-300 hover:bg-gray-400"
                     }
                   `}
                   role="tab"
@@ -303,16 +290,6 @@ const Testimonia = ({ testimonia: initialTestimonia }) => {
                 />
               ))}
             </nav>
-          )}
-
-          {/* Auto-play indicator */}
-          {hasMultipleTestimonials && isAutoPlaying && (
-            <div className="flex justify-center mt-4">
-              <div className="flex items-center gap-2 px-3 py-1 bg-white/80 backdrop-blur-sm rounded-full text-xs text-gray-500">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                Auto-playing • Hover to pause
-              </div>
-            </div>
           )}
         </div>
       </div>

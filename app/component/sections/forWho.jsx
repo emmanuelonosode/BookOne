@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 const ForWhoSection = () => {
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-slate-50 via-white to-purple-50/30">
+    <section className="py-16 px-4 bg-[#FAFAFA]">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
@@ -31,7 +31,7 @@ const ForWhoSection = () => {
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           {/* Small Businesses */}
           <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-            <div className="w-16 h-16 bg-linear-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-purple-50 rounded-xl flex items-center justify-center mb-6">
               <svg
                 className="w-8 h-8 text-purple-600"
                 fill="none"
@@ -88,7 +88,7 @@ const ForWhoSection = () => {
 
           {/* Startups & Founders */}
           <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
               <svg
                 className="w-8 h-8 text-blue-600"
                 fill="none"
@@ -146,7 +146,7 @@ const ForWhoSection = () => {
 
           {/* Creators & Solopreneurs */}
           <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-            <div className="w-16 h-16 bg-gradient-to-br from-pink-100 to-pink-200 rounded-xl flex items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-pink-50 rounded-xl flex items-center justify-center mb-6">
               <svg
                 className="w-8 h-8 text-pink-600"
                 fill="none"

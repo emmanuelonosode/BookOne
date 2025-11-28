@@ -84,42 +84,54 @@ export default async function BlogListPage({ searchParams }) {
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
   return (
-    <section className="py-16 md:py-22 px-4 max-w-6xl mx-auto">
-      {/* Main Content: Blog List */}
-      <div className="w-full">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Latest Articles
+    <section className="py-24 px-4 bg-[#FAFAFA] min-h-screen font-sans selection:bg-[#6b46c1] selection:text-white">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-20 gap-8">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm text-sm font-medium text-[#6b46c1] mb-6">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#6b46c1]"></span>
+              </span>
+              Our Blog
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-[1.1]">
+              Latest Articles & Insights
             </h1>
-            <p className="text-gray-600">
-              Insights and expertise from our team
+            <p className="text-xl text-slate-600 leading-relaxed max-w-2xl">
+              Expert perspectives on web design, AI automation, and digital
+              growth strategies.
             </p>
           </div>
-          <form className="flex gap-2 w-full md:w-auto" method="get">
-            <input
-              type="text"
-              name="search"
-              placeholder="Search articles..."
-              defaultValue={search}
-              className="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-64 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-gray-400"
-            />
+
+          <form className="flex gap-3 w-full md:w-auto" method="get">
+            <div className="relative w-full md:w-80">
+              <input
+                type="text"
+                name="search"
+                placeholder="Search articles..."
+                defaultValue={search}
+                className="w-full pl-5 pr-4 py-3.5 rounded-2xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#6b46c1]/20 focus:border-[#6b46c1] transition-all shadow-sm text-slate-900 placeholder:text-slate-400"
+              />
+            </div>
             <button
               type="submit"
-              className="bg-gray-900 text-white px-5 py-2 rounded-lg font-medium hover:bg-gray-800 transition"
+              className="px-6 py-3.5 bg-[#6b46c1] text-white font-bold rounded-2xl hover:bg-[#5a37a6] transition-all duration-300 shadow-lg shadow-purple-900/20"
               aria-label="Search articles"
             >
               Search
             </button>
           </form>
         </div>
+
         {/* Featured Blog - Full Width */}
         {blogs.length > 0 && (
-          <article className="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 mb-12">
+          <article className="group relative bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-200 hover:border-[#6b46c1]/50 mb-16">
             <div className="flex flex-col lg:flex-row">
               {/* Image Container */}
               {blogs[0].mainImage && (
-                <div className="lg:w-1/2 relative overflow-hidden h-64 lg:h-auto">
+                <div className="lg:w-1/2 relative overflow-hidden h-[400px] lg:h-auto">
                   <Link
                     href={`/blogs/${blogs[0].slug.current}`}
                     aria-label={`Read full article: ${blogs[0].title}`}
@@ -128,66 +140,83 @@ export default async function BlogListPage({ searchParams }) {
                       src={getImageUrl(blogs[0].mainImage)}
                       alt={blogs[0].title}
                       width={800}
-                      height={400}
+                      height={600}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       priority={true}
                       placeholder="blur"
                       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                     />
                   </Link>
-                  {/* Subtle overlay */}
-                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
+                  
                   {/* Featured badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className="inline-flex items-center px-3 py-1 bg-gray-900 text-white text-xs font-medium rounded-full">
-                      Featured
+                  <div className="absolute top-8 left-8">
+                    <span className="inline-flex items-center px-4 py-2 bg-white/90 backdrop-blur-md text-[#6b46c1] text-sm font-bold rounded-full shadow-lg border border-white/20">
+                      <svg
+                        className="w-4 h-4 mr-2 fill-current"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                      Featured Story
                     </span>
                   </div>
                 </div>
               )}
 
               {/* Content */}
-              <div className="lg:w-1/2 p-6 lg:p-8 flex flex-col justify-center">
-                <h2 className="text-2xl lg:text-3xl font-semibold text-gray-900 mb-4 group-hover:text-gray-700 transition-colors">
-                  <Link
-                    href={`/blogs/${blogs[0].slug.current}`}
-                    aria-label={`Read ${blogs[0].title}`}
-                  >
-                    {blogs[0].title}
-                  </Link>
-                </h2>
-                <p className="text-gray-600 leading-relaxed mb-6 text-base line-clamp-4">
-                  {blogs[0].description}
-                </p>
+              <div className="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center bg-white">
+                <div className="mb-8">
+                  {blogs[0].categories && blogs[0].categories.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {blogs[0].categories.slice(0, 2).map((cat) => (
+                        <span
+                          key={cat._id}
+                          className="inline-flex items-center px-3 py-1 bg-[#6b46c1]/5 text-[#6b46c1] text-xs font-bold rounded-md border border-[#6b46c1]/10 uppercase tracking-wide"
+                        >
+                          {cat.title}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6 group-hover:text-[#6b46c1] transition-colors leading-[1.2]">
+                    <Link
+                      href={`/blogs/${blogs[0].slug.current}`}
+                      aria-label={`Read ${blogs[0].title}`}
+                    >
+                      {blogs[0].title}
+                    </Link>
+                  </h2>
+                  <p className="text-slate-600 leading-relaxed text-lg line-clamp-3">
+                    {blogs[0].description}
+                  </p>
+                </div>
 
                 {/* Author & Meta */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
+                <div className="flex items-center justify-between mt-auto pt-8 border-t border-gray-100">
+                  <div className="flex items-center gap-4">
                     {blogs[0].author?.image && (
                       <div className="relative">
                         <Image
                           src={getImageUrl(blogs[0].author.image)}
                           alt={blogs[0].author.name}
-                          width={44}
-                          height={44}
-                          className="w-11 h-11 rounded-full object-cover border-2 border-white shadow-md"
+                          width={48}
+                          height={48}
+                          className="w-12 h-12 rounded-full object-cover border border-gray-200"
                           blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                         />
-                        <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 border-2 border-white rounded-full"></div>
                       </div>
                     )}
                     <div>
                       <Link
                         href={`/authors/${blogs[0].author?.slug?.current}`}
-                        className="text-sm font-semibold text-gray-900 hover:text-gray-700 transition-colors"
+                        className="text-base font-bold text-slate-900 hover:text-[#6b46c1] transition-colors"
                         aria-label={`View ${
                           blogs[0].author?.name || "Anonymous"
                         } author profile`}
                       >
                         {blogs[0].author?.name || "Anonymous"}
                       </Link>
-                      <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <div className="flex items-center gap-2 text-sm text-slate-500 font-medium">
                         <time dateTime={blogs[0]._createdAt}>
                           {formatRelativeDate(blogs[0]._createdAt)}
                         </time>
@@ -200,11 +229,11 @@ export default async function BlogListPage({ searchParams }) {
                   {/* Read more arrow */}
                   <Link
                     href={`/blogs/${blogs[0].slug.current}`}
-                    className="inline-flex items-center justify-center w-8 h-8 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-all duration-300 group"
+                    className="inline-flex items-center justify-center w-12 h-12 bg-gray-50 text-slate-600 rounded-full hover:bg-[#6b46c1] hover:text-white transition-all duration-300 group shadow-sm hover:shadow-md border border-gray-200 hover:border-[#6b46c1]"
                     aria-label={`Read full article: ${blogs[0].title}`}
                   >
                     <svg
-                      className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform"
+                      className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -225,38 +254,49 @@ export default async function BlogListPage({ searchParams }) {
 
         {/* Other Blogs Grid */}
         {blogs.length > 1 && (
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6">
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
             {blogs.slice(1).map((blog) => (
               <article
                 key={blog._id}
-                className="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100"
+                className="group relative bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 border border-gray-200 hover:border-[#6b46c1]/50 flex flex-col h-full"
               >
                 {/* Image */}
                 {blog.mainImage && (
                   <Link
                     href={`/blogs/${blog.slug.current}`}
-                    className="block"
+                    className="block relative overflow-hidden h-64"
                     aria-label={`Read ${blog.title}`}
                   >
-                    <div className="relative overflow-hidden h-48">
-                      <Image
-                        src={getImageUrl(blog.mainImage)}
-                        alt={blog.title}
-                        width={400}
-                        height={200}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        placeholder="blur"
-                        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                      />
-                      <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
+                    <Image
+                      src={getImageUrl(blog.mainImage)}
+                      alt={blog.title}
+                      width={400}
+                      height={250}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                    />
                   </Link>
                 )}
 
                 {/* Content */}
-                <div className="p-6">
+                <div className="p-8 flex flex-col flex-grow">
+                  {/* Categories */}
+                  {blog.categories && blog.categories.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {blog.categories.slice(0, 1).map((cat) => (
+                        <span
+                          key={cat._id}
+                          className="inline-flex items-center px-3 py-1 bg-gray-50 text-slate-600 text-xs font-bold rounded-md border border-gray-200 uppercase tracking-wide group-hover:border-[#6b46c1]/20 group-hover:bg-[#6b46c1]/5 group-hover:text-[#6b46c1] transition-colors"
+                        >
+                          {cat.title}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
                   {/* Title */}
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-gray-700 transition-colors line-clamp-2">
+                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-[#6b46c1] transition-colors line-clamp-2 leading-tight">
                     <Link
                       href={`/blogs/${blog.slug.current}`}
                       aria-label={`Read ${blog.title}`}
@@ -266,37 +306,36 @@ export default async function BlogListPage({ searchParams }) {
                   </h3>
 
                   {/* Excerpt */}
-                  <p className="text-gray-600 leading-relaxed mb-4 text-sm line-clamp-3">
+                  <p className="text-slate-600 leading-relaxed mb-6 text-sm line-clamp-3">
                     {blog.description}
                   </p>
 
                   {/* Author & Meta */}
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between mt-auto pt-6 border-t border-gray-100">
                     <div className="flex items-center gap-3">
                       {blog.author?.image && (
                         <div className="relative">
                           <Image
                             src={getImageUrl(blog.author.image)}
                             alt={blog.author.name}
-                            width={32}
-                            height={32}
-                            className="w-8 h-8 rounded-full object-cover border-2 border-white shadow-sm"
+                            width={36}
+                            height={36}
+                            className="w-9 h-9 rounded-full object-cover border border-gray-200"
                             blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                           />
-                          <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></div>
                         </div>
                       )}
                       <div>
                         <Link
                           href={`/authors/${blog.author?.slug?.current}`}
-                          className="text-sm font-semibold text-gray-900 hover:text-gray-700 transition-colors"
+                          className="text-sm font-bold text-slate-900 hover:text-[#6b46c1] transition-colors"
                           aria-label={`View ${
                             blog.author?.name || "Anonymous"
                           } author profile`}
                         >
                           {blog.author?.name || "Anonymous"}
                         </Link>
-                        <div className="flex items-center gap-2 text-xs text-gray-500">
+                        <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
                           <time dateTime={blog._createdAt}>
                             {formatRelativeDate(blog._createdAt)}
                           </time>
@@ -307,11 +346,11 @@ export default async function BlogListPage({ searchParams }) {
                     {/* Read more arrow */}
                     <Link
                       href={`/blogs/${blog.slug.current}`}
-                      className="inline-flex items-center justify-center w-7 h-7 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-all duration-300 group"
+                      className="inline-flex items-center justify-center w-10 h-10 bg-gray-50 text-slate-600 rounded-full hover:bg-[#6b46c1] hover:text-white transition-all duration-300 group shadow-sm border border-gray-200 hover:border-[#6b46c1]"
                       aria-label={`Read full article: ${blog.title}`}
                     >
                       <svg
-                        className="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform"
+                        className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -333,29 +372,52 @@ export default async function BlogListPage({ searchParams }) {
 
         {/* No blogs found */}
         {blogs.length === 0 && (
-          <div className="text-center text-gray-500 py-12 text-lg">
-            No blogs found.
+          <div className="text-center py-20">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-50 rounded-full mb-6 border border-gray-100">
+              <svg
+                className="w-10 h-10 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold text-slate-900 mb-3">
+              No articles found
+            </h3>
+            <p className="text-slate-500 max-w-md mx-auto">
+              We couldn't find any articles matching "{search}". Try adjusting your search terms or check back later.
+            </p>
           </div>
         )}
+
         {/* Pagination */}
-        <div className="flex gap-2 mt-12 justify-center">
-          {Array.from({ length: totalPages }, (_, i) => (
-            <Link
-              key={i}
-              href={`?page=${i + 1}${
-                search ? `&search=${encodeURIComponent(search)}` : ""
-              }`}
-              className={`px-4 py-2 rounded-lg font-medium transition ${
-                page === i + 1
-                  ? "bg-gray-900 text-white"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-              }`}
-              aria-label={`Go to page ${i + 1}`}
-            >
-              {i + 1}
-            </Link>
-          ))}
-        </div>
+        {totalPages > 1 && (
+          <div className="flex gap-3 mt-20 justify-center">
+            {Array.from({ length: totalPages }, (_, i) => (
+              <Link
+                key={i}
+                href={`?page=${i + 1}${
+                  search ? `&search=${encodeURIComponent(search)}` : ""
+                }`}
+                className={`w-12 h-12 flex items-center justify-center rounded-2xl font-bold text-lg transition-all duration-300 ${
+                  page === i + 1
+                    ? "bg-[#6b46c1] text-white shadow-lg shadow-purple-900/20 scale-110"
+                    : "bg-white text-slate-600 hover:bg-gray-50 border border-gray-200 hover:border-[#6b46c1]/30"
+                }`}
+                aria-label={`Go to page ${i + 1}`}
+              >
+                {i + 1}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

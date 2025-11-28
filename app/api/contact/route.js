@@ -6,7 +6,7 @@ export const runtime = "nodejs"; // crucial for nodemailer
 
 export async function POST(req) {
   try {
-    const { firstName, lastName, email, previousWebsite, services, message } =
+    const { firstName, lastName, email, previousWebsite, services, budget, referralSource, message } =
       await req.json();
 
     // Validate required fields
@@ -49,6 +49,8 @@ export async function POST(req) {
               services: Array.isArray(services)
                 ? services.join(", ")
                 : services || "",
+              budget: budget || "",
+              referralSource: referralSource || "",
               timestamp: new Date().toISOString(),
             },
           ],
@@ -85,6 +87,8 @@ export async function POST(req) {
           <p><strong>Services:</strong> ${
             Array.isArray(services) ? services.join(", ") : services || "N/A"
           }</p>
+          <p><strong>Budget:</strong> ${budget || "N/A"}</p>
+          <p><strong>Referral Source:</strong> ${referralSource || "N/A"}</p>
           <p><strong>Message:</strong></p>
           <p>${message.replace(/\n/g, "<br />")}</p>
         `,
