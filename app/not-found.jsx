@@ -8,7 +8,6 @@ export const metadata = {
   title: "404 - Page Not Found | BookOne",
   description:
     "The page you're looking for doesn't exist. Navigate back to BookOne's home page or explore our services and blog.",
-  url: "/404",
   keywords: [
     "404 error",
     "page not found",
@@ -17,9 +16,7 @@ export const metadata = {
     "SEO services",
   ],
   alternates: {
-    canonical: `${
-      process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
-    }/404`,
+    canonical: "/404",
   },
 };
 

@@ -19,7 +19,6 @@ export const metadata = {
   title: "BookOne | Professional Web Design, SEO & AI Automation Services",
   description:
     "Transform your business with BookOne's expert web design, SEO optimization, and AI automation services. Nigeria's leading digital agency helping businesses grow online.",
-  url: "/",
   keywords: [
     "web design Nigeria",
     "SEO services Nigeria",
@@ -36,7 +35,7 @@ export const metadata = {
   creator: "BookOne",
   publisher: "BookOne",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}`,
+    canonical: "/",
   },
   openGraph: {
     title: "BookOne - Website Design, SEO & AI Automation for Modern Brands",

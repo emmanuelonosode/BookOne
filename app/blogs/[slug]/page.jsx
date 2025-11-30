@@ -5,6 +5,7 @@ import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import Script from "next/script";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import {
   ShareButtons,
   ReadingProgress,
@@ -26,6 +27,13 @@ import { name } from "platform";
 // Add caching configuration
 
 export const revalidate = 60; // Revalidate individual blog pages every 60 seconds
+
+export async function generateStaticParams() {
+  const slugs = await sanity.fetch(
+    `*[_type == "post" && defined(slug.current)].slug.current`
+  );
+  return slugs.map((slug) => ({ slug }));
+}
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
@@ -83,7 +91,7 @@ export async function generateMetadata({ params }) {
       },
     },
     alternates: {
-      canonical: `${baseUrl}/blogs/${resolvedParams.slug}`,
+      canonical: `/blogs/${resolvedParams.slug}`,
     },
     openGraph: {
       title: blog.title,
@@ -371,24 +379,7 @@ export default async function BlogDetailPage({ params }) {
     slug: resolvedParams.slug,
   });
   if (!blog) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            Post Not Found
-          </h1>
-          <p className="text-gray-600 mb-8">
-            The blog post you're looking for doesn't exist.
-          </p>
-          <a
-            href="/blogs"
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Back to Blog
-          </a>
-        </div>
-      </div>
-    );
+    notFound();
   }
 
   // Calculate reading time

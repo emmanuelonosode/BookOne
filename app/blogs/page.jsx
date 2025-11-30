@@ -23,9 +23,7 @@ export const metadata = {
     "Nigeria digital agency blog",
   ],
   alternates: {
-    canonical: `${
-      process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
-    }/blogs`,
+    canonical: "/blogs",
   },
   openGraph: {
     title: "BookOne Blog - Web Design, SEO & AI Automation Insights",
@@ -56,8 +54,9 @@ export const metadata = {
 const PAGE_SIZE = 7; // 1 featured + 6 grid (2 rows of 3)
 
 export default async function BlogListPage({ searchParams }) {
-  const page = parseInt(searchParams?.page || "1", 10);
-  const search = searchParams?.search || "";
+  const resolvedSearchParams = await searchParams;
+  const page = parseInt(resolvedSearchParams?.page || "1", 10);
+  const search = resolvedSearchParams?.search || "";
 
   // Build GROQ filters
   const searchFilter = search

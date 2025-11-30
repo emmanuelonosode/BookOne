@@ -3,12 +3,21 @@ import { authorBySlugQuery, blogsByAuthorQuery } from "@/lib/queries";
 // seo-config import removed; metadata generated inline below
 import Link from "next/link";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
 
+export async function generateStaticParams() {
+  const slugs = await sanity.fetch(
+    `*[_type == "author" && defined(slug.current)].slug.current`
+  );
+  return slugs.map((slug) => ({ slug }));
+}
+
 export async function generateMetadata({ params }) {
-  const author = await sanity.fetch(authorBySlugQuery, { slug: params.slug });
+  const { slug } = await params;
+  const author = await sanity.fetch(authorBySlugQuery, { slug });
   if (!author) return {};
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
@@ -41,13 +50,13 @@ export async function generateMetadata({ params }) {
       },
     },
     alternates: {
-      canonical: `${baseUrl}/authors/${params.slug}`,
+      canonical: `/authors/${slug}`,
     },
     openGraph: {
       title: `${author.name} | Author at BookOne`,
       description: `Read articles and insights by ${author.name}, expert author at BookOne. Discover professional content on web design, SEO, and AI automation.`,
       type: "profile",
-      url: `${baseUrl}/authors/${params.slug}`,
+      url: `${baseUrl}/authors/${slug}`,
       siteName: "BookOne",
       locale: "en_US",
       images: authorImageUrl
@@ -86,18 +95,12 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function AuthorPage({ params }) {
-  const author = await sanity.fetch(authorBySlugQuery, { slug: params.slug });
-  const blogs = await sanity.fetch(blogsByAuthorQuery, { slug: params.slug });
+  const { slug } = await params;
+  const author = await sanity.fetch(authorBySlugQuery, { slug });
+  const blogs = await sanity.fetch(blogsByAuthorQuery, { slug });
 
   if (!author) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-gray-200 border-t-gray-600 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Author not found</p>
-        </div>
-      </div>
-    );
+    notFound();
   }
 
   return (

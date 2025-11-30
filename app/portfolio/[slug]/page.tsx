@@ -1,6 +1,6 @@
-import Link from "next/link";
 import ClientCaseStudy from "./ClientCaseStudy";
 import { sanity, getImageUrl } from "@/lib/sanity";
+import { notFound } from "next/navigation";
 
 export const revalidate = 60;
 
@@ -116,18 +116,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const caseStudy = mapToClientShape(data);
 
   if (!caseStudy) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-slate-900 mb-4">
-            Case study not found
-          </h1>
-          <Link href="/portfolio" className="text-[#6b46c1] hover:underline">
-            ← Back to portfolio
-          </Link>
-        </div>
-      </div>
-    );
+    notFound();
   }
 
   return <ClientCaseStudy caseStudy={caseStudy} />;

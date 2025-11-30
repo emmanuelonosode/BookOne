@@ -321,7 +321,7 @@ const ServicesClient = () => {
                 engineering team can build exactly what you need.
               </p>
               <a
-                href="/contact"
+                href="/get-started"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#6b46c1] font-bold rounded-xl hover:bg-purple-50 transition-all hover:scale-105 shadow-lg w-full md:w-auto"
                 aria-label="Contact us for custom enterprise solutions"
               >

@@ -17,7 +17,7 @@ export async function generateMetadata() {
       "writers",
     ],
     alternates: {
-      canonical: `${baseUrl}/authors`,
+      canonical: "/authors",
     },
     openGraph: {
       title: "Authors | BookOne",

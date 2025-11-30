@@ -188,7 +188,7 @@ export async function generateMetadata() {
       },
     },
     alternates: {
-      canonical: `${baseUrl}/portfolio`,
+      canonical: "/portfolio",
     },
     openGraph: {
       title: "Portfolio | BookOne - Web Design, SEO & AI Automation Projects",
