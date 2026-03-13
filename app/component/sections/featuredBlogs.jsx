@@ -14,13 +14,13 @@ export default async function FeaturedBlogs() {
   );
 
   return (
-    <section className="py-20 px-4 bg-[#FAFAFA]">
+    <section className="py-20 px-4 bg-[#0B0B0E]">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#6b46c1] rounded-2xl mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#8B5CF6]/20 border border-[#8B5CF6]/30 rounded-2xl mb-6">
             <svg
-              className="w-8 h-8 text-white"
+              className="w-8 h-8 text-[#A78BFA]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -34,19 +34,19 @@ export default async function FeaturedBlogs() {
             </svg>
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Featured Stories
           </h2>
-          <p className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
             Discover our latest insights, stories, and expertise crafted for
             forward-thinking professionals
           </p>
 
           {/* Decorative line */}
           <div className="flex items-center justify-center mt-8">
-            <div className="h-1 w-20 bg-[#6b46c1] rounded-full"></div>
-            <div className="h-2 w-2 bg-[#6b46c1] rounded-full mx-4"></div>
-            <div className="h-1 w-20 bg-[#6b46c1] rounded-full"></div>
+            <div className="h-1 w-20 bg-[#8B5CF6] rounded-full"></div>
+            <div className="h-2 w-2 bg-[#8B5CF6] rounded-full mx-4"></div>
+            <div className="h-1 w-20 bg-[#8B5CF6] rounded-full"></div>
           </div>
         </div>
 
@@ -55,7 +55,7 @@ export default async function FeaturedBlogs() {
           {blogs.map((blog, index) => (
             <article
               key={blog._id}
-              className={`group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 ${
+              className={`group relative bg-[#1A1A24]/60 backdrop-blur-md rounded-3xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.5)] border border-white/10 hover:border-[#6B46C1]/50 hover:shadow-[0_0_20px_rgba(107,70,193,0.3)] transition-all duration-500 transform hover:-translate-y-2 ${
                 index === 0
                   ? "lg:col-span-2 lg:row-span-2"
                   : "lg:row-span-1 lg:col-span-2"
@@ -115,7 +115,7 @@ export default async function FeaturedBlogs() {
                     {blog.categories.slice(0, 2).map((cat) => (
                       <span
                         key={cat._id}
-                        className="inline-flex items-center px-3 py-1 bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold rounded-full hover:bg-blue-100 transition-colors"
+                        className="inline-flex items-center px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold rounded-full hover:bg-blue-500/20 transition-colors"
                       >
                         {cat.title}
                       </span>
@@ -126,9 +126,9 @@ export default async function FeaturedBlogs() {
                 {/* Title */}
                 <Link
                   href={`/blogs/${blog.slug.current}`}
-                  className={`block group-hover:text-blue-600 transition-colors duration-300 mb-4 ${
+                  className={`block group-hover:text-[#A78BFA] transition-colors duration-300 mb-4 ${
                     index === 0 ? "text-2xl lg:text-3xl" : "text-xl"
-                  } font-bold text-gray-900 leading-tight`}
+                  } font-bold text-white leading-tight`}
                   aria-label={`Read ${blog.title}`}
                 >
                   {blog.title}
@@ -136,7 +136,7 @@ export default async function FeaturedBlogs() {
 
                 {/* Excerpt */}
                 <p
-                  className={`text-gray-600 leading-relaxed mb-6 ${
+                  className={`text-slate-400 leading-relaxed mb-6 ${
                     index === 0 ? "text-base lg:text-lg" : "text-sm"
                   }`}
                 >
@@ -165,14 +165,14 @@ export default async function FeaturedBlogs() {
                     <div>
                       <Link
                         href={`/authors/${blog.author?.slug?.current}`}
-                        className="text-sm font-semibold text-gray-900 hover:text-blue-600 transition-colors"
+                        className="text-sm font-semibold text-slate-200 hover:text-[#A78BFA] transition-colors"
                         aria-label={`View ${
                           blog.author?.name || "Anonymous"
                         } author profile`}
                       >
                         {blog.author?.name || "Anonymous"}
                       </Link>
-                      <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
                         <time dateTime={blog._createdAt}>
                     
                           {formatRelativeDate(blog._createdAt)}
@@ -186,7 +186,7 @@ export default async function FeaturedBlogs() {
                   {/* Read more arrow */}
                   <Link
                     href={`/blogs/${blog.slug.current}`}
-                    className="inline-flex items-center justify-center w-10 h-10 bg-[#6b46c1] text-white rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 group"
+                    className="inline-flex items-center justify-center w-10 h-10 bg-[#8B5CF6] text-white rounded-full shadow-[0_0_15px_rgba(139,92,246,0.5)] hover:shadow-[0_0_20px_rgba(139,92,246,0.7)] transform hover:scale-110 transition-all duration-300 group"
                     aria-label={`Read full article: ${blog.title}`}
                   >
                     <svg
@@ -213,7 +213,7 @@ export default async function FeaturedBlogs() {
         <div className="text-center mt-16">
           <Link
             href="/blogs"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-[#6b46c1] text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-[#6b46c1] hover:bg-[#8B5CF6] text-white font-semibold rounded-2xl shadow-[0_0_15px_rgba(107,70,193,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] transform hover:-translate-y-0.5 transition-all duration-300 group"
             aria-label="View all articles"
           >
             View All Articles

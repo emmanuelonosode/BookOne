@@ -156,14 +156,14 @@ const GlowCard = ({ service, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ delay: index * 0.1 }}
-      className={`group relative overflow-hidden bg-white border border-gray-200 rounded-4xl hover:border-[#6b46c1]/50 transition-colors duration-500 shadow-sm hover:shadow-md col-span-1 ${service.colSpan} will-change-transform`}
+      className={`group relative overflow-hidden bg-[#1A1A24]/60 backdrop-blur-md border border-white/10 rounded-4xl hover:border-[#6b46c1]/50 hover:shadow-[0_0_20px_rgba(107,70,193,0.3)] transition-all duration-500 col-span-1 ${service.colSpan} will-change-transform`}
       onMouseMove={handleMouseMove}
     >
       {/* 3. Grid Lines Overlay */}
       <div
-        className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+        className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none mix-blend-overlay"
         style={{
-          backgroundImage: `linear-gradient(to right, #000000 1px, transparent 1px), linear-gradient(to bottom, #000000 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
           backgroundSize: "60px 60px",
         }}
       />
@@ -181,28 +181,28 @@ const GlowCard = ({ service, index }) => {
         <div>
           <header className="flex justify-between items-start mb-6">
             <div
-              className={`p-3 md:p-4 rounded-2xl bg-gray-50 border border-gray-100 group-hover:bg-[#6b46c1] group-hover:border-[#6b46c1] transition-all duration-300 shadow-sm`}
+              className={`p-3 md:p-4 rounded-2xl bg-[#6b46c1]/10 border border-[#6b46c1]/20 group-hover:bg-[#6b46c1] group-hover:shadow-[0_0_15px_rgba(107,70,193,0.5)] transition-all duration-300`}
             >
               <Icon
-                className="w-6 h-6 md:w-8 md:h-8 text-[#6b46c1] group-hover:text-white transition-colors"
+                className="w-6 h-6 md:w-8 md:h-8 text-[#A78BFA] group-hover:text-white transition-colors"
                 strokeWidth={1.5}
               />
             </div>
-            <ArrowRight className="w-5 h-5 md:w-6 md:h-6 text-gray-300 group-hover:text-[#6b46c1] -rotate-45 group-hover:rotate-0 transition-all duration-300" />
+            <ArrowRight className="w-5 h-5 md:w-6 md:h-6 text-slate-500 group-hover:text-[#A78BFA] -rotate-45 group-hover:rotate-0 transition-all duration-300" />
           </header>
 
-          <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-3 tracking-tight">
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-3 tracking-tight group-hover:text-[#A78BFA] transition-colors">
             {service.title}
           </h3>
-          <p className="text-sm md:text-base text-slate-500 mb-8 leading-relaxed font-light">
+          <p className="text-sm md:text-base text-slate-400 mb-8 leading-relaxed font-light">
             {service.description}
           </p>
 
           <ul className="space-y-3 mb-8">
             {service.features.map((feature, idx) => (
               <li key={idx} className="flex items-center gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#6b46c1]" />
-                <span className="text-sm font-medium text-slate-600">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#A78BFA] shadow-[0_0_8px_rgba(167,139,250,0.8)]" />
+                <span className="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">
                   {feature}
                 </span>
               </li>
@@ -210,10 +210,10 @@ const GlowCard = ({ service, index }) => {
           </ul>
         </div>
 
-        <div className="pt-6 border-t border-gray-100 group-hover:border-[#6b46c1]/10 transition-colors">
+        <div className="pt-6 border-t border-white/10 group-hover:border-[#6b46c1]/30 transition-colors">
           <a
             href="/get-started"
-            className="flex items-center gap-2 text-[#6b46c1] font-semibold text-sm uppercase tracking-wide hover:text-[#5a37a6] transition-colors focus:outline-none focus:ring-2 focus:ring-[#6b46c1] focus:ring-offset-2 rounded-lg"
+            className="flex items-center gap-2 text-[#A78BFA] font-semibold text-sm uppercase tracking-wide hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#6b46c1] focus:ring-offset-2 rounded-lg"
             aria-label={`Get started with ${service.title}`}
           >
             {service.cta}
@@ -231,7 +231,7 @@ const GlowCard = ({ service, index }) => {
 
 const ServicesClient = () => {
   return (
-    <main className="bg-[#FAFAFA] min-h-screen selection:bg-[#6b46c1] selection:text-white font-sans overflow-x-hidden">
+    <main className="bg-[#0B0B0E] min-h-screen selection:bg-[#6b46c1] selection:text-white font-sans overflow-x-hidden text-slate-300">
       {/* Structured Data Script */}
       <script
         type="application/ld+json"
@@ -239,16 +239,17 @@ const ServicesClient = () => {
       />
 
       {/* HERO SECTION */}
-      <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-6 max-w-[1400px] mx-auto">
-        <header className="max-w-4xl">
+      <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-6 max-w-[1400px] mx-auto relative">
+        <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#6b46c1]/10 blur-[150px] rounded-full mix-blend-screen pointer-events-none -translate-y-1/2 translate-x-1/4" />
+        <header className="max-w-4xl relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm text-sm font-medium text-[#6b46c1] mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1A1A24]/80 backdrop-blur-md border border-white/10 shadow-[0_0_15px_rgba(107,70,193,0.3)] text-sm font-medium text-[#A78BFA] mb-8"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#6b46c1]"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A78BFA]"></span>
             </span>
             Available for new projects
           </motion.div>
@@ -257,21 +258,21 @@ const ServicesClient = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-6xl md:text-8xl font-bold text-slate-900 tracking-tight leading-[1.1] md:leading-[0.95] mb-6 md:mb-10"
+            className="text-4xl sm:text-6xl md:text-8xl font-bold text-white tracking-tight leading-[1.1] md:leading-[0.95] mb-6 md:mb-10"
           >
             Web Design & <br />
-            <span className="text-gray-400">AI Automation.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A78BFA] to-purple-400">AI Automation.</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-600 max-w-2xl leading-relaxed mb-12"
+            className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-12"
           >
             We don't just design websites; we build growth engines. From
-            high-performance <strong>Next.js sites</strong> to{" "}
-            <strong>AI agents</strong> that automate your workflow, BookOne
+            high-performance <strong className="text-white">Next.js sites</strong> to{" "}
+            <strong className="text-white">AI agents</strong> that automate your workflow, BookOne
             delivers digital excellence.
           </motion.p>
 
@@ -279,11 +280,11 @@ const ServicesClient = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="grid grid-cols-2 md:flex md:flex-wrap gap-8 md:gap-12 border-t border-gray-200 pt-8"
+            className="grid grid-cols-2 md:flex md:flex-wrap gap-8 md:gap-12 border-t border-white/10 pt-8"
           >
             {stats.map((stat, i) => (
               <div key={i}>
-                <div className="text-2xl md:text-3xl font-bold text-slate-900">
+                <div className="text-2xl md:text-3xl font-bold text-white">
                   {stat.value}
                 </div>
                 <div className="text-xs md:text-sm font-medium text-slate-500 uppercase tracking-wider mt-1">
@@ -310,19 +311,20 @@ const ServicesClient = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="md:col-span-3 bg-[#6b46c1] rounded-4xl p-8 md:p-16 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-10 shadow-xl shadow-purple-900/20"
+            className="md:col-span-3 bg-gradient-to-br from-[#1A1A24] to-[#0B0B0E] border border-white/10 rounded-4xl p-8 md:p-16 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-10 shadow-[0_0_50px_rgba(107,70,193,0.15)] group"
           >
+            <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5 pointer-events-none" />
             <div className="relative z-10 max-w-2xl text-center md:text-left">
               <h3 className="text-2xl md:text-4xl font-bold text-white mb-4">
                 Need a custom enterprise solution?
               </h3>
-              <p className="text-purple-100 text-base md:text-lg mb-8">
+              <p className="text-slate-400 text-base md:text-lg mb-8">
                 From complex SaaS platforms to bespoke internal tools, our
                 engineering team can build exactly what you need.
               </p>
               <a
                 href="/get-started"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#6b46c1] font-bold rounded-xl hover:bg-purple-50 transition-all hover:scale-105 shadow-lg w-full md:w-auto"
+                className="inline-flex items-center justify-center px-8 py-4 bg-[#6b46c1] text-white font-bold rounded-xl hover:bg-[#8B5CF6] hover:shadow-[0_0_25px_rgba(139,92,246,0.6)] transition-all hover:-translate-y-1 w-full md:w-auto"
                 aria-label="Contact us for custom enterprise solutions"
               >
                 Let's Talk Code
@@ -330,27 +332,28 @@ const ServicesClient = () => {
             </div>
 
             {/* Abstract Graphic */}
-            <div className="relative z-10 w-full md:w-1/3 aspect-square max-w-[300px] bg-white/10 rounded-2xl border border-white/20 flex items-center justify-center backdrop-blur-sm">
+            <div className="relative z-10 w-full md:w-1/3 aspect-square max-w-[300px] bg-[#6B46C1]/5 rounded-2xl border border-[#6B46C1]/20 flex items-center justify-center backdrop-blur-sm group-hover:bg-[#6b46c1]/10 group-hover:border-[#6b46c1]/40 transition-all duration-500">
               <Cpu
-                className="w-16 h-16 md:w-24 md:h-24 text-white opacity-90"
+                className="w-16 h-16 md:w-24 md:h-24 text-[#A78BFA] opacity-90 group-hover:scale-110 transition-transform duration-500 group-hover:drop-shadow-[0_0_15px_rgba(167,139,250,0.8)]"
                 strokeWidth={1}
               />
             </div>
 
             {/* Background Glow */}
-            <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-white rounded-full blur-[100px] md:blur-[150px] opacity-10 pointer-events-none" />
+            <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[#6B46C1] rounded-full blur-[100px] md:blur-[150px] opacity-20 pointer-events-none group-hover:opacity-30 transition-opacity duration-500" />
           </motion.article>
         </div>
       </section>
 
       {/* PROCESS SECTION */}
-      <section className="bg-white py-24 md:py-32 border-t border-gray-200">
-        <div className="max-w-[1400px] mx-auto px-6">
+      <section className="bg-[#0B0B0E] py-24 md:py-32 border-t border-white/5 relative">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,#6B46C1_0%,transparent_50%)] opacity-10 pointer-events-none" />
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <header className="mb-16 md:mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 md:mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6 tracking-tight">
               How we work
             </h2>
-            <p className="text-slate-500 text-base md:text-lg">
+            <p className="text-slate-400 text-base md:text-lg">
               A simple, transparent process built for speed and results.
             </p>
           </header>
@@ -363,21 +366,21 @@ const ServicesClient = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="relative pl-6 md:pl-0 border-l md:border-l-0 border-gray-200"
+                className="relative pl-6 md:pl-0 border-l md:border-l-0 border-white/10 group"
               >
-                <div className="text-5xl md:text-6xl font-bold text-slate-100 mb-4 font-mono">
+                <div className="text-5xl md:text-6xl font-bold text-white/5 mb-4 font-mono group-hover:text-[#6b46c1]/20 transition-colors duration-500">
                   {step.num}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#A78BFA] transition-colors">
                   {step.title}
                 </h3>
-                <p className="text-slate-500 leading-relaxed text-sm md:text-base">
+                <p className="text-slate-400 leading-relaxed text-sm md:text-base">
                   {step.desc}
                 </p>
 
                 {/* Horizontal Line for Desktop */}
                 {i < processSteps.length - 1 && (
-                  <div className="hidden md:block absolute top-8 right-0 w-full h-px bg-gray-100 -z-10 translate-x-1/2" />
+                  <div className="hidden md:block absolute top-8 right-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#6b46c1]/30 to-transparent -z-10 translate-x-1/2 opacity-50 transition-opacity group-hover:opacity-100 duration-500" />
                 )}
               </motion.div>
             ))}
@@ -386,12 +389,13 @@ const ServicesClient = () => {
       </section>
 
       {/* CTA SECTION */}
-      <section className="py-24 md:py-32 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-4xl md:text-7xl font-bold text-slate-900 mb-6 md:mb-8 tracking-tight">
+      <section className="py-24 md:py-32 px-6 bg-[#050508] border-t border-[#8B5CF6]/20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#6B46C1_0%,transparent_60%)] opacity-10 pointer-events-none" />
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+          <h2 className="text-4xl md:text-7xl font-bold text-white mb-6 md:mb-8 tracking-tight">
             Ready to scale?
           </h2>
-          <p className="text-lg md:text-xl text-slate-600 mb-10 md:mb-12 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-slate-400 mb-10 md:mb-12 max-w-2xl mx-auto">
             Stop losing leads to outdated tech. Join 100+ businesses growing
             with BookOne today.
           </p>
@@ -399,14 +403,14 @@ const ServicesClient = () => {
             <a
               href="https://calendar.notion.so/meet/officialbookone/call"
               target="_blank"
-              className="w-full sm:w-auto px-10 py-5 bg-[#6b46c1] text-white font-bold text-lg rounded-full hover:bg-[#5a37a6] transition-all hover:-translate-y-1 shadow-xl shadow-purple-200"
+              className="w-full sm:w-auto px-10 py-5 bg-[#6b46c1] text-white font-bold text-lg rounded-full hover:bg-[#8B5CF6] hover:shadow-[0_0_25px_rgba(139,92,246,0.6)] transition-all hover:-translate-y-1"
               aria-label="Book a strategy call to discuss your project"
             >
               Book Strategy Call
             </a>
             <a
               href="/portfolio"
-              className="w-full sm:w-auto px-10 py-5 bg-white text-slate-900 font-bold text-lg rounded-full border border-gray-200 hover:border-[#6b46c1] transition-all"
+              className="w-full sm:w-auto px-10 py-5 bg-transparent text-white font-bold text-lg rounded-full border border-white/20 hover:bg-white/5 hover:border-white/40 transition-all"
               aria-label="View our portfolio of recent work"
             >
               View Our Work

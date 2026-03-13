@@ -118,7 +118,7 @@ function HeaderSection({ caseStudy }: { caseStudy: CaseStudy }) {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-sm md:text-base font-mono text-[#6b46c1] font-semibold tracking-wide mb-6"
+        className="text-sm md:text-base font-mono text-[#A78BFA] font-semibold tracking-wide mb-6"
       >
         {caseStudy.date}
       </motion.p>
@@ -127,7 +127,7 @@ function HeaderSection({ caseStudy }: { caseStudy: CaseStudy }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 mb-6 leading-[1.1]"
+        className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.1]"
       >
         {caseStudy.title}
       </motion.h1>
@@ -136,7 +136,7 @@ function HeaderSection({ caseStudy }: { caseStudy: CaseStudy }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="max-w-2xl text-lg md:text-xl text-slate-600 leading-relaxed"
+        className="max-w-2xl text-lg md:text-xl text-slate-400 leading-relaxed font-light"
       >
         {caseStudy.lead}
       </motion.p>
@@ -147,30 +147,30 @@ function HeaderSection({ caseStudy }: { caseStudy: CaseStudy }) {
 function MetadataGrid({ metadata }: { metadata?: CaseStudy["metadata"] }) {
   if (!metadata) return null;
   return (
-    <div className="border-t border-b border-gray-200 py-8 md:py-12">
+    <div className="border-t border-b border-white/10 py-8 md:py-12 bg-[#1A1A24]/40 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
               Services
             </p>
-            <p className="text-base md:text-lg font-bold text-slate-900">
+            <p className="text-base md:text-lg font-bold text-slate-300">
               {metadata.services}
             </p>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
               Category
             </p>
-            <p className="text-base md:text-lg font-bold text-slate-900">
+            <p className="text-base md:text-lg font-bold text-slate-300">
               {metadata.category}
             </p>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
               Client
             </p>
-            <p className="text-base md:text-lg font-bold text-slate-900">
+            <p className="text-base md:text-lg font-bold text-slate-300">
               {metadata.client}
             </p>
           </div>
@@ -179,7 +179,7 @@ function MetadataGrid({ metadata }: { metadata?: CaseStudy["metadata"] }) {
               href={metadata.link}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-2 bg-[#6b46c1] text-white font-semibold rounded-full hover:bg-[#5a37a6] transition-colors duration-300"
+              className="inline-flex items-center gap-2 px-6 py-2 bg-[#6b46c1]/20 text-[#A78BFA] font-semibold rounded-full border border-[#6b46c1]/40 hover:bg-[#6b46c1] hover:text-white hover:shadow-[0_0_15px_rgba(107,70,193,0.5)] transition-all duration-300"
             >
               Visit Site <ExternalLink className="w-4 h-4" />
             </a>
@@ -242,10 +242,10 @@ function StickySectionComponent({
               }
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-2">
+              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-2">
                 {section.title}
               </h2>
-              <div className="h-1 w-16 bg-[#6b46c1] rounded-full"></div>
+              <div className="h-1 w-16 bg-[#6b46c1] rounded-full shadow-[0_0_10px_rgba(107,70,193,0.8)]"></div>
             </motion.div>
           </div>
           <motion.div
@@ -258,8 +258,8 @@ function StickySectionComponent({
             }}
             className="space-y-8"
           >
-            <div className="prose prose-lg max-w-none">
-              <p className="text-slate-600 leading-relaxed whitespace-pre-wrap">
+            <div className="prose prose-lg max-w-none prose-invert">
+              <p className="text-slate-400 leading-relaxed whitespace-pre-wrap font-light">
                 {section.description}
               </p>
             </div>
@@ -279,7 +279,7 @@ function StickySectionComponent({
                       duration: 0.4,
                       delay: index * 0.15 + i * 0.05,
                     }}
-                    className="inline-block px-4 py-2 bg-[#6b46c1]/10 text-[#6b46c1] rounded-full text-sm font-medium border border-[#6b46c1]/20 hover:border-[#6b46c1] transition-all"
+                    className="inline-block px-4 py-2 bg-[#6b46c1]/10 text-[#A78BFA] rounded-full text-sm font-medium border border-[#6b46c1]/30 hover:bg-[#6b46c1]/20 hover:border-[#6b46c1] hover:shadow-[0_0_15px_rgba(107,70,193,0.3)] transition-all cursor-default"
                   >
                     {tag}
                   </motion.span>
@@ -357,22 +357,23 @@ function TestimonialSection({
 }) {
   if (!testimonial) return null;
   return (
-    <section className="py-24 md:py-32 bg-white">
-      <div className="max-w-4xl mx-auto px-6">
+    <section className="py-24 md:py-32 bg-[#0B0B0E] relative">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#6B46C1_0%,transparent_50%)] opacity-5 pointer-events-none" />
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="bg-linear-to-br from-slate-50 to-white rounded-2xl p-8 md:p-12 border border-slate-200 shadow-sm hover:shadow-lg transition-shadow"
+          className="bg-gradient-to-br from-[#1A1A24] to-[#0B0B0E] rounded-2xl p-8 md:p-12 border border-white/10 shadow-[0_0_30px_rgba(107,70,193,0.1)] hover:shadow-[0_0_40px_rgba(107,70,193,0.2)] hover:border-[#6b46c1]/40 transition-all duration-500"
         >
-          <div className="text-4xl text-[#6b46c1]/20 mb-4 font-serif">&quot;</div>
-          <p className="text-2xl md:text-3xl font-semibold text-slate-900 mb-8 leading-relaxed">
+          <div className="text-4xl text-[#6b46c1]/40 mb-4 font-serif drop-shadow-[0_0_8px_rgba(107,70,193,0.5)]">&quot;</div>
+          <p className="text-2xl md:text-3xl font-semibold text-white mb-8 leading-relaxed font-light">
             {testimonial.quote}
           </p>
-          <div className="flex items-center gap-4 pt-6 border-t border-slate-200">
+          <div className="flex items-center gap-4 pt-6 border-t border-white/10">
             {testimonial.image && (
-              <div className="relative w-14 h-14 rounded-full overflow-hidden shrink-0">
+              <div className="relative w-14 h-14 rounded-full overflow-hidden shrink-0 border border-[#6b46c1]/30">
                 <Image
                   src={testimonial.image}
                   alt={testimonial.author}
@@ -382,8 +383,8 @@ function TestimonialSection({
               </div>
             )}
             <div>
-              <p className="font-bold text-slate-900">{testimonial.author}</p>
-              <p className="text-slate-600 text-sm">{testimonial.role}</p>
+              <p className="font-bold text-white tracking-wide">{testimonial.author}</p>
+              <p className="text-[#A78BFA] text-sm">{testimonial.role}</p>
             </div>
           </div>
         </motion.div>
@@ -394,24 +395,25 @@ function TestimonialSection({
 
 function NextProjectSection() {
   return (
-    <section className="py-24 md:py-32 bg-linear-to-b from-slate-50 to-white">
-      <div className="max-w-4xl mx-auto px-6 text-center">
+    <section className="py-24 md:py-32 bg-[#050508] border-t border-[#8B5CF6]/10 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#6B46C1_0%,transparent_60%)] opacity-10 pointer-events-none" />
+      <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true, margin: "-100px" }}
         >
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">
             Ready to start your next project?
           </h2>
-          <p className="text-lg text-slate-600 mb-10 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-400 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
             Let&apos;s create something extraordinary together. Every project is a
             unique opportunity to deliver exceptional results.
           </p>
           <Link
             href="/get-started"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-[#6b46c1] text-white font-semibold rounded-full hover:bg-[#5a37a6] transition-all duration-300 hover:gap-4 group"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-[#6b46c1] text-white font-semibold rounded-full hover:bg-[#8B5CF6] hover:shadow-[0_0_25px_rgba(139,92,246,0.6)] transition-all duration-300 hover:-translate-y-1 group"
           >
             Get Started
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -451,28 +453,30 @@ export default function ClientCaseStudy({
 
   return (
     <main
-      className="bg-white min-h-screen"
+      className="bg-[#0B0B0E] min-h-screen text-slate-300 selection:bg-[#6b46c1] selection:text-white"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       <BackgroundDecorations pointer={pointer} />
 
-      <div className="max-w-7xl mx-auto px-6 pt-8 pb-6">
+      <div className="max-w-7xl mx-auto px-6 pt-8 pb-6 relative z-10">
         <Link
           href="/portfolio"
-          className="inline-flex items-center gap-2 text-slate-600 hover:text-[#6b46c1] transition-colors"
+          className="inline-flex items-center gap-2 text-slate-400 hover:text-[#A78BFA] transition-colors"
         >
           ← Back to Portfolio
         </Link>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-6 py-12 md:py-16 relative z-10">
         <HeaderSection caseStudy={caseStudy} />
       </div>
 
-      <MetadataGrid metadata={caseStudy.metadata} />
+      <div className="relative z-10">
+        <MetadataGrid metadata={caseStudy.metadata} />
+      </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
+      <div className="max-w-7xl mx-auto px-6 py-16 md:py-20 relative z-10">
         <motion.div
           animate={heroParallax}
           transition={{ duration: 0.9, ease: "easeOut" }}
@@ -481,15 +485,19 @@ export default function ClientCaseStudy({
         </motion.div>
       </div>
 
-      <div className="bg-white">
+      <div className="bg-transparent relative z-10">
         {caseStudy.sections?.map((section, index) => (
           <StickySectionComponent key={index} section={section} index={index} />
         ))}
       </div>
 
-      <TestimonialSection testimonial={caseStudy.testimonial} />
+      <div className="relative z-10">
+        <TestimonialSection testimonial={caseStudy.testimonial} />
+      </div>
 
-      <NextProjectSection />
+      <div className="relative z-10">
+        <NextProjectSection />
+      </div>
     </main>
   );
 }

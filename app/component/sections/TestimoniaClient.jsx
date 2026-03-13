@@ -25,31 +25,31 @@ const TestimonialCard = memo(({ testimonial, isActive }) => {
       role="group"
       aria-roledescription="testimonial"
     >
-      <div className="bg-white rounded-[2rem] p-8 sm:p-10 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden h-full flex flex-col justify-between">
+      <div className="bg-[#1A1A24]/60 backdrop-blur-md rounded-[2rem] p-8 sm:p-10 border border-white/10 shadow-sm hover:shadow-[0_20px_40px_rgba(107,70,193,0.15)] hover:border-purple-500/30 transition-all duration-300 relative overflow-hidden h-full flex flex-col justify-between">
         
         <div className="relative z-10">
           {/* Main testimonial content */}
           <div className="mb-8">
             <div className="mb-6">
-               <Quote className="w-8 h-8 text-gray-300 rotate-180" />
+               <Quote className="w-8 h-8 text-white/10 rotate-180" />
             </div>
-            <p className="text-xl sm:text-2xl font-semibold text-slate-900 mb-4 leading-tight">
+            <p className="text-xl sm:text-2xl font-semibold text-white mb-4 leading-tight">
               {testimonial.tag}
             </p>
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
+            <p className="text-base sm:text-lg text-slate-400 leading-relaxed">
               {testimonial.desc}
             </p>
           </div>
 
           {/* Client info */}
-          <div className="flex items-center gap-4 pt-6 border-t border-gray-100 mt-auto">
+          <div className="flex items-center gap-4 pt-6 border-t border-white/10 mt-auto">
             <div className="flex-shrink-0">
               <Image
                 src={getImageUrl(testimonial.image)}
                 alt={`${testimonial.name}, ${testimonial.position}`}
                 width={48}
                 height={48}
-                className="rounded-full object-cover w-12 h-12 bg-gray-100"
+                className="rounded-full object-cover w-12 h-12 bg-[#0B0B0E]"
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                 onError={(e) => {
@@ -60,16 +60,16 @@ const TestimonialCard = memo(({ testimonial, isActive }) => {
               />
             </div>
             <div>
-              <h3 className="font-semibold text-slate-900 text-base">
+              <h3 className="font-semibold text-white text-base">
                 {testimonial.name}
               </h3>
-              <div className="text-sm text-slate-500">
-                <span className="font-medium text-slate-700">
+              <div className="text-sm text-slate-400">
+                <span className="font-medium text-[#A78BFA]">
                   {testimonial.position}
                 </span>
                 {testimonial.company && (
                   <>
-                    <span className="mx-1.5 text-gray-300">•</span>
+                    <span className="mx-1.5 text-white/20">•</span>
                     <span>{testimonial.company}</span>
                   </>
                 )}
@@ -91,16 +91,16 @@ const NavButton = memo(({ direction, onClick, className = "" }) => {
       onClick={onClick}
       className={`
         absolute top-1/2 -translate-y-1/2 z-20
-        w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full shadow-lg 
+        w-12 h-12 sm:w-14 sm:h-14 bg-[#1A1A24]/60 backdrop-blur-md rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.5)] border border-white/10
         flex items-center justify-center group
-        hover:shadow-xl hover:scale-105 transition-all duration-300
-        focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2
+        hover:border-[#6B46C1]/50 hover:shadow-[0_0_15px_rgba(107,70,193,0.3)] hover:scale-105 transition-all duration-300
+        focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-[#0B0B0E]
         ${direction === "prev" ? "-left-6 sm:-left-7" : "-right-6 sm:-right-7"}
         ${className}
       `}
       aria-label={`${direction === "prev" ? "Previous" : "Next"} testimonial`}
     >
-      <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600 group-hover:text-purple-700 transition-colors" />
+      <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#A78BFA] group-hover:text-white transition-colors" />
     </button>
   );
 });
@@ -200,11 +200,11 @@ const Testimonia = ({ testimonia: initialTestimonia }) => {
 
   if (testimonia.length === 0) {
     return (
-      <section className="py-16 md:py-24 bg-gradient-to-br from-purple-50 via-white to-indigo-50">
+      <section className="py-16 md:py-24 bg-[#0B0B0E]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-64 mx-auto mb-4"></div>
-            <div className="h-4 bg-gray-200 rounded w-96 mx-auto"></div>
+            <div className="h-8 bg-white/10 rounded w-64 mx-auto mb-4"></div>
+            <div className="h-4 bg-white/10 rounded w-96 mx-auto"></div>
           </div>
         </div>
       </section>
@@ -213,26 +213,26 @@ const Testimonia = ({ testimonia: initialTestimonia }) => {
 
   return (
     <section
-      className="py-24 bg-[#FAFAFA] relative overflow-hidden"
+      className="py-24 bg-[#0B0B0E] relative overflow-hidden"
       aria-label="Client Testimonials"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <header className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-gray-200 shadow-sm text-sm font-medium text-slate-700 mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1A1A24]/60 border border-white/10 backdrop-blur-md shadow-sm text-sm font-medium text-[#A78BFA] mb-6">
             <span className="relative flex h-2 w-2">
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#6b46c1]"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#8B5CF6]"></span>
             </span>
             Client Success Stories
           </div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 tracking-tight">
             Transforming Businesses, <br className="hidden md:block" />
-            <span className="text-slate-500">
+            <span className="text-[#8B5CF6]">
               One Website at a Time.
             </span>
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
             See how we've helped businesses like yours achieve remarkable growth
             through strategic web design and digital solutions.
           </p>
@@ -277,11 +277,11 @@ const Testimonia = ({ testimonia: initialTestimonia }) => {
                   onClick={() => goToSlide(index)}
                   className={`
                     w-2.5 h-2.5 rounded-full transition-all duration-300
-                    focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2
+                    focus:outline-none focus:ring-2 focus:ring-[#8B5CF6] focus:ring-offset-2 focus:ring-offset-[#0B0B0E]
                     ${
                       index === currentIndex
-                        ? "bg-[#6b46c1] w-8"
-                        : "bg-gray-300 hover:bg-gray-400"
+                        ? "bg-[#8B5CF6] w-8 shadow-[0_0_10px_rgba(139,92,246,0.5)]"
+                        : "bg-white/20 hover:bg-white/40"
                     }
                   `}
                   role="tab"

@@ -35,20 +35,7 @@ const mont = Montserrat({
   variable: "--font-montserrat",
 });
 
-// Dynamically import heavy components to reduce main thread work
-const Nav = dynamic(() => import("./component/sections/nav.jsx"), {
-  ssr: true,
-  loading: () => (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          <div className="w-32 h-8 bg-gray-200 animate-pulse rounded"></div>
-          <div className="w-8 h-8 bg-gray-200 animate-pulse rounded"></div>
-        </div>
-      </div>
-    </header>
-  ),
-});
+import Nav from "./component/sections/Nav.jsx";
 
 const Footer = dynamic(() => import("./component/sections/Footer.jsx"), {
   ssr: true,
@@ -156,7 +143,7 @@ export default function RootLayout({ children }) {
         )}
       </head>
       <body
-        className={`${poppins.className} antialiased bg-white`}
+        className={`${poppins.className} antialiased bg-[#0B0B0E] text-slate-50`}
         suppressHydrationWarning
       >
         <Nav />

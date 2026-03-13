@@ -1,0 +1,60 @@
+
+> my-app@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.0
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 51s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/35) ...
+2025-11-25T15:18:14Z
+   Generating static pages (8/35) 
+   Generating static pages (17/35) 
+   Generating static pages (26/35) 
+ ✓ Generating static pages (35/35)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                                                                                       Size  First Load JS  Revalidate  Expire
+┌ ○ /                                                                                                          13.1 kB         207 kB         ≈3m      1y
+├ ○ /_not-found                                                                                                  154 B         101 kB
+├ ○ /about                                                                                                     5.37 kB         156 kB
+├ ƒ /api/contact                                                                                                 154 B         101 kB
+├ ƒ /api/subscribe                                                                                               154 B         101 kB
+├ ○ /authors                                                                                                     190 B         110 kB          1h      1y
+├ ● /authors/[slug]                                                                                            2.05 kB         112 kB          1h      1y
+├   ├ /authors/emmanuel-onosode                                                                                                                1h      1y
+├   └ /authors/aegon-targaryen                                                                                                                 1h      1y
+├ ƒ /authors/[slug]/opengraph-image                                                                              154 B         101 kB
+├ ƒ /blogs                                                                                                       190 B         110 kB
+├ ● /blogs/[slug]                                                                                              1.86 kB         114 kB          1m      1y
+├   ├ /blogs/unlocking-content-superpowers-how-ai-autonomous-blog-writers-are-reshaping-your-digital-strategy                                  1m      1y
+├   ├ /blogs/website-content-strategy-guide                                                                                                    1m      1y
+├   ├ /blogs/the-first-king-aegon-targaryen-and-the-forging-of-the-seven-kingdoms                                                              1m      1y
+├   └ [+10 more paths]
+├ ○ /cookies-policy                                                                                            2.53 kB         148 kB          1h      1y
+├ ○ /get-started                                                                                               6.71 kB         149 kB
+├ ○ /opengraph-image.png                                                                                           0 B            0 B
+├ ○ /portfolio                                                                                                 4.27 kB         190 kB          1h      1y
+├ ● /portfolio/[slug]                                                                                          3.28 kB         154 kB          1m      1y
+├   └ /portfolio/redefining-luxury-online-the-prestige-auto-experience                                                                         1m      1y
+├ ○ /privacy-policy                                                                                            3.02 kB         148 kB          1h      1y
+├ ○ /robots.txt                                                                                                    0 B            0 B
+├ ○ /services                                                                                                  6.04 kB         148 kB
+├ ○ /sitemap.xml                                                                                                 154 B         101 kB
+└ ○ /terms-and-conditions                                                                                      4.14 kB         149 kB          1h      1y
++ First Load JS shared by all                                                                                   101 kB
+  ├ chunks/1684-90a7e40fa734bf2c.js                                                                            45.8 kB
+  ├ chunks/4bd1b696-31f2981be80bc722.js                                                                        53.2 kB
+  └ other shared chunks (total)                                                                                2.11 kB
+
+
+ƒ Middleware                                                                                                   33.7 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

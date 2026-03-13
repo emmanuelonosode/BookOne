@@ -21,6 +21,10 @@ import {
   Bot,
 } from "lucide-react";
 
+import { SpotlightCard } from "../ui/SpotlightCard";
+import { NeonIcon } from "../ui/NeonIcon";
+import { AnimatedGrid } from "../ui/AnimatedGrid";
+
 // ============================================================================
 // SAMPLE DATA
 // ============================================================================
@@ -28,96 +32,96 @@ const mainServices = [
   {
     id: 1,
     icon: Code,
-    title: "Web Development",
-    subtitle: "Custom websites & applications",
+    title: "Engineered for Conversion",
+    subtitle: "High-performance web applications",
     description:
-      "Build powerful, scalable web applications with modern technologies that drive results for your Nigerian business. We focus on speed, security, and scalability.",
+      "Stop losing customers to slow load times and confusing layouts. We engineer scalable web applications with advanced architectures that load instantly and drive actual business results.",
     services: [
       {
-        title: "Custom Web Apps",
-        description: "Tailored solutions for your unique business needs",
+        title: "Web Apps & Platforms",
+        description: "Tailored software that solves operational bottlenecks.",
         icon: Code,
-        features: ["React/Next.js", "API Integration", "Cloud Hosting"],
-        impact: "3x faster load times",
+        features: ["React/Next.js ecosystem", "Custom API Integrations", "Scalable Cloud Architecture"],
+        impact: "Sub-second load times",
       },
       {
-        title: "E-commerce Solutions",
-        description: "Full-featured online stores that convert",
+        title: "E-commerce Architecture",
+        description: "Shopping experiences designed strictly for maximizing revenue.",
         icon: Globe,
-        features: ["Payment Gateway", "Inventory", "Analytics"],
-        impact: "40% higher conversion",
+        features: ["Frictionless Checkout", "Inventory Syncing", "Advanced Analytics"],
+        impact: "Proven conversion lifts",
       },
     ],
   },
   {
     id: 2,
     icon: Palette,
-    title: "UI/UX Design",
-    subtitle: "Beautiful, intuitive interfaces",
+    title: "Strategic UI/UX",
+    subtitle: "Interfaces that build trust instantly",
     description:
-      "Create stunning user experiences that delight customers and drive engagement. We blend aesthetics with usability principles.",
+      "First impressions dictate your revenue. We design premium, conversion-focused user interfaces that establish immediate authority and guide users effortlessly toward checkout or contact.",
     services: [
       {
-        title: "Interface Design",
-        description: "Pixel-perfect designs that users love",
+        title: "Brand-Centric Interface Design",
+        description: "Pixel-perfect visual design that elevates your brand perception.",
         icon: Palette,
-        features: ["Mobile First", "Accessibility", "Brand Identity"],
-        impact: "2x user engagement",
+        features: ["Psychology-driven layouts", "Flawless mobile experiences", "Accessible design systems"],
+        impact: "Higher time-on-page",
       },
       {
-        title: "User Research",
-        description: "Data-driven insights for better decisions",
+        title: "Conversion Rate Optimization",
+        description: "Data-backed design decisions to plug leaks in your funnel.",
         icon: BarChart3,
-        features: ["User Testing", "Analytics", "A/B Testing"],
-        impact: "60% better UX scores",
+        features: ["User behavior heatmaps", "A/B split testing", "Friction point analysis"],
+        impact: "Lower bounce rates",
       },
     ],
   },
   {
     id: 3,
     icon: Search,
-    title: "SEO & Marketing",
-    subtitle: "Get found, get customers",
+    title: "Search Dominance",
+    subtitle: "Capture high-intent traffic",
     description:
-      "Dominate search rankings and attract qualified leads with proven strategies. We help you rank for the keywords that actually bring money.",
+      "Don't rely just on paid ads. We engineer your digital presence to dominate search engine results for high-value keywords, turning organic traffic into your most profitable acquisition channel.",
     services: [
       {
-        title: "Technical SEO",
-        description: "Optimize for search engines and users",
+        title: "Technical SEO Infrastructure",
+        description: "Building the foundation Google loves to crawl and index.",
         icon: Search,
-        features: ["Site Speed", "Schema Markup", "Core Web Vitals"],
-        impact: "10x organic traffic",
+        features: ["Core Web Vitals mastery", "Advanced Schema Markup", "Site architecture optimization"],
+        impact: "Top-tier search rankings",
       },
       {
-        title: "Content Strategy",
-        description: "Engaging content that ranks and converts",
+        title: "Authority Content Strategy",
+        description: "Targeted content that answers questions and captures leads.",
         icon: MessageSquare,
-        features: ["Keyword Research", "Blog Posts", "Video Content"],
-        impact: "5x more leads",
+        features: ["Gap analysis", "High-intent keyword targeting", "Semantic clustering"],
+        impact: "Sustainable inbound leads",
       },
     ],
   },
   {
     id: 4,
     icon: Bot,
-    title: "AI Integration",
-    subtitle: "Smart automation solutions",
+    title: "Automate the Mundane",
+    subtitle: "AI-driven operational efficiency",
     description:
-      "Leverage AI to automate workflows and enhance customer experiences. Reduce busywork and focus on growing your business.",
+      "Free your team from repetitive busywork. We deploy intelligent AI workflows that handle customer inquiries, process data, and streamline your operations 24/7 without breaking a sweat.",
     services: [
       {
-        title: "AI Chatbots",
-        description: "24/7 intelligent customer support",
+        title: "Intelligent AI Assistants",
+        description: "Always-on conversational agents that actually understand context.",
         icon: Bot,
-        features: ["NLP", "Multi-language", "CRM Integration"],
-        impact: "80% faster response",
+        features: ["Custom trained LLMs", "CRM deep integrations", "Multi-platform deployment"],
+        impact: "Instant lead qualification",
       },
       {
-        title: "Process Automation",
-        description: "Streamline operations with AI",
+        title: "Workflow Orchestration",
+        description: "Connecting your software stack to run on autopilot.",
         icon: Zap,
-        features: ["Workflow AI", "Data Processing", "Smart Analytics"],
-        impact: "70% cost reduction",
+        features: ["Zapier/Make automation", "Data syncing", "Automated reporting"],
+        impact: "Thousands of hours saved",
       },
     ],
   },
@@ -155,72 +159,94 @@ const processSteps = [
 // ============================================================================
 const SubServiceCard = ({ item }) => {
   const Icon = item.icon;
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-  const springX = useSpring(mouseX, { stiffness: 100, damping: 30, mass: 0.5 });
-  const springY = useSpring(mouseY, { stiffness: 100, damping: 30, mass: 0.5 });
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+  
+  const rotateX = useMotionTemplate`${mouseYSpring}deg`;
+  const rotateY = useMotionTemplate`${mouseXSpring}deg`;
 
   function handleMouseMove({ currentTarget, clientX, clientY }) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
+    const rect = currentTarget.getBoundingClientRect();
+    
+    const width = rect.width;
+    const height = rect.height;
+    
+    const mouseX = clientX - rect.left;
+    const mouseY = clientY - rect.top;
+    
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    
+    x.set(xPct * 15); // max rotation 15deg
+    y.set(yPct * -15);
+  }
+
+  function handleMouseLeave() {
+    x.set(0);
+    y.set(0);
   }
 
   return (
-    <div
-      className="group relative overflow-hidden bg-white border border-gray-200 rounded-4xl hover:border-[#6b46c1]/50 transition-colors duration-500 shadow-sm hover:shadow-md h-full"
+    <motion.div
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      className="h-full"
       onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
+      <SpotlightCard className="h-full flex flex-col group/card">
+        {/* Animated Grid Background visible on hover */}
+        <AnimatedGrid className="opacity-0 group-hover/card:opacity-100 transition-opacity duration-700" />
 
-      {/* Grid Lines Overlay */}
-      <div
-        className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(to right, #000000 1px, transparent 1px), linear-gradient(to bottom, #000000 1px, transparent 1px)`,
-          backgroundSize: "40px 40px",
-        }}
-      />
+        <div 
+          className="relative z-10 p-8 h-full flex flex-col"
+          style={{ transform: "translateZ(30px)" }}
+        >
+          <div className="mb-6">
+            <NeonIcon icon={Icon} color="purple" />
+          </div>
 
-      <div className="relative z-10 p-8 h-full flex flex-col">
-        <div className="w-12 h-12 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-[#6b46c1] group-hover:border-[#6b46c1] transition-all duration-300">
-          <Icon
-            className="w-6 h-6 text-[#6b46c1] group-hover:text-white transition-colors"
-            strokeWidth={1.5}
-          />
-        </div>
-
-        <h4 className="text-xl font-bold text-slate-900 mb-3 tracking-tight">
+          <h4 className="text-xl font-bold text-white mb-3 tracking-tight">
           {item.title}
         </h4>
-        <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">
+        <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
           {item.description}
         </p>
 
-        <div className="space-y-2 mb-6">
-          {item.features.map((f) => (
+        <div className="space-y-3 mb-6 relative">
+          {item.features.map((f, i) => (
             <div
               key={f}
-              className="flex items-center text-xs font-medium text-slate-500"
+              className="flex items-center text-xs font-medium text-slate-400 group-hover/card:text-slate-300 transition-colors"
             >
-              <CheckCircle className="w-3.5 h-3.5 text-green-500 mr-2" />
+              <div className="relative mr-3 flex-shrink-0">
+                <div className="absolute inset-0 bg-green-500/20 blur-sm rounded-full group-hover/card:scale-[2] transition-transform duration-500"></div>
+                <CheckCircle className="w-4 h-4 text-green-400 relative z-10" />
+              </div>
               {f}
             </div>
           ))}
         </div>
 
         {item.impact && (
-          <div className="pt-4 border-t border-gray-100 group-hover:border-[#6b46c1]/10">
-            <div className="inline-flex items-center bg-green-50 px-3 py-1.5 rounded-full border border-green-100">
-              <TrendingUp className="w-3.5 h-3.5 text-green-600 mr-2" />
-              <span className="text-xs font-bold text-green-700">
+          <div className="pt-4 mt-auto border-t border-white/10 group-hover/card:border-[#6b46c1]/30 transition-colors">
+            <div className="inline-flex items-center bg-green-500/10 px-3 py-1.5 rounded-full border border-green-500/20 shadow-[0_0_10px_rgba(34,197,94,0.1)] group-hover/card:shadow-[0_0_15px_rgba(34,197,94,0.2)] transition-shadow">
+              <TrendingUp className="w-4 h-4 text-green-400 mr-2" />
+              <span className="text-xs font-bold text-green-400">
                 {item.impact}
               </span>
             </div>
           </div>
         )}
       </div>
-    </div>
+      </SpotlightCard>
+    </motion.div>
   );
 };
 
@@ -274,25 +300,25 @@ const BookOneServices = () => {
   }, []);
 
   return (
-    <main className="scroll-smooth bg-[#FAFAFA] font-sans selection:bg-[#6b46c1] selection:text-white">
+    <main className="scroll-smooth bg-[#0B0B0E] font-sans selection:bg-[#6b46c1] selection:text-white">
       {/* HEADER SECTION */}
       <div className="pt-24 pb-16 text-center px-6 max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm text-sm font-medium text-[#6b46c1] mb-8"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1A1A24]/60 backdrop-blur-md border border-white/10 shadow-sm text-sm font-medium text-[#A78BFA] mb-8"
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#6b46c1]"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#8B5CF6]"></span>
           </span>
           Our Expertise
         </motion.div>
 
-        <h2 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-[1.1]">
+        <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight leading-[1.1]">
           Complete Digital Solutions
         </h2>
-        <p className="text-lg md:text-xl text-slate-600 leading-relaxed">
+        <p className="text-lg md:text-xl text-slate-400 leading-relaxed">
           Everything you need to build, optimize, and grow your digital presence
           in Nigeria and beyond.
         </p>
@@ -319,12 +345,12 @@ const BookOneServices = () => {
                     >
                       <div className="relative z-10">
                         {/* Service Index */}
-                        <span className="text-[#6b46c1] font-mono text-sm mb-6 block tracking-wider font-bold">
+                        <span className="text-[#A78BFA] font-mono text-sm mb-6 block tracking-wider font-bold">
                           0{current.id} / SERVICE
                         </span>
 
                         {/* Title */}
-                        <h3 className="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight leading-[1.1]">
+                        <h3 className="text-4xl lg:text-5xl font-extrabold text-white mb-4 tracking-tight leading-[1.1]">
                           {current.title}
                         </h3>
 
@@ -334,9 +360,9 @@ const BookOneServices = () => {
                         </p>
 
                         {/* Icon - Decorative Large */}
-                        <div className="w-24 h-24 bg-white border border-gray-100 rounded-3xl flex items-center justify-center shadow-lg shadow-purple-900/5">
+                        <div className="w-24 h-24 bg-[#1A1A24]/80 backdrop-blur-md border border-white/10 rounded-3xl flex items-center justify-center shadow-lg shadow-purple-500/10">
                           <Icon
-                            className="w-12 h-12 text-[#6b46c1]"
+                            className="w-12 h-12 text-[#A78BFA]"
                             strokeWidth={1.5}
                           />
                         </div>
@@ -363,10 +389,10 @@ const BookOneServices = () => {
               >
                 {/* Mobile Section Header (Visible only on mobile) */}
                 <div className="lg:hidden mb-8">
-                  <span className="text-[#6b46c1] font-mono text-xs mb-2 block font-bold">
+                  <span className="text-[#A78BFA] font-mono text-xs mb-2 block font-bold">
                     0{service.id}
                   </span>
-                  <h3 className="text-3xl font-bold text-slate-900 mb-2">
+                  <h3 className="text-3xl font-bold text-white mb-2">
                     {service.title}
                   </h3>
                   <p className="text-slate-400 italic">{service.subtitle}</p>
@@ -374,7 +400,7 @@ const BookOneServices = () => {
 
                 {/* Description (Information) */}
                 <div className="prose prose-lg max-w-none mb-12">
-                  <p className="text-slate-600 text-lg md:text-xl leading-relaxed">
+                  <p className="text-slate-400 text-lg md:text-xl leading-relaxed">
                     {service.description}
                   </p>
                 </div>
@@ -394,7 +420,7 @@ const BookOneServices = () => {
       {/* PROCESS SECTION */}
       <section
         ref={processRef}
-        className="py-24 bg-white border-t border-gray-200"
+        className="py-24 bg-[#0B0B0E] border-t border-white/10"
       >
         <div className="max-w-7xl mx-auto px-6">
           <div
@@ -404,21 +430,30 @@ const BookOneServices = () => {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-3xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+            <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6 tracking-tight">
               Our Proven Process
             </h2>
-            <p className="text-xl text-slate-500 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
               A transparent, collaborative approach built for speed and impact.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 relative">
+            {/* Animated Connector Line (Desktop) */}
+            <div className="hidden lg:block absolute top-[2.5rem] left-0 right-0 h-[2px] bg-white/5 -z-10 overflow-hidden rounded-full">
+               <motion.div 
+                 className="absolute top-0 bottom-0 w-48 bg-gradient-to-r from-transparent via-[#8B5CF6] to-transparent"
+                 animate={{ left: ["-20%", "120%"] }}
+                 transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+               />
+            </div>
+            
             {processSteps.map((step, index) => {
               const Icon = step.icon;
               return (
                 <div
                   key={index}
-                  className="relative transition-all duration-700"
+                  className="relative transition-all duration-700 group/process"
                   style={{
                     opacity: isProcessVisible ? 1 : 0,
                     transform: isProcessVisible
@@ -427,27 +462,19 @@ const BookOneServices = () => {
                     transitionDelay: `${index * 150}ms`,
                   }}
                 >
-                  {/* Connector Line (Desktop) */}
-                  {index < processSteps.length - 1 && (
-                    <div className="hidden lg:block absolute top-10 left-1/2 w-full h-[1px] bg-gray-200 -z-10" />
-                  )}
-
-                  <div className="relative group">
-                    <div className="w-20 h-20 bg-white border border-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:border-[#6b46c1] group-hover:shadow-md transition-all duration-300 relative z-10">
-                      <Icon
-                        className="w-10 h-10 text-[#6b46c1]"
-                        strokeWidth={1.5}
-                      />
+                  <div className="relative">
+                    <div className="w-20 h-20 bg-[#1A1A24]/60 backdrop-blur-md border border-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover/process:border-[#8B5CF6]/50 group-hover/process:shadow-[0_0_25px_rgba(139,92,246,0.3)] group-hover/process:-translate-y-2 transition-all duration-500 relative z-10">
+                      <NeonIcon icon={Icon} color="blue" />
                     </div>
 
-                    <div className="text-center">
-                      <h3 className="text-lg font-bold text-slate-900 mb-2">
+                    <div className="text-center group-hover/process:translate-y-1 transition-transform duration-500">
+                      <h3 className="text-lg font-bold text-white mb-2 group-hover/process:text-[#A78BFA] transition-colors">
                         {step.title}
                       </h3>
-                      <p className="text-slate-500 text-sm mb-4 leading-relaxed">
+                      <p className="text-slate-400 text-sm mb-4 leading-relaxed group-hover/process:text-slate-300 transition-colors">
                         {step.description}
                       </p>
-                      <span className="inline-block text-xs font-bold text-[#6b46c1] bg-[#6b46c1]/5 px-3 py-1 rounded-full border border-[#6b46c1]/10">
+                      <span className="inline-block text-xs font-bold text-[#A78BFA] bg-[#6B46C1]/10 px-3 py-1 rounded-full border border-[#8B5CF6]/30 shadow-[0_0_10px_rgba(139,92,246,0.1)] group-hover/process:shadow-[0_0_15px_rgba(139,92,246,0.3)] transition-all">
                         {step.duration}
                       </span>
                     </div>

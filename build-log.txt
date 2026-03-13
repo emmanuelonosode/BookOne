@@ -1,0 +1,83 @@
+
+> my-app@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.0
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|C:\Users\emmanuel onosode\JulyPort\BookOne\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[13].oneOf[10].use[2]!C:\Users\emmanuel onosode\JulyPort\BookOne\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[13].oneOf[10].use[3]!C:\Users\emmanuel onosode\JulyPort\BookOne\app\globals.css': No serializer registered for Warning
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> Array { 2 items } -> webpack/lib/ModuleWarning -> Warning
+ ⚠ Compiled with warnings in 22.0s
+
+./app/globals.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/globals.css
+Warning
+
+(2:60510) autoprefixer: Gradient has outdated direction syntax. New syntax is like `closest-side at 0 0` instead of `0 0, closest-side`.
+
+Import trace for requested module:
+./app/globals.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/globals.css
+./app/globals.css
+
+./app/globals.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/globals.css
+Warning
+
+(2:60574) autoprefixer: Gradient has outdated direction syntax. New syntax is like `closest-side at 0 0` instead of `0 0, closest-side`.
+
+Import trace for requested module:
+./app/globals.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/globals.css
+./app/globals.css
+
+ ✓ Compiled successfully in 34.0s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/35) ...
+2025-11-25T15:18:14Z
+   Generating static pages (8/35) 
+   Generating static pages (17/35) 
+   Generating static pages (26/35) 
+ ✓ Generating static pages (35/35)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                                                                                       Size  First Load JS  Revalidate  Expire
+┌ ○ /                                                                                                          20.4 kB         215 kB         ≈3m      1y
+├ ○ /_not-found                                                                                                  154 B         101 kB
+├ ○ /about                                                                                                     5.79 kB         157 kB
+├ ƒ /api/contact                                                                                                 154 B         101 kB
+├ ƒ /api/subscribe                                                                                               154 B         101 kB
+├ ○ /authors                                                                                                     190 B         110 kB          1h      1y
+├ ● /authors/[slug]                                                                                            2.05 kB         112 kB          1h      1y
+├   ├ /authors/emmanuel-onosode                                                                                                                1h      1y
+├   └ /authors/aegon-targaryen                                                                                                                 1h      1y
+├ ƒ /authors/[slug]/opengraph-image                                                                              154 B         101 kB
+├ ƒ /blogs                                                                                                       190 B         110 kB
+├ ● /blogs/[slug]                                                                                              1.86 kB         114 kB          1m      1y
+├   ├ /blogs/unlocking-content-superpowers-how-ai-autonomous-blog-writers-are-reshaping-your-digital-strategy                                  1m      1y
+├   ├ /blogs/website-content-strategy-guide                                                                                                    1m      1y
+├   ├ /blogs/the-first-king-aegon-targaryen-and-the-forging-of-the-seven-kingdoms                                                              1m      1y
+├   └ [+10 more paths]
+├ ○ /cookies-policy                                                                                            2.53 kB         148 kB          1h      1y
+├ ○ /get-started                                                                                               7.03 kB         149 kB
+├ ○ /icon.svg                                                                                                      0 B            0 B
+├ ○ /opengraph-image.png                                                                                           0 B            0 B
+├ ○ /portfolio                                                                                                 4.34 kB         191 kB          1h      1y
+├ ● /portfolio/[slug]                                                                                          3.58 kB         154 kB          1m      1y
+├   └ /portfolio/redefining-luxury-online-the-prestige-auto-experience                                                                         1m      1y
+├ ○ /privacy-policy                                                                                            3.02 kB         149 kB          1h      1y
+├ ○ /robots.txt                                                                                                    0 B            0 B
+├ ○ /services                                                                                                   6.4 kB         149 kB
+├ ○ /sitemap.xml                                                                                                 154 B         101 kB
+└ ○ /terms-and-conditions                                                                                      4.14 kB         150 kB          1h      1y
++ First Load JS shared by all                                                                                   101 kB
+  ├ chunks/1684-90a7e40fa734bf2c.js                                                                            45.8 kB
+  ├ chunks/4bd1b696-31f2981be80bc722.js                                                                        53.2 kB
+  └ other shared chunks (total)                                                                                2.11 kB
+
+
+ƒ Middleware                                                                                                   33.7 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

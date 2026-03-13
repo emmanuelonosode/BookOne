@@ -85,7 +85,7 @@ export default function ProjectCard({ project, index = 0 }) {
 
   return (
     <motion.article
-      className="group relative bg-white border border-gray-200 rounded-4xl overflow-hidden will-change-transform"
+      className="group relative bg-[#1A1A24]/60 border border-white/10 backdrop-blur-md rounded-4xl overflow-hidden will-change-transform hover:border-purple-500/30"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.06 }}
@@ -102,8 +102,8 @@ export default function ProjectCard({ project, index = 0 }) {
         transformStyle: "preserve-3d",
         perspective: 1200,
         boxShadow: isHover
-          ? "0 30px 80px rgba(107,70,193,0.12)"
-          : "0 8px 30px rgba(16,24,40,0.06)",
+          ? "0 30px 80px rgba(107,70,193,0.25)"
+          : "0 8px 30px rgba(0,0,0,0.2)",
         transition: "box-shadow 0.35s ease, transform 0.35s ease",
         translate: isHover ? "0px -8px" : "0px 0px",
       }}
@@ -125,7 +125,7 @@ export default function ProjectCard({ project, index = 0 }) {
       >
         {/* Media layer (appears closer - translateZ) */}
         <motion.div
-          className="relative w-full aspect-video overflow-hidden bg-gray-50"
+          className="relative w-full aspect-video overflow-hidden bg-black/20"
           style={{
             transformStyle: "preserve-3d",
             translateZ: "30px",
@@ -145,8 +145,8 @@ export default function ProjectCard({ project, index = 0 }) {
               }}
             />
           ) : (
-            <div className="w-full h-full bg-linear-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-              <div className="text-gray-300">No preview</div>
+            <div className="w-full h-full bg-linear-to-br from-[#1A1A24] to-[#0B0B0E] flex items-center justify-center">
+              <div className="text-slate-500">No preview</div>
             </div>
           )}
 
@@ -156,7 +156,7 @@ export default function ProjectCard({ project, index = 0 }) {
 
         {/* Content layer (slightly behind) */}
         <motion.div
-          className="p-6 md:p-8 bg-white"
+          className="p-6 md:p-8 bg-black/20 backdrop-blur-sm border-t border-white/5"
           style={{
             transformStyle: "preserve-3d",
             translateZ: "20px",
@@ -166,12 +166,12 @@ export default function ProjectCard({ project, index = 0 }) {
         >
           <h3
             id={`project-title-${slug}`}
-            className="text-lg md:text-xl font-semibold text-slate-900 mb-2"
+            className="text-lg md:text-xl font-semibold text-white mb-2"
           >
             {project.title}
           </h3>
           {description && (
-            <p className="text-sm text-slate-600 mb-4 line-clamp-3">
+            <p className="text-sm text-slate-400 mb-4 line-clamp-3">
               {description}
             </p>
           )}
@@ -181,17 +181,17 @@ export default function ProjectCard({ project, index = 0 }) {
               {project.tags?.slice?.(0, 3).map((t) => (
                 <span
                   key={t}
-                  className="text-xs px-2 py-1 rounded-full bg-gray-100 text-slate-700"
+                  className="text-xs px-2 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300"
                 >
                   {t}
                 </span>
               ))}
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-[#6b46c1]">
+              <span className="text-sm font-medium text-[#A78BFA]">
                 View Project
               </span>
-              <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-[#6b46c1]" />
+              <ArrowUpRight className="w-4 h-4 text-slate-500 group-hover:text-white" />
             </div>
           </div>
         </motion.div>
@@ -223,7 +223,7 @@ export function FeaturedProjectCard({ project }) {
 
   return (
     <motion.article
-      className="group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-500"
+      className="group relative bg-[#1A1A24]/60 backdrop-blur-md rounded-3xl overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(107,70,193,0.15)] border border-white/10 hover:border-purple-500/30 transition-all duration-500"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -242,30 +242,30 @@ export function FeaturedProjectCard({ project }) {
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
             ) : (
-              <div className="w-full h-full bg-linear-to-br from-gray-100 to-gray-200" />
+              <div className="w-full h-full bg-linear-to-br from-[#1A1A24] to-[#0B0B0E]" />
             )}
 
-            <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent lg:bg-none" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent lg:bg-none" />
           </div>
 
           {/* Content */}
-          <div className="p-8 lg:p-12 flex flex-col justify-center">
-            <div className="inline-flex items-center text-sm font-medium text-purple-600 mb-4">
-              <div className="w-2 h-2 bg-purple-500 rounded-full mr-2" />
+          <div className="p-8 lg:p-12 flex flex-col justify-center relative z-10">
+            <div className="inline-flex items-center text-sm font-medium text-[#A78BFA] mb-4">
+              <div className="w-2 h-2 bg-[#8B5CF6] rounded-full mr-2 shadow-[0_0_8px_rgba(139,92,246,0.8)]" />
               Featured Project
             </div>
 
-            <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 group-hover:text-purple-600 transition-colors duration-300">
+            <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-[#A78BFA] transition-colors duration-300">
               {project.title}
             </h3>
 
             {description && (
-              <p className="text-gray-600 text-base lg:text-lg leading-relaxed mb-8">
+              <p className="text-slate-400 text-base lg:text-lg leading-relaxed mb-8">
                 {description}
               </p>
             )}
 
-            <div className="flex items-center text-purple-600 font-semibold group-hover:text-purple-700 transition-colors duration-300">
+            <div className="flex items-center text-[#A78BFA] font-semibold group-hover:text-white transition-colors duration-300">
               <span>Explore Project</span>
               <ArrowUpRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </div>

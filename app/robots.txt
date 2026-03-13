@@ -24,12 +24,4 @@ Disallow: /*.lock$
 # Sitemap location
 Sitemap: https://bookone.dev/sitemap.xml
 
-# Disallow indexing of common static assets
-Disallow: /favicon.ico
-Disallow: /manifest.webmanifest
-Disallow: /*.png$
-Disallow: /*.jpg$
-Disallow: /*.jpeg$
-Disallow: /*.avif$
-Disallow: /*.webp$
-Disallow: /*.svg$
+# Allow indexing of static assets for better search visibility (including favicons/images)

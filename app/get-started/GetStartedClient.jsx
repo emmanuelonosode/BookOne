@@ -230,7 +230,10 @@ export default function GetStartedClient() {
   }, [submitStatus]);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] pt-24 pb-20 px-4 sm:px-6 lg:px-8 font-sans selection:bg-[#6b46c1] selection:text-white">
+    <div className="min-h-screen bg-[#0B0B0E] pt-24 pb-20 px-4 sm:px-6 lg:px-8 font-sans selection:bg-[#6b46c1] selection:text-white relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#6b46c1]/10 blur-[150px] rounded-full mix-blend-screen pointer-events-none -translate-y-1/2 translate-x-1/4" />
+      <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay" />
+
       {/* Confetti canvas overlay */}
       <canvas
         ref={confettiRef}
@@ -238,7 +241,7 @@ export default function GetStartedClient() {
         aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-16">
           {/* Left Column: Info & Context */}
           <motion.div
@@ -248,18 +251,18 @@ export default function GetStartedClient() {
             className="lg:col-span-5 flex flex-col"
           >
             <div className="mb-10">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm text-sm font-medium text-[#6b46c1] mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1A1A24]/80 backdrop-blur-md border border-white/10 shadow-[0_0_15px_rgba(107,70,193,0.3)] text-sm font-medium text-[#A78BFA] mb-6">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#6b46c1]"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A78BFA]"></span>
                 </span>
                 Start Your Project
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-[1.1]">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-[1.1]">
                 Let's build something <br />
-                <span className="text-gray-400">brilliant.</span>
+                <span className="text-[#A78BFA]">brilliant.</span>
               </h1>
-              <p className="text-lg text-slate-600 leading-relaxed mb-8">
+              <p className="text-lg text-slate-400 leading-relaxed mb-8 font-light">
                 Ready to transform your digital presence? We help ambitious
                 businesses scale through world-class design and intelligent
                 automation.
@@ -268,75 +271,75 @@ export default function GetStartedClient() {
 
             <div className="space-y-8 mb-12">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-purple-50 flex items-center justify-center text-[#6b46c1] shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-[#6b46c1]/10 flex items-center justify-center text-[#A78BFA] shrink-0 border border-[#6b46c1]/20 shadow-[0_0_10px_rgba(107,70,193,0.1)]">
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-1">
+                  <h3 className="text-lg font-bold text-white mb-1">
                     Email Us
                   </h3>
                   <a
                     href="mailto:hello@bookone.dev"
-                    className="text-slate-600 hover:text-[#6b46c1] transition-colors"
+                    className="text-slate-400 hover:text-[#A78BFA] transition-colors"
                   >
                     hello@bookone.dev
                   </a>
-                  <p className="text-sm text-slate-400 mt-1">
+                  <p className="text-sm text-slate-500 mt-1 font-light">
                     Response within 24 hours
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0 border border-blue-500/20 shadow-[0_0_10px_rgba(59,130,246,0.1)]">
                   <Phone className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-1">
+                  <h3 className="text-lg font-bold text-white mb-1">
                     Call Us
                   </h3>
                   <a
                     href="tel:+2348077080903"
-                    className="text-slate-600 hover:text-[#6b46c1] transition-colors"
+                    className="text-slate-400 hover:text-[#A78BFA] transition-colors"
                   >
                     +234 807 708 0903
                   </a>
-                  <p className="text-sm text-slate-400 mt-1">
+                  <p className="text-sm text-slate-500 mt-1 font-light">
                     Mon-Fri from 9am to 6pm
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-600 shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-400 shrink-0 border border-orange-500/20 shadow-[0_0_10px_rgba(249,115,22,0.1)]">
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-1">
+                  <h3 className="text-lg font-bold text-white mb-1">
                     Visit Us
                   </h3>
-                  <p className="text-slate-600">
+                  <p className="text-slate-400 font-light">
                     Allen Avenue, Lagos, Nigeria.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="mt-auto p-8 bg-slate-900 rounded-[2rem] text-white relative overflow-hidden">
+            <div className="mt-auto p-8 bg-[#1A1A24]/80 backdrop-blur-md rounded-[2rem] text-white relative overflow-hidden border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
               <div className="relative z-10">
                 <h3 className="text-xl font-bold mb-2">
-                  "BookOne transformed our workflow."
+                  &quot;BookOne transformed our workflow.&quot;
                 </h3>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed">
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-light">
                   Their AI solutions saved us 20+ hours a week. The ROI was
                   immediate and the design quality is unmatched.
                 </p>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold">
+                  <div className="w-8 h-8 rounded-full bg-[#6b46c1]/20 flex items-center justify-center text-xs font-bold text-[#A78BFA] border border-[#6b46c1]/30">
                     JD
                   </div>
                   <div>
-                    <p className="text-sm font-bold">John Doe</p>
+                    <p className="text-sm font-bold text-white">John Doe</p>
                     <p className="text-xs text-slate-500">CEO, TechStart</p>
                   </div>
                 </div>
@@ -353,7 +356,9 @@ export default function GetStartedClient() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-7"
           >
-            <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl shadow-gray-200/50 border border-gray-100">
+            <div className="bg-[#1A1A24]/60 backdrop-blur-md rounded-[2.5rem] p-8 md:p-12 shadow-[0_0_30px_rgba(107,70,193,0.1)] border border-white/10 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#6b46c1]/5 to-transparent pointer-events-none" />
+              <div className="relative z-10">
               <AnimatePresence mode="wait">
                 {submitStatus === "success" ? (
                   <motion.div
@@ -361,19 +366,19 @@ export default function GetStartedClient() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="text-center py-20"
                   >
-                    <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div className="w-20 h-20 bg-green-500/10 text-green-400 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.2)]">
                       <CheckCircle className="w-10 h-10" />
                     </div>
-                    <h3 className="text-3xl font-bold text-slate-900 mb-4">
+                    <h3 className="text-3xl font-bold text-white mb-4">
                       Message Received!
                     </h3>
-                    <p className="text-slate-600 max-w-md mx-auto mb-8">
+                    <p className="text-slate-400 max-w-md mx-auto mb-8 font-light">
                       Thanks for reaching out. We've received your project details
                       and will get back to you within 24 hours.
                     </p>
                     <button
                       onClick={() => setSubmitStatus(null)}
-                      className="px-8 py-3 bg-gray-100 text-slate-900 font-bold rounded-xl hover:bg-gray-200 transition-colors"
+                      className="px-8 py-3 bg-white/5 text-white font-bold rounded-xl hover:bg-[#6b46c1]/20 border border-white/10 hover:border-[#6b46c1]/40 transition-all shadow-[0_0_10px_rgba(0,0,0,0.2)]"
                     >
                       Send Another Message
                     </button>
@@ -383,7 +388,7 @@ export default function GetStartedClient() {
                     {/* Name Fields */}
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-900 ml-1">
+                        <label className="text-sm font-bold text-slate-300 ml-1">
                           First Name
                         </label>
                         <input
@@ -393,21 +398,21 @@ export default function GetStartedClient() {
                           onChange={(e) =>
                             handleInputChange("firstName", e.target.value)
                           }
-                          className={`w-full px-5 py-4 bg-gray-50 border-2 ${
+                          className={`w-full px-5 py-4 bg-[#0B0B0E]/50 border ${
                             errors.firstName
-                              ? "border-red-500 bg-red-50/50"
-                              : "border-transparent focus:border-[#6b46c1] focus:bg-white"
-                          } rounded-2xl outline-none transition-all placeholder:text-gray-400 font-medium`}
+                              ? "border-red-500/50 bg-red-500/10"
+                              : "border-white/10 hover:border-white/20 focus:border-[#6b46c1]/60 focus:bg-[#1A1A24] focus:shadow-[0_0_15px_rgba(107,70,193,0.15)]"
+                          } rounded-2xl outline-none transition-all placeholder:text-slate-500 text-white font-medium`}
                         />
                         {errors.firstName && (
-                          <p className="text-red-500 text-xs ml-1 flex items-center">
+                          <p className="text-red-400 text-xs ml-1 flex items-center">
                             <AlertCircle className="w-3 h-3 mr-1" />
                             {errors.firstName}
                           </p>
                         )}
                       </div>
                       <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-900 ml-1">
+                        <label className="text-sm font-bold text-slate-300 ml-1">
                           Last Name
                         </label>
                         <input
@@ -417,14 +422,14 @@ export default function GetStartedClient() {
                           onChange={(e) =>
                             handleInputChange("lastName", e.target.value)
                           }
-                          className={`w-full px-5 py-4 bg-gray-50 border-2 ${
+                          className={`w-full px-5 py-4 bg-[#0B0B0E]/50 border ${
                             errors.lastName
-                              ? "border-red-500 bg-red-50/50"
-                              : "border-transparent focus:border-[#6b46c1] focus:bg-white"
-                          } rounded-2xl outline-none transition-all placeholder:text-gray-400 font-medium`}
+                              ? "border-red-500/50 bg-red-500/10"
+                              : "border-white/10 hover:border-white/20 focus:border-[#6b46c1]/60 focus:bg-[#1A1A24] focus:shadow-[0_0_15px_rgba(107,70,193,0.15)]"
+                          } rounded-2xl outline-none transition-all placeholder:text-slate-500 text-white font-medium`}
                         />
                         {errors.lastName && (
-                          <p className="text-red-500 text-xs ml-1 flex items-center">
+                          <p className="text-red-400 text-xs ml-1 flex items-center">
                             <AlertCircle className="w-3 h-3 mr-1" />
                             {errors.lastName}
                           </p>
@@ -434,7 +439,7 @@ export default function GetStartedClient() {
 
                     {/* Contact Fields */}
                     <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-900 ml-1">
+                      <label className="text-sm font-bold text-slate-300 ml-1">
                         Email Address
                       </label>
                       <input
@@ -444,14 +449,14 @@ export default function GetStartedClient() {
                         onChange={(e) =>
                           handleInputChange("email", e.target.value)
                         }
-                        className={`w-full px-5 py-4 bg-gray-50 border-2 ${
+                        className={`w-full px-5 py-4 bg-[#0B0B0E]/50 border ${
                           errors.email
-                            ? "border-red-500 bg-red-50/50"
-                            : "border-transparent focus:border-[#6b46c1] focus:bg-white"
-                        } rounded-2xl outline-none transition-all placeholder:text-gray-400 font-medium`}
+                            ? "border-red-500/50 bg-red-500/10"
+                            : "border-white/10 hover:border-white/20 focus:border-[#6b46c1]/60 focus:bg-[#1A1A24] focus:shadow-[0_0_15px_rgba(107,70,193,0.15)]"
+                        } rounded-2xl outline-none transition-all placeholder:text-slate-500 text-white font-medium`}
                       />
                       {errors.email && (
-                        <p className="text-red-500 text-xs ml-1 flex items-center">
+                        <p className="text-red-400 text-xs ml-1 flex items-center">
                           <AlertCircle className="w-3 h-3 mr-1" />
                           {errors.email}
                         </p>
@@ -460,7 +465,7 @@ export default function GetStartedClient() {
 
                     {/* Services Selection */}
                     <div className="space-y-3">
-                      <label className="text-sm font-bold text-slate-900 ml-1">
+                      <label className="text-sm font-bold text-slate-300 ml-1">
                         I'm interested in...
                       </label>
                       <div className="flex flex-wrap gap-3">
@@ -469,10 +474,10 @@ export default function GetStartedClient() {
                             key={service.id}
                             type="button"
                             onClick={() => handleServiceToggle(service.id)}
-                            className={`px-5 py-3 rounded-xl text-sm font-bold transition-all border-2 ${
+                            className={`px-5 py-3 rounded-xl text-sm font-bold transition-all border ${
                               formData.services.includes(service.id)
-                                ? "bg-[#6b46c1] border-[#6b46c1] text-white shadow-lg shadow-purple-200"
-                                : "bg-white border-gray-200 text-slate-600 hover:border-[#6b46c1]/50 hover:bg-purple-50"
+                                ? "bg-[#6b46c1] border-[#6b46c1] text-white shadow-[0_0_15px_rgba(107,70,193,0.4)]"
+                                : "bg-[#0B0B0E]/50 border-white/10 text-slate-400 hover:border-[#6b46c1]/50 hover:bg-[#6b46c1]/10 hover:text-white"
                             }`}
                           >
                             {service.label}
@@ -480,7 +485,7 @@ export default function GetStartedClient() {
                         ))}
                       </div>
                       {errors.services && (
-                        <p className="text-red-500 text-xs ml-1 flex items-center">
+                        <p className="text-red-400 text-xs ml-1 flex items-center">
                           <AlertCircle className="w-3 h-3 mr-1" />
                           {errors.services}
                         </p>
@@ -490,7 +495,7 @@ export default function GetStartedClient() {
                     {/* Budget & Referral */}
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-900 ml-1">
+                        <label className="text-sm font-bold text-slate-300 ml-1">
                           Budget Range
                         </label>
                         <div className="relative">
@@ -499,13 +504,13 @@ export default function GetStartedClient() {
                             onChange={(e) =>
                               handleInputChange("budget", e.target.value)
                             }
-                            className={`w-full px-5 py-4 bg-gray-50 border-2 ${
+                            className={`w-full px-5 py-4 bg-[#0B0B0E]/50 border ${
                               errors.budget
-                                ? "border-red-500 bg-red-50/50"
-                                : "border-transparent focus:border-[#6b46c1] focus:bg-white"
-                            } rounded-2xl outline-none transition-all appearance-none font-medium text-slate-900 cursor-pointer`}
+                                ? "border-red-500/50 bg-red-500/10"
+                                : "border-white/10 hover:border-white/20 focus:border-[#6b46c1]/60 focus:bg-[#1A1A24] focus:shadow-[0_0_15px_rgba(107,70,193,0.15)]"
+                            } rounded-2xl outline-none transition-all appearance-none font-medium text-white cursor-pointer [&>option]:bg-[#1A1A24]`}
                           >
-                            <option value="" disabled>
+                            <option value="" disabled className="text-slate-500">
                               Select a range
                             </option>
                             {budgets.map((b) => (
@@ -514,12 +519,12 @@ export default function GetStartedClient() {
                               </option>
                             ))}
                           </select>
-                          <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                          <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
                             <ArrowRight className="w-4 h-4 rotate-90" />
                           </div>
                         </div>
                         {errors.budget && (
-                          <p className="text-red-500 text-xs ml-1 flex items-center">
+                          <p className="text-red-400 text-xs ml-1 flex items-center">
                             <AlertCircle className="w-3 h-3 mr-1" />
                             {errors.budget}
                           </p>
@@ -527,7 +532,7 @@ export default function GetStartedClient() {
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-900 ml-1">
+                        <label className="text-sm font-bold text-slate-300 ml-1">
                           How did you hear about us?
                         </label>
                         <div className="relative">
@@ -536,9 +541,9 @@ export default function GetStartedClient() {
                             onChange={(e) =>
                               handleInputChange("referralSource", e.target.value)
                             }
-                            className="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-[#6b46c1] focus:bg-white rounded-2xl outline-none transition-all appearance-none font-medium text-slate-900 cursor-pointer"
+                            className="w-full px-5 py-4 bg-[#0B0B0E]/50 border border-white/10 hover:border-white/20 focus:border-[#6b46c1]/60 focus:bg-[#1A1A24] focus:shadow-[0_0_15px_rgba(107,70,193,0.15)] rounded-2xl outline-none transition-all appearance-none font-medium text-white cursor-pointer [&>option]:bg-[#1A1A24]"
                           >
-                            <option value="" disabled>
+                            <option value="" disabled className="text-slate-500">
                               Select source
                             </option>
                             {referralSources.map((s) => (
@@ -547,7 +552,7 @@ export default function GetStartedClient() {
                               </option>
                             ))}
                           </select>
-                          <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                          <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
                             <ArrowRight className="w-4 h-4 rotate-90" />
                           </div>
                         </div>
@@ -556,7 +561,7 @@ export default function GetStartedClient() {
 
                     {/* Message */}
                     <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-900 ml-1">
+                      <label className="text-sm font-bold text-slate-300 ml-1">
                         Project Details
                       </label>
                       <textarea
@@ -566,14 +571,14 @@ export default function GetStartedClient() {
                           handleInputChange("message", e.target.value)
                         }
                         rows={4}
-                        className={`w-full px-5 py-4 bg-gray-50 border-2 ${
+                        className={`w-full px-5 py-4 bg-[#0B0B0E]/50 border ${
                           errors.message
-                            ? "border-red-500 bg-red-50/50"
-                            : "border-transparent focus:border-[#6b46c1] focus:bg-white"
-                        } rounded-2xl outline-none transition-all placeholder:text-gray-400 font-medium resize-none`}
+                            ? "border-red-500/50 bg-red-500/10"
+                            : "border-white/10 hover:border-white/20 focus:border-[#6b46c1]/60 focus:bg-[#1A1A24] focus:shadow-[0_0_15px_rgba(107,70,193,0.15)]"
+                        } rounded-2xl outline-none transition-all placeholder:text-slate-500 text-white font-medium resize-none`}
                       />
                       {errors.message && (
-                        <p className="text-red-500 text-xs ml-1 flex items-center">
+                        <p className="text-red-400 text-xs ml-1 flex items-center">
                           <AlertCircle className="w-3 h-3 mr-1" />
                           {errors.message}
                         </p>
@@ -584,7 +589,7 @@ export default function GetStartedClient() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-4 bg-[#6b46c1] text-white font-bold text-lg rounded-2xl hover:bg-[#5a37a6] transition-all hover:-translate-y-1 shadow-xl shadow-purple-200 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-2"
+                      className="w-full py-4 bg-[#6b46c1] text-white font-bold text-lg rounded-2xl hover:bg-[#8B5CF6] transition-all hover:-translate-y-1 shadow-[0_0_15px_rgba(107,70,193,0.4)] hover:shadow-[0_0_25px_rgba(139,92,246,0.6)] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[0_0_15px_rgba(107,70,193,0.4)] flex items-center justify-center gap-2"
                     >
                       {isSubmitting ? (
                         <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -597,6 +602,7 @@ export default function GetStartedClient() {
                   </form>
                 )}
               </AnimatePresence>
+              </div>
             </div>
           </motion.div>
         </div>

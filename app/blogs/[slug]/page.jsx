@@ -435,7 +435,7 @@ export default async function BlogDetailPage({ params }) {
     dateModified: blog._updatedAt || blog._createdAt,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${baseUrl}/blogs/${params.slug}`,
+      "@id": `${baseUrl}/blogs/${resolvedParams.slug}`,
     },
     articleSection: category,
     keywords: [
@@ -452,7 +452,7 @@ export default async function BlogDetailPage({ params }) {
     wordCount: wordCount,
   };
 
-  const currentUrl = `${baseUrl}/blogs/${params.slug}`;
+  const currentUrl = `${baseUrl}/blogs/${resolvedParams.slug}`;
 
   return (
     <>
@@ -704,7 +704,7 @@ export default async function BlogDetailPage({ params }) {
         {/* Related Posts */}
         <div className="bg-white py-8 md:py-16">
           <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12">
-            <RelatedPosts currentSlug={params.slug} category={blog.category} />
+            <RelatedPosts currentSlug={resolvedParams.slug} category={blog.category} />
           </div>
         </div>
       </div>

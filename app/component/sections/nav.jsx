@@ -72,7 +72,7 @@ function Nav() {
       className="fixed top-0 left-0 right-0 z-50"
     >
       <nav
-        className="transition-all duration-300 bg-white/80 backdrop-blur-sm"
+        className="transition-all duration-300 bg-[#0B0B0E]/80 backdrop-blur-md border-b border-white/10"
     
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -91,7 +91,7 @@ function Nav() {
                   className="py-4"
                   alt="BookOne Logo"
                 />
-                <span className="hidden sm:block text-xl sm:text-2xl lg:text-2xl font-serif font-bold text-gray-900 hover:text-gray-700 transition-colors">
+                <span className="hidden sm:block text-xl sm:text-2xl lg:text-2xl font-serif font-bold text-white hover:text-purple-400 transition-colors">
                   BOOKONE
                 </span>
               </Link>
@@ -110,10 +110,10 @@ function Nav() {
                   href={href}
                   aria-label={name}
                   role="menuitem"
-                  className="px-3 lg:px-4 py-2 text-sm lg:text-base font-medium text-gray-700 hover:text-gray-900 rounded-lg hover:bg-gray-50 transition-all duration-200 relative group"
+                  className="px-3 lg:px-4 py-2 text-sm lg:text-base font-medium text-slate-300 hover:text-white rounded-lg hover:bg-white/5 transition-all duration-200 relative group"
                 >
                   {name}
-                  <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-[#6b46c1] transition-all duration-300 group-hover:w-4/5 group-hover:left-[10%]"></span>
+                  <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-[#8B5CF6] transition-all duration-300 group-hover:w-4/5 group-hover:left-[10%]"></span>
                 </Link>
               ))}
             </nav>
@@ -154,17 +154,17 @@ function Nav() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.96 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute top-full right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50"
+                      className="absolute top-full right-0 mt-2 w-56 bg-[#1A1A24]/90 backdrop-blur-xl rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden z-50"
                     >
                       <div className="py-2">
                         <Link
                           href="https://calendar.notion.so/meet/officialbookone/call"
-                          className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors group"
+                          className="flex items-center px-4 py-3 text-slate-300 hover:bg-white/5 transition-colors group"
                           onClick={() => setConsultationDropdownOpen(false)}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3 group-hover:bg-blue-200 transition-colors">
+                          <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
                             <svg
                               className="w-5 h-5 text-blue-600"
                               fill="none"
@@ -180,10 +180,10 @@ function Nav() {
                             </svg>
                           </div>
                           <div>
-                            <div className="font-semibold text-gray-900">
+                            <div className="font-semibold text-white">
                               Book a Call
                             </div>
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-slate-400">
                               Free 30-min consultation
                             </div>
                           </div>
@@ -192,9 +192,9 @@ function Nav() {
                         <Link
                           href="/get-started"
                           onClick={() => setConsultationDropdownOpen(false)}
-                          className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors group"
+                          className="flex items-center px-4 py-3 text-slate-300 hover:bg-white/5 transition-colors group"
                         >
-                          <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3 group-hover:bg-purple-200 transition-colors">
+                          <div className="w-10 h-10 bg-[#6B46C1]/20 rounded-full flex items-center justify-center mr-3 group-hover:bg-[#6B46C1]/30 transition-colors">
                             <svg
                               className="w-5 h-5 text-purple-600"
                               fill="none"
@@ -210,10 +210,10 @@ function Nav() {
                             </svg>
                           </div>
                           <div>
-                            <div className="font-semibold text-gray-900">
+                            <div className="font-semibold text-white">
                               Get Quote
                             </div>
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-slate-400">
                               Custom project proposal
                             </div>
                           </div>
@@ -238,23 +238,23 @@ function Nav() {
 
               {/* Mobile Menu Button */}
               <button
-                className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors z-50 relative"
+                className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors z-50 relative"
                 onClick={toggleMenu}
                 aria-label="Toggle menu"
               >
                 <div className="w-6 h-5 flex flex-col justify-between">
                   <span
-                    className={`w-full h-0.5 bg-gray-800 transition-all duration-300 origin-center ${
+                    className={`w-full h-0.5 bg-white transition-all duration-300 origin-center ${
                       menuOpen ? "rotate-45 translate-y-2" : ""
                     }`}
                   />
                   <span
-                    className={`w-full h-0.5 bg-gray-800 transition-all duration-300 ${
+                    className={`w-full h-0.5 bg-white transition-all duration-300 ${
                       menuOpen ? "opacity-0" : "opacity-100"
                     }`}
                   />
                   <span
-                    className={`w-full h-0.5 bg-gray-800 transition-all duration-300 origin-center ${
+                    className={`w-full h-0.5 bg-white transition-all duration-300 origin-center ${
                       menuOpen ? "-rotate-45 -translate-y-2" : ""
                     }`}
                   />
@@ -281,7 +281,7 @@ function Nav() {
 
             {/* Mobile Menu Panel */}
             <motion.div
-              className="fixed top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl z-50 md:hidden"
+              className="fixed top-0 right-0 h-full w-full max-w-sm bg-[#0B0B0E] border-l border-white/10 shadow-2xl z-50 md:hidden"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -289,11 +289,11 @@ function Nav() {
             >
               <div className="flex flex-col h-full">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-100">
-                  <span className="text-xl font-bold text-gray-900">Menu</span>
+                <div className="flex items-center justify-between p-6 border-b border-white/10">
+                  <span className="text-xl font-bold text-white">Menu</span>
                   <button
                     onClick={toggleMenu}
-                    className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="p-2 rounded-lg hover:bg-white/10 text-white transition-colors"
                   >
                     <svg
                       className="w-6 h-6"
@@ -319,11 +319,11 @@ function Nav() {
                         key={id}
                         href={href}
                         onClick={toggleMenu}
-                        className="flex items-center justify-between py-4 text-lg font-medium text-gray-900 hover:text-[#6b46c1] transition-colors group"
+                        className="flex items-center justify-between py-4 text-lg font-medium text-slate-200 hover:text-[#A78BFA] transition-colors group"
                       >
                         <span>{name}</span>
                         <svg
-                          className="w-5 h-5 text-gray-400 group-hover:text-[#6b46c1] transition-colors"
+                          className="w-5 h-5 text-slate-500 group-hover:text-[#A78BFA] transition-colors"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -367,7 +367,7 @@ function Nav() {
                     <Link
                       href="/get-started"
                       onClick={toggleMenu}
-                      className="w-full bg-gray-100 text-gray-900 py-4 px-6 rounded-2xl font-semibold text-center hover:bg-gray-200 transition-colors flex items-center justify-center space-x-2"
+                      className="w-full bg-white/10 text-white py-4 px-6 rounded-2xl font-semibold text-center hover:bg-white/20 transition-colors flex items-center justify-center space-x-2 border border-white/10"
                     >
                       <svg
                         className="w-5 h-5"
@@ -388,8 +388,8 @@ function Nav() {
                 </div>
 
                 {/* Footer */}
-                <div className="p-6 border-t border-gray-100">
-                  <p className="text-sm font-medium text-gray-600 mb-4">
+                <div className="p-6 border-t border-white/10">
+                  <p className="text-sm font-medium text-slate-400 mb-4">
                     Follow us
                   </p>
                   <div className="flex space-x-4">
@@ -397,7 +397,7 @@ function Nav() {
                       <Link
                         key={index}
                         href={url}
-                        className="w-12 h-12 rounded-full bg-gray-100 hover:bg-[#6b46c1] hover:text-white transition-colors flex items-center justify-center group"
+                        className="w-12 h-12 rounded-full bg-white/10 hover:bg-[#6b46c1] text-white transition-colors flex items-center justify-center group border border-white/10"
                         target="_blank"
                         rel="noopener noreferrer"
                       >

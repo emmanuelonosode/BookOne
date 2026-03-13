@@ -4,6 +4,7 @@ import { authorBySlugQuery, blogsByAuthorQuery } from "@/lib/queries";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 
 // Add caching configuration
 export const revalidate = 3600; // Revalidate every hour
@@ -94,6 +95,8 @@ export async function generateMetadata({ params }) {
   };
 }
 
+
+
 export default async function AuthorPage({ params }) {
   const { slug } = await params;
   const author = await sanity.fetch(authorBySlugQuery, { slug });
@@ -103,12 +106,46 @@ export default async function AuthorPage({ params }) {
     notFound();
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
+  const authorImageUrl = author.image ? getImageUrl(author.image) : undefined;
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    mainEntity: {
+      "@type": "Person",
+      name: author.name,
+      description: author.bio,
+      image: authorImageUrl,
+      sameAs: [
+        author.twitter,
+        author.linkedin,
+        author.github,
+        author.instagram,
+        author.tiktok,
+        author.facebook,
+      ].filter(Boolean),
+      url: `${baseUrl}/authors/${slug}`,
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
-      <div className="max-w-4xl mx-auto px-4 py-22">
+    <>
+      <Script
+        id="author-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
+      <div className="min-h-screen bg-[#0B0B0E] selection:bg-[#6b46c1] selection:text-white relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#6b46c1]/10 blur-[150px] rounded-full mix-blend-screen pointer-events-none -translate-y-1/2 translate-x-1/4" />
+      <div className="max-w-4xl mx-auto px-4 py-22 relative z-10">
         {/* Hero Section */}
-        <div className="relative mb-16">
-          <div className="relative bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-12">
+        <div className="relative mb-16 group">
+          <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay rounded-2xl" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#6b46c1] to-[#8B5CF6] rounded-2xl opacity-10 blur-xl group-hover:opacity-20 transition-opacity duration-500"></div>
+          <div className="relative bg-[#1A1A24]/60 backdrop-blur-md rounded-2xl shadow-[0_0_30px_rgba(107,70,193,0.1)] border border-white/10 p-8 md:p-12 hover:border-[#6b46c1]/40 transition-colors duration-500">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
               {/* Author Image */}
               {author.image && (
@@ -119,9 +156,9 @@ export default async function AuthorPage({ params }) {
                       alt={author.name}
                       width={128}
                       height={128}
-                      className="rounded-full object-cover shadow-lg border-4 border-white hover:scale-105 transition-transform duration-300"
+                      className="rounded-full object-cover shadow-[0_0_20px_rgba(107,70,193,0.3)] border-4 border-[#1A1A24] hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 border-4 border-white rounded-full animate-pulse"></div>
+                    <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 border-4 border-[#1A1A24] rounded-full animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
                   </div>
                 </div>
               )}
@@ -129,10 +166,10 @@ export default async function AuthorPage({ params }) {
               {/* Author Info */}
               <div className="flex-1">
                 <div className="mb-4">
-                  <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-2">
+                  <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
                     {author.name}
                   </h1>
-                  <div className="flex items-center gap-2 text-blue-600 font-medium">
+                  <div className="flex items-center gap-2 text-[#A78BFA] font-medium">
                     <svg
                       className="w-4 h-4"
                       fill="currentColor"
@@ -149,16 +186,16 @@ export default async function AuthorPage({ params }) {
                 </div>
 
                 {author.bio && (
-                  <div className="text-gray-700 text-lg leading-relaxed mb-6">
+                  <div className="text-slate-300 text-lg leading-relaxed mb-6 font-light">
                     {author.bio}
                   </div>
                 )}
 
                 {/* Stats */}
                 <div className="flex items-center gap-6 text-sm">
-                  <div className="flex items-center gap-2 text-gray-600">
+                  <div className="flex items-center gap-2 text-slate-400">
                     <svg
-                      className="w-4 h-4"
+                      className="w-4 h-4 text-[#A78BFA]"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -172,9 +209,9 @@ export default async function AuthorPage({ params }) {
                     </svg>
                     {blogs.length} {blogs.length === 1 ? "Article" : "Articles"}
                   </div>
-                  <div className="flex items-center gap-2 text-gray-600">
+                  <div className="flex items-center gap-2 text-slate-400">
                     <svg
-                      className="w-4 h-4"
+                      className="w-4 h-4 text-[#A78BFA]"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -198,7 +235,7 @@ export default async function AuthorPage({ params }) {
                   author.tiktok ||
                   author.facebook) && (
                   <div className="flex items-center gap-4 mt-6">
-                    <span className="text-sm font-medium text-gray-700">
+                    <span className="text-sm font-medium text-slate-400">
                       Follow me:
                     </span>
                     <div className="flex items-center gap-3">
@@ -207,7 +244,7 @@ export default async function AuthorPage({ params }) {
                           href={author.twitter}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-gray-600 hover:text-blue-400 transition-colors duration-300"
+                          className="text-slate-400 hover:text-[#1DA1F2] transition-colors duration-300 hover:scale-110"
                           aria-label={`Follow ${author.name} on Twitter`}
                         >
                           <svg
@@ -224,7 +261,7 @@ export default async function AuthorPage({ params }) {
                           href={author.linkedin}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-gray-600 hover:text-blue-600 transition-colors duration-300"
+                          className="text-slate-400 hover:text-[#0A66C2] transition-colors duration-300 hover:scale-110"
                           aria-label={`Connect with ${author.name} on LinkedIn`}
                         >
                           <svg
@@ -241,7 +278,7 @@ export default async function AuthorPage({ params }) {
                           href={author.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-gray-600 hover:text-gray-900 transition-colors duration-300"
+                          className="text-slate-400 hover:text-white transition-colors duration-300 hover:scale-110"
                           aria-label={`View ${author.name}'s GitHub profile`}
                         >
                           <svg
@@ -258,7 +295,7 @@ export default async function AuthorPage({ params }) {
                           href={author.instagram}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-gray-600 hover:text-pink-500 transition-colors duration-300"
+                          className="text-slate-400 hover:text-[#E1306C] transition-colors duration-300 hover:scale-110"
                           aria-label={`Follow ${author.name} on Instagram`}
                         >
                           <svg
@@ -275,7 +312,7 @@ export default async function AuthorPage({ params }) {
                           href={author.tiktok}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-gray-600 hover:text-black transition-colors duration-300"
+                          className="text-slate-400 hover:text-[#2AF598] transition-colors duration-300 hover:scale-110"
                           aria-label={`Follow ${author.name} on TikTok`}
                         >
                           <svg
@@ -292,7 +329,7 @@ export default async function AuthorPage({ params }) {
                           href={author.facebook}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-gray-600 hover:text-blue-600 transition-colors duration-300"
+                          className="text-slate-400 hover:text-[#1877F2] transition-colors duration-300 hover:scale-110"
                           aria-label={`Follow ${author.name} on Facebook`}
                         >
                           <svg
@@ -313,15 +350,15 @@ export default async function AuthorPage({ params }) {
         </div>
 
         {/* Articles Section */}
-        <div>
+        <div className="relative z-10">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
                 Latest Articles
               </h2>
-              <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+              <div className="w-16 h-1 bg-[#6b46c1] rounded-full shadow-[0_0_10px_rgba(107,70,193,0.8)]"></div>
             </div>
-            <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+            <div className="text-sm text-[#A78BFA] bg-[#6b46c1]/10 border border-[#6b46c1]/20 px-3 py-1 rounded-full shadow-[0_0_10px_rgba(107,70,193,0.1)]">
               {blogs.length} {blogs.length === 1 ? "post" : "posts"}
             </div>
           </div>
@@ -331,20 +368,21 @@ export default async function AuthorPage({ params }) {
               {blogs.map((blog) => (
                 <article
                   key={blog._id}
-                  className="group bg-white rounded-xl border border-gray-100 p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                  className="group bg-[#1A1A24]/40 backdrop-blur-md rounded-xl border border-white/10 p-6 hover:border-[#6b46c1]/50 hover:shadow-[0_0_20px_rgba(107,70,193,0.15)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
                 >
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#6b46c1]/0 via-[#6b46c1]/5 to-[#6b46c1]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                   <Link
                     href={`/blogs/${blog.slug.current}`}
-                    className="block"
+                    className="block relative z-10"
                     aria-label={`Read ${blog.title}`}
                   >
                     <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-2 h-16 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="flex-shrink-0 w-2 h-16 bg-[#6b46c1] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_10px_rgba(107,70,193,0.8)]"></div>
                       <div className="flex-1">
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
+                        <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-[#A78BFA] transition-colors duration-300">
                           {blog.title}
                         </h3>
-                        <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                        <div className="flex items-center gap-4 text-sm text-slate-500 mb-3 font-light">
                           <time
                             dateTime={blog._createdAt}
                             className="flex items-center gap-1"
@@ -389,11 +427,11 @@ export default async function AuthorPage({ params }) {
                           </span>
                         </div>
                         {blog.excerpt && (
-                          <p className="text-gray-600 leading-relaxed mb-4">
+                          <p className="text-slate-400 leading-relaxed mb-4 font-light">
                             {blog.excerpt}
                           </p>
                         )}
-                        <div className="flex items-center gap-2 text-blue-600 font-medium group-hover:gap-3 transition-all duration-300">
+                        <div className="flex items-center gap-2 text-[#A78BFA] font-medium group-hover:gap-3 transition-all duration-300">
                           Read article
                           <svg
                             className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
@@ -416,10 +454,10 @@ export default async function AuthorPage({ params }) {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 bg-white rounded-xl border border-gray-100">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+            <div className="text-center py-12 bg-[#1A1A24]/40 backdrop-blur-md rounded-xl border border-white/10">
+              <div className="w-16 h-16 mx-auto mb-4 bg-[#1A1A24] rounded-full flex items-center justify-center border border-white/5 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
                 <svg
-                  className="w-8 h-8 text-gray-400"
+                  className="w-8 h-8 text-slate-500"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -432,10 +470,10 @@ export default async function AuthorPage({ params }) {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-white mb-2">
                 No articles yet
               </h3>
-              <p className="text-gray-600">
+              <p className="text-slate-400 font-light">
                 Check back soon for new content from this author.
               </p>
             </div>
@@ -443,10 +481,10 @@ export default async function AuthorPage({ params }) {
         </div>
 
         {/* Back to Authors */}
-        <div className="mt-16 text-center">
+        <div className="mt-16 text-center relative z-10">
           <Link
             href="/authors"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium transition-colors duration-300"
+            className="inline-flex items-center gap-2 text-slate-400 hover:text-[#A78BFA] font-medium transition-colors duration-300"
             aria-label="Back to all authors"
           >
             <svg
@@ -467,5 +505,6 @@ export default async function AuthorPage({ params }) {
         </div>
       </div>
     </div>
+    </>
   );
 }

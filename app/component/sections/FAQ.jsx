@@ -18,28 +18,24 @@ function FAQ() {
 
   const faq = [
     {
-      title: "What is BookOne?",
-      desc: "BookOne is an all-in-one digital growth platform that combines high-converting website design, AI automation, and advanced SEO to help your business attract more leads and close more sales.",
+      title: "Wait, so what exactly do you do?",
+      desc: "We build high-performance websites and implement AI automation. We make sure your site loads instantly, looks premium, drives sales, and we automate the repetitive parts of your business (like lead nurturing and customer support) using AI.",
     },
     {
-      title: "Who is BookOne for?",
-      desc: "Our services are designed for entrepreneurs, startups, and established businesses who want to turn their website into a powerful sales and marketing machine without adding extra hours to their workday.",
+      title: "Who is your ideal client?",
+      desc: "We partner with ambitious startups, aggressive local brands, and scaling creators. If you view your website as an investment to generate revenue—not just a digital business card—we're a match.",
     },
     {
-      title: "Do I need technical skills to use BookOne?",
-      desc: "Not at all. We handle all the design, development, and optimization for you so you can focus on running your business.",
+      title: "Do I need to know how to code?",
+      desc: "Zero coding required on your end. We handle all the technical heavy lifting, design, deployment, and optimization. You just focus on closing the leads we bring you.",
     },
     {
-      title: "Can BookOne integrate with my existing tools?",
-      desc: "Yes. BookOne can connect with popular CRMs, payment processors, email marketing platforms, and other third-party tools to create a seamless workflow.",
+      title: "How fast do you ship?",
+      desc: "Most MVPs and standard web projects go live within 2 to 4 weeks. Complex web applications with deep AI integrations take a bit longer, but we always prioritize speed to market.",
     },
     {
-      title: "How long does it take to see results?",
-      desc: "Most clients start seeing measurable improvements in website performance and lead generation within the first few weeks after launch.",
-    },
-    {
-      title: "Do you provide ongoing support?",
-      desc: "Yes. We offer ongoing maintenance, updates, and strategy sessions to ensure your website continues to perform at its best.",
+      title: "Do you offer post-launch support?",
+      desc: "Yes. We don't just hand over the keys and vanish. We offer retainers for ongoing optimization, SEO growth, and infrastructure maintenance to ensure your growth never stalls.",
     },
   ];
 
@@ -92,7 +88,8 @@ function FAQ() {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.2,
+        // Make the stagger a bit faster
+        delayChildren: 0.1,
       },
     },
   };
@@ -101,7 +98,7 @@ function FAQ() {
     hidden: {
       opacity: 0,
       y: 20,
-      scale: 0.95,
+      scale: 0.98,
     },
     visible: {
       opacity: 1,
@@ -109,21 +106,21 @@ function FAQ() {
       scale: 1,
       transition: {
         type: "spring",
-        stiffness: 100,
-        damping: 12,
+        stiffness: 150, // Snappier
+        damping: 15,
       },
     },
   };
 
   const headerVariants = {
-    hidden: { opacity: 0, y: -30 },
+    hidden: { opacity: 0, y: -20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         type: "spring",
-        stiffness: 120,
-        damping: 15,
+        stiffness: 150, // Snappier
+        damping: 18,
       },
     },
   };
@@ -132,7 +129,7 @@ function FAQ() {
     hidden: {
       opacity: 0,
       height: 0,
-      y: -10,
+      y: -5,
     },
     visible: {
       opacity: 1,
@@ -140,19 +137,18 @@ function FAQ() {
       y: 0,
       transition: {
         type: "spring",
-        stiffness: 100,
-        damping: 15,
-        opacity: { duration: 0.3 },
-        height: { duration: 0.4 },
+        stiffness: 150, // Snappier accordion open
+        damping: 20,
+        opacity: { duration: 0.2 },
       },
     },
     exit: {
       opacity: 0,
       height: 0,
-      y: -10,
+      y: -5,
       transition: {
-        duration: 0.2,
-        ease: "easeInOut",
+        duration: 0.2, // Fast exit
+        ease: "easeIn",
       },
     },
   };
@@ -178,12 +174,13 @@ function FAQ() {
   };
 
   return (
-    <section
-      id="faqs"
-      className="container py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto"
-      aria-label="Frequently Asked Questions"
-      role="region"
-    >
+    <section className="bg-[#0B0B0E] w-full py-16">
+      <div
+        id="faqs"
+        className="container px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto"
+        aria-label="Frequently Asked Questions"
+        role="region"
+      >
       {/* Enhanced Header */}
       <motion.div
         variants={headerVariants}
@@ -197,7 +194,7 @@ function FAQ() {
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full text-sm font-medium text-blue-800 mb-6"
+          className="inline-flex items-center px-4 py-2 bg-[#1A1A24]/60 backdrop-blur-md border border-white/10 rounded-full text-sm font-medium text-[#A78BFA] mb-6 shadow-sm"
         >
           <svg
             className="w-4 h-4 mr-2"
@@ -217,16 +214,16 @@ function FAQ() {
         </motion.div>
 
         <h2
-          className="text-5xl md:text-6xl font-black text-gray-800 mb-4 leading-tight"
+          className="text-5xl md:text-6xl font-black text-white mb-4 leading-tight"
           tabIndex={0}
         >
           We Know{" "}
-          <span className="text-[#6b46c1]">
+          <span className="text-[#8B5CF6]">
             What You Think
           </span>
         </h2>
 
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <p className="text-xl text-slate-400 max-w-2xl mx-auto">
           Find quick answers to the most common questions about our services and
           processes.
         </p>
@@ -254,22 +251,22 @@ function FAQ() {
           const headingId = `faq-heading-${idx}`;
 
           return (
-            <motion.div
+              <motion.div
               key={title}
               variants={itemVariants}
               whileHover="hover"
               whileTap="tap"
               {...hoverVariants}
               className={`
-                group bg-white rounded-2xl border-2 transition-all duration-300 overflow-hidden
+                group bg-[#1A1A24]/60 backdrop-blur-md rounded-2xl border transition-all duration-300 overflow-hidden relative
                 ${
                   isOpen
-                    ? "border-blue-500 shadow-xl bg-white"
-                    : "border-gray-200 hover:border-gray-300 shadow-md hover:shadow-lg"
+                    ? "border-[#8B5CF6]/50 shadow-[0_0_20px_rgba(139,92,246,0.15)] bg-[#11111A]/80 text-white"
+                    : "border-white/10 hover:border-white/20 hover:bg-white/5 shadow-[0_5px_15px_rgba(0,0,0,0.3)] hover:shadow-[0_10px_20px_rgba(0,0,0,0.5)]"
                 }
                 ${
                   focusedIndex === idx
-                    ? "ring-2 ring-blue-500 ring-offset-2"
+                    ? "ring-2 ring-[#8B5CF6] ring-offset-2 ring-offset-[#0B0B0E]"
                     : ""
                 }
               `}
@@ -281,8 +278,8 @@ function FAQ() {
                   w-full p-6 text-left focus:outline-none transition-all duration-300
                   ${
                     isOpen
-                      ? "bg-white"
-                      : "hover:bg-gray-50"
+                      ? "bg-transparent"
+                      : "group-hover:bg-white/5"
                   }
                 `}
                 onClick={() => setSelectedTest(isOpen ? null : title)}
@@ -297,20 +294,25 @@ function FAQ() {
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-4 flex-1">
                     {/* Question Number */}
-                    <motion.div
-                      className={`
-                        flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300
-                        ${
-                          isOpen
-                            ? "bg-[#6b46c1] text-white"
-                            : "bg-gray-100 text-gray-600 group-hover:bg-blue-100 group-hover:text-blue-600"
-                        }
-                      `}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {String(idx + 1).padStart(2, "0")}
-                    </motion.div>
+                    <div className="relative">
+                      {isOpen && (
+                        <div className="absolute inset-0 bg-[#8B5CF6]/30 blur-md rounded-full"></div>
+                      )}
+                      <motion.div
+                        className={`
+                          relative z-10 flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-sm font-mono tracking-wider transition-all duration-300
+                          ${
+                            isOpen
+                              ? "bg-[#1A1A24] border border-[#8B5CF6]/50 text-white shadow-[inset_0_0_10px_rgba(139,92,246,0.2)]"
+                              : "bg-white/5 border border-white/10 text-slate-400 group-hover:bg-[#6B46C1]/10 group-hover:text-[#A78BFA] group-hover:border-[#6B46C1]/30"
+                          }
+                        `}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        {String(idx + 1).padStart(2, "0")}
+                      </motion.div>
+                    </div>
 
                     {/* Question Title */}
                     <h3
@@ -319,8 +321,8 @@ function FAQ() {
                         text-lg md:text-xl font-bold transition-colors duration-300
                         ${
                           isOpen
-                            ? "text-blue-800"
-                            : "text-gray-800 group-hover:text-blue-600"
+                            ? "text-white"
+                            : "text-slate-300 group-hover:text-white"
                         }
                       `}
                     >
@@ -329,19 +331,23 @@ function FAQ() {
                   </div>
 
                   {/* Toggle Icon */}
-                  <motion.div
-                    variants={iconVariants}
-                    animate={isOpen ? "open" : "closed"}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className={`
-                      flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300
-                      ${
-                        isOpen
-                          ? "bg-blue-500 text-white"
-                          : "bg-gray-100 text-gray-600 group-hover:bg-blue-100 group-hover:text-blue-600"
-                      }
-                    `}
-                  >
+                  <div className="relative">
+                    {isOpen && (
+                      <div className="absolute inset-0 bg-[#8B5CF6]/30 blur-md rounded-full shadow-[0_0_15px_rgba(139,92,246,0.5)]"></div>
+                    )}
+                    <motion.div
+                      variants={iconVariants}
+                      animate={isOpen ? "open" : "closed"}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className={`
+                        relative z-10 flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300
+                        ${
+                          isOpen
+                            ? "bg-[#6B46C1] text-white border border-[#8B5CF6]/50"
+                            : "bg-white/5 border border-white/10 text-slate-400 group-hover:bg-[#6B46C1]/20 group-hover:text-[#A78BFA] group-hover:border-[#6B46C1]/30"
+                        }
+                      `}
+                    >
                     <svg
                       className="w-5 h-5"
                       fill="none"
@@ -357,6 +363,7 @@ function FAQ() {
                       />
                     </svg>
                   </motion.div>
+                  </div>
                 </div>
               </motion.button>
 
@@ -371,17 +378,28 @@ function FAQ() {
                     initial="hidden"
                     animate="visible"
                     exit="exit"
-                    className="overflow-hidden"
+                    className="relative overflow-hidden"
                   >
-                    <div className="md:px-6  pb-6">
+                    {/* Laser Scan Effect */}
+                    <motion.div
+                      className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#8B5CF6] to-transparent z-0 opacity-70 shadow-[0_0_15px_rgba(139,92,246,0.8)]"
+                      initial={{ top: 0, opacity: 1 }}
+                      animate={{ top: "100%", opacity: 0 }}
+                      transition={{ duration: 1.5, ease: "linear" }}
+                    />
+                    <div className="relative z-10 md:px-6 pb-6 pt-2">
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1, duration: 0.3 }}
-                        className="pl-14 pr-4"
+                        transition={{ delay: 0.2, duration: 0.3 }}
+                        className="pl-20 pr-4 relative"
                       >
-                        <div className="h-px bg-gray-200 mb-4"></div>
-                        <p className="text-gray-700 leading-relaxed text-base md:text-lg">
+                        {/* Vertical line connection */}
+                        <div className="absolute left-[34px] top-[-10px] bottom-6 w-[2px] bg-gradient-to-b from-[#8B5CF6]/50 to-transparent"></div>
+                        <div className="absolute left-[31px] top-[-10px] w-[8px] h-[8px] rounded-full bg-[#8B5CF6] shadow-[0_0_10px_rgba(139,92,246,0.8)]"></div>
+                        
+                        <div className="h-px bg-[#8B5CF6]/20 mb-4 ml-[-20px] w-[20px]"></div>
+                        <p className="text-slate-400 leading-relaxed text-base md:text-lg">
                           {desc}
                         </p>
 
@@ -390,14 +408,14 @@ function FAQ() {
                           initial={{ opacity: 0, scale: 0.95 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: 0.2, duration: 0.3 }}
-                          className="mt-4 p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400"
+                          className="mt-4 p-3 bg-[#6B46C1]/10 rounded-lg border-l-4 border-[#8B5CF6]/50"
                         >
-                          <p className="text-sm text-blue-800 font-medium">
+                          <p className="text-sm text-[#A78BFA] font-medium">
                             <Lightbulb className="w-4 h-4 inline mr-1" /> Still
                             have questions?
                             <a
                               href="mailto:officialbookone@gmail.com"
-                              className="ml-2 underline hover:no-underline transition-all duration-200"
+                              className="ml-2 text-white underline hover:no-underline transition-all duration-200"
                               tabIndex={0}
                             >
                               Contact us for personalized help
@@ -420,19 +438,19 @@ function FAQ() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.5, duration: 0.6 }}
-        className="mt-16 text-center bg-white rounded-2xl p-8 border border-blue-200"
+        className="mt-16 text-center bg-[#1A1A24]/60 backdrop-blur-md rounded-2xl p-8 border border-white/10 shadow-lg"
       >
-        <h3 className="text-2xl font-bold text-gray-800 mb-4">
+        <h3 className="text-2xl font-bold text-white mb-4">
           Didn't find what you were looking for?
         </h3>
-        <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+        <p className="text-slate-400 mb-6 max-w-2xl mx-auto">
           Our team is here to help! Get in touch with us for personalized
           answers to your specific questions.
         </p>
         <Link
           href="mailto:officialbookone@gmail.com"
        
-          className="inline-flex items-center sm:px-8 p-3 bg-[#6b46c1] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+          className="inline-flex items-center sm:px-8 p-3 bg-[#6b46c1] hover:bg-[#8B5CF6] text-white font-semibold rounded-xl shadow-[0_0_15px_rgba(107,70,193,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] transition-all duration-300 transform hover:-translate-y-1"
           tabIndex={0}
         >
           <svg
@@ -452,9 +470,9 @@ function FAQ() {
         </Link>
       </motion.div>
 
-      {/* Live region for screen reader announcements */}
       <div aria-live="polite" aria-atomic="true" className="sr-only">
         {selectedTest && `Answer expanded for: ${selectedTest}`}
+      </div>
       </div>
     </section>
   );

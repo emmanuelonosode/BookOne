@@ -87,8 +87,49 @@ html {
 body {
   font-family: var(--font-sans);
   line-height: 1.6;
-  color: #1a1a1a;
-  background-color: #ffffff;
+  color: #F8FAFC;
+  background-color: #0B0B0E;
+}
+
+/* Premium Dark Theme Animations */
+.shine::before,
+.shine::after {
+  content: "";
+  position: absolute;
+  background: radial-gradient(100% 100% at right, rgba(107, 70, 193, 0.1), rgba(107, 70, 193, 0.45) 5%, rgba(139, 92, 246, 0.8) 40%, transparent 80%);
+  offset-path: border-box;
+  offset-anchor: 100% 50%;
+  animation: trail 4s infinite linear;
+  z-index: 1;
+  transition: opacity 0.2s ease;
+  filter: blur(12px);
+  pointer-events: none;
+}
+.shine.shine::before {
+  animation: trail 15s infinite linear;
+  opacity: 0.5;
+}
+.shine.shine::after {
+  animation: trail-offset 15s infinite linear;
+  offset-distance: 50%;
+}
+@keyframes trail {
+  to { offset-distance: 100%; }
+}
+@keyframes trail-offset {
+  0% { offset-distance: 50%; }
+  100% { offset-distance: 150%; }
+}
+
+@keyframes aurora-mesh {
+  from { background-position: 50% 50%, 50% 50%; }
+  to { background-position: 350% 50%, 350% 50%; }
+}
+.animate-aurora-bg {
+  animation: aurora-mesh 60s linear infinite;
+  background-image: 
+    radial-gradient(ellipse at 100% 0%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 100%, rgba(107, 70, 193, 0.15) 0%, transparent 50%);
 }
 
 /* Typography Scale */

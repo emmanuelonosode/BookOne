@@ -15,30 +15,27 @@ export default async function PortfolioSection() {
   return (
     <section
       id="portfolio-section"
-      className="min-h-screen bg-[#FAFAFA] py-16 px-4 sm:px-6 lg:px-8 text-gray-800"
+      className="min-h-screen bg-[#0B0B0E] py-16 px-4 sm:px-6 lg:px-8 text-white"
       aria-labelledby="portfolio-heading"
     >
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center bg-purple-100 px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <Star className="w-4 h-4 mr-2" />
-            Our Work Speaks for Itself
+          <div className="inline-flex items-center gap-2 bg-[#1A1A24]/60 border border-white/10 backdrop-blur-md text-[#A78BFA] px-4 py-2 rounded-full text-sm font-medium mb-6 shadow-sm">
+            <Star className="w-4 h-4 mr-1 text-[#A78BFA]" />
+            Recent Shipments
           </div>
 
           <div className="">
             <h2
               id="portfolio-heading"
-              className="text-4xl text-center sm:text-5xl font-bold text-gray-900 mb-6 leading-tight"
+              className="text-4xl text-center sm:text-5xl font-extrabold text-white mb-6 leading-tight tracking-tight"
             >
-              Case{" "}
-                Studies{" "}
+              Featured Work
             </h2>
 
-            <p className="text-lg text-center text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
-              Discover how we've helped businesses across industries transform
-              their digital presence, drive growth, and achieve remarkable
-              results through innovative design and strategic thinking.
+            <p className="text-lg text-center text-slate-400 max-w-3xl mx-auto leading-relaxed mb-8 font-light">
+              We don't just build websites; we build digital assets that generate revenue. Explore our recent projects across various industries and see the tangible results of our partnerships.
             </p>
           </div>
         </div>
@@ -52,10 +49,10 @@ export default async function PortfolioSection() {
 
         {/* Section Header for Other Case Studies */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl font-bold text-white mb-4">
             More Amazing Case Studies
           </h2>
-          <div className="w-24 h-1 bg-[#6b46c1] mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-[#8B5CF6]/50 mx-auto rounded-full shadow-[0_0_15px_rgba(139,92,246,0.5)]"></div>
         </div>
 
         {/* Case Studies Grid */}
@@ -72,17 +69,16 @@ export default async function PortfolioSection() {
         </div>
 
         {/* Call to Action Section */}
-        <div className="bg-slate-900 rounded-3xl p-12 text-center text-white relative overflow-hidden">
+        <div className="bg-[#11111A]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-12 text-center text-white relative overflow-hidden shadow-[0_20px_60px_-15px_rgba(107,70,193,0.15)] hover:border-purple-500/20 transition-all duration-500">
           {/* Background decoration */}
-          <div className="absolute inset-0 bg-black opacity-10"></div>
-          <div className="absolute top-0 right-0 w-48 h-48 bg-white opacity-5 rounded-full -translate-y-24 translate-x-24"></div>
-          <div className="absolute bottom-0 left-0 w-32 h-32 bg-white opacity-5 rounded-full translate-y-16 -translate-x-16"></div>
+          <div className="absolute top-[-20%] right-[-10%] w-[400px] h-[400px] bg-purple-500/20 rounded-full blur-[100px] opacity-40 pointer-events-none" />
+          <div className="absolute bottom-[-30%] left-[-10%] w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] opacity-40 pointer-events-none" />
 
           <div className="relative z-10">
-            <h3 className="text-3xl font-bold mb-6">
+            <h3 className="text-3xl font-bold mb-6 text-white">
               Ready to Create Your Success Story?
             </h3>
-            <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto font-light">
               Let's discuss your project and explore how we can help transform
               your digital presence and achieve exceptional results together.
             </p>
@@ -91,19 +87,19 @@ export default async function PortfolioSection() {
               <Link
                 href="/get-started"
                 aria-label="Start your project - View pricing and begin your project"
-                className="inline-flex items-center gap-2 bg-white text-purple-600 py-4 px-8 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className="group inline-flex items-center justify-center gap-2 bg-[#6B46C1] hover:bg-[#8B5CF6] text-white py-4 px-8 rounded-full font-bold shadow-[0_0_20px_rgba(107,70,193,0.3)] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] transition-all duration-300 transform hover:-translate-y-1 w-full sm:w-auto"
               >
                 <span>Start Your Project</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
 
               <Link
                 href="/portfolio"
                 aria-label="View complete portfolio - See all our projects"
-                className="inline-flex items-center gap-2 border-2 border-white text-white py-4 px-8 rounded-full font-bold hover:bg-white hover:text-purple-600 transition-all duration-300"
+                className="group inline-flex items-center justify-center gap-2 border-2 border-white/20 text-white py-4 px-8 rounded-full font-bold hover:bg-white/5 hover:border-white/40 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 w-full sm:w-auto"
               >
                 <span>View Complete Portfolio</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </div>

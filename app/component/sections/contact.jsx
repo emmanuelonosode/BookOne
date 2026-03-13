@@ -13,7 +13,7 @@ import Link from "next/link";
 // Memoized contact data
 const contactMethods = [
   {
-    icon: <Mail className="w-6 h-6 text-black" />,
+    icon: <Mail className="w-6 h-6 text-white" />,
     label: "Email Us",
     description: "Send us an email and we'll get back to you within 24 hours",
     value: "info@bookone.dev",
@@ -23,7 +23,7 @@ const contactMethods = [
     type: "email",
   },
   {
-    icon: <Phone className="w-6 h-6 text-black" />,
+    icon: <Phone className="w-6 h-6 text-white" />,
     label: "Call Us",
     description:
       "Speak directly with our team during business hours (9 AM - 6 PM WAT)",
@@ -62,9 +62,9 @@ const ContactCard = memo(({ contact, index }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={`
-        block bg-white/90 rounded-2xl p-6 sm:p-8 
-        shadow-lg border border-gray-200 group transition-all duration-300
-        hover:shadow-2xl hover:translate-y-0.5
+        block bg-[#1A1A24]/50 backdrop-blur-md rounded-2xl p-6 sm:p-8 
+        shadow-[0_4px_20px_rgba(0,0,0,0.5)] border border-white/10 group transition-all duration-300
+        hover:border-[#6B46C1]/50 hover:translate-y-0.5 hover:shadow-[0_0_20px_rgba(107,70,193,0.3)]
         ${isClicked ? "scale-95" : "scale-100"}
         relative overflow-hidden
       `}
@@ -72,7 +72,7 @@ const ContactCard = memo(({ contact, index }) => {
       {/* Animated background */}
       <div
         className={`
-          absolute inset-0 bg-black/5
+          absolute inset-0 bg-white/5
           transition-opacity duration-300 ${
             isHovered ? "opacity-100" : "opacity-0"
           }
@@ -81,7 +81,7 @@ const ContactCard = memo(({ contact, index }) => {
 
       {/* Response time badge */}
       <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
-        <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+        <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#0B0B0E] border border-green-500/50 text-green-400 text-xs font-medium rounded-full shadow-sm">
           <Clock className="w-3 h-3" />
           {contact.responseTime}
         </span>
@@ -91,10 +91,10 @@ const ContactCard = memo(({ contact, index }) => {
         {/* Icon */}
         <div
           className={`
-              w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-black/5 
+              w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/5 border border-white/10
               flex items-center justify-center flex-shrink-0 
               transition-transform duration-300
-              ${isHovered ? "scale-110" : "scale-100"}
+              ${isHovered ? "scale-110 shadow-[0_0_15px_rgba(107,70,193,0.2)]" : "scale-100"}
             `}
         >
           {contact.icon}
@@ -102,21 +102,21 @@ const ContactCard = memo(({ contact, index }) => {
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <h3 className="text-xl sm:text-2xl font-bold text-black mb-2 group-hover:text-black transition-colors">
+          <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
             {contact.label}
           </h3>
-          <p className="text-sm sm:text-base text-gray-600 mb-4 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-400 mb-4 leading-relaxed">
             {contact.description}
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <p className="text-black font-semibold text-lg sm:text-xl break-all sm:break-normal">
+            <p className="text-white font-semibold text-lg sm:text-xl break-all sm:break-normal">
               {contact.value}
             </p>
             <span
               className={`
-                inline-flex items-center gap-2 px-4 py-2 bg-black/5 text-black 
-                rounded-lg font-medium text-sm transition-all duration-300
-                ${isHovered ? "bg-black/10 translate-x-1" : ""}
+                inline-flex items-center gap-2 px-4 py-2 bg-white/5 text-white 
+                rounded-lg font-medium text-sm transition-all duration-300 border border-transparent
+                ${isHovered ? "bg-white/10 border-white/10 translate-x-1 shadow-sm" : ""}
               `}
             >
               {contact.cta}
@@ -132,10 +132,10 @@ const ContactCard = memo(({ contact, index }) => {
 // Memoized BenefitItem component
 const BenefitItem = memo(({ benefit, index }) => (
   <div
-    className="flex items-center gap-3 text-gray-900"
+    className="flex items-center gap-3 text-slate-300"
     style={{ animationDelay: `${index * 100}ms` }}
   >
-    <CheckCircle className="w-5 h-5 text-black shrink-0" />
+    <CheckCircle className="w-5 h-5 text-[#8B5CF6] shrink-0" />
     <span className="text-sm sm:text-base">{benefit}</span>
   </div>
 ));
@@ -151,37 +151,37 @@ function Contact() {
   return (
     <section
       id="contact"
-      className="min-h-screen bg-white relative overflow-hidden py-12 sm:py-16 lg:py-20"
+      className="min-h-screen bg-[#0B0B0E] relative overflow-hidden py-12 sm:py-16 lg:py-20"
     >
       {/* Subtle background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -right-32 sm:-right-48 w-64 sm:w-80 h-64 sm:h-80 bg-black/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -left-32 sm:-left-48 w-48 sm:w-64 h-48 sm:h-64 bg-black/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -right-32 sm:-right-48 w-64 sm:w-80 h-64 sm:h-80 bg-[#6B46C1]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -left-32 sm:-left-48 w-48 sm:w-64 h-48 sm:h-64 bg-[#8B5CF6]/10 rounded-full blur-3xl" />
       </div>
 
       {/* Header Section */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 sm:mb-16 relative z-10">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-black mb-4 sm:mb-6 leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-4 sm:mb-6 leading-tight">
           Ready to bring your{" "}
-          <span className="font-medium text-black">business</span> online?
+          <span className="font-medium text-[#8B5CF6]">business</span> online?
         </h1>
-        <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed mb-6 sm:mb-8 px-4 sm:px-0">
+        <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-6 sm:mb-8 px-4 sm:px-0">
           Let's talk about how BookOne can help you launch smarter and faster.
           We're here to transform your digital presence with measurable results.
         </p>
 
         {/* Social proof */}
-        <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-sm text-gray-500 mb-8">
+        <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-sm text-slate-400 mb-8">
           <div className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-black" />
+            <CheckCircle className="w-4 h-4 text-[#A78BFA]" />
             <span>50+ Happy Clients</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-black" />
+            <CheckCircle className="w-4 h-4 text-[#A78BFA]" />
             <span>24hr Response Time</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-black" />
+            <CheckCircle className="w-4 h-4 text-[#A78BFA]" />
             <span>Free Consultation</span>
           </div>
         </div>
@@ -198,10 +198,10 @@ function Contact() {
           </div>
 
           {/* Enhanced CTA Section */}
-          <div className="bg-black rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 text-white relative overflow-hidden">
+          <div className="bg-[#1A1A24]/60 backdrop-blur-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 text-white relative overflow-hidden shadow-2xl border border-white/10">
             {/* Background pattern */}
-            <div className="absolute inset-0 bg-black/20" />
-            <div className="absolute top-0 right-0 w-32 sm:w-64 h-32 sm:h-64 bg-white/5 rounded-full -translate-y-16 translate-x-16" />
+            <div className="absolute inset-0 bg-white/5 mix-blend-overlay" />
+            <div className="absolute top-0 right-0 w-32 sm:w-64 h-32 sm:h-64 bg-[#6B46C1]/20 rounded-full blur-3xl -translate-y-16 translate-x-16" />
 
             <div className="relative z-10">
               <div className="text-center mb-8 sm:mb-10">
@@ -227,9 +227,9 @@ function Contact() {
                 <button
                   onClick={() => handleCtaClick("pricing")}
                   className={`
-                    bg-white text-black px-6 sm:px-8 py-4 rounded-xl font-semibold text-base sm:text-lg 
-                    hover:bg-gray-100 transition-all duration-300 relative overflow-hidden group
-                    ${ctaClicked === "pricing" ? "scale-95" : "scale-100"}
+                    bg-[#6B46C1] text-white px-6 sm:px-8 py-4 rounded-xl font-semibold text-base sm:text-lg 
+                    hover:bg-[#8B5CF6] hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] transition-all duration-300 relative overflow-hidden group
+                    ${ctaClicked === "pricing" ? "scale-95 border border-[#A78BFA]" : "scale-100 border border-transparent"}
                     flex-1 sm:flex-none
                   `}
                 >
@@ -246,8 +246,8 @@ function Contact() {
                 <button
                   onClick={() => handleCtaClick("consultation")}
                   className={`
-                    border-2 border-white text-white px-6 sm:px-8 py-4 rounded-xl font-semibold text-base sm:text-lg 
-                    hover:bg-white hover:text-black transition-all duration-300 group
+                    border-2 border-[#6B46C1]/50 text-white bg-transparent px-6 sm:px-8 py-4 rounded-xl font-semibold text-base sm:text-lg 
+                    hover:bg-[#6B46C1]/10 hover:border-[#8B5CF6] transition-all duration-300 group
                     ${ctaClicked === "consultation" ? "scale-95" : "scale-100"}
                     flex-1 sm:flex-none
                   `}
@@ -275,18 +275,17 @@ function Contact() {
             </div>
           </div>
 
-          {/* FAQ Preview */}
           <div className="mt-12 sm:mt-16 text-center">
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
+            <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
               Have Questions?
             </h3>
-            <p className="text-gray-600 mb-6 text-sm sm:text-base">
+            <p className="text-slate-400 mb-6 text-sm sm:text-base">
               We're here to help! Check out our frequently asked questions or
               reach out directly.
             </p>
             <Link
               href="/#faqs"
-              className="inline-flex items-center gap-2 text-black hover:text-gray-700 font-medium transition-colors"
+              className="inline-flex items-center gap-2 text-[#A78BFA] hover:text-white font-medium transition-colors"
             >
               View FAQ
               <ArrowRight className="w-4 h-4" />
