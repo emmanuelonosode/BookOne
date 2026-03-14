@@ -1,0 +1,130 @@
+
+> my-app@0.1.0 deploy
+> opennextjs-cloudflare build && opennextjs-cloudflare deploy
+
+
+┌─────────────────────────────┐
+│ OpenNext — Cloudflare build │
+└─────────────────────────────┘
+
+WARN OpenNext is not fully compatible with Windows.
+WARN For optimal performance, it is recommended to use Windows Subsystem for Linux (WSL).
+WARN While OpenNext may function on Windows, it could encounter unpredictable failures during runtime.
+App directory: C:\Users\emmanuel onosode\JulyPort\BookOne
+Next.js version : 15.3.0
+@opennextjs/cloudflare version: 1.11.0
+@opennextjs/aws version: 3.8.5
+
+┌─────────────────────────────────┐
+│ OpenNext — Building Next.js app │
+└─────────────────────────────────┘
+
+
+> my-app@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.0
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 20.0s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/35) ...
+2025-11-25T15:18:14Z
+   Generating static pages (8/35) 
+   Generating static pages (17/35) 
+   Generating static pages (26/35) 
+ ✓ Generating static pages (35/35)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                                                                                       Size  First Load JS  Revalidate  Expire
+┌ ○ /                                                                                                          20.4 kB         215 kB         ≈3m      1y
+├ ○ /_not-found                                                                                                  154 B         101 kB
+├ ○ /about                                                                                                     5.79 kB         157 kB
+├ ƒ /api/contact                                                                                                 154 B         101 kB
+├ ƒ /api/subscribe                                                                                               154 B         101 kB
+├ ○ /authors                                                                                                     190 B         110 kB          1h      1y
+├ ● /authors/[slug]                                                                                            2.05 kB         112 kB          1h      1y
+├   ├ /authors/emmanuel-onosode                                                                                                                1h      1y
+├   └ /authors/aegon-targaryen                                                                                                                 1h      1y
+├ ƒ /authors/[slug]/opengraph-image                                                                              154 B         101 kB
+├ ƒ /blogs                                                                                                       190 B         110 kB
+├ ● /blogs/[slug]                                                                                              1.86 kB         114 kB          1m      1y
+├   ├ /blogs/unlocking-content-superpowers-how-ai-autonomous-blog-writers-are-reshaping-your-digital-strategy                                  1m      1y
+├   ├ /blogs/website-content-strategy-guide                                                                                                    1m      1y
+├   ├ /blogs/the-first-king-aegon-targaryen-and-the-forging-of-the-seven-kingdoms                                                              1m      1y
+├   └ [+10 more paths]
+├ ○ /cookies-policy                                                                                            2.52 kB         148 kB          1h      1y
+├ ○ /get-started                                                                                               7.02 kB         149 kB
+├ ○ /icon.svg                                                                                                      0 B            0 B
+├ ○ /opengraph-image.png                                                                                           0 B            0 B
+├ ○ /portfolio                                                                                                 4.34 kB         191 kB          1h      1y
+├ ● /portfolio/[slug]                                                                                          3.58 kB         154 kB          1m      1y
+├   └ /portfolio/redefining-luxury-online-the-prestige-auto-experience                                                                         1m      1y
+├ ○ /privacy-policy                                                                                            3.01 kB         149 kB          1h      1y
+├ ○ /robots.txt                                                                                                    0 B            0 B
+├ ○ /services                                                                                                   6.4 kB         149 kB
+├ ○ /sitemap.xml                                                                                                 154 B         101 kB
+└ ○ /terms-and-conditions                                                                                      4.14 kB         150 kB          1h      1y
++ First Load JS shared by all                                                                                   101 kB
+  ├ chunks/1684-90a7e40fa734bf2c.js                                                                            45.8 kB
+  ├ chunks/4bd1b696-31f2981be80bc722.js                                                                        53.2 kB
+  └ other shared chunks (total)                                                                                2.11 kB
+
+
+ƒ Middleware                                                                                                   33.7 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+
+
+┌──────────────────────────────┐
+│ OpenNext — Generating bundle │
+└──────────────────────────────┘
+
+Bundling middleware function...
+Bundling static assets...
+Bundling cache assets...
+Building server function: default...
+Applying code patches: 14.796s
+# copyPackageTemplateFiles
+[35m⚙️ Bundling the OpenNext server...
+[0m
+[35mWorker saved in `.open-next\worker.js` 🚀
+[0m
+OpenNext build complete.
+
+┌──────────────────────────────┐
+│ OpenNext — Cloudflare deploy │
+└──────────────────────────────┘
+
+WARN OpenNext is not fully compatible with Windows.
+WARN For optimal performance, it is recommended to use Windows Subsystem for Linux (WSL).
+WARN While OpenNext may function on Windows, it could encounter unpredictable failures during runtime.
+opennextjs-cloudflare deploy
+
+Deploy a built OpenNext app to Cloudflare Workers
+
+Options:
+      --help            Show help                                      [boolean]
+      --version         Show version number                            [boolean]
+  -c, --config          Path to Wrangler configuration file             [string]
+      --configPath      Path to Wrangler configuration file[deprecated] [string]
+  -e, --env             Wrangler environment to use for operations      [string]
+      --cacheChunkSize  Number of entries per chunk when populating the cache
+                                                                        [number]
+
+Error [ERR_UNSUPPORTED_ESM_URL_SCHEME]: Only URLs with a scheme in: file, data, and node are supported by the default ESM loader. On Windows, absolute paths must be valid file:// URLs. Received protocol 'c:'
+    at throwIfUnsupportedURLScheme (node:internal/modules/esm/load:183:11)
+    at defaultLoad (node:internal/modules/esm/load:78:3)
+    at ModuleLoader.load (node:internal/modules/esm/loader:821:12)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:592:43)
+    at #createModuleJob (node:internal/modules/esm/loader:617:36)
+    at #getJobFromResolveResult (node:internal/modules/esm/loader:345:34)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:310:41)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:659:25) {
+  code: 'ERR_UNSUPPORTED_ESM_URL_SCHEME'
+}
