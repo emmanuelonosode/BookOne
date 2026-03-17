@@ -46,12 +46,27 @@ export async function generateMetadata({ params }) {
   if (!blog) return {};
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
-  // Use OG image URL for Open Graph (1200x630)
-  const imageUrl = blog.mainImage ? getOGImageUrl(blog.mainImage) : undefined;
   const author = blog.author?.name || "BookOne";
   const category = blog.category
     ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
     : undefined;
+
+  const metaTitle = blog.seo?.metaTitle || blog.title;
+  const metaDescription =
+    blog.seo?.metaDescription || blog.description || "BookOne blog article";
+  const canonicalUrl =
+    blog.seo?.canonicalUrl || `${baseUrl}/blogs/${resolvedParams.slug}`;
+  const ogSource = blog.seo?.ogImage || blog.mainImage;
+  const imageUrl = ogSource ? getOGImageUrl(ogSource) : undefined;
+  const absoluteOgUrl =
+    imageUrl && imageUrl.startsWith("http")
+      ? imageUrl
+      : imageUrl
+      ? `${baseUrl}${imageUrl}`
+      : undefined;
+  const published = blog.publishedAt || blog._createdAt;
+  const updated = blog._updatedAt || published;
+  const noIndex = blog.seo?.noIndex === true;
 
   // Enhanced keywords based on content
   const keywords = [
@@ -70,8 +85,8 @@ export async function generateMetadata({ params }) {
   ].filter(Boolean);
 
   return {
-    title: blog.title,
-    description: blog.description,
+    title: metaTitle,
+    description: metaDescription,
     keywords,
     authors: [author],
     creator: author,
@@ -80,33 +95,34 @@ export async function generateMetadata({ params }) {
     name: blog.title,
     classification: "Blog Post",
     robots: {
-      index: true,
-      follow: true,
+      index: !noIndex,
+      follow: !noIndex,
       googleBot: {
-        index: true,
-        follow: true,
+        index: !noIndex,
+        follow: !noIndex,
         "max-video-preview": -1,
         "max-image-preview": "large",
         "max-snippet": -1,
       },
     },
     alternates: {
-      canonical: `/blogs/${resolvedParams.slug}`,
+      canonical: canonicalUrl,
     },
+    metadataBase: new URL(baseUrl),
     openGraph: {
-      title: blog.title,
-      description: blog.description,
+      title: metaTitle,
+      description: metaDescription,
       type: "article",
       url: `${baseUrl}/blogs/${resolvedParams.slug}`,
       siteName: "BookOne",
       locale: "en_US",
-      images: imageUrl
+      images: absoluteOgUrl
         ? [
             {
-              url: imageUrl,
+              url: absoluteOgUrl,
               width: 1200,
               height: 630,
-              alt: blog.title,
+              alt: metaTitle,
               type: "image/jpeg",
             },
           ]
@@ -119,8 +135,8 @@ export async function generateMetadata({ params }) {
             },
           ],
       article: {
-        publishedTime: blog._createdAt,
-        modifiedTime: blog._updatedAt || blog._createdAt,
+        publishedTime: published,
+        modifiedTime: updated,
         authors: [author],
         tags: [category, "web design", "SEO", "AI automation"].filter(Boolean),
         section: category,
@@ -128,15 +144,15 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: imageUrl ? "summary_large_image" : "summary",
-      title: blog.title,
-      description: blog.description,
-      images: imageUrl ? [imageUrl] : ["/opengraph-image.png"],
+      title: metaTitle,
+      description: metaDescription,
+      images: absoluteOgUrl ? [absoluteOgUrl] : ["/opengraph-image.png"],
       creator: "@EmmanuelOnosod1",
       site: "@bookonedotdev",
     },
     other: {
-      "article:published_time": blog._createdAt,
-      "article:modified_time": blog._updatedAt || blog._createdAt,
+      "article:published_time": published,
+      "article:modified_time": updated,
       "article:author": author,
       "article:section": category,
       "article:tag": keywords.join(", "),

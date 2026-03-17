@@ -13,6 +13,14 @@ export interface SanityImage {
   caption?: string;
 }
 
+export interface SeoFields {
+  metaTitle?: string;
+  metaDescription?: string;
+  canonicalUrl?: string;
+  ogImage?: SanityImage;
+  noIndex?: boolean;
+}
+
 export interface Author {
   _id: string;
   name: string;
@@ -40,7 +48,8 @@ export interface Category {
 export interface BlogPost {
   _id: string;
   _createdAt: string;
-  _updatedAt: string;
+  _updatedAt?: string;
+  publishedAt?: string;
   title: string;
   slug: {
     current: string;
@@ -62,6 +71,7 @@ export interface BlogPost {
   excerpt?: string;
   author?: Author;
   categories?: Category[];
+  seo?: SeoFields;
 }
 
 export interface QueryOptions {

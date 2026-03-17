@@ -1,11 +1,15 @@
 import ClientCaseStudy from "./ClientCaseStudy";
-import { sanity, getImageUrl } from "@/lib/sanity";
+import { sanity, getImageUrl, getOGImageUrl } from "@/lib/sanity";
+import type { SanityImage, SeoFields } from "@/lib/types";
 import { notFound } from "next/navigation";
 
 export const revalidate = 60;
 
 const CASE_STUDY_QUERY = `
   *[_type == "caseStudy" && slug.current == $slug][0]{
+    _createdAt,
+    _updatedAt,
+    "slug": slug.current,
     title,
     shortDescription,
     heroMedia,
@@ -17,7 +21,13 @@ const CASE_STUDY_QUERY = `
     screenshots[]{asset->{url}},
     results[]{label, value, delta},
     publishedAt,
-    seo{ogImage}
+    seo{
+      metaTitle,
+      metaDescription,
+      canonicalUrl,
+      ogImage,
+      noIndex
+    }
   }
 `;
 
@@ -29,9 +39,12 @@ export async function generateStaticParams() {
 }
 
 interface SanityData {
-  heroMedia?: unknown;
-  seo?: { ogImage?: unknown };
-  highlights?: Array<{ title?: string; description?: string; image?: unknown }>;
+  _createdAt?: string;
+  _updatedAt?: string;
+  slug?: string;
+  heroMedia?: SanityImage | null;
+  seo?: SeoFields;
+  highlights?: Array<{ title?: string; description?: string; image?: SanityImage | null }>;
   screenshots?: Array<{ asset?: { url?: string } }>;
   shortDescription?: string;
   results?: Array<{ label: string; value: string; delta?: string }>;
@@ -47,8 +60,13 @@ function mapToClientShape(data: SanityData | null) {
   if (!data) return null;
   const heroImage = data.heroMedia ?? data.seo?.ogImage ?? null;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const sections: any[] = [];
+  const sections: Array<{
+    title: string;
+    description: string;
+    images: Array<{ src: string; alt: string }>;
+    layout?: "single" | "grid-2x2";
+    tags: string[];
+  }> = [];
 
   if (Array.isArray(data.highlights) && data.highlights.length > 0) {
   }
@@ -103,10 +121,74 @@ function mapToClientShape(data: SanityData | null) {
       client: data.client ?? "",
       link: data.liveUrl ?? "",
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    heroImage: heroImage ? getImageUrl(heroImage as any) : undefined,
+    heroImage: heroImage ? getImageUrl(heroImage) : undefined,
     sections,
     testimonial: undefined,
+  };
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const data = await sanity.fetch(CASE_STUDY_QUERY, { slug });
+
+  if (!data) return {};
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
+  const metaTitle = data.seo?.metaTitle || data.title;
+  const metaDescription =
+    data.seo?.metaDescription || data.shortDescription || "BookOne case study";
+  const canonicalUrl = data.seo?.canonicalUrl || `${baseUrl}/portfolio/${slug}`;
+  const ogSource = data.seo?.ogImage || data.heroMedia;
+  const ogUrl = ogSource ? getOGImageUrl(ogSource) : undefined;
+  const absoluteOgUrl =
+    ogUrl && ogUrl.startsWith("http") ? ogUrl : ogUrl ? `${baseUrl}${ogUrl}` : undefined;
+  const published = data.publishedAt || data._createdAt;
+  const updated = data._updatedAt || published;
+  const noIndex = data.seo?.noIndex === true;
+
+  return {
+    title: metaTitle,
+    description: metaDescription,
+    metadataBase: new URL(baseUrl),
+    alternates: { canonical: canonicalUrl },
+    robots: {
+      index: !noIndex,
+      follow: !noIndex,
+      googleBot: {
+        index: !noIndex,
+        follow: !noIndex,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    openGraph: {
+      title: metaTitle,
+      description: metaDescription,
+      url: `${baseUrl}/portfolio/${slug}`,
+      siteName: "BookOne",
+      type: "article",
+      images: absoluteOgUrl
+        ? [
+            {
+              url: absoluteOgUrl,
+              width: 1200,
+              height: 630,
+              alt: metaTitle,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: absoluteOgUrl ? "summary_large_image" : "summary",
+      title: metaTitle,
+      description: metaDescription,
+      images: absoluteOgUrl ? [absoluteOgUrl] : undefined,
+    },
+    other: {
+      "article:published_time": published,
+      "article:modified_time": updated,
+    },
   };
 }
 
