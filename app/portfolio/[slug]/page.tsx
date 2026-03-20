@@ -69,6 +69,17 @@ function mapToClientShape(data: SanityData | null) {
   }> = [];
 
   if (Array.isArray(data.highlights) && data.highlights.length > 0) {
+    data.highlights.forEach((highlight) => {
+      if (highlight.title || highlight.description) {
+        sections.push({
+          title: highlight.title || "",
+          description: highlight.description || "",
+          images: highlight.image ? [{ src: getImageUrl(highlight.image), alt: highlight.title || "Highlight" }] : [],
+          layout: "single",
+          tags: [],
+        });
+      }
+    });
   }
 
   if (Array.isArray(data.screenshots) && data.screenshots.length > 0) {

@@ -1,0 +1,13 @@
+app/component/sections/FAQ.jsx
+app/component/sections/Footer.jsx
+app/component/sections/HeroSection.jsx
+app/component/sections/Service.jsx
+app/component/sections/Testimonia.jsx
+app/component/sections/TestimoniaClient.jsx
+app/component/sections/TextReveal.jsx
+app/component/sections/TypingHeadline.jsx
+app/component/sections/contact.jsx
+app/component/sections/featuredBlogs.jsx
+app/component/sections/forWho.jsx
+app/component/sections/nav.jsx
+app/component/sections/portfolio.jsx

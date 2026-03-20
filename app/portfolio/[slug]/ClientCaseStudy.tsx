@@ -150,27 +150,27 @@ function MetadataGrid({ metadata }: { metadata?: CaseStudy["metadata"] }) {
     <div className="border-t border-b border-white/10 py-8 md:py-12 bg-[#1A1A24]/40 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
+          <div className="group relative bg-[#1A1A24]/60 p-6 rounded-2xl border border-white/5 hover:border-[#6b46c1]/40 transition-colors">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#A78BFA] mb-3">
               Services
             </p>
-            <p className="text-base md:text-lg font-bold text-slate-300">
+            <p className="text-base md:text-lg font-bold text-slate-200">
               {metadata.services}
             </p>
           </div>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
+          <div className="group relative bg-[#1A1A24]/60 p-6 rounded-2xl border border-white/5 hover:border-[#6b46c1]/40 transition-colors">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#A78BFA] mb-3">
               Category
             </p>
-            <p className="text-base md:text-lg font-bold text-slate-300">
+            <p className="text-base md:text-lg font-bold text-slate-200">
               {metadata.category}
             </p>
           </div>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
+          <div className="group relative bg-[#1A1A24]/60 p-6 rounded-2xl border border-white/5 hover:border-[#6b46c1]/40 transition-colors">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#A78BFA] mb-3">
               Client
             </p>
-            <p className="text-base md:text-lg font-bold text-slate-300">
+            <p className="text-base md:text-lg font-bold text-slate-200">
               {metadata.client}
             </p>
           </div>
@@ -231,21 +231,22 @@ function StickySectionComponent({
   }, []);
 
   return (
-    <section ref={containerRef} className="py-24 md:py-32">
+    <section ref={containerRef} className="py-24 md:py-32 relative">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#6b46c1]/20 to-transparent" />
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
-          <div className="md:sticky md:top-24 md:h-fit">
+        <div className={`grid md:grid-cols-[1fr_2fr] gap-12 lg:gap-20 ${index % 2 !== 0 ? "md:grid-cols-[2fr_1fr]" : ""}`}>
+          <div className={`md:sticky md:top-32 md:h-fit relative z-10 ${index % 2 !== 0 ? "md:order-last md:text-right" : ""}`}>
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
               animate={
-                isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+                isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -20 : 20 }
               }
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-2">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
                 {section.title}
               </h2>
-              <div className="h-1 w-16 bg-[#6b46c1] rounded-full shadow-[0_0_10px_rgba(107,70,193,0.8)]"></div>
+              <div className={`h-[2px] w-24 bg-gradient-to-r from-[#6b46c1] to-[#A78BFA] rounded-full shadow-[0_0_15px_rgba(107,70,193,0.6)] ${index % 2 !== 0 ? "ml-auto" : ""}`}></div>
             </motion.div>
           </div>
           <motion.div
