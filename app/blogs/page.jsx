@@ -6,6 +6,7 @@ import Link from "next/link";
 import { formatRelativeDate } from "../utils/dateUtils";
 
 // Add caching configuration
+export const revalidate = 60;
 
 export const metadata = {
   title: "BookOne Blog - Web Design, SEO & AI Automation Insights",
@@ -73,13 +74,14 @@ export default async function BlogListPage({ searchParams }) {
       .replace("$start", start)
       .replace("$end", end),
     { searchTerm: search ? `*${search}*` : "" },
-    { next: { revalidate: 200 } } // Revalidate
+    { next: { revalidate: 60 } } // Revalidate every 60s
   );
 
   // For pagination, get total count
   const totalCount = await sanity.fetch(
     `count(*[_type == "post"${searchFilter}])`,
-    { searchTerm: search ? `*${search}*` : "" }
+    { searchTerm: search ? `*${search}*` : "" },
+    { next: { revalidate: 60 } }
   );
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 

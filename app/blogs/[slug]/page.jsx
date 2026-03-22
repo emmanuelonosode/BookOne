@@ -391,9 +391,11 @@ const portableComponents = {
 
 export default async function BlogDetailPage({ params }) {
   const resolvedParams = await params;
-  const blog = await sanity.fetch(blogBySlugQuery, {
-    slug: resolvedParams.slug,
-  });
+  const blog = await sanity.fetch(
+    blogBySlugQuery,
+    { slug: resolvedParams.slug },
+    { next: { revalidate: 60 } }
+  );
   if (!blog) {
     notFound();
   }

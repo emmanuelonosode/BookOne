@@ -9,7 +9,7 @@ export default async function PortfolioSection() {
   const allCaseStudies = await sanity.fetch(
     homepageCaseStudiesQuery,
     {},
-    { next: { revalidate: 3600 } }
+    { next: { revalidate: 60 } }
   );
 
   return (

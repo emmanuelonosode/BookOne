@@ -6,55 +6,55 @@ export async function GET() {
   const staticPages = [
     {
       url: baseUrl,
-      lastModified: "2025-10-29T00:00:00.000Z",
+      lastModified: new Date().toISOString(),
       changefreq: "daily",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/portfolio`,
-      lastModified: "2025-10-29T00:00:00.000Z",
+      lastModified: new Date().toISOString(),
       changefreq: "daily",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/services`,
-      lastModified: "2025-10-29T00:00:00.000Z",
+      lastModified: new Date().toISOString(),
       changefreq: "daily",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: "2025-10-29T00:00:00.000Z",
+      lastModified: new Date().toISOString(),
       changefreq: "daily",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/blogs`,
-      lastModified: "2025-10-29T00:00:00.000Z",
+      lastModified: new Date().toISOString(),
       changefreq: "daily",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/get-started`,
-      lastModified: "2025-10-29T00:00:00.000Z",
+      lastModified: new Date().toISOString(),
       changefreq: "daily",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/privacy-policy`,
-      lastModified: "2025-10-29T00:00:00.000Z",
+      lastModified: new Date().toISOString(),
       changefreq: "daily",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/cookies-policy`,
-      lastModified: "2025-10-29T00:00:00.000Z",
+      lastModified: new Date().toISOString(),
       changefreq: "daily",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/terms-and-conditions`,
-      lastModified: "2025-10-29T00:00:00.000Z",
+      lastModified: new Date().toISOString(),
       changefreq: "daily",
       priority: 0.7,
     },
@@ -70,7 +70,6 @@ export async function GET() {
         _updatedAt
       }
     `);
-    console.log(projects[0]._updatedAt)
     portfolioPages = projects.map((project) => ({
       url: `${baseUrl}/portfolio/${project.slug}`,
       lastModified: new Date(project._updatedAt).toISOString(),

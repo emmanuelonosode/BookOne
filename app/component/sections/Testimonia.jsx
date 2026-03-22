@@ -7,7 +7,7 @@ export const revalidate = 3600;
 
 export default async function Testimonia() {
   try {
-    const data = await sanity.fetch(allTestimoniaQuery, {},{cache: 'force-cache'});
+    const data = await sanity.fetch(allTestimoniaQuery, {}, { next: { revalidate: 60 } });
     const enrichedData = (data || []).map(item => ({
       ...item,
       company: item.company || 'BookOne Client',

@@ -11,7 +11,7 @@ export default async function PortfolioPage() {
   const caseStudies = await sanity.fetch(
     allCaseStudiesQuery,
     {},
-    { next: { revalidate: 3600 } }
+    { next: { revalidate: 60 } }
   );
 
   // Generate structured data for the portfolio page

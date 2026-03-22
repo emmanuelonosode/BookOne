@@ -10,7 +10,7 @@ export default async function FeaturedBlogs() {
   const blogs = await sanity.fetch(
     homepageBlogsQuery,
     {},
-    { next: { revalidate: 200 } } // Revalidate 
+    { next: { revalidate: 60 } } // Revalidate every 60s
   );
 
   return (

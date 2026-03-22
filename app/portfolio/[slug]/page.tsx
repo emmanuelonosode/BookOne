@@ -140,7 +140,7 @@ function mapToClientShape(data: SanityData | null) {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const data = await sanity.fetch(CASE_STUDY_QUERY, { slug });
+  const data = await sanity.fetch(CASE_STUDY_QUERY, { slug }, { next: { revalidate: 60 } });
 
   if (!data) return {};
 
@@ -205,7 +205,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const data = await sanity.fetch(CASE_STUDY_QUERY, { slug });
+  const data = await sanity.fetch(CASE_STUDY_QUERY, { slug }, { next: { revalidate: 60 } });
   const caseStudy = mapToClientShape(data);
 
   if (!caseStudy) {
