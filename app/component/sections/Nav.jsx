@@ -117,7 +117,7 @@ export default function Nav() {
               onClick={() => setMenuOpen(false)}
             />
             <motion.div
-              className="fixed top-0 right-0 bottom-0 w-full max-w-xs bg-[#0D0D0D] border-l border-white/[0.06] z-50 flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-full max-w-xs bg-[#080808] border-l border-white/[0.06] z-50 flex flex-col"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}

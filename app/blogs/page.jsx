@@ -166,7 +166,7 @@ export default async function BlogListPage({ searchParams }) {
                     alt={blogs[0].title}
                     width={1200}
                     height={675}
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover transition-all duration-700"
                     priority
                   />
                 </Link>
@@ -266,7 +266,7 @@ export default async function BlogListPage({ searchParams }) {
                         alt={blog.title}
                         width={600}
                         height={337}
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                        className="w-full h-full object-cover transition-all duration-700"
                       />
                     </Link>
                   )}
