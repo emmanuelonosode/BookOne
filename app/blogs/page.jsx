@@ -2,53 +2,45 @@ import { sanity, getImageUrl } from "@/lib/sanity";
 import { paginatedBlogsQuery } from "@/lib/queries";
 import Image from "next/image";
 import Link from "next/link";
-// `seo-config` removed — inline metadata below to avoid external import
+import Script from "next/script";
 import { formatRelativeDate } from "../utils/dateUtils";
 
-// Add caching configuration
 export const revalidate = 60;
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
+
 export const metadata = {
-  title: "BookOne Blog - Web Design, SEO & AI Automation Insights",
+  title: "Blog | Web Design, SEO & AI Automation Insights — BookOne",
   description:
-    "Stay updated with the latest insights on web design, SEO strategies, AI automation, and digital marketing. Expert tips and industry trends from BookOne.",
+    "Expert insights on web design, SEO strategies, AI automation, and digital marketing. Stay ahead with tips and trends from the BookOne team.",
   keywords: [
-    "web design blog",
-    "SEO tips",
-    "AI automation insights",
-    "digital marketing blog",
-    "web development tips",
-    "business automation",
-    "digital transformation",
-    "BookOne blog",
-    "Nigeria digital agency blog",
+    "web design blog", "SEO tips", "AI automation insights",
+    "digital marketing blog", "web development tips", "business automation",
+    "digital transformation", "BookOne blog", "Nigeria digital agency blog",
   ],
-  alternates: {
-    canonical: "/blogs",
+  alternates: { canonical: "/blogs" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
   openGraph: {
-    title: "BookOne Blog - Web Design, SEO & AI Automation Insights",
+    title: "Blog | Web Design, SEO & AI Automation Insights — BookOne",
     description:
-      "Stay updated with the latest insights on web design, SEO strategies, AI automation, and digital marketing. Expert tips and industry trends from BookOne.",
-    url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}/blogs`,
+      "Expert insights on web design, SEO strategies, AI automation, and digital marketing from the BookOne team.",
+    url: `${BASE_URL}/blogs`,
     siteName: "BookOne",
-    images: [
-      {
-        url: "/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "BookOne Blog",
-      },
-    ],
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "BookOne Blog" }],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "BookOne Blog - Web Design, SEO & AI Automation Insights",
-    description:
-      "Stay updated with the latest insights on web design, SEO strategies, AI automation, and digital marketing. Expert tips and industry trends from BookOne.",
+    title: "Blog | BookOne — Web Design, SEO & AI Automation",
+    description: "Expert insights on web design, SEO, and AI automation from the BookOne team.",
     images: ["/opengraph-image.png"],
+    creator: "@bookonedotdev",
+    site: "@bookonedotdev",
   },
 };
 
@@ -74,7 +66,7 @@ export default async function BlogListPage({ searchParams }) {
       .replace("$start", start)
       .replace("$end", end),
     { searchTerm: search ? `*${search}*` : "" },
-    { next: { revalidate: 60 } } // Revalidate every 60s
+    { next: { revalidate: 60 } }
   );
 
   // For pagination, get total count
@@ -85,169 +77,154 @@ export default async function BlogListPage({ searchParams }) {
   );
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "BookOne Blog",
+    description: "Expert insights on web design, SEO, and AI automation.",
+    url: `${BASE_URL}/blogs`,
+    publisher: {
+      "@type": "Organization",
+      name: "BookOne",
+      url: BASE_URL,
+      logo: { "@type": "ImageObject", url: `${BASE_URL}/icon.svg` },
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+        { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE_URL}/blogs` },
+      ],
+    },
+  };
+
   return (
-    <section className="py-24 px-4 bg-[#0B0B0E] min-h-screen font-sans selection:bg-[#6b46c1] selection:text-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#6b46c1]/10 blur-[150px] rounded-full mix-blend-screen pointer-events-none -translate-y-1/2 translate-x-1/4" />
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-20 gap-8">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1A1A24]/80 backdrop-blur-md border border-white/10 shadow-[0_0_15px_rgba(107,70,193,0.3)] text-sm font-medium text-[#A78BFA] mb-6">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A78BFA]"></span>
-              </span>
-              Our Blog
+    <>
+      <Script
+        id="blog-list-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
+    <div className="bg-[#080808] min-h-screen">
+      {/* ── Hero ── */}
+      <div className="pt-32 pb-16 border-b border-white/[0.06]">
+        <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-12">
+            {/* Label + Heading */}
+            <div>
+              <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase font-mono mb-6">
+                Latest Thinking
+              </p>
+              <h1
+                className="font-display font-black text-white leading-[0.92]"
+                style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
+              >
+                From the Blog
+              </h1>
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight leading-[1.1]">
-              Latest Articles & Insights
-            </h1>
-            <p className="text-xl text-slate-400 leading-relaxed max-w-2xl font-light">
-              Expert perspectives on web design, AI automation, and digital
-              growth strategies.
-            </p>
-          </div>
 
-          <form className="flex gap-3 w-full md:w-auto" method="get">
-            <div className="relative w-full md:w-80">
-              <input
-                type="text"
-                name="search"
-                placeholder="Search articles..."
-                defaultValue={search}
-                className="w-full pl-5 pr-4 py-3.5 rounded-2xl border border-white/10 bg-[#1A1A24]/60 backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-[#6b46c1]/40 focus:border-[#6b46c1]/60 transition-all shadow-sm text-white placeholder:text-slate-500"
-              />
-            </div>
-            <button
-              type="submit"
-              className="px-6 py-3.5 bg-[#6b46c1] text-white font-bold rounded-2xl hover:bg-[#8B5CF6] transition-all duration-300 shadow-[0_0_15px_rgba(107,70,193,0.4)] hover:shadow-[0_0_25px_rgba(139,92,246,0.6)] hover:-translate-y-1"
-              aria-label="Search articles"
+            {/* Search */}
+            <form
+              method="get"
+              className="flex items-end gap-6 shrink-0 w-full lg:w-auto"
             >
-              Search
-            </button>
-          </form>
+              <div className="flex-1 lg:w-72 border-b border-white/[0.18] pb-2">
+                <input
+                  type="text"
+                  name="search"
+                  placeholder="Search articles"
+                  defaultValue={search}
+                  className="w-full bg-transparent text-white placeholder:text-white/20 text-sm font-mono focus:outline-none caret-[#E8FF47]"
+                />
+              </div>
+              <button
+                type="submit"
+                className="text-[10px] tracking-[0.25em] text-white/30 uppercase font-mono hover:text-[#E8FF47] transition-colors pb-2 border-b border-transparent hover:border-[#E8FF47] shrink-0"
+                aria-label="Search articles"
+              >
+                Search &rarr;
+              </button>
+            </form>
+          </div>
         </div>
+      </div>
 
-        {/* Featured Blog - Full Width */}
+      <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-16 space-y-px">
+        {/* ── Featured post ── */}
         {blogs.length > 0 && (
-          <article className="group relative bg-[#1A1A24]/40 backdrop-blur-md rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-[0_0_30px_rgba(107,70,193,0.15)] transition-all duration-500 border border-white/10 hover:border-[#6b46c1]/50 mb-16">
-            <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay" />
-            <div className="flex flex-col lg:flex-row relative z-10">
-              {/* Image Container */}
+          <article className="border-b border-white/[0.06] pb-16 mb-4">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+              {/* Image */}
               {blogs[0].mainImage && (
-                <div className="lg:w-1/2 relative overflow-hidden h-[400px] lg:h-auto">
-                  <Link
-                    href={`/blogs/${blogs[0].slug.current}`}
-                    aria-label={`Read full article: ${blogs[0].title}`}
-                  >
-                    <Image
-                      src={getImageUrl(blogs[0].mainImage)}
-                      alt={blogs[0].title}
-                      width={800}
-                      height={600}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      priority={true}
-                      placeholder="blur"
-                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                    />
-                  </Link>
-                  
-                  {/* Featured badge */}
-                  <div className="absolute top-8 left-8 z-20">
-                    <span className="inline-flex items-center px-4 py-2 bg-[#1A1A24]/90 backdrop-blur-md text-[#A78BFA] text-sm font-bold rounded-full shadow-[0_0_15px_rgba(107,70,193,0.3)] border border-[#6b46c1]/30">
-                      <svg
-                        className="w-4 h-4 mr-2 fill-current drop-shadow-[0_0_5px_rgba(167,139,250,0.8)]"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                      Featured Story
-                    </span>
-                  </div>
-                </div>
+                <Link
+                  href={`/blogs/${blogs[0].slug.current}`}
+                  className="block aspect-[16/9] overflow-hidden bg-white/[0.03]"
+                  aria-label={`Read full article: ${blogs[0].title}`}
+                >
+                  <Image
+                    src={getImageUrl(blogs[0].mainImage)}
+                    alt={blogs[0].title}
+                    width={1200}
+                    height={675}
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                    priority
+                  />
+                </Link>
               )}
 
               {/* Content */}
-              <div className="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center bg-transparent relative z-10">
-                <div className="mb-8">
-                  {blogs[0].categories && blogs[0].categories.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {blogs[0].categories.slice(0, 2).map((cat) => (
-                        <span
-                          key={cat._id}
-                          className="inline-flex items-center px-3 py-1 bg-[#6b46c1]/10 text-[#A78BFA] text-xs font-bold rounded-md border border-[#6b46c1]/20 uppercase tracking-wide shadow-[0_0_10px_rgba(107,70,193,0.1)]"
-                        >
-                          {cat.title}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6 group-hover:text-[#A78BFA] transition-colors leading-[1.2]">
+              <div className="flex flex-col justify-between h-full py-2">
+                <div>
+                  <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase font-mono mb-6">
+                    Featured
+                  </p>
+                  <h2
+                    className="font-display font-black text-white leading-[1.05] mb-8"
+                    style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)" }}
+                  >
                     <Link
                       href={`/blogs/${blogs[0].slug.current}`}
-                      aria-label={`Read ${blogs[0].title}`}
+                      className="hover:text-[#E8FF47] transition-colors"
                     >
                       {blogs[0].title}
                     </Link>
                   </h2>
-                  <p className="text-slate-400 leading-relaxed text-lg line-clamp-3 font-light">
-                    {blogs[0].description}
-                  </p>
+                  {blogs[0].description && (
+                    <p className="text-white/40 text-sm leading-relaxed line-clamp-3 mb-10">
+                      {blogs[0].description}
+                    </p>
+                  )}
                 </div>
 
-                {/* Author & Meta */}
-                <div className="flex items-center justify-between mt-auto pt-8 border-t border-white/10">
-                  <div className="flex items-center gap-4">
-                    {blogs[0].author?.image && (
-                      <div className="relative">
-                        <Image
-                          src={getImageUrl(blogs[0].author.image)}
-                          alt={blogs[0].author.name}
-                          width={48}
-                          height={48}
-                          className="w-12 h-12 rounded-full object-cover border border-[#6b46c1]/30"
-                          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                        />
-                      </div>
-                    )}
-                    <div>
-                      <Link
-                        href={`/authors/${blogs[0].author?.slug?.current}`}
-                        className="text-base font-bold text-slate-300 hover:text-[#A78BFA] transition-colors"
-                        aria-label={`View ${
-                          blogs[0].author?.name || "Anonymous"
-                        } author profile`}
-                      >
-                        {blogs[0].author?.name || "Anonymous"}
-                      </Link>
-                      <div className="flex items-center gap-2 text-sm text-slate-500 font-medium font-light">
-                        <time dateTime={blogs[0]._createdAt}>
-                          {formatRelativeDate(blogs[0]._createdAt)}
-                        </time>
-                        <span>•</span>
-                        <span>5 min read</span>
-                      </div>
-                    </div>
+                {/* Meta + CTA */}
+                <div className="flex items-center justify-between border-t border-white/[0.06] pt-6">
+                  <div>
+                    <p className="text-white/60 text-sm font-mono">
+                      {blogs[0].author?.name || "Anonymous"}
+                    </p>
+                    <time
+                      dateTime={blogs[0]._createdAt}
+                      className="text-[10px] tracking-[0.2em] text-white/20 uppercase font-mono"
+                    >
+                      {formatRelativeDate(blogs[0]._createdAt)}
+                    </time>
                   </div>
-
-                  {/* Read more arrow */}
                   <Link
                     href={`/blogs/${blogs[0].slug.current}`}
-                    className="inline-flex items-center justify-center w-12 h-12 bg-[#6b46c1]/10 text-[#A78BFA] rounded-full hover:bg-[#6b46c1] hover:text-white transition-all duration-300 group shadow-[0_0_15px_rgba(107,70,193,0.2)] hover:shadow-[0_0_20px_rgba(107,70,193,0.5)] border border-[#6b46c1]/30 hover:border-[#6b46c1]"
-                    aria-label={`Read full article: ${blogs[0].title}`}
+                    className="inline-flex items-center gap-2 text-[#E8FF47] text-xs font-mono tracking-[0.15em] uppercase group"
+                    aria-label={`Read ${blogs[0].title}`}
                   >
+                    Read
                     <svg
-                      className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 14 14"
                       fill="none"
                       stroke="currentColor"
-                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
+                      <path d="M2 12L12 2M12 2H4M12 2V10" />
                     </svg>
                   </Link>
                 </div>
@@ -256,52 +233,48 @@ export default async function BlogListPage({ searchParams }) {
           </article>
         )}
 
-        {/* Other Blogs Grid */}
+        {/* ── Secondary posts grid ── */}
         {blogs.length > 1 && (
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 relative z-10">
-            {blogs.slice(1).map((blog) => (
+          <div className="grid lg:grid-cols-3 gap-px bg-white/[0.06]">
+            {blogs.slice(1).map((blog, index) => (
               <article
                 key={blog._id}
-                className="group relative bg-[#1A1A24]/40 backdrop-blur-md rounded-[2rem] overflow-hidden shadow-sm hover:shadow-[0_0_20px_rgba(107,70,193,0.15)] transition-all duration-500 transform hover:-translate-y-1 border border-white/10 hover:border-[#6b46c1]/50 flex flex-col h-full"
+                className="bg-[#080808] p-8 flex flex-col justify-between group min-h-[340px]"
               >
-                {/* Image */}
-                {blog.mainImage && (
-                  <Link
-                    href={`/blogs/${blog.slug.current}`}
-                    className="block relative overflow-hidden h-64"
-                    aria-label={`Read ${blog.title}`}
-                  >
-                    <div className="absolute inset-0 bg-transparent mix-blend-overlay group-hover:bg-[#6B46C1]/10 transition-colors duration-500 z-10 pointer-events-none" />
-                    <Image
-                      src={getImageUrl(blog.mainImage)}
-                      alt={blog.title}
-                      width={400}
-                      height={250}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      placeholder="blur"
-                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                    />
-                  </Link>
-                )}
+                {/* Number + Category */}
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-[#E8FF47] font-mono text-xs tracking-[0.2em]">
+                      {String(index + 2).padStart(2, "0")}
+                    </span>
+                    {blog.categories && blog.categories.length > 0 && (
+                      <span className="text-[10px] tracking-[0.25em] text-white/20 uppercase font-mono">
+                        {blog.categories[0].title}
+                      </span>
+                    )}
+                  </div>
 
-                {/* Content */}
-                <div className="p-8 flex flex-col flex-grow relative z-20">
-                  {/* Categories */}
-                  {blog.categories && blog.categories.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {blog.categories.slice(0, 1).map((cat) => (
-                        <span
-                          key={cat._id}
-                          className="inline-flex items-center px-3 py-1 bg-white/5 text-slate-400 text-xs font-bold rounded-md border border-white/10 uppercase tracking-wide group-hover:border-[#6b46c1]/30 group-hover:bg-[#6b46c1]/10 group-hover:text-[#A78BFA] transition-colors shadow-[0_0_8px_rgba(0,0,0,0.2)]"
-                        >
-                          {cat.title}
-                        </span>
-                      ))}
-                    </div>
+                  {/* Image (optional small thumbnail) */}
+                  {blog.mainImage && (
+                    <Link
+                      href={`/blogs/${blog.slug.current}`}
+                      className="block aspect-[16/9] overflow-hidden bg-white/[0.03] mb-6"
+                      aria-label={`Read ${blog.title}`}
+                    >
+                      <Image
+                        src={getImageUrl(blog.mainImage)}
+                        alt={blog.title}
+                        width={600}
+                        height={337}
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                      />
+                    </Link>
                   )}
 
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#A78BFA] transition-colors line-clamp-2 leading-tight">
+                  <h3
+                    className="font-display font-black text-white leading-[1.1] group-hover:text-white/80 transition-colors"
+                    style={{ fontSize: "clamp(1.1rem, 1.5vw, 1.4rem)" }}
+                  >
                     <Link
                       href={`/blogs/${blog.slug.current}`}
                       aria-label={`Read ${blog.title}`}
@@ -309,121 +282,82 @@ export default async function BlogListPage({ searchParams }) {
                       {blog.title}
                     </Link>
                   </h3>
+                </div>
 
-                  {/* Excerpt */}
-                  <p className="text-slate-400 leading-relaxed mb-6 text-sm line-clamp-3 font-light">
-                    {blog.description}
-                  </p>
-
-                  {/* Author & Meta */}
-                  <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
-                    <div className="flex items-center gap-3">
-                      {blog.author?.image && (
-                        <div className="relative">
-                          <Image
-                            src={getImageUrl(blog.author.image)}
-                            alt={blog.author.name}
-                            width={36}
-                            height={36}
-                            className="w-9 h-9 rounded-full object-cover border border-[#6b46c1]/20"
-                            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                          />
-                        </div>
-                      )}
-                      <div>
-                        <Link
-                          href={`/authors/${blog.author?.slug?.current}`}
-                          className="text-sm font-bold text-slate-300 hover:text-[#A78BFA] transition-colors"
-                          aria-label={`View ${
-                            blog.author?.name || "Anonymous"
-                          } author profile`}
-                        >
-                          {blog.author?.name || "Anonymous"}
-                        </Link>
-                        <div className="flex items-center gap-2 text-xs text-slate-500 font-medium font-light">
-                          <time dateTime={blog._createdAt}>
-                            {formatRelativeDate(blog._createdAt)}
-                          </time>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Read more arrow */}
-                    <Link
-                      href={`/blogs/${blog.slug.current}`}
-                      className="inline-flex items-center justify-center w-10 h-10 bg-white/5 text-[#A78BFA] rounded-full hover:bg-[#6b46c1] hover:text-white transition-all duration-300 group shadow-sm border border-white/10 hover:border-[#6b46c1] hover:shadow-[0_0_15px_rgba(107,70,193,0.4)]"
-                      aria-label={`Read full article: ${blog.title}`}
+                {/* Meta + CTA */}
+                <div className="flex items-center justify-between border-t border-white/[0.06] pt-6 mt-6">
+                  <time
+                    dateTime={blog._createdAt}
+                    className="text-[10px] tracking-[0.2em] text-white/20 uppercase font-mono"
+                  >
+                    {formatRelativeDate(blog._createdAt)}
+                  </time>
+                  <Link
+                    href={`/blogs/${blog.slug.current}`}
+                    className="inline-flex items-center gap-1.5 text-white/30 hover:text-[#E8FF47] text-[10px] font-mono tracking-[0.15em] uppercase transition-colors group/arrow"
+                    aria-label={`Read ${blog.title}`}
+                  >
+                    Read
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="group-hover/arrow:translate-x-0.5 group-hover/arrow:-translate-y-0.5 transition-transform"
                     >
-                      <svg
-                        className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    </Link>
-                  </div>
+                      <path d="M2 12L12 2M12 2H4M12 2V10" />
+                    </svg>
+                  </Link>
                 </div>
               </article>
             ))}
           </div>
         )}
 
-        {/* No blogs found */}
+        {/* ── Empty state ── */}
         {blogs.length === 0 && (
-          <div className="text-center py-20 relative z-10">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-[#1A1A24] rounded-full mb-6 border border-white/5 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-              <svg
-                className="w-10 h-10 text-slate-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </div>
-            <h3 className="text-2xl font-bold text-white mb-3">
+          <div className="py-32 flex flex-col items-center justify-center">
+            <p className="text-[10px] tracking-[0.25em] text-white/20 uppercase font-mono mb-4">
               No articles found
-            </h3>
-            <p className="text-slate-400 max-w-md mx-auto font-light">
-              We couldn't find any articles matching "{search}". Try adjusting your search terms or check back later.
             </p>
+            {search && (
+              <Link
+                href="/blogs"
+                className="text-[10px] tracking-[0.2em] text-[#E8FF47] uppercase font-mono hover:underline"
+              >
+                Clear search &rarr;
+              </Link>
+            )}
           </div>
         )}
+      </div>
 
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex gap-3 mt-20 justify-center relative z-10">
+      {/* ── Pagination ── */}
+      {totalPages > 1 && (
+        <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 pb-24">
+          <div className="border-t border-white/[0.06] pt-10 flex items-center gap-6 justify-center">
             {Array.from({ length: totalPages }, (_, i) => (
               <Link
                 key={i}
                 href={`?page=${i + 1}${
                   search ? `&search=${encodeURIComponent(search)}` : ""
                 }`}
-                className={`w-12 h-12 flex items-center justify-center rounded-2xl font-bold text-lg transition-all duration-300 ${
+                className={`text-xs font-mono transition-colors px-3 py-1 ${
                   page === i + 1
-                    ? "bg-[#6b46c1] text-white shadow-[0_0_20px_rgba(107,70,193,0.5)] scale-110"
-                    : "bg-[#1A1A24]/60 backdrop-blur-md text-slate-400 hover:bg-[#6b46c1]/20 hover:text-white border border-white/10 hover:border-[#6b46c1]/40"
+                    ? "text-[#E8FF47] border border-[#E8FF47]"
+                    : "text-white/30 hover:text-[#E8FF47] border border-transparent"
                 }`}
                 aria-label={`Go to page ${i + 1}`}
               >
-                {i + 1}
+                {String(i + 1).padStart(2, "0")}
               </Link>
             ))}
           </div>
-        )}
-      </div>
-    </section>
+        </div>
+      )}
+    </div>
+    </>
   );
 }

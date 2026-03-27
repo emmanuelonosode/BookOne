@@ -6,16 +6,25 @@
 
 /* CSS Variables for consistent theming */
 :root {
-  --font-sans: var(--font-poppins), system-ui, sans-serif;
-  --font-mono: var(--font-roboto), system-ui, sans-serif;
-  --font-serif: var(--font-montserrat), system-ui, sans-serif;
-  --color-primary: #6b46c1;
+  /* ── Typography ── */
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+  --font-display: var(--font-display), Georgia, serif;
+
+  /* ── Brand palette ── */
+  --color-bg: #080808;
+  --color-bg-card: #111111;
+  --color-accent: #E8FF47;
+  --color-accent-hover: #D4F000;
+  --color-text-muted: #999999;
+  --color-border: rgba(255,255,255,0.08);
+
+  /* ── Legacy tokens (kept for any component not yet updated) ── */
+  --color-primary: #E8FF47;
   --color-secondary: #b9c7f8;
-  --color-dark: #0d21a5;
-  --color-light: #ede9f7;
-  --color-neutral: #1a1a1a;
-  --color-muted: #7d6c9a;
-  --color-accent: #d1d067;
+  --color-dark: #080808;
+  --color-light: #ffffff;
+  --color-neutral: #111111;
+  --color-muted: #999999;
 
   /* Performance optimizations */
   --transition-fast: 150ms ease-out;
@@ -88,7 +97,12 @@ body {
   font-family: var(--font-sans);
   line-height: 1.6;
   color: #F8FAFC;
-  background-color: #0B0B0E;
+  background-color: #080808;
+}
+
+/* Display serif utility */
+.font-display {
+  font-family: var(--font-display);
 }
 
 /* Premium Dark Theme Animations */

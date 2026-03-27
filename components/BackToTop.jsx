@@ -7,25 +7,16 @@ export default function BackToTop() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.pageYOffset > 300);
     };
-
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
-useEffect(() => {
-  setMounted(true);
-}, []);  if (typeof window === "undefined") return;
 
   const scrollToTop = () => {
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!mounted || !isVisible) return null;
@@ -33,21 +24,11 @@ useEffect(() => {
   return (
     <button
       onClick={scrollToTop}
-      className="fixed bottom-4 right-4 md:bottom-8 md:right-8 bg-blue-600 text-white p-2 md:p-3 rounded-full shadow-xl hover:bg-blue-700 transition-all duration-300 z-[9999] hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      className="fixed bottom-6 right-6 md:bottom-10 md:right-10 w-10 h-10 border border-white/[0.12] bg-[#111111] text-white/50 hover:text-[#E8FF47] hover:border-[#E8FF47]/40 transition-all duration-200 z-[9999] flex items-center justify-center"
       aria-label="Back to top"
     >
-      <svg
-        className="w-4 h-4 md:w-5 md:h-5"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M5 10l7-7m0 0l7 7m-7-7v18"
-        />
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M7 12V2M2 7l5-5 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     </button>
   );

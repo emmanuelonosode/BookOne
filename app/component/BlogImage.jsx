@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getImageUrl } from "@/lib/sanity";
 
 export function BlogImage({ image, alt, priority = false }) {

@@ -1,112 +1,95 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Check, X } from "lucide-react";
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle, loading, success, error
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [hasSubscribed, setHasSubscribed] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [mounted, setMounted] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    if (typeof window !== "undefined") {
-      const subscribed = localStorage.getItem("newsletterSubscribed");
-      if (subscribed === "true") {
-        setHasSubscribed(true);
-      }
+    if (typeof window !== "undefined" && localStorage.getItem("newsletterSubscribed") === "true") {
+      setHidden(true);
     }
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("loading");
-
     try {
-      const response = await fetch("/api/subscribe", {
+      const res = await fetch("/api/subscribe", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-
-      if (response.ok) {
+      if (res.ok) {
         setStatus("success");
         setEmail("");
-        // Save to localStorage so user won't see form again
         if (typeof window !== "undefined") {
           localStorage.setItem("newsletterSubscribed", "true");
         }
-        setTimeout(() => {
-          setIsSubmitted(true);
-        }, 2000); // Show success message for 2 seconds, then hide
+        setTimeout(() => setHidden(true), 3000);
       } else {
         setStatus("error");
       }
-    } catch (error) {
-      // Removed console.error for production cleanliness
+    } catch {
       setStatus("error");
     }
   };
 
-  // If not mounted, don't render (prevents hydration mismatch)
-  if (!mounted) return null;
-  // If user has already subscribed or form has been submitted and hidden, don't render anything
-  if (hasSubscribed || isSubmitted) {
-    return null;
-  }
+  if (!mounted || hidden) return null;
 
   return (
-    <div className="bg-gradient-to-r  from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-      <div className="text-center">
-        <h3 className="text-2xl font-bold mb-2">Stay Updated</h3>
-        <p className="text-blue-100 mb-6">
-          Get the latest insights on web design, SEO, and digital marketing
-          delivered to your inbox.
+    <div className="border border-white/[0.08] p-8">
+      <p className="text-[10px] tracking-[0.25em] uppercase text-white/30 font-mono mb-4">
+        Stay Updated
+      </p>
+      <h3
+        className="font-display font-bold text-white leading-tight mb-2"
+        style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)" }}
+      >
+        Get the latest insights.
+      </h3>
+      <p className="text-sm text-white/35 leading-relaxed mb-6 max-w-sm">
+        Web design, SEO, and AI automation — delivered to your inbox.
+      </p>
+
+      {status === "success" ? (
+        <p className="text-sm text-[#E8FF47] font-mono tracking-wide">
+          You&apos;re in. Check your inbox.
         </p>
-
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-          <div className="flex max-md:flex-col gap-3">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg border-2 border-white text-gray-100 focus:outline-none focus:ring-2 focus:ring-white/50"
-              required
-              disabled={status === "loading"}
-            />
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              aria-label="Subscribe to newsletter"
-            >
-              {status === "loading" ? "Subscribing..." : "Subscribe"}
-            </button>
-          </div>
-
-          {status === "success" && (
-            <p className="mt-3 text-green-200 text-sm flex items-center justify-center gap-2">
-              <Check className="w-4 h-4" /> Thanks for subscribing! Check your
-              email for confirmation.
-            </p>
-          )}
-
-          {status === "error" && (
-            <p className="mt-3 text-red-200 text-sm flex items-center justify-center gap-2">
-              <X className="w-4 h-4" /> Something went wrong. Please try again.
-            </p>
-          )}
+      ) : (
+        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="your@email.com"
+            required
+            disabled={status === "loading"}
+            className="flex-1 border-b border-white/[0.12] focus:border-white/50 bg-transparent py-3 text-sm text-white placeholder:text-white/25 outline-none transition-colors duration-200"
+          />
+          <button
+            type="submit"
+            disabled={status === "loading"}
+            className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#E8FF47] hover:text-white transition-colors duration-200 disabled:opacity-40 whitespace-nowrap"
+          >
+            {status === "loading" ? "Sending…" : "Subscribe →"}
+          </button>
         </form>
+      )}
 
-        <p className="text-xs text-blue-200 mt-4">
-          No spam, unsubscribe at any time. We respect your privacy.
+      {status === "error" && (
+        <p className="mt-3 text-xs text-red-400 font-mono">
+          Something went wrong. Try again or email us directly.
         </p>
-      </div>
+      )}
+
+      <p className="text-[10px] text-white/20 mt-4 font-mono">
+        No spam. Unsubscribe anytime.
+      </p>
     </div>
   );
 }

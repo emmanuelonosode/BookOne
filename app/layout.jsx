@@ -1,38 +1,31 @@
 // app/layout.jsx or layout.tsx
 
-import { Poppins, Roboto, Montserrat } from "next/font/google";
+import { Playfair_Display, DM_Sans } from "next/font/google";
 import dynamic from "next/dynamic";
 import "./globals.css";
 import Script from "next/script";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-// Optimize font loading with minimal weights and preloading
-const poppins = Poppins({
+// Display serif — headlines, big moments
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  weight: ["400", "500", "600"], // Reduced weights for better performance
+  weight: ["700", "900"],
+  style: ["normal", "italic"],
   display: "swap",
   preload: true,
-  fallback: ["system-ui", "arial"],
-  variable: "--font-poppins",
+  fallback: ["Georgia", "serif"],
+  variable: "--font-display",
 });
 
-const roboto = Roboto({
+// Body sans — all UI text
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["400", "500"], // Reduced weights
+  weight: ["400", "500", "600"],
   display: "swap",
   preload: true,
-  fallback: ["system-ui", "arial"],
-  variable: "--font-roboto",
-});
-
-const mont = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"], // Reduced weights
-  display: "swap",
-  preload: true,
-  fallback: ["system-ui", "arial"],
-  variable: "--font-montserrat",
+  fallback: ["system-ui", "sans-serif"],
+  variable: "--font-sans",
 });
 
 import Nav from "./component/sections/Nav.jsx";
@@ -58,7 +51,12 @@ export const metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
   ),
-  // Basic metadata that applies to all pages
+  title: {
+    default: "BookOne — Web Design, SEO & AI Automation Agency",
+    template: "%s | BookOne",
+  },
+  description:
+    "BookOne is a digital agency specializing in web design, SEO optimization, and AI automation to help businesses grow online.",
   robots: {
     index: true,
     follow: true,
@@ -86,7 +84,7 @@ export default function RootLayout({ children }) {
       lang="en"
       dir="ltr"
       suppressHydrationWarning
-      className={`${poppins.variable} ${roboto.variable} ${mont.variable}`}
+      className={`${playfair.variable} ${dmSans.variable}`}
     >
       <head>
         {/* DNS prefetch for external domains */}
@@ -134,7 +132,6 @@ export default function RootLayout({ children }) {
                   gtag('js', new Date());
                   gtag('config', '${GA_MEASUREMENT_ID}', {
                     page_path: typeof window !== 'undefined' ? window.location.pathname : '/',
-                    send_page_view: false, // Disable automatic page view tracking
                   });
                 `,
               }}
@@ -143,12 +140,19 @@ export default function RootLayout({ children }) {
         )}
       </head>
       <body
-        className={`${poppins.className} antialiased bg-[#0B0B0E] text-slate-50`}
+        className={`${dmSans.className} antialiased bg-[#080808] text-slate-50`}
         suppressHydrationWarning
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:bg-[#6b46c1] focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-medium"
+        >
+          Skip to main content
+        </a>
+
         <Nav />
 
-        <main aria-label="Main Content" className="min-h-screen">
+        <main id="main-content" aria-label="Main Content" className="min-h-screen">
           {children}
         </main>
 

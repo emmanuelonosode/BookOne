@@ -1,610 +1,330 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  CheckCircle,
-  AlertCircle,
-  ArrowRight,
-} from "lucide-react";
+import React, { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
+
+const SERVICES = [
+  { id: "website-purchase", label: "Website Purchase" },
+  { id: "web-design",       label: "Web Design" },
+  { id: "ai-automation",    label: "AI Automation" },
+  { id: "seo",              label: "SEO" },
+  { id: "ecommerce",        label: "E-commerce" },
+  { id: "maintenance",      label: "Maintenance" },
+  { id: "consulting",       label: "Consulting" },
+];
+
+const BUDGETS = ["< $5k", "$5k – $10k", "$10k – $25k", "$25k+"];
+const REFERRAL = ["Google Search", "LinkedIn", "Twitter / X", "Referral", "Other"];
 
 export default function GetStartedClient() {
+  const searchParams = useSearchParams();
+  const intent       = searchParams.get("intent");
+  const websiteTitle = searchParams.get("website");
+  const websitePrice = searchParams.get("price");
+  const isWebsitePurchase = intent === "website-purchase" && websiteTitle;
+
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
+    firstName:      "",
+    lastName:       "",
+    email:          "",
     previousWebsite: "",
-    services: [],
-    budget: "",
+    services:       isWebsitePurchase ? ["website-purchase"] : [],
+    budget:         "",
     referralSource: "",
-    message: "",
+    message:        isWebsitePurchase
+      ? `Hi, I'm interested in purchasing the "${websiteTitle}" website${websitePrice ? ` listed at $${Number(websitePrice).toLocaleString()}` : ""}. Please let me know the next steps.`
+      : "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors,      setErrors]      = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  const services = [
-    { id: "web-design", label: "Web Design" },
-    { id: "ai-automation", label: "AI Automation" },
-    { id: "seo", label: "SEO" },
-    { id: "ecommerce", label: "E-commerce" },
-    { id: "maintenance", label: "Maintenance" },
-    { id: "consulting", label: "Consulting" },
-  ];
+  function handleChange(field, value) {
+    setFormData((p) => ({ ...p, [field]: value }));
+    if (errors[field]) setErrors((p) => ({ ...p, [field]: null }));
+  }
 
-  const budgets = [
-    "< $5k",
-    "$5k - $10k",
-    "$10k - $25k",
-    "$25k+",
-  ];
+  function toggleService(id) {
+    setFormData((p) => ({
+      ...p,
+      services: p.services.includes(id) ? p.services.filter((s) => s !== id) : [...p.services, id],
+    }));
+    if (errors.services) setErrors((p) => ({ ...p, services: null }));
+  }
 
-  const referralSources = [
-    "Google Search",
-    "LinkedIn",
-    "Twitter / X",
-    "Referral",
-    "Other",
-  ];
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.firstName.trim())
-      newErrors.firstName = "First name is required";
-    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid";
-    }
-    if (formData.services.length === 0)
-      newErrors.services = "Please select at least one service";
-    if (!formData.budget) newErrors.budget = "Please select a budget range";
-    if (!formData.message.trim()) newErrors.message = "Message is required";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  function validate() {
+    const e = {};
+    if (!formData.firstName.trim()) e.firstName = "Required";
+    if (!formData.lastName.trim())  e.lastName  = "Required";
+    if (!formData.email.trim())     e.email     = "Required";
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) e.email = "Invalid email";
+    if (!formData.services.length)  e.services  = "Select at least one";
+    if (!formData.budget)           e.budget    = "Required";
+    if (!formData.message.trim())   e.message   = "Required";
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!validateForm()) return;
-
+    if (!validate()) return;
     setIsSubmitting(true);
     setSubmitStatus(null);
-    console.log(formData);
-
     try {
       const res = await fetch("/api/contact", {
-        method: "POST",
+        method:  "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body:    JSON.stringify(formData),
       });
-
       const result = await res.json();
-
       if (result.success) {
         setSubmitStatus("success");
-        // Reset form
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          previousWebsite: "",
-          services: [],
-          budget: "",
-          referralSource: "",
-          message: "",
-        });
+        setFormData({ firstName: "", lastName: "", email: "", previousWebsite: "", services: [], budget: "", referralSource: "", message: "" });
       } else {
         setSubmitStatus("error");
-        throw new Error(result.message || "Failed to send message");
       }
-    } catch (error) {
-      console.error("Submission error:", error);
+    } catch {
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
   }
 
-  const handleServiceToggle = (serviceId) => {
-    setFormData((prev) => ({
-      ...prev,
-      services: prev.services.includes(serviceId)
-        ? prev.services.filter((s) => s !== serviceId)
-        : [...prev.services, serviceId],
-    }));
-    if (errors.services) {
-      setErrors((prev) => ({ ...prev, services: null }));
-    }
-  };
-
-  const handleInputChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-    if (errors[field]) {
-      setErrors((prev) => ({ ...prev, [field]: null }));
-    }
-  };
-
-  // Confetti canvas ref
-  const confettiRef = useRef(null);
-
-  // Launch a lightweight canvas confetti animation
-  const launchConfetti = () => {
-    const canvas = confettiRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    let w = (canvas.width = window.innerWidth);
-    let h = (canvas.height = window.innerHeight);
-
-    const colors = [
-      "#7c3aed",
-      "#06b6d4",
-      "#f97316",
-      "#10b981",
-      "#ef4444",
-      "#f59e0b",
-    ];
-    let particles = [];
-
-    const createParticles = (count = 120) => {
-      particles = [];
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h * 0.2,
-          vx: (Math.random() - 0.5) * 8,
-          vy: Math.random() * 6 + 2,
-          size: Math.random() * 8 + 6,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          rot: Math.random() * Math.PI * 2,
-          spin: (Math.random() - 0.5) * 0.2,
-          life: 0,
-          ttl: 80 + Math.random() * 40,
-        });
-      }
-    };
-
-    createParticles();
-
-    let raf;
-    const update = () => {
-      ctx.clearRect(0, 0, w, h);
-      for (let p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.15; // gravity
-        p.vx *= 0.99; // air resistance
-        p.rot += p.spin;
-        p.life++;
-
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.rot);
-        ctx.fillStyle = p.color;
-        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
-        ctx.restore();
-      }
-
-      particles = particles.filter((p) => p.life < p.ttl && p.y < h + 50);
-      if (particles.length) {
-        raf = requestAnimationFrame(update);
-      } else {
-        cancelAnimationFrame(raf);
-        // clear canvas after animation ends
-        ctx.clearRect(0, 0, w, h);
-      }
-    };
-
-    // handle resize
-    const onResize = () => {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    };
-    window.addEventListener("resize", onResize);
-
-    update();
-
-    // stop and cleanup after 6s
-    setTimeout(() => {
-      particles = [];
-      window.removeEventListener("resize", onResize);
-      if (raf) cancelAnimationFrame(raf);
-      ctx.clearRect(0, 0, w, h);
-    }, 6000);
-  };
-
-  // Trigger confetti when submitStatus becomes success
-  useEffect(() => {
-    if (submitStatus === "success") {
-      // small timeout to allow UI update
-      setTimeout(() => launchConfetti(), 100);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submitStatus]);
+  const inputClass = (field) =>
+    `w-full border-b bg-transparent py-3 text-sm text-white placeholder:text-white/25 outline-none transition-colors duration-200 ${
+      errors[field]
+        ? "border-red-400/60"
+        : "border-white/[0.12] focus:border-white/50"
+    }`;
 
   return (
-    <div className="min-h-screen bg-[#0B0B0E] pt-24 pb-20 px-4 sm:px-6 lg:px-8 font-sans selection:bg-[#6b46c1] selection:text-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#6b46c1]/10 blur-[150px] rounded-full mix-blend-screen pointer-events-none -translate-y-1/2 translate-x-1/4" />
-      <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay" />
+    <div className="bg-[#080808] min-h-screen pt-32 pb-24">
+      <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
-      {/* Confetti canvas overlay */}
-      <canvas
-        ref={confettiRef}
-        className="pointer-events-none fixed inset-0 w-full h-full z-50"
-        aria-hidden="true"
-      />
+        <div className="grid lg:grid-cols-[1fr_1.6fr] gap-16 lg:gap-24">
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-16">
-          {/* Left Column: Info & Context */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-5 flex flex-col"
-          >
-            <div className="mb-10">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1A1A24]/80 backdrop-blur-md border border-white/10 shadow-[0_0_15px_rgba(107,70,193,0.3)] text-sm font-medium text-[#A78BFA] mb-6">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A78BFA]"></span>
-                </span>
-                Start Your Project
-              </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-[1.1]">
-                Let's build something <br />
-                <span className="text-[#A78BFA]">brilliant.</span>
-              </h1>
-              <p className="text-lg text-slate-400 leading-relaxed mb-8 font-light">
-                Ready to transform your digital presence? We help ambitious
-                businesses scale through world-class design and intelligent
-                automation.
+          {/* LEFT — info */}
+          <div>
+            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-4">
+              Start a Project
+            </p>
+            <h1
+              className="font-display font-black text-white leading-none mb-8"
+              style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}
+            >
+              Let&apos;s build<br />
+              <span className="italic">something great.</span>
+            </h1>
+            <p className="text-sm text-white/40 leading-relaxed mb-12 max-w-sm">
+              Fill out the form and we&apos;ll get back to you within 24 hours with a free proposal.
+            </p>
+
+            <div className="space-y-6">
+              <a
+                href="mailto:hello@bookone.dev"
+                className="flex items-center gap-4 text-sm text-white/40 hover:text-white transition-colors duration-200 group"
+              >
+                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-white/20 group-hover:text-[#E8FF47] transition-colors w-8">EM</span>
+                hello@bookone.dev
+              </a>
+              <a
+                href="tel:+2348077080903"
+                className="flex items-center gap-4 text-sm text-white/40 hover:text-white transition-colors duration-200 group"
+              >
+                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-white/20 group-hover:text-[#E8FF47] transition-colors w-8">PH</span>
+                +234 807 708 0903
+              </a>
+              <p className="flex items-start gap-4 text-sm text-white/40">
+                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-white/20 w-8 pt-px">LO</span>
+                Allen Avenue, Lagos, Nigeria
               </p>
             </div>
 
-            <div className="space-y-8 mb-12">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#6b46c1]/10 flex items-center justify-center text-[#A78BFA] shrink-0 border border-[#6b46c1]/20 shadow-[0_0_10px_rgba(107,70,193,0.1)]">
-                  <Mail className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-white mb-1">
-                    Email Us
-                  </h3>
-                  <a
-                    href="mailto:hello@bookone.dev"
-                    className="text-slate-400 hover:text-[#A78BFA] transition-colors"
-                  >
-                    hello@bookone.dev
-                  </a>
-                  <p className="text-sm text-slate-500 mt-1 font-light">
-                    Response within 24 hours
-                  </p>
-                </div>
-              </div>
+            {/* Testimonial */}
+            <blockquote className="mt-16 border-l-2 border-[#E8FF47] pl-6">
+              <p className="font-display italic text-white/60 text-base leading-snug mb-3">
+                &quot;BookOne transformed our workflow. Their AI solutions saved us 20+ hours a week.&quot;
+              </p>
+              <footer className="text-[10px] tracking-[0.15em] uppercase text-white/25 font-mono">
+                John Doe — CEO, TechStart
+              </footer>
+            </blockquote>
+          </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0 border border-blue-500/20 shadow-[0_0_10px_rgba(59,130,246,0.1)]">
-                  <Phone className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-white mb-1">
-                    Call Us
-                  </h3>
-                  <a
-                    href="tel:+2348077080903"
-                    className="text-slate-400 hover:text-[#A78BFA] transition-colors"
-                  >
-                    +234 807 708 0903
-                  </a>
-                  <p className="text-sm text-slate-500 mt-1 font-light">
-                    Mon-Fri from 9am to 6pm
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-400 shrink-0 border border-orange-500/20 shadow-[0_0_10px_rgba(249,115,22,0.1)]">
-                  <MapPin className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-white mb-1">
-                    Visit Us
-                  </h3>
-                  <p className="text-slate-400 font-light">
-                    Allen Avenue, Lagos, Nigeria.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-auto p-8 bg-[#1A1A24]/80 backdrop-blur-md rounded-[2rem] text-white relative overflow-hidden border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
-              <div className="relative z-10">
-                <h3 className="text-xl font-bold mb-2">
-                  &quot;BookOne transformed our workflow.&quot;
-                </h3>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-light">
-                  Their AI solutions saved us 20+ hours a week. The ROI was
-                  immediate and the design quality is unmatched.
+          {/* RIGHT — form */}
+          <div>
+            {isWebsitePurchase && (
+              <div className="mb-8 border border-[#E8FF47]/20 bg-[#E8FF47]/[0.04] px-5 py-4">
+                <p className="text-xs text-[#E8FF47]/80 font-mono tracking-wide">
+                  Purchasing: {websiteTitle}
+                  {websitePrice && <span className="text-white/40 ml-2">· ${Number(websitePrice).toLocaleString()}</span>}
                 </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#6b46c1]/20 flex items-center justify-center text-xs font-bold text-[#A78BFA] border border-[#6b46c1]/30">
-                    JD
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-white">John Doe</p>
-                    <p className="text-xs text-slate-500">CEO, TechStart</p>
-                  </div>
-                </div>
               </div>
-              {/* Decorative gradient blob */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#6b46c1] rounded-full blur-[60px] opacity-20 -translate-y-1/2 translate-x-1/2" />
-            </div>
-          </motion.div>
+            )}
 
-          {/* Right Column: Form */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-7"
-          >
-            <div className="bg-[#1A1A24]/60 backdrop-blur-md rounded-[2.5rem] p-8 md:p-12 shadow-[0_0_30px_rgba(107,70,193,0.1)] border border-white/10 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#6b46c1]/5 to-transparent pointer-events-none" />
-              <div className="relative z-10">
-              <AnimatePresence mode="wait">
-                {submitStatus === "success" ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-20"
+            <AnimatePresence mode="wait">
+              {submitStatus === "success" ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="py-24 border-t border-white/[0.06]"
+                >
+                  <p className="text-[10px] tracking-[0.25em] uppercase text-white/30 font-mono mb-6">Message received</p>
+                  <p
+                    className="font-display font-black text-white leading-none mb-6"
+                    style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
                   >
-                    <div className="w-20 h-20 bg-green-500/10 text-green-400 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.2)]">
-                      <CheckCircle className="w-10 h-10" />
-                    </div>
-                    <h3 className="text-3xl font-bold text-white mb-4">
-                      Message Received!
-                    </h3>
-                    <p className="text-slate-400 max-w-md mx-auto mb-8 font-light">
-                      Thanks for reaching out. We've received your project details
-                      and will get back to you within 24 hours.
-                    </p>
-                    <button
-                      onClick={() => setSubmitStatus(null)}
-                      className="px-8 py-3 bg-white/5 text-white font-bold rounded-xl hover:bg-[#6b46c1]/20 border border-white/10 hover:border-[#6b46c1]/40 transition-all shadow-[0_0_10px_rgba(0,0,0,0.2)]"
-                    >
-                      Send Another Message
-                    </button>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-8">
-                    {/* Name Fields */}
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-300 ml-1">
-                          First Name
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="John"
-                          value={formData.firstName}
-                          onChange={(e) =>
-                            handleInputChange("firstName", e.target.value)
-                          }
-                          className={`w-full px-5 py-4 bg-[#0B0B0E]/50 border ${
-                            errors.firstName
-                              ? "border-red-500/50 bg-red-500/10"
-                              : "border-white/10 hover:border-white/20 focus:border-[#6b46c1]/60 focus:bg-[#1A1A24] focus:shadow-[0_0_15px_rgba(107,70,193,0.15)]"
-                          } rounded-2xl outline-none transition-all placeholder:text-slate-500 text-white font-medium`}
-                        />
-                        {errors.firstName && (
-                          <p className="text-red-400 text-xs ml-1 flex items-center">
-                            <AlertCircle className="w-3 h-3 mr-1" />
-                            {errors.firstName}
-                          </p>
-                        )}
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-300 ml-1">
-                          Last Name
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="Doe"
-                          value={formData.lastName}
-                          onChange={(e) =>
-                            handleInputChange("lastName", e.target.value)
-                          }
-                          className={`w-full px-5 py-4 bg-[#0B0B0E]/50 border ${
-                            errors.lastName
-                              ? "border-red-500/50 bg-red-500/10"
-                              : "border-white/10 hover:border-white/20 focus:border-[#6b46c1]/60 focus:bg-[#1A1A24] focus:shadow-[0_0_15px_rgba(107,70,193,0.15)]"
-                          } rounded-2xl outline-none transition-all placeholder:text-slate-500 text-white font-medium`}
-                        />
-                        {errors.lastName && (
-                          <p className="text-red-400 text-xs ml-1 flex items-center">
-                            <AlertCircle className="w-3 h-3 mr-1" />
-                            {errors.lastName}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Contact Fields */}
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-300 ml-1">
-                        Email Address
-                      </label>
+                    <span className="italic">We&apos;ll be in touch.</span>
+                  </p>
+                  <p className="text-sm text-white/40 mb-10">
+                    Expect a reply within 24 hours.
+                  </p>
+                  <button
+                    onClick={() => setSubmitStatus(null)}
+                    className="text-xs tracking-[0.1em] uppercase text-white/30 hover:text-white transition-colors duration-200 font-mono"
+                  >
+                    Send another message
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  onSubmit={handleSubmit}
+                  className="space-y-10"
+                >
+                  {/* Name row */}
+                  <div className="grid sm:grid-cols-2 gap-8">
+                    <div>
+                      <label className="block text-[10px] tracking-[0.2em] uppercase text-white/30 mb-3 font-mono">First Name</label>
                       <input
-                        type="email"
-                        placeholder="john@company.com"
-                        value={formData.email}
-                        onChange={(e) =>
-                          handleInputChange("email", e.target.value)
-                        }
-                        className={`w-full px-5 py-4 bg-[#0B0B0E]/50 border ${
-                          errors.email
-                            ? "border-red-500/50 bg-red-500/10"
-                            : "border-white/10 hover:border-white/20 focus:border-[#6b46c1]/60 focus:bg-[#1A1A24] focus:shadow-[0_0_15px_rgba(107,70,193,0.15)]"
-                        } rounded-2xl outline-none transition-all placeholder:text-slate-500 text-white font-medium`}
+                        type="text"
+                        placeholder="John"
+                        value={formData.firstName}
+                        onChange={(e) => handleChange("firstName", e.target.value)}
+                        className={inputClass("firstName")}
                       />
-                      {errors.email && (
-                        <p className="text-red-400 text-xs ml-1 flex items-center">
-                          <AlertCircle className="w-3 h-3 mr-1" />
-                          {errors.email}
-                        </p>
-                      )}
+                      {errors.firstName && <p className="text-red-400 text-[10px] mt-1">{errors.firstName}</p>}
                     </div>
-
-                    {/* Services Selection */}
-                    <div className="space-y-3">
-                      <label className="text-sm font-bold text-slate-300 ml-1">
-                        I'm interested in...
-                      </label>
-                      <div className="flex flex-wrap gap-3">
-                        {services.map((service) => (
-                          <button
-                            key={service.id}
-                            type="button"
-                            onClick={() => handleServiceToggle(service.id)}
-                            className={`px-5 py-3 rounded-xl text-sm font-bold transition-all border ${
-                              formData.services.includes(service.id)
-                                ? "bg-[#6b46c1] border-[#6b46c1] text-white shadow-[0_0_15px_rgba(107,70,193,0.4)]"
-                                : "bg-[#0B0B0E]/50 border-white/10 text-slate-400 hover:border-[#6b46c1]/50 hover:bg-[#6b46c1]/10 hover:text-white"
-                            }`}
-                          >
-                            {service.label}
-                          </button>
-                        ))}
-                      </div>
-                      {errors.services && (
-                        <p className="text-red-400 text-xs ml-1 flex items-center">
-                          <AlertCircle className="w-3 h-3 mr-1" />
-                          {errors.services}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Budget & Referral */}
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-300 ml-1">
-                          Budget Range
-                        </label>
-                        <div className="relative">
-                          <select
-                            value={formData.budget}
-                            onChange={(e) =>
-                              handleInputChange("budget", e.target.value)
-                            }
-                            className={`w-full px-5 py-4 bg-[#0B0B0E]/50 border ${
-                              errors.budget
-                                ? "border-red-500/50 bg-red-500/10"
-                                : "border-white/10 hover:border-white/20 focus:border-[#6b46c1]/60 focus:bg-[#1A1A24] focus:shadow-[0_0_15px_rgba(107,70,193,0.15)]"
-                            } rounded-2xl outline-none transition-all appearance-none font-medium text-white cursor-pointer [&>option]:bg-[#1A1A24]`}
-                          >
-                            <option value="" disabled className="text-slate-500">
-                              Select a range
-                            </option>
-                            {budgets.map((b) => (
-                              <option key={b} value={b}>
-                                {b}
-                              </option>
-                            ))}
-                          </select>
-                          <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
-                            <ArrowRight className="w-4 h-4 rotate-90" />
-                          </div>
-                        </div>
-                        {errors.budget && (
-                          <p className="text-red-400 text-xs ml-1 flex items-center">
-                            <AlertCircle className="w-3 h-3 mr-1" />
-                            {errors.budget}
-                          </p>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-300 ml-1">
-                          How did you hear about us?
-                        </label>
-                        <div className="relative">
-                          <select
-                            value={formData.referralSource}
-                            onChange={(e) =>
-                              handleInputChange("referralSource", e.target.value)
-                            }
-                            className="w-full px-5 py-4 bg-[#0B0B0E]/50 border border-white/10 hover:border-white/20 focus:border-[#6b46c1]/60 focus:bg-[#1A1A24] focus:shadow-[0_0_15px_rgba(107,70,193,0.15)] rounded-2xl outline-none transition-all appearance-none font-medium text-white cursor-pointer [&>option]:bg-[#1A1A24]"
-                          >
-                            <option value="" disabled className="text-slate-500">
-                              Select source
-                            </option>
-                            {referralSources.map((s) => (
-                              <option key={s} value={s}>
-                                {s}
-                              </option>
-                            ))}
-                          </select>
-                          <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
-                            <ArrowRight className="w-4 h-4 rotate-90" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Message */}
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-300 ml-1">
-                        Project Details
-                      </label>
-                      <textarea
-                        placeholder="Tell us about your goals, timeline, and requirements..."
-                        value={formData.message}
-                        onChange={(e) =>
-                          handleInputChange("message", e.target.value)
-                        }
-                        rows={4}
-                        className={`w-full px-5 py-4 bg-[#0B0B0E]/50 border ${
-                          errors.message
-                            ? "border-red-500/50 bg-red-500/10"
-                            : "border-white/10 hover:border-white/20 focus:border-[#6b46c1]/60 focus:bg-[#1A1A24] focus:shadow-[0_0_15px_rgba(107,70,193,0.15)]"
-                        } rounded-2xl outline-none transition-all placeholder:text-slate-500 text-white font-medium resize-none`}
+                    <div>
+                      <label className="block text-[10px] tracking-[0.2em] uppercase text-white/30 mb-3 font-mono">Last Name</label>
+                      <input
+                        type="text"
+                        placeholder="Doe"
+                        value={formData.lastName}
+                        onChange={(e) => handleChange("lastName", e.target.value)}
+                        className={inputClass("lastName")}
                       />
-                      {errors.message && (
-                        <p className="text-red-400 text-xs ml-1 flex items-center">
-                          <AlertCircle className="w-3 h-3 mr-1" />
-                          {errors.message}
-                        </p>
-                      )}
+                      {errors.lastName && <p className="text-red-400 text-[10px] mt-1">{errors.lastName}</p>}
                     </div>
+                  </div>
 
-                    {/* Submit Button */}
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full py-4 bg-[#6b46c1] text-white font-bold text-lg rounded-2xl hover:bg-[#8B5CF6] transition-all hover:-translate-y-1 shadow-[0_0_15px_rgba(107,70,193,0.4)] hover:shadow-[0_0_25px_rgba(139,92,246,0.6)] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[0_0_15px_rgba(107,70,193,0.4)] flex items-center justify-center gap-2"
-                    >
-                      {isSubmitting ? (
-                        <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      ) : (
-                        <>
-                          Send Message <Send className="w-5 h-5" />
-                        </>
-                      )}
-                    </button>
-                  </form>
-                )}
-              </AnimatePresence>
-              </div>
-            </div>
-          </motion.div>
+                  {/* Email */}
+                  <div>
+                    <label className="block text-[10px] tracking-[0.2em] uppercase text-white/30 mb-3 font-mono">Email Address</label>
+                    <input
+                      type="email"
+                      placeholder="john@company.com"
+                      value={formData.email}
+                      onChange={(e) => handleChange("email", e.target.value)}
+                      className={inputClass("email")}
+                    />
+                    {errors.email && <p className="text-red-400 text-[10px] mt-1">{errors.email}</p>}
+                  </div>
+
+                  {/* Services */}
+                  <div>
+                    <label className="block text-[10px] tracking-[0.2em] uppercase text-white/30 mb-4 font-mono">
+                      I&apos;m interested in
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {SERVICES.map((s) => (
+                        <button
+                          key={s.id}
+                          type="button"
+                          onClick={() => toggleService(s.id)}
+                          className={`px-4 py-2 text-xs tracking-wide border transition-colors duration-200 ${
+                            formData.services.includes(s.id)
+                              ? "border-[#E8FF47] text-[#E8FF47] bg-[#E8FF47]/[0.06]"
+                              : "border-white/[0.10] text-white/40 hover:border-white/30 hover:text-white"
+                          }`}
+                        >
+                          {s.label}
+                        </button>
+                      ))}
+                    </div>
+                    {errors.services && <p className="text-red-400 text-[10px] mt-2">{errors.services}</p>}
+                  </div>
+
+                  {/* Budget + Referral */}
+                  <div className="grid sm:grid-cols-2 gap-8">
+                    <div>
+                      <label className="block text-[10px] tracking-[0.2em] uppercase text-white/30 mb-3 font-mono">Budget Range</label>
+                      <select
+                        value={formData.budget}
+                        onChange={(e) => handleChange("budget", e.target.value)}
+                        className={`${inputClass("budget")} cursor-pointer [&>option]:bg-[#111]`}
+                      >
+                        <option value="" disabled>Select a range</option>
+                        {BUDGETS.map((b) => <option key={b} value={b}>{b}</option>)}
+                      </select>
+                      {errors.budget && <p className="text-red-400 text-[10px] mt-1">{errors.budget}</p>}
+                    </div>
+                    <div>
+                      <label className="block text-[10px] tracking-[0.2em] uppercase text-white/30 mb-3 font-mono">How did you find us?</label>
+                      <select
+                        value={formData.referralSource}
+                        onChange={(e) => handleChange("referralSource", e.target.value)}
+                        className="w-full border-b border-white/[0.12] focus:border-white/50 bg-transparent py-3 text-sm text-white outline-none transition-colors duration-200 cursor-pointer [&>option]:bg-[#111]"
+                      >
+                        <option value="" disabled>Select</option>
+                        {REFERRAL.map((r) => <option key={r} value={r}>{r}</option>)}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <label className="block text-[10px] tracking-[0.2em] uppercase text-white/30 mb-3 font-mono">Project Details</label>
+                    <textarea
+                      placeholder="Tell us about your goals, timeline, and requirements..."
+                      value={formData.message}
+                      onChange={(e) => handleChange("message", e.target.value)}
+                      rows={5}
+                      className={`${inputClass("message")} resize-none`}
+                    />
+                    {errors.message && <p className="text-red-400 text-[10px] mt-1">{errors.message}</p>}
+                  </div>
+
+                  {submitStatus === "error" && (
+                    <p className="text-red-400 text-xs font-mono">
+                      Something went wrong. Please try again or email us directly.
+                    </p>
+                  )}
+
+                  {/* Submit */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="group inline-flex items-center gap-3 text-[#E8FF47] text-sm font-semibold tracking-wide hover:text-white transition-colors duration-200 disabled:opacity-50"
+                  >
+                    {isSubmitting ? (
+                      <span className="inline-block w-4 h-4 border border-white/30 border-t-white rounded-full animate-spin" />
+                    ) : null}
+                    {isSubmitting ? "Sending…" : "Send Message"}
+                    {!isSubmitting && (
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
+                        <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    )}
+                  </button>
+                </motion.form>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </div>

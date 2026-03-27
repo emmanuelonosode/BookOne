@@ -1,300 +1,59 @@
-"use client";
-import React, { useState, useCallback, memo } from "react";
-import {
-  Mail,
-  Phone,
-  Clock,
-  CheckCircle,
-  ArrowRight,
-  Calendar,
-} from "lucide-react";
 import Link from "next/link";
 
-// Memoized contact data
-const contactMethods = [
-  {
-    icon: <Mail className="w-6 h-6 text-white" />,
-    label: "Email Us",
-    description: "Send us an email and we'll get back to you within 24 hours",
-    value: "info@bookone.dev",
-    href: "mailto:info@bookone.dev",
-    cta: "Send Email",
-    responseTime: "24 hours",
-    type: "email",
-  },
-  {
-    icon: <Phone className="w-6 h-6 text-white" />,
-    label: "Call Us",
-    description:
-      "Speak directly with our team during business hours (9 AM - 6 PM WAT)",
-    value: "+234 807 708 0903",
-    href: "tel:+2348077080903",
-    cta: "Call Now",
-    responseTime: "Immediate",
-    type: "phone",
-  },
-];
-
-// Memoized benefits list
-const benefits = [
-  "Free 30-minute consultation",
-  "Custom project roadmap",
-  "Transparent pricing",
-  "No hidden fees",
-  "Quick turnaround time",
-];
-
-// Memoized ContactCard component
-const ContactCard = memo(({ contact, index }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = useCallback(() => {
-    setIsClicked(true);
-    // Track conversion event here if needed
-    setTimeout(() => setIsClicked(false), 200);
-  }, []);
-
+export default function Contact() {
   return (
-    <Link
-      href={contact.href}
-      onClick={handleClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className={`
-        block bg-[#1A1A24]/50 backdrop-blur-md rounded-2xl p-6 sm:p-8 
-        shadow-[0_4px_20px_rgba(0,0,0,0.5)] border border-white/10 group transition-all duration-300
-        hover:border-[#6B46C1]/50 hover:translate-y-0.5 hover:shadow-[0_0_20px_rgba(107,70,193,0.3)]
-        ${isClicked ? "scale-95" : "scale-100"}
-        relative overflow-hidden
-      `}
-    >
-      {/* Animated background */}
-      <div
-        className={`
-          absolute inset-0 bg-white/5
-          transition-opacity duration-300 ${
-            isHovered ? "opacity-100" : "opacity-0"
-          }
-        `}
-      />
+    <section className="py-28 sm:py-40 border-t border-white/[0.06]">
+      <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
-      {/* Response time badge */}
-      <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
-        <span className="inline-flex items-center gap-1 px-2 py-1 bg-[#0B0B0E] border border-green-500/50 text-green-400 text-xs font-medium rounded-full shadow-sm">
-          <Clock className="w-3 h-3" />
-          {contact.responseTime}
-        </span>
-      </div>
-
-      <div className="flex flex-col sm:flex-row items-start gap-4 relative z-10">
-        {/* Icon */}
-        <div
-          className={`
-              w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/5 border border-white/10
-              flex items-center justify-center flex-shrink-0 
-              transition-transform duration-300
-              ${isHovered ? "scale-110 shadow-[0_0_15px_rgba(107,70,193,0.2)]" : "scale-100"}
-            `}
-        >
-          {contact.icon}
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 min-w-0">
-          <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
-            {contact.label}
-          </h3>
-          <p className="text-sm sm:text-base text-slate-400 mb-4 leading-relaxed">
-            {contact.description}
-          </p>
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <p className="text-white font-semibold text-lg sm:text-xl break-all sm:break-normal">
-              {contact.value}
-            </p>
-            <span
-              className={`
-                inline-flex items-center gap-2 px-4 py-2 bg-white/5 text-white 
-                rounded-lg font-medium text-sm transition-all duration-300 border border-transparent
-                ${isHovered ? "bg-white/10 border-white/10 translate-x-1 shadow-sm" : ""}
-              `}
-            >
-              {contact.cta}
-              <ArrowRight className="w-4 h-4" />
-            </span>
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
-});
-
-// Memoized BenefitItem component
-const BenefitItem = memo(({ benefit, index }) => (
-  <div
-    className="flex items-center gap-3 text-slate-300"
-    style={{ animationDelay: `${index * 100}ms` }}
-  >
-    <CheckCircle className="w-5 h-5 text-[#8B5CF6] shrink-0" />
-    <span className="text-sm sm:text-base">{benefit}</span>
-  </div>
-));
-
-function Contact() {
-  const [ctaClicked, setCtaClicked] = useState("");
-
-  const handleCtaClick = useCallback((type) => {
-    setCtaClicked(type);
-    setTimeout(() => setCtaClicked(""), 200);
-  }, []);
-
-  return (
-    <section
-      id="contact"
-      className="min-h-screen bg-[#0B0B0E] relative overflow-hidden py-12 sm:py-16 lg:py-20"
-    >
-      {/* Subtle background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -right-32 sm:-right-48 w-64 sm:w-80 h-64 sm:h-80 bg-[#6B46C1]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -left-32 sm:-left-48 w-48 sm:w-64 h-48 sm:h-64 bg-[#8B5CF6]/10 rounded-full blur-3xl" />
-      </div>
-
-      {/* Header Section */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 sm:mb-16 relative z-10">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-4 sm:mb-6 leading-tight">
-          Ready to bring your{" "}
-          <span className="font-medium text-[#8B5CF6]">business</span> online?
-        </h1>
-        <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-6 sm:mb-8 px-4 sm:px-0">
-          Let's talk about how BookOne can help you launch smarter and faster.
-          We're here to transform your digital presence with measurable results.
+        <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-10">
+          Let&apos;s Work Together
         </p>
 
-        {/* Social proof */}
-        <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-sm text-slate-400 mb-8">
-          <div className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-[#A78BFA]" />
-            <span>50+ Happy Clients</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-[#A78BFA]" />
-            <span>24hr Response Time</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-[#A78BFA]" />
-            <span>Free Consultation</span>
-          </div>
+        <h2
+          className="font-display font-black text-white leading-[0.95] tracking-tight mb-14 max-w-4xl"
+          style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
+        >
+          Ready to start something great?
+        </h2>
+
+        {/* Contact options */}
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-20">
+          <a
+            href="mailto:hello@bookone.dev"
+            className="group inline-flex items-center gap-3 text-white/50 hover:text-white transition-colors duration-200 text-sm tracking-wide"
+          >
+            <span className="w-px h-4 bg-[#E8FF47] shrink-0" aria-hidden="true" />
+            hello@bookone.dev
+          </a>
+          <a
+            href="https://calendar.notion.so/meet/officialbookone/call"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-3 text-white/50 hover:text-white transition-colors duration-200 text-sm tracking-wide"
+          >
+            <span className="w-px h-4 bg-[#E8FF47] shrink-0" aria-hidden="true" />
+            Book a free call
+          </a>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto">
-          {/* Contact Method Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
-            {contactMethods.map((contact, index) => (
-              <ContactCard key={index} contact={contact} index={index} />
-            ))}
-          </div>
-
-          {/* Enhanced CTA Section */}
-          <div className="bg-[#1A1A24]/60 backdrop-blur-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 text-white relative overflow-hidden shadow-2xl border border-white/10">
-            {/* Background pattern */}
-            <div className="absolute inset-0 bg-white/5 mix-blend-overlay" />
-            <div className="absolute top-0 right-0 w-32 sm:w-64 h-32 sm:h-64 bg-[#6B46C1]/20 rounded-full blur-3xl -translate-y-16 translate-x-16" />
-
-            <div className="relative z-10">
-              <div className="text-center mb-8 sm:mb-10">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
-                  Ready to Get Started?
-                </h2>
-                <p className="text-white/80 mb-6 sm:mb-8 leading-relaxed text-base sm:text-lg max-w-2xl mx-auto">
-                  Join 50+ businesses that have transformed their digital
-                  presence with BookOne. Start your journey today with a free
-                  consultation.
-                </p>
-
-                {/* Benefits List */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-white/70 sm:gap-4 max-w-lg mx-auto mb-8">
-                  {benefits.map((benefit, index) => (
-                    <BenefitItem key={index} benefit={benefit} index={index} />
-                  ))}
-                </div>
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center">
-                <button
-                  onClick={() => handleCtaClick("pricing")}
-                  className={`
-                    bg-[#6B46C1] text-white px-6 sm:px-8 py-4 rounded-xl font-semibold text-base sm:text-lg 
-                    hover:bg-[#8B5CF6] hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] transition-all duration-300 relative overflow-hidden group
-                    ${ctaClicked === "pricing" ? "scale-95 border border-[#A78BFA]" : "scale-100 border border-transparent"}
-                    flex-1 sm:flex-none
-                  `}
-                >
-                  <Link
-                    href="/get-started"
-                    className="flex items-center justify-center gap-2 w-full"
-                    aria-label="Get started - View pricing and begin your project"
-                  >
-                    <span>View Pricing & Get Started</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </button>
-
-                <button
-                  onClick={() => handleCtaClick("consultation")}
-                  className={`
-                    border-2 border-[#6B46C1]/50 text-white bg-transparent px-6 sm:px-8 py-4 rounded-xl font-semibold text-base sm:text-lg 
-                    hover:bg-[#6B46C1]/10 hover:border-[#8B5CF6] transition-all duration-300 group
-                    ${ctaClicked === "consultation" ? "scale-95" : "scale-100"}
-                    flex-1 sm:flex-none
-                  `}
-                >
-                  <Link
-                    href="https://calendar.notion.so/meet/officialbookone/call"
-                    className="flex items-center justify-center gap-2 w-full"
-                    aria-label="Schedule free consultation - Book a call with our team"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Calendar className="w-5 h-5" />
-                    <span>Free Consultation</span>
-                  </Link>
-                </button>
-              </div>
-
-              {/* Additional trust signals */}
-              <div className="text-center mt-6 sm:mt-8">
-                <p className="text-white/70 text-sm">
-                  🔒 No spam, no commitments. Just honest advice to help your
-                  business grow.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 sm:mt-16 text-center">
-            <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
-              Have Questions?
-            </h3>
-            <p className="text-slate-400 mb-6 text-sm sm:text-base">
-              We're here to help! Check out our frequently asked questions or
-              reach out directly.
-            </p>
-            <Link
-              href="/#faqs"
-              className="inline-flex items-center gap-2 text-[#A78BFA] hover:text-white font-medium transition-colors"
-            >
-              View FAQ
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
+        {/* Primary CTA */}
+        <Link
+          href="/get-started"
+          className="group inline-flex items-center gap-4 text-[#E8FF47] hover:text-white transition-colors duration-300"
+        >
+          <span
+            className="font-display font-bold leading-none"
+            style={{ fontSize: "clamp(1.5rem, 3.5vw, 3rem)" }}
+          >
+            Start a Project
+          </span>
+          <span className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full border border-[#E8FF47]/30 group-hover:border-white/30 group-hover:bg-white/5 transition-all duration-300">
+            <svg width="18" height="18" viewBox="0 0 14 14" fill="none">
+              <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </span>
+        </Link>
       </div>
     </section>
   );
 }
-
-export default Contact;

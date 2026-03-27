@@ -6,7 +6,6 @@ export async function POST(request) {
     const body = await request.json();
     const { email } = body;
 
-    // Better email validation
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!email || !emailRegex.test(email.trim())) {
       return NextResponse.json(
@@ -17,157 +16,206 @@ export async function POST(request) {
 
     const sanitizedEmail = email.toLowerCase().trim();
 
-    // Save email to SheetDB with timeout
+    // Save to SheetDB with timeout
     let sheetDbSuccess = false;
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
 
       const response = await fetch(process.env.SHEETDB_API_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          data: [
-            {
-              email: sanitizedEmail,
-              timestamp: new Date().toISOString(),
-              source: "website_subscription",
-            },
-          ],
+          data: [{
+            email: sanitizedEmail,
+            timestamp: new Date().toISOString(),
+            source: "website_subscription",
+          }],
         }),
         signal: controller.signal,
       });
 
       clearTimeout(timeoutId);
-
-      if (response.ok) {
-        sheetDbSuccess = true;
-        // Email subscription saved to SheetDB successfully
-      } else {
-        // Removed console.error for production cleanliness
-        // Continue with email sending even if SheetDB fails
-      }
-    } catch (sheetError) {
-      if (sheetError.name === "AbortError") {
-        // Removed console.error for production cleanliness
-      } else {
-        // Removed console.error for production cleanliness
-      }
-      // Continue with email sending even if SheetDB fails
+      if (response.ok) sheetDbSuccess = true;
+    } catch {
+      // Continue even if SheetDB fails
     }
 
-    // ✅ Send response immediately
+    // Respond immediately
     const res = NextResponse.json({
       success: true,
       message: "You're subscribed! Check your email for confirmation.",
       dataStored: sheetDbSuccess ? "SheetDB + Email" : "Email Only",
     });
 
-    // ⏳ Send email in background (no await)
+    // Send confirmation in background
     void sendConfirmationEmail(sanitizedEmail);
 
     return res;
-  } catch (error) {
-console.log(error) 
-
-return NextResponse.json(
+  } catch {
+    return NextResponse.json(
       { success: false, error: "Something went wrong. Please try again." },
       { status: 500 }
     );
   }
 }
 
-// Background email sending function
 async function sendConfirmationEmail(email) {
   try {
-    // Validate email credentials
-    if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
-      // Removed console.error for production cleanliness
-      return;
-    }
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) return;
 
-    // Create transporter with better configuration for Gmail
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS, // This should be an App Password, not regular password
+        pass: process.env.GMAIL_PASS,
       },
-      // Add timeout settings
       connectionTimeout: 15000,
       greetingTimeout: 15000,
       socketTimeout: 15000,
-      // Additional settings for better reliability
       pool: true,
       maxConnections: 1,
       maxMessages: 3,
-      rateLimit: 1, // Limit to 1 email per second
+      rateLimit: 1,
     });
 
-    // Verify transporter configuration
     try {
       await transporter.verify();
-      // Newsletter email transporter verified successfully
-    } catch (verifyError) {
-console.log(verifyError); 
-      throw new Error(
-        "Email service configuration is invalid. Please check Gmail credentials and App Password settings."
-      );
+    } catch {
+      return;
     }
 
-    const mailOptions = {
+    const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background-color:#0a0a0a;font-family:Georgia,serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0a0a0a;padding:40px 20px;">
+  <tr><td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background-color:#0a0a0a;">
+
+      <!-- Header -->
+      <tr>
+        <td style="background-color:#080808;padding:36px;border-bottom:1px solid #1a1a1a;">
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td>
+                <span style="font-family:Georgia,serif;font-weight:900;font-size:22px;color:#ffffff;letter-spacing:0.1em;">BOOKONE</span>
+              </td>
+              <td align="right" valign="middle">
+                <span style="display:inline-block;width:8px;height:8px;background-color:#E8FF47;border-radius:50%;"></span>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <!-- Body -->
+      <tr>
+        <td style="padding:40px 36px 0;">
+          <p style="font-family:Georgia,serif;font-size:26px;font-weight:700;color:#ffffff;margin:0 0 16px;">You're in.</p>
+          <p style="font-family:Georgia,serif;font-size:16px;line-height:1.75;color:#888;margin:0 0 12px;">
+            Thanks for subscribing to the BookOne newsletter. You'll be the first to receive our latest thinking on web design, AI automation, and digital strategy — once a week, no spam.
+          </p>
+          <p style="font-family:Georgia,serif;font-size:16px;line-height:1.75;color:#888;margin:0;">
+            In the meantime, explore what we've been building.
+          </p>
+        </td>
+      </tr>
+
+      <!-- CTA -->
+      <tr>
+        <td style="padding:36px;">
+          <a
+            href="https://bookone.dev/blogs"
+            style="display:inline-block;border:2px solid #E8FF47;color:#E8FF47;font-family:monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;padding:14px 28px;"
+          >
+            Read Our Latest Blogs →
+          </a>
+        </td>
+      </tr>
+
+      <!-- What to expect -->
+      <tr>
+        <td style="padding:0 36px 36px;">
+          <div style="background-color:#111111;border:1px solid #1e1e1e;padding:24px;">
+            <p style="font-family:monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#555;margin:0 0 16px;">What to expect</p>
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding-bottom:12px;">
+                  <span style="font-family:monospace;font-size:11px;color:#E8FF47;margin-right:12px;">—</span>
+                  <span style="font-family:Georgia,serif;font-size:14px;color:#888;">Web design and development insights</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-bottom:12px;">
+                  <span style="font-family:monospace;font-size:11px;color:#E8FF47;margin-right:12px;">—</span>
+                  <span style="font-family:Georgia,serif;font-size:14px;color:#888;">AI automation tips and case studies</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span style="font-family:monospace;font-size:11px;color:#E8FF47;margin-right:12px;">—</span>
+                  <span style="font-family:Georgia,serif;font-size:14px;color:#888;">Exclusive offers for subscribers</span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+
+      <!-- Divider -->
+      <tr>
+        <td style="padding:0 36px;">
+          <div style="border-top:1px solid #1a1a1a;"></div>
+        </td>
+      </tr>
+
+      <!-- Footer -->
+      <tr>
+        <td style="background-color:#0D0D0D;padding:28px 36px;">
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td>
+                <p style="font-family:monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:#444;margin:0 0 6px;">BookOne Digital Agency</p>
+                <p style="font-family:monospace;font-size:9px;letter-spacing:0.1em;color:#333;margin:0 0 4px;">Allen Avenue, Lagos, Nigeria</p>
+                <p style="font-family:monospace;font-size:9px;letter-spacing:0.1em;margin:0;">
+                  <a href="mailto:hello@bookone.dev" style="color:#444;text-decoration:none;">hello@bookone.dev</a>
+                </p>
+              </td>
+              <td align="right" valign="bottom">
+                <p style="font-family:monospace;font-size:9px;letter-spacing:0.1em;margin:0;">
+                  <a href="https://bookone.dev/privacy-policy" style="color:#333;text-decoration:none;">Privacy</a>
+                  <span style="color:#333;margin:0 6px;">·</span>
+                  <a href="https://bookone.dev/terms-and-conditions" style="color:#333;text-decoration:none;">Terms</a>
+                </p>
+                <p style="font-family:monospace;font-size:8px;letter-spacing:0.1em;color:#2a2a2a;margin:6px 0 0;">
+                  You're receiving this because you subscribed at bookone.dev
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`;
+
+    const emailPromise = transporter.sendMail({
       from: `"BookOne Newsletter" <${process.env.GMAIL_USER}>`,
       to: email,
-      subject: "🎉 Thanks for Subscribing to BookOne!",
-      html: `
-       <div style="font-family: 'Inter', sans-serif; background-color: #f8f8f8; padding: 20px; border-radius: 12px; max-width: 600px; margin: 20px auto; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
-  <div style="text-align: center; margin-bottom: 25px;">
-    <img src="https://placehold.co/100x100/6B46C1/FFFFFF?text=BookOne" alt="BookOne Logo" style="width: 80px; height: 80px; margin-bottom: 15px; border-radius: 50%;">
-    <h2 style="color: #6B46C1; font-size: 28px; margin-bottom: 10px; font-weight: 700;">Welcome to BookOne!</h2>
-    <p style="color: #555; font-size: 15px;">Thank you for joining our community.</p>
-  </div>
+      subject: "You're subscribed — BookOne",
+      html,
+    });
 
-  <div style="background-color: #ffffff; padding: 25px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);">
-    <p style="font-size: 16px; line-height: 1.6; color: #444; margin-bottom: 15px;">
-      Hi there 👋
-    </p>
-    <p style="font-size: 16px; line-height: 1.6; color: #444; margin-bottom: 15px;">
-      Thank you for subscribing to the BookOne newsletter! We're thrilled to have you on board.
-    </p>
-    <p style="font-size: 16px; line-height: 1.6; color: #444; margin-bottom: 0;">
-      You'll now be the first to receive our latest insights on web solutions, AI automation, and exclusive content designed to help your business thrive. Get ready for smart reads, once a week.
-    </p>
-  </div>
-
-  <div style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
-    <a href="https://bookone.dev/blogs" style="display: inline-block; background-color: #805AD5; color: #ffffff; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px; box-shadow: 0 4px 8px rgba(128, 90, 213, 0.3);">
-      Explore Our Latest Blogs
-    </a>
-  </div>
-
-  <div style="text-align: center; margin-top: 25px; font-size: 13px; color: #888;">
-    <p>Sent from BookOne.</p>
-    <p>&copy; 2025 BookOne. All rights reserved.</p>
-    <p style="margin-top: 10px;">
-      <a href="https://bookone.dev/privacy-policy" style="color: #888; text-decoration: underline;">Privacy Policy</a> |
-      <a href="https://bookone.dev/terms-and-conditions" style="color: #888; text-decoration: underline;">Terms of Service</a>
-    </p>
-  </div>
-</div>
-      `,
-    };
-
-    // Send email with timeout
-    const emailPromise = transporter.sendMail(mailOptions);
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Email sending timeout")), 30000)
-    );
-
-    await Promise.race([emailPromise, timeoutPromise]);
-    // Newsletter confirmation email sent successfully
-  } catch (error) {
-   console.log(error)
+    await Promise.race([
+      emailPromise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 30000)),
+    ]);
+  } catch {
+    // Fail silently
   }
 }

@@ -1,190 +1,44 @@
-export const OrganizationSchema = () => {
+import { getOGImageUrl } from "@/lib/sanity";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
+
+export const WebsiteListingSchema = ({ listing, baseUrl = BASE_URL }) => {
+  const slug =
+    typeof listing.slug === "string"
+      ? listing.slug
+      : listing.slug?.current ?? "";
+
+  const imageUrl = listing.mainImage ? getOGImageUrl(listing.mainImage) : undefined;
+
   const schema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "BookOne",
-    url: "https://bookone.com",
-    logo: "https://bookone.com/logo.png",
-    description:
-      "Professional web design, SEO & marketing, and AI automation services for businesses",
-    foundingDate: "2023",
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "US",
-    },
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "customer service",
-      email: "contact@bookone.com",
-    },
-    sameAs: [
-      "https://twitter.com/bookone",
-      "https://linkedin.com/company/bookone",
-      "https://facebook.com/bookone",
-    ],
-    serviceArea: {
-      "@type": "GeoCircle",
-      geoMidpoint: {
-        "@type": "GeoCoordinates",
-        latitude: 40.7128,
-        longitude: -74.006,
-      },
-      geoRadius: "50000",
-    },
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Digital Services",
-      itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Web Design",
-            description: "Professional website design and development services",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "SEO & Marketing",
-            description:
-              "Search engine optimization and digital marketing services",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "AI Automation",
-            description: "AI-powered business automation solutions",
-          },
-        },
-      ],
-    },
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-};
-
-export const PortfolioProjectSchema = ({ project }) => {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: project.title,
-    description: project.overview,
-    url: `https://bookone.com/portfolio/${project.slug}`,
-    author: {
-      "@type": "Organization",
-      name: "BookOne",
-    },
-    creator: {
-      "@type": "Organization",
-      name: "BookOne",
-    },
-    dateCreated: new Date().toISOString(),
-    genre: project.category,
-    keywords: [
-      project.category.toLowerCase(),
-      "portfolio",
-      "case study",
-      ...project.techStack.map((tech) => tech.toLowerCase()),
-    ],
-    image: project.images.map((img) => `https://bookone.com${img}`),
-    mainEntity: {
-      "@type": "WebPage",
-      name: project.title,
-      description: project.overview,
-      url: `https://bookone.com/portfolio/${project.slug}`,
-      breadcrumb: {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: "https://bookone.com",
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Portfolio",
-            item: "https://bookone.com/portfolio",
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: project.title,
-            item: `https://bookone.com/portfolio/${project.slug}`,
-          },
-        ],
-      },
-    },
+    "@type": "Product",
+    name: listing.title,
+    description: listing.shortDescription ?? `Buy this ${listing.category ?? "website"} built by BookOne.`,
+    brand: { "@type": "Brand", name: "BookOne" },
+    url: `${baseUrl}/websites/${slug}`,
+    ...(imageUrl ? { image: imageUrl } : {}),
     offers: {
       "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: `${project.category} Services`,
-        description: `Professional ${project.category.toLowerCase()} services similar to this project`,
+      price: listing.price,
+      priceCurrency: "USD",
+      availability:
+        listing.availability === "in stock"
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      url: `${baseUrl}/websites/${slug}`,
+      seller: {
+        "@type": "Organization",
+        name: "BookOne",
+        url: baseUrl,
       },
-      url: "https://bookone.com/contact",
     },
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-};
-
-export const PortfolioPageSchema = () => {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "BookOne Portfolio",
-    description:
-      "Explore our portfolio of successful projects in web design, SEO & marketing, and AI automation",
-    url: "https://bookone.com/portfolio",
-    mainEntity: {
-      "@type": "ItemList",
-      name: "Portfolio Projects",
-      description: "Collection of professional projects by BookOne",
-      numberOfItems: 6,
+    breadcrumb: {
+      "@type": "BreadcrumbList",
       itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          item: {
-            "@type": "CreativeWork",
-            name: "Harmony Health Website Redesign",
-            url: "https://bookone.com/portfolio/harmony-health-redesign",
-          },
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          item: {
-            "@type": "CreativeWork",
-            name: "TechStartup SEO & Marketing Campaign",
-            url: "https://bookone.com/portfolio/techstartup-seo-campaign",
-          },
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          item: {
-            "@type": "CreativeWork",
-            name: "Retail AI Customer Support Automation",
-            url: "https://bookone.com/portfolio/retail-ai-automation",
-          },
-        },
+        { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+        { "@type": "ListItem", position: 2, name: "Websites for Sale", item: `${baseUrl}/websites` },
+        { "@type": "ListItem", position: 3, name: listing.title, item: `${baseUrl}/websites/${slug}` },
       ],
     },
   };

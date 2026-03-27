@@ -82,6 +82,26 @@ export interface QueryOptions {
   fallback?: unknown;
 }
 
+export interface WebsiteListing {
+  _id: string;
+  _createdAt?: string;
+  _updatedAt?: string;
+  title: string;
+  slug: { current: string };
+  type: "pre-built" | "done-for-you";
+  price: number;
+  availability: "in stock" | "out of stock";
+  shortDescription?: string;
+  loomVideoUrl?: string;
+  liveUrl?: string;
+  mainImage?: SanityImage;
+  screenshots?: Array<{ asset?: { url?: string }; alt?: string; caption?: string }>;
+  category?: string;
+  techStack?: string[];
+  whatsIncluded?: SanityBlock[];
+  seo?: SeoFields;
+}
+
 // Types for Sanity block content
 export interface SanityBlock {
   _type: string;

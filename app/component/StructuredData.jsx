@@ -3,8 +3,8 @@ export const OrganizationSchema = () => {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "BookOne",
-    url: "https://bookone.com",
-    logo: "https://bookone.com/logo.png",
+    url: "https://bookone.dev",
+    logo: "https://bookone.dev/logo.png",
     description:
       "Professional web design, SEO & marketing, and AI automation services for businesses",
     foundingDate: "2023",
@@ -15,7 +15,7 @@ export const OrganizationSchema = () => {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
-      email: "contact@bookone.com",
+      email: "hello@bookone.dev",
     },
     sameAs: [
       "https://twitter.com/bookone",
@@ -78,7 +78,7 @@ export const PortfolioProjectSchema = ({ project }) => {
     "@type": "CreativeWork",
     name: project.title,
     description: project.overview,
-    url: `https://bookone.com/portfolio/${project.slug}`,
+    url: `https://bookone.dev/portfolio/${project.slug}`,
     author: {
       "@type": "Organization",
       name: "BookOne",
@@ -95,12 +95,12 @@ export const PortfolioProjectSchema = ({ project }) => {
       "case study",
       ...project.techStack.map((tech) => tech.toLowerCase()),
     ],
-    image: project.images.map((img) => `https://bookone.com${img}`),
+    image: project.images.map((img) => `https://bookone.dev${img}`),
     mainEntity: {
       "@type": "WebPage",
       name: project.title,
       description: project.overview,
-      url: `https://bookone.com/portfolio/${project.slug}`,
+      url: `https://bookone.dev/portfolio/${project.slug}`,
       breadcrumb: {
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -108,19 +108,19 @@ export const PortfolioProjectSchema = ({ project }) => {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://bookone.com",
+            item: "https://bookone.dev",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Portfolio",
-            item: "https://bookone.com/portfolio",
+            item: "https://bookone.dev/portfolio",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: project.title,
-            item: `https://bookone.com/portfolio/${project.slug}`,
+            item: `https://bookone.dev/portfolio/${project.slug}`,
           },
         ],
       },
@@ -132,7 +132,7 @@ export const PortfolioProjectSchema = ({ project }) => {
         name: `${project.category} Services`,
         description: `Professional ${project.category.toLowerCase()} services similar to this project`,
       },
-      url: "https://bookone.com/contact",
+      url: "https://bookone.dev/contact",
     },
   };
 
@@ -151,7 +151,7 @@ export const PortfolioPageSchema = () => {
     name: "BookOne Portfolio",
     description:
       "Explore our portfolio of successful projects in web design, SEO & marketing, and AI automation",
-    url: "https://bookone.com/portfolio",
+    url: "https://bookone.dev/portfolio",
     mainEntity: {
       "@type": "ItemList",
       name: "Portfolio Projects",
@@ -164,7 +164,7 @@ export const PortfolioPageSchema = () => {
           item: {
             "@type": "CreativeWork",
             name: "Harmony Health Website Redesign",
-            url: "https://bookone.com/portfolio/harmony-health-redesign",
+            url: "https://bookone.dev/portfolio/harmony-health-redesign",
           },
         },
         {
@@ -173,7 +173,7 @@ export const PortfolioPageSchema = () => {
           item: {
             "@type": "CreativeWork",
             name: "TechStartup SEO & Marketing Campaign",
-            url: "https://bookone.com/portfolio/techstartup-seo-campaign",
+            url: "https://bookone.dev/portfolio/techstartup-seo-campaign",
           },
         },
         {
@@ -182,7 +182,7 @@ export const PortfolioPageSchema = () => {
           item: {
             "@type": "CreativeWork",
             name: "Retail AI Customer Support Automation",
-            url: "https://bookone.com/portfolio/retail-ai-automation",
+            url: "https://bookone.dev/portfolio/retail-ai-automation",
           },
         },
       ],

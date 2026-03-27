@@ -1,57 +1,74 @@
 import { sanity, getImageUrl } from "../../lib/sanity";
+import { SanityImage } from "../../lib/types";
 import Script from "next/script";
-import { ArrowUpRight } from "lucide-react";
-import ProjectCard from "../component/ProjectCard";
 import { allCaseStudiesQuery } from "@/lib/queries";
 import Link from "next/link";
-import { GlowWrapper } from "./PortfolioClientComponents";
+import Image from "next/image";
 
-// --- PortfolioPage Component ---
+export async function generateMetadata() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
+  return {
+    title: "Portfolio | BookOne - Web Design, SEO & AI Automation Projects",
+    description:
+      "Explore our portfolio of successful projects in web design, SEO optimization, and AI automation.",
+    keywords: [
+      "portfolio", "web design projects", "SEO projects", "AI automation projects",
+      "website development", "digital marketing", "BookOne portfolio",
+    ],
+    authors: [{ name: "BookOne" }],
+    creator: "BookOne",
+    publisher: "BookOne",
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-video-preview": -1, "max-image-preview": "large", "max-snippet": -1 },
+    },
+    alternates: { canonical: "/portfolio" },
+    openGraph: {
+      title: "Portfolio | BookOne - Web Design, SEO & AI Automation Projects",
+      description: "Explore our portfolio of successful projects in web design, SEO optimization, and AI automation.",
+      type: "website",
+      url: `${baseUrl}/portfolio`,
+      siteName: "BookOne",
+      locale: "en_US",
+      images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "BookOne Portfolio" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Portfolio | BookOne",
+      description: "Explore our portfolio of successful projects.",
+      images: ["/opengraph-image.png"],
+    },
+  };
+}
+
 export default async function PortfolioPage() {
-  const caseStudies = await sanity.fetch(
-    allCaseStudiesQuery,
-    {},
-    { next: { revalidate: 60 } }
-  );
+  const caseStudies = await sanity.fetch(allCaseStudiesQuery, {}, { next: { revalidate: 60 } });
 
-  // Generate structured data for the portfolio page
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "BookOne Portfolio",
-    description:
-      "Showcasing our impactful work across various industries. Each project is a testament to our dedication to innovation and client success.",
+    description: "Showcasing our impactful work across various industries.",
     url: `${baseUrl}/portfolio`,
     mainEntity: {
       "@type": "ItemList",
-      itemListElement: caseStudies.map((caseStudy, index) => ({
+      itemListElement: caseStudies.map((cs: CaseStudy, index: number) => ({
         "@type": "ListItem",
         position: index + 1,
         item: {
           "@type": "CreativeWork",
-          name: caseStudy.title,
-          description: caseStudy.shortDescription,
-          url: `${baseUrl}/portfolio/${caseStudy.slug}`,
-          image: caseStudy.heroMedia
-            ? getImageUrl(caseStudy.heroMedia)
-            : undefined,
-          creator: {
-            "@type": "Organization",
-            name: "BookOne",
-          },
+          name: cs.title,
+          description: cs.shortDescription,
+          url: `${baseUrl}/portfolio/${typeof cs.slug === "object" ? cs.slug?.current : cs.slug}`,
+          image: cs.heroMedia ? getImageUrl(cs.heroMedia) : undefined,
+          creator: { "@type": "Organization", name: "BookOne" },
         },
       })),
     },
-    publisher: {
-      "@type": "Organization",
-      name: "BookOne",
-      logo: {
-        "@type": "ImageObject",
-        url: `${baseUrl}/logo.png`,
-      },
-    },
+    publisher: { "@type": "Organization", name: "BookOne" },
   };
 
   return (
@@ -59,171 +76,147 @@ export default async function PortfolioPage() {
       <Script
         id="portfolio-structured-data"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <section
-        id="portfolio-section"
-        className="min-h-screen bg-[#0B0B0E] py-24 px-4 sm:px-6 lg:px-8 text-slate-300 font-sans selection:bg-[#6b46c1] selection:text-white relative overflow-hidden"
-        aria-labelledby="portfolio-heading"
-      >
-        <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#6b46c1]/10 blur-[150px] rounded-full mix-blend-screen pointer-events-none -translate-y-1/2 translate-x-1/4" />
-        <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] bg-blue-500/10 blur-[150px] rounded-full mix-blend-screen pointer-events-none translate-y-1/2 -translate-x-1/4" />
-        
-        <div className="max-w-7xl mx-auto relative z-10">
-          {/* Hero Section */}
-          <div className="text-center mb-20 lg:mb-24">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1A1A24]/80 backdrop-blur-md border border-white/10 shadow-[0_0_15px_rgba(107,70,193,0.3)] text-sm font-medium text-[#A78BFA] mb-8">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A78BFA]"></span>
-              </span>
-              Our Work
-            </div>
 
-            {/* Main Heading */}
-            <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-8 tracking-tight leading-[1.1]">
-              Innovative builds powering <br className="hidden md:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A78BFA] to-purple-400">digital evolution.</span>
-            </h1>
+      <section className="bg-[#080808] min-h-screen" aria-labelledby="portfolio-heading">
 
-            <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-12 font-light">
-              Showcasing our impactful work across various industries. Each
-              project is a testament to our dedication to innovation and client
-              success.
+        {/* HERO */}
+        <div className="pt-32 pb-20 border-b border-white/[0.06]">
+          <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
+            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-4">
+              Selected Work
             </p>
-          </div>
-
-          {/* Case Studies Grid */}
-          <div className="mb-24">
-            <div
-              className="grid grid-cols-1 md:grid-cols-2 gap-8"
-              role="group"
-              aria-label="Portfolio Case Studies"
+            <h1
+              id="portfolio-heading"
+              className="font-display font-black text-white leading-none"
+              style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
             >
-              {caseStudies.map((caseStudy) => (
-                <GlowWrapper key={caseStudy._id}>
-                  <ProjectCard project={caseStudy} />
-                </GlowWrapper>
-              ))}
-            </div>
+              Innovative builds<br />
+              <span className="italic">powering growth.</span>
+            </h1>
           </div>
-
-          {/* CTA Section */}
-          <GlowWrapper
-            className="!bg-[#050508] text-white border-white/10 shadow-[0_0_30px_rgba(107,70,193,0.15)] overflow-hidden"
-            gridColor="rgba(255, 255, 255, 0.1)"
-          >
-            <div className="p-12 md:p-16 text-center relative overflow-hidden">
-              {/* Background decoration */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#6B46C1] rounded-full blur-[100px] opacity-20 -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#3B82F6] rounded-full blur-[100px] opacity-20 translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
-
-              <div className="relative z-10 max-w-3xl mx-auto">
-                <h3 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
-                  Ready to Start Your Project?
-                </h3>
-                <p className="text-lg text-slate-400 mb-10 leading-relaxed font-light">
-                  Let&apos;s discuss your vision and create something amazing together.
-                  Get in touch for a free consultation.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                  <Link
-                    href="/get-started"
-                    className="group inline-flex items-center justify-center px-8 py-4 bg-[#6b46c1] text-white font-bold rounded-full hover:bg-[#8B5CF6] hover:shadow-[0_0_25px_rgba(139,92,246,0.6)] transition-all hover:-translate-y-1"
-                  >
-                    <span>Start Your Project</span>
-                    <ArrowUpRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-
-                  <Link
-                    href="/about"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white font-bold rounded-full border border-white/20 hover:bg-white/5 hover:border-white/40 transition-all"
-                  >
-                    <span>Learn More About Us</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </GlowWrapper>
         </div>
+
+        {/* PROJECT ROWS */}
+        <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
+          {caseStudies.length > 0 ? (
+            <div>
+              {caseStudies.map((cs: CaseStudy, i: number) => {
+                const image = cs.heroMedia || cs.mainImage;
+                const description = cs.shortDescription || cs.overview;
+                const slug = (typeof cs.slug === "object" ? cs.slug?.current : cs.slug) ?? cs._id;
+
+                return (
+                  <Link
+                    key={cs._id}
+                    href={`/portfolio/${slug}`}
+                    className="group block border-t border-white/[0.06] py-10 last:border-b hover:bg-white/[0.01] transition-colors duration-300 -mx-6 px-6 sm:-mx-10 sm:px-10 lg:-mx-16 lg:px-16"
+                  >
+                    <div className="grid lg:grid-cols-[60px_1fr_1fr_auto] gap-6 lg:gap-10 items-start">
+                      {/* number */}
+                      <span className="text-xs font-mono text-white/20 group-hover:text-[#E8FF47] transition-colors duration-300 pt-1 hidden sm:block">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+
+                      {/* title + tags */}
+                      <div>
+                        <h2
+                          className="font-display font-bold text-white group-hover:text-white/80 transition-colors leading-tight mb-3"
+                          style={{ fontSize: "clamp(1.4rem, 3vw, 2.2rem)" }}
+                        >
+                          {cs.title}
+                        </h2>
+                        {cs.category && (
+                          <p className="text-[10px] tracking-[0.2em] uppercase text-white/25 font-mono">
+                            {cs.category}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* description */}
+                      {description && (
+                        <p className="text-sm text-white/35 leading-relaxed hidden lg:block max-w-sm">
+                          {description}
+                        </p>
+                      )}
+
+                      {/* thumbnail + arrow */}
+                      <div className="flex items-center gap-6">
+                        {image && (
+                          <div className="relative w-20 h-14 overflow-hidden bg-white/[0.04] shrink-0">
+                            <Image
+                              src={getImageUrl(image) ?? ""}
+                              alt={cs.title}
+                              fill
+                              className="object-cover opacity-60 group-hover:opacity-90 transition-opacity duration-500"
+                              sizes="80px"
+                            />
+                          </div>
+                        )}
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 14 14"
+                          fill="none"
+                          className="text-white/20 group-hover:text-[#E8FF47] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0"
+                        >
+                          <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          ) : (
+            /* empty state */
+            <div className="py-24 border-t border-white/[0.06]">
+              <p className="text-white/20 text-sm tracking-wide uppercase font-mono">
+                No projects yet — check back soon.
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* CTA */}
+        <div className="border-t border-white/[0.06] mt-8">
+          <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
+            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-6">
+              Start a project
+            </p>
+            <h2
+              className="font-display font-black text-white leading-none mb-10"
+              style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
+            >
+              Let&apos;s build something<br />
+              <span className="italic">great together.</span>
+            </h2>
+            <Link
+              href="/get-started"
+              className="group inline-flex items-center gap-3 text-[#E8FF47] text-sm font-semibold tracking-wide hover:text-white transition-colors duration-200"
+            >
+              Start Your Project
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
+                <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </Link>
+          </div>
+        </div>
+
       </section>
     </>
   );
 }
 
-export async function generateMetadata() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
-
-  return {
-    title: "Portfolio | BookOne - Web Design, SEO & AI Automation Projects",
-    description:
-      "Explore our portfolio of successful projects in web design, SEO optimization, and AI automation. See how we help businesses grow with innovative digital solutions.",
-    keywords: [
-      "portfolio",
-      "web design projects",
-      "SEO projects",
-      "AI automation projects",
-      "website development",
-      "digital marketing",
-      "business automation",
-      "BookOne portfolio",
-      "Nigeria digital agency",
-      "client projects",
-      "case studies",
-    ],
-    authors: [{ name: "BookOne" }],
-    creator: "BookOne",
-    publisher: "BookOne",
-    classification: "Portfolio",
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
-    },
-    alternates: {
-      canonical: "/portfolio",
-    },
-    openGraph: {
-      title: "Portfolio | BookOne - Web Design, SEO & AI Automation Projects",
-      description:
-        "Explore our portfolio of successful projects in web design, SEO optimization, and AI automation. See how we help businesses grow with innovative digital solutions.",
-      type: "website",
-      url: `${baseUrl}/portfolio`,
-      siteName: "BookOne",
-      locale: "en_US",
-      images: [
-        {
-          url: "/opengraph-image.png",
-          width: 1200,
-          height: 630,
-          alt: "BookOne Portfolio - Web Design, SEO & AI Automation Projects",
-          type: "image/png",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Portfolio | BookOne - Web Design, SEO & AI Automation Projects",
-      description:
-        "Explore our portfolio of successful projects in web design, SEO optimization, and AI automation.",
-      images: ["/opengraph-image.png"],
-      creator: "@EmmanuelOnosod1",
-      site: "@EmmanuelOnosod1",
-    },
-    other: {
-      "portfolio:category": "Web Design, SEO, AI Automation",
-      "portfolio:client_count": "30+",
-      "portfolio:project_types": "Websites, SEO Campaigns, AI Workflows",
-    },
-  };
+// Type helper
+interface CaseStudy {
+  _id: string;
+  title: string;
+  slug: { current?: string } | string | null;
+  heroMedia?: SanityImage | null;
+  mainImage?: SanityImage | null;
+  shortDescription?: string;
+  overview?: string;
+  category?: string;
 }

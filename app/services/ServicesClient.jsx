@@ -1,420 +1,245 @@
 "use client";
 
-import React from "react";
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
-import { ArrowRight, Search, Bot, PenTool, Globe, Cpu } from "lucide-react";
+import React, { useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 // ============================================================================
-// SEO & STRUCTURED DATA
+// DATA
 // ============================================================================
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   name: "BookOne",
-  image: "https://bookone.dev/logo.png", // Replace with actual logo URL
   description:
     "BookOne is a premier Web Design and AI Automation agency helping businesses scale with custom websites, SEO, and intelligent workflows.",
-  address: {
-    "@type": "PostalAddress",
-    addressCountry: "NG",
-  },
+  address: { "@type": "PostalAddress", addressCountry: "NG" },
   priceRange: "$$$",
   telephone: "+234 807 708 0903",
-  serviceArea: {
-    "@type": "Country",
-    name: "Nigeria",
-    sameAs: "Global",
-  },
   makesOffer: [
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "Web Design & Development",
-      },
-    },
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "AI Automation",
-      },
-    },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Web Design & Development" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Automation" } },
   ],
 };
 
-// ============================================================================
-// DATA CONSTANTS
-// ============================================================================
-
 const services = [
   {
-    id: "web-dev",
+    number: "01",
     title: "Web Design & Development",
     description:
-      "Custom, responsive websites built to convert visitors into loyal customers.",
-    icon: Globe,
-    features: [
-      "Next.js & React",
-      "E-commerce Stores",
-      "CMS Integration",
-      "Mobile-First UI",
-    ],
-    cta: "Build Your Site",
-    colSpan: "md:col-span-2",
+      "Custom, responsive websites built to convert visitors into loyal customers. We build on Next.js, React, and modern CMS platforms — fast, scalable, and SEO-ready out of the box.",
+    tags: ["Next.js & React", "E-commerce", "CMS Integration", "Mobile-First UI"],
   },
   {
-    id: "ai-auto",
+    number: "02",
     title: "AI Automation",
     description:
-      "Replace manual busywork with intelligent 24/7 autonomous agents.",
-    icon: Bot,
-    features: ["Chatbots", "Workflow Automation", "Data Scraping"],
-    cta: "Automate Work",
-    colSpan: "md:col-span-1",
+      "Replace manual busywork with intelligent 24/7 autonomous agents. We design and deploy AI workflows that free up your team and compound your output over time.",
+    tags: ["Chatbots", "Workflow Automation", "Data Pipelines", "LLM Integration"],
   },
   {
-    id: "seo",
-    title: "SEO Optimization",
+    number: "03",
+    title: "SEO Optimisation",
     description:
-      "Dominate search rankings and drive consistent organic traffic.",
-    icon: Search,
-    features: ["Technical Audit", "Local SEO", "Link Building"],
-    cta: "Rank Higher",
-    colSpan: "md:col-span-1",
+      "Dominate search rankings and drive consistent organic traffic. Technical audits, content strategy, and link building that compounds month over month.",
+    tags: ["Technical Audit", "Local SEO", "Link Building", "Analytics"],
   },
   {
-    id: "content",
+    number: "04",
     title: "Content Strategy",
     description:
-      "Authority-building content that speaks your brand's language.",
-    icon: PenTool,
-    features: ["Blog Writing", "Copywriting", "Email Sequences"],
-    cta: "Start Writing",
-    colSpan: "md:col-span-2",
+      "Authority-building content that speaks your brand's language and earns attention. Blog, copy, email sequences — written for humans, optimised for search.",
+    tags: ["Blog Writing", "Copywriting", "Email Sequences", "Brand Voice"],
   },
-];
-
-const stats = [
-  { value: "100+", label: "Projects Shipped" },
-  { value: "98%", label: "Client Retention" },
-  { value: "24/7", label: "System Uptime" },
-  { value: "4.8", label: "Average Rating" },
 ];
 
 const processSteps = [
-  {
-    num: "01",
-    title: "Discovery",
-    desc: "We map out your goals and technical requirements.",
-  },
-  {
-    num: "02",
-    title: "Strategy",
-    desc: "A tailored roadmap to hit your KPIs efficiently.",
-  },
-  {
-    num: "03",
-    title: "Build",
-    desc: "Agile development with regular check-ins.",
-  },
-  {
-    num: "04",
-    title: "Launch",
-    desc: "Deployment, testing, and growth optimization.",
-  },
+  { num: "01", title: "Discovery", desc: "We map your goals, audience, and technical requirements." },
+  { num: "02", title: "Strategy",  desc: "A tailored roadmap to hit your KPIs efficiently." },
+  { num: "03", title: "Build",     desc: "Agile development with regular check-ins and demos." },
+  { num: "04", title: "Launch",    desc: "Deployment, testing, and growth optimisation." },
 ];
 
 // ============================================================================
-// COMPONENTS
-// ============================================================================
-
-const GlowCard = ({ service, index }) => {
-  const Icon = service.icon;
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  // Optimized spring config for performance
-  const springX = useSpring(mouseX, { stiffness: 100, damping: 30, mass: 0.5 });
-  const springY = useSpring(mouseY, { stiffness: 100, damping: 30, mass: 0.5 });
-
-  function handleMouseMove({ currentTarget, clientX, clientY }) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
-
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ delay: index * 0.1 }}
-      className={`group relative overflow-hidden bg-[#1A1A24]/60 backdrop-blur-md border border-white/10 rounded-4xl hover:border-[#6b46c1]/50 hover:shadow-[0_0_20px_rgba(107,70,193,0.3)] transition-all duration-500 col-span-1 ${service.colSpan} will-change-transform`}
-      onMouseMove={handleMouseMove}
-    >
-      {/* 3. Grid Lines Overlay */}
-      <div
-        className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none mix-blend-overlay"
-        style={{
-          backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-        }}
-      />
-
-      {/* 4. Noise Texture */}
-      <div
-        className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none mix-blend-multiply"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Content Container */}
-      <div className="relative z-10 p-6 md:p-8 h-full flex flex-col justify-between">
-        <div>
-          <header className="flex justify-between items-start mb-6">
-            <div
-              className={`p-3 md:p-4 rounded-2xl bg-[#6b46c1]/10 border border-[#6b46c1]/20 group-hover:bg-[#6b46c1] group-hover:shadow-[0_0_15px_rgba(107,70,193,0.5)] transition-all duration-300`}
-            >
-              <Icon
-                className="w-6 h-6 md:w-8 md:h-8 text-[#A78BFA] group-hover:text-white transition-colors"
-                strokeWidth={1.5}
-              />
-            </div>
-            <ArrowRight className="w-5 h-5 md:w-6 md:h-6 text-slate-500 group-hover:text-[#A78BFA] -rotate-45 group-hover:rotate-0 transition-all duration-300" />
-          </header>
-
-          <h3 className="text-xl md:text-2xl font-bold text-white mb-3 tracking-tight group-hover:text-[#A78BFA] transition-colors">
-            {service.title}
-          </h3>
-          <p className="text-sm md:text-base text-slate-400 mb-8 leading-relaxed font-light">
-            {service.description}
-          </p>
-
-          <ul className="space-y-3 mb-8">
-            {service.features.map((feature, idx) => (
-              <li key={idx} className="flex items-center gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#A78BFA] shadow-[0_0_8px_rgba(167,139,250,0.8)]" />
-                <span className="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">
-                  {feature}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="pt-6 border-t border-white/10 group-hover:border-[#6b46c1]/30 transition-colors">
-          <a
-            href="/get-started"
-            className="flex items-center gap-2 text-[#A78BFA] font-semibold text-sm uppercase tracking-wide hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#6b46c1] focus:ring-offset-2 rounded-lg"
-            aria-label={`Get started with ${service.title}`}
-          >
-            {service.cta}
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
-      </div>
-    </motion.article>
-  );
-};
-
-// ============================================================================
-// MAIN PAGE
+// MAIN
 // ============================================================================
 
 const ServicesClient = () => {
+  const [open, setOpen] = useState(null);
+
   return (
-    <main className="bg-[#0B0B0E] min-h-screen selection:bg-[#6b46c1] selection:text-white font-sans overflow-x-hidden text-slate-300">
-      {/* Structured Data Script */}
+    <main className="bg-[#080808] min-h-screen overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* HERO SECTION */}
-      <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-6 max-w-[1400px] mx-auto relative">
-        <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#6b46c1]/10 blur-[150px] rounded-full mix-blend-screen pointer-events-none -translate-y-1/2 translate-x-1/4" />
-        <header className="max-w-4xl relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1A1A24]/80 backdrop-blur-md border border-white/10 shadow-[0_0_15px_rgba(107,70,193,0.3)] text-sm font-medium text-[#A78BFA] mb-8"
+      {/* HERO */}
+      <section className="pt-32 pb-20 border-b border-white/[0.06]">
+        <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
+          <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-4">
+            Our Services
+          </p>
+          <h1
+            className="font-display font-black text-white leading-none mb-8"
+            style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A78BFA]"></span>
-            </span>
-            Available for new projects
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-6xl md:text-8xl font-bold text-white tracking-tight leading-[1.1] md:leading-[0.95] mb-6 md:mb-10"
-          >
-            Web Design & <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A78BFA] to-purple-400">AI Automation.</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-12"
-          >
-            We don't just design websites; we build growth engines. From
-            high-performance <strong className="text-white">Next.js sites</strong> to{" "}
-            <strong className="text-white">AI agents</strong> that automate your workflow, BookOne
-            delivers digital excellence.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="grid grid-cols-2 md:flex md:flex-wrap gap-8 md:gap-12 border-t border-white/10 pt-8"
-          >
-            {stats.map((stat, i) => (
-              <div key={i}>
-                <div className="text-2xl md:text-3xl font-bold text-white">
-                  {stat.value}
-                </div>
-                <div className="text-xs md:text-sm font-medium text-slate-500 uppercase tracking-wider mt-1">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        </header>
-      </section>
-
-      {/* SERVICES BENTO GRID */}
-      <section
-        className="px-6 pb-24 md:pb-32 max-w-[1400px] mx-auto"
-        aria-label="Our Services"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
-            <GlowCard key={service.id} service={service} index={index} />
-          ))}
-
-          {/* Custom Solutions Card */}
-          <motion.article
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="md:col-span-3 bg-gradient-to-br from-[#1A1A24] to-[#0B0B0E] border border-white/10 rounded-4xl p-8 md:p-16 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-10 shadow-[0_0_50px_rgba(107,70,193,0.15)] group"
-          >
-            <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5 pointer-events-none" />
-            <div className="relative z-10 max-w-2xl text-center md:text-left">
-              <h3 className="text-2xl md:text-4xl font-bold text-white mb-4">
-                Need a custom enterprise solution?
-              </h3>
-              <p className="text-slate-400 text-base md:text-lg mb-8">
-                From complex SaaS platforms to bespoke internal tools, our
-                engineering team can build exactly what you need.
-              </p>
-              <a
-                href="/get-started"
-                className="inline-flex items-center justify-center px-8 py-4 bg-[#6b46c1] text-white font-bold rounded-xl hover:bg-[#8B5CF6] hover:shadow-[0_0_25px_rgba(139,92,246,0.6)] transition-all hover:-translate-y-1 w-full md:w-auto"
-                aria-label="Contact us for custom enterprise solutions"
-              >
-                Let's Talk Code
-              </a>
-            </div>
-
-            {/* Abstract Graphic */}
-            <div className="relative z-10 w-full md:w-1/3 aspect-square max-w-[300px] bg-[#6B46C1]/5 rounded-2xl border border-[#6B46C1]/20 flex items-center justify-center backdrop-blur-sm group-hover:bg-[#6b46c1]/10 group-hover:border-[#6b46c1]/40 transition-all duration-500">
-              <Cpu
-                className="w-16 h-16 md:w-24 md:h-24 text-[#A78BFA] opacity-90 group-hover:scale-110 transition-transform duration-500 group-hover:drop-shadow-[0_0_15px_rgba(167,139,250,0.8)]"
-                strokeWidth={1}
-              />
-            </div>
-
-            {/* Background Glow */}
-            <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[#6B46C1] rounded-full blur-[100px] md:blur-[150px] opacity-20 pointer-events-none group-hover:opacity-30 transition-opacity duration-500" />
-          </motion.article>
+            Web Design &<br />
+            <span className="italic">AI Automation.</span>
+          </h1>
+          <p className="text-base text-white/40 leading-relaxed max-w-xl">
+            We don&apos;t just design websites — we build growth engines. From high-performance Next.js sites to AI agents that automate your workflow, BookOne delivers digital excellence.
+          </p>
         </div>
       </section>
 
-      {/* PROCESS SECTION */}
-      <section className="bg-[#0B0B0E] py-24 md:py-32 border-t border-white/5 relative">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,#6B46C1_0%,transparent_50%)] opacity-10 pointer-events-none" />
-        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-          <header className="mb-16 md:mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6 tracking-tight">
-              How we work
-            </h2>
-            <p className="text-slate-400 text-base md:text-lg">
-              A simple, transparent process built for speed and results.
-            </p>
-          </header>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
-            {processSteps.map((step, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="relative pl-6 md:pl-0 border-l md:border-l-0 border-white/10 group"
+      {/* SERVICES ACCORDION */}
+      <section className="py-20 sm:py-28 border-b border-white/[0.06]" aria-label="Our Services">
+        <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
+          <div>
+            {services.map((service, i) => (
+              <div
+                key={service.number}
+                className={`border-t border-white/[0.06] ${i === services.length - 1 ? "border-b" : ""}`}
               >
-                <div className="text-5xl md:text-6xl font-bold text-white/5 mb-4 font-mono group-hover:text-[#6b46c1]/20 transition-colors duration-500">
-                  {step.num}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#A78BFA] transition-colors">
-                  {step.title}
-                </h3>
-                <p className="text-slate-400 leading-relaxed text-sm md:text-base">
-                  {step.desc}
-                </p>
+                <button
+                  onClick={() => setOpen(open === i ? null : i)}
+                  className="w-full text-left py-8 flex items-start gap-6 group"
+                  aria-expanded={open === i}
+                >
+                  <span className="text-xs font-mono text-white/20 group-hover:text-[#E8FF47] transition-colors duration-300 pt-1 shrink-0 w-8">
+                    {service.number}
+                  </span>
+                  <span
+                    className="flex-1 font-display font-bold text-white group-hover:text-white/80 transition-colors leading-tight"
+                    style={{ fontSize: "clamp(1.4rem, 3vw, 2.5rem)" }}
+                  >
+                    {service.title}
+                  </span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className={`shrink-0 mt-2 text-white/20 group-hover:text-white/60 transition-all duration-300 ${open === i ? "rotate-45 text-[#E8FF47]" : ""}`}
+                  >
+                    <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                </button>
 
-                {/* Horizontal Line for Desktop */}
-                {i < processSteps.length - 1 && (
-                  <div className="hidden md:block absolute top-8 right-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#6b46c1]/30 to-transparent -z-10 translate-x-1/2 opacity-50 transition-opacity group-hover:opacity-100 duration-500" />
-                )}
-              </motion.div>
+                <AnimatePresence initial={false}>
+                  {open === i && (
+                    <motion.div
+                      key="body"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-14 pb-10">
+                        <p className="text-sm sm:text-base text-white/40 leading-relaxed max-w-2xl mb-6">
+                          {service.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 mb-6">
+                          {service.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-3 py-1 border border-white/[0.08] text-[10px] tracking-[0.12em] uppercase text-white/30 font-mono"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <Link
+                          href="/get-started"
+                          className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#E8FF47] hover:text-white transition-colors duration-200 font-medium"
+                        >
+                          Get Started
+                          <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                            <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </Link>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA SECTION */}
-      <section className="py-24 md:py-32 px-6 bg-[#050508] border-t border-[#8B5CF6]/20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#6B46C1_0%,transparent_60%)] opacity-10 pointer-events-none" />
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <h2 className="text-4xl md:text-7xl font-bold text-white mb-6 md:mb-8 tracking-tight">
-            Ready to scale?
+      {/* PROCESS */}
+      <section className="py-20 sm:py-28 border-b border-white/[0.06]">
+        <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
+          <div className="grid lg:grid-cols-[1fr_2fr] gap-16 items-start">
+            <div className="lg:sticky lg:top-28">
+              <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-4">Process</p>
+              <h2
+                className="font-display font-black text-white leading-none"
+                style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+              >
+                How we work.
+              </h2>
+            </div>
+
+            {/* Horizontal timeline */}
+            <div className="relative">
+              {/* connecting line */}
+              <div className="hidden sm:block absolute top-4 left-0 right-0 h-px bg-white/[0.06]" />
+              <div className="grid sm:grid-cols-4 gap-8">
+                {processSteps.map((step, i) => (
+                  <motion.div
+                    key={step.num}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.09 }}
+                    className="relative"
+                  >
+                    <div className="w-2 h-2 rounded-full bg-white/20 mb-6 relative z-10 sm:block hidden" />
+                    <p className="text-xs font-mono text-white/20 mb-3">{step.num}</p>
+                    <h3 className="font-display font-bold text-white text-lg mb-2">{step.title}</h3>
+                    <p className="text-sm text-white/35 leading-relaxed">{step.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 sm:py-32">
+        <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
+          <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-6">Ready to scale?</p>
+          <h2
+            className="font-display font-black text-white leading-none mb-10"
+            style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
+          >
+            Stop losing leads to<br />
+            <span className="italic">outdated tech.</span>
           </h2>
-          <p className="text-lg md:text-xl text-slate-400 mb-10 md:mb-12 max-w-2xl mx-auto">
-            Stop losing leads to outdated tech. Join 100+ businesses growing
-            with BookOne today.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row gap-6 items-start">
             <a
               href="https://calendar.notion.so/meet/officialbookone/call"
               target="_blank"
-              className="w-full sm:w-auto px-10 py-5 bg-[#6b46c1] text-white font-bold text-lg rounded-full hover:bg-[#8B5CF6] hover:shadow-[0_0_25px_rgba(139,92,246,0.6)] transition-all hover:-translate-y-1"
-              aria-label="Book a strategy call to discuss your project"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 text-[#E8FF47] text-sm font-semibold tracking-wide hover:text-white transition-colors duration-200"
             >
-              Book Strategy Call
+              Book a Strategy Call
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
+                <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </a>
-            <a
+            <Link
               href="/portfolio"
-              className="w-full sm:w-auto px-10 py-5 bg-transparent text-white font-bold text-lg rounded-full border border-white/20 hover:bg-white/5 hover:border-white/40 transition-all"
-              aria-label="View our portfolio of recent work"
+              className="inline-flex items-center gap-3 text-white/40 text-sm font-semibold tracking-wide hover:text-white transition-colors duration-200"
             >
               View Our Work
-            </a>
+            </Link>
           </div>
         </div>
       </section>

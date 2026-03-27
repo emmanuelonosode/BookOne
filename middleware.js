@@ -12,33 +12,26 @@ export function middleware(request) {
     "Permissions-Policy",
     "camera=(), microphone=(), geolocation=()"
   );
+  response.headers.set(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://cdn.sanity.io https://images.unsplash.com https://randomuser.me https://placehold.co; connect-src 'self' https://cdn.sanity.io https://*.sanity.io https://www.google-analytics.com https://sheetdb.io; frame-src https://www.loom.com https://www.youtube.com https://player.vimeo.com; frame-ancestors 'none';"
+  );
 
   // Performance headers
   response.headers.set("X-DNS-Prefetch-Control", "on");
 
-  // SEO headers
-  // By default, mark HTML page responses as indexable. For static assets
-  // (images, favicon, manifest, etc.) and API responses, mark them as noindex.
+  // X-Robots-Tag: only set on HTML pages (not on assets)
   const pathname = request.nextUrl.pathname || "";
-  const isStaticAsset =
-    pathname.includes(".") &&
-    /\.(js|css|png|jpg|jpeg|gif|svg|ico|webmanifest|json|avif|webp|woff2?|map)$/.test(
-      pathname
-    );
-  const isApi = pathname.startsWith("/api/");
+  const isAsset = /\.(js|css|png|jpg|jpeg|gif|svg|ico|webmanifest|avif|webp|woff2?|map|txt|xml)$/.test(pathname);
 
-  if (isStaticAsset || isApi) {
-    // Prevent indexing of binary/static assets and API endpoints
-    response.headers.set("X-Robots-Tag", "noindex, nofollow");
-  } else {
-    response.headers.set("X-Robots-Tag", "index, follow");
+  if (!isAsset) {
+    response.headers.set("X-Robots-Tag", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
   }
 
-  // Cache control for static assets
+  // Cache control for _next and static directory assets
   if (
     request.nextUrl.pathname.startsWith("/_next/") ||
-    request.nextUrl.pathname.startsWith("/static/") ||
-    isStaticAsset
+    request.nextUrl.pathname.startsWith("/static/")
   ) {
     response.headers.set(
       "Cache-Control",
@@ -46,29 +39,12 @@ export function middleware(request) {
     );
   }
 
-  // Cache control for API routes
-  if (request.nextUrl.pathname.startsWith("/api/")) {
-    response.headers.set(
-      "Cache-Control",
-      "no-cache, no-store, must-revalidate"
-    );
-  }
-
   return response;
 }
 
-// Specify which paths to apply this to:
+// Match all paths except API routes, static files, and special files
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - robots.txt (robots file)
-     * - sitemap.xml (sitemap file)
-     */
     "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).*)",
   ],
 };

@@ -2,6 +2,7 @@ import ClientCaseStudy from "./ClientCaseStudy";
 import { sanity, getImageUrl, getOGImageUrl } from "@/lib/sanity";
 import type { SanityImage, SeoFields } from "@/lib/types";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 
 export const revalidate = 60;
 
@@ -212,5 +213,37 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     notFound();
   }
 
-  return <ClientCaseStudy caseStudy={caseStudy} />;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
+  const heroImage = data?.heroMedia ? getOGImageUrl(data.heroMedia) : undefined;
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: data?.title,
+    description: data?.shortDescription ?? "",
+    url: `${baseUrl}/portfolio/${slug}`,
+    creator: { "@type": "Organization", name: "BookOne", url: baseUrl },
+    ...(heroImage ? { image: heroImage } : {}),
+    ...(data?.publishedAt ? { datePublished: data.publishedAt } : {}),
+    ...(data?.client ? { author: { "@type": "Organization", name: data.client } } : {}),
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+        { "@type": "ListItem", position: 2, name: "Portfolio", item: `${baseUrl}/portfolio` },
+        { "@type": "ListItem", position: 3, name: data?.title, item: `${baseUrl}/portfolio/${slug}` },
+      ],
+    },
+  };
+
+  return (
+    <>
+      <Script
+        id="portfolio-case-study-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <ClientCaseStudy caseStudy={caseStudy} />
+    </>
+  );
 }
