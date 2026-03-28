@@ -52,11 +52,11 @@ export const metadata = {
     process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
   ),
   title: {
-    default: "BookOne — Web Design, SEO & AI Automation Agency",
-    template: "%s | BookOne",
+    default: "Bookone Studio — Web Design, SEO & AI Automation Agency",
+    template: "%s | Bookone Studio",
   },
   description:
-    "BookOne is a digital agency specializing in web design, SEO optimization, and AI automation to help businesses grow online.",
+    "Bookone Studio is a digital agency specializing in web design, SEO optimization, and AI automation to help businesses grow online.",
   robots: {
     index: true,
     follow: true,

@@ -11,7 +11,7 @@ const config: ClientConfig = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID as string,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET as string,
   apiVersion: "2023-01-01",
-  useCdn: process.env.NODE_ENV === "production",
+  useCdn: false, // Disabled so on-demand revalidation (webhook) always fetches fresh data
   stega: false,
   token: process.env.SANITY_API_TOKEN,
   perspective: "published" as ClientPerspective,

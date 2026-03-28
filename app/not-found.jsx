@@ -5,13 +5,13 @@ import Link from "next/link";
 export const revalidate = 3600; // Revalidate every hour
 
 export const metadata = {
-  title: "404 - Page Not Found | BookOne",
+  title: "404 - Page Not Found | Bookone Studio",
   description:
-    "The page you're looking for doesn't exist. Navigate back to BookOne's home page or explore our services and blog.",
+    "The page you're looking for doesn't exist. Navigate back to Bookone Studio's home page or explore our services and blog.",
   keywords: [
     "404 error",
     "page not found",
-    "BookOne",
+    "Bookone Studio",
     "web design services",
     "SEO services",
   ],

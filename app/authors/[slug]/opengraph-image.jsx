@@ -67,7 +67,7 @@ export default async function GET(props) {
         >
           <img
             src={`${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}/logo.svg`}
-            alt="BookOne Logo"
+            alt="Bookone Studio Logo"
             width="40"
             height="40"
             style={{ marginRight: 10 }}

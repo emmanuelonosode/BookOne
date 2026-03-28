@@ -6,12 +6,12 @@ import Link from "next/link";
 export async function generateMetadata() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
   return {
-    title: "Authors | BookOne",
+    title: "Authors | Bookone Studio",
     description:
-      "Meet the talented authors and experts behind BookOne's content.",
+      "Meet the talented authors and experts behind Bookone Studio's content.",
     keywords: [
       "authors",
-      "BookOne team",
+      "Bookone Studio team",
       "content creators",
       "experts",
       "writers",
@@ -20,26 +20,26 @@ export async function generateMetadata() {
       canonical: "/authors",
     },
     openGraph: {
-      title: "Authors | BookOne",
+      title: "Authors | Bookone Studio",
       description:
-        "Meet the talented authors and experts behind BookOne's content.",
+        "Meet the talented authors and experts behind Bookone Studio's content.",
       url: `${baseUrl}/authors`,
-      siteName: "BookOne",
+      siteName: "Bookone Studio",
       images: [
         {
           url: "/opengraph-image.png",
           width: 1200,
           height: 630,
-          alt: "BookOne Authors",
+          alt: "Bookone Studio Authors",
           type: "image/png",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Authors | BookOne",
+      title: "Authors | Bookone Studio",
       description:
-        "Meet the talented authors and experts behind BookOne's content.",
+        "Meet the talented authors and experts behind Bookone Studio's content.",
       images: ["/opengraph-image.png"],
       creator: "@EmmanuelOnosod1",
       site: "@EmmanuelOnosod1",
@@ -94,7 +94,7 @@ export default async function AuthorsPage() {
               Our Authors
             </h1>
             <p className="text-sm text-white/40 leading-relaxed max-w-sm">
-              The writers and strategists behind BookOne&apos;s content — each bringing deep expertise in web, AI, and growth.
+              The writers and strategists behind Bookone Studio&apos;s content — each bringing deep expertise in web, AI, and growth.
             </p>
           </div>
         </div>

@@ -10,7 +10,7 @@ import ForWhoSection from "./component/sections/ForWho.jsx";
 import Contact from "./component/sections/Contact.jsx";
 
 export const metadata = {
-  title: "BookOne | Web Design & AI Automation Agency",
+  title: "Bookone Studio | Web Design & AI Automation Agency",
   description:
     "Expert Web Designer & AI Automation Agency. We build SEO-packed websites and help businesses integrate intelligent AI systems to scale operations and dominate search.",
   keywords: [
@@ -20,22 +20,22 @@ export const metadata = {
     "premium web design",
     "business automation agency",
   ],
-  authors: [{ name: "BookOne", url: "https://bookone.dev" }],
-  creator: "BookOne",
-  publisher: "BookOne",
+  authors: [{ name: "Bookone Studio", url: "https://bookone.dev" }],
+  creator: "Bookone Studio",
+  publisher: "Bookone Studio",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "BookOne | Web Design & AI Automation Agency",
+    title: "Bookone Studio | Web Design & AI Automation Agency",
     description:
       "Expert Web Designer & AI Automation Agency. We build SEO-packed websites and help businesses integrate intelligent AI systems.",
     url: process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev",
-    siteName: "BookOne",
+    siteName: "Bookone Studio",
     images: [
       {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "BookOne - Web Design & AI Automation",
+        alt: "Bookone Studio - Web Design & AI Automation",
       },
     ],
     locale: "en_US",
@@ -43,7 +43,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BookOne | Web Design & AI Automation Agency",
+    title: "Bookone Studio | Web Design & AI Automation Agency",
     description:
       "Expert Web Designer & AI Automation Agency. We build SEO-packed websites and help businesses integrate intelligent AI systems.",
     images: ["/opengraph-image.png"],
@@ -55,7 +55,7 @@ export default function HomePage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: "BookOne",
+    name: "Bookone Studio",
     image: `${BASE_URL}/opengraph-image.png`,
     "@id": BASE_URL,
     url: BASE_URL,

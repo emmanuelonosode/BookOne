@@ -11,9 +11,9 @@ import { motion, AnimatePresence } from "framer-motion";
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  name: "BookOne",
+  name: "Bookone Studio",
   description:
-    "BookOne is a premier Web Design and AI Automation agency helping businesses scale with custom websites, SEO, and intelligent workflows.",
+    "Bookone Studio is a premier Web Design and AI Automation agency helping businesses scale with custom websites, SEO, and intelligent workflows.",
   address: { "@type": "PostalAddress", addressCountry: "NG" },
   priceRange: "$$$",
   telephone: "+234 807 708 0903",
@@ -89,7 +89,7 @@ const ServicesClient = () => {
             <span className="italic">AI Automation.</span>
           </h1>
           <p className="text-base text-white/40 leading-relaxed max-w-xl">
-            We don&apos;t just design websites — we build growth engines. From high-performance Next.js sites to AI agents that automate your workflow, BookOne delivers digital excellence.
+            We don&apos;t just design websites — we build growth engines. From high-performance Next.js sites to AI agents that automate your workflow, Bookone Studio delivers digital excellence.
           </p>
         </div>
       </section>

@@ -32,18 +32,18 @@ export async function generateMetadata({ params }) {
   const authorImageUrl = author.image ? getImageUrl(author.image) : undefined;
 
   return {
-    title: `${author.name} | Author at BookOne`,
-    description: `Read articles and insights by ${author.name}, expert author at BookOne. Discover professional content on web design, SEO, and AI automation.`,
+    title: `${author.name} | Author at Bookone Studio`,
+    description: `Read articles and insights by ${author.name}, expert author at Bookone Studio. Discover professional content on web design, SEO, and AI automation.`,
     keywords: [
       author.name,
-      "BookOne author",
+      "Bookone Studio author",
       "web design expert",
       "SEO specialist",
       "AI automation expert",
     ].join(", "),
     authors: [{ name: author.name }],
     creator: author.name,
-    publisher: "BookOne",
+    publisher: "Bookone Studio",
     robots: {
       index: true,
       follow: true,
@@ -59,20 +59,20 @@ export async function generateMetadata({ params }) {
       canonical: `/authors/${slug}`,
     },
     openGraph: {
-      title: `${author.name} | Author at BookOne`,
-      description: `Read articles and insights by ${author.name}, expert author at BookOne.`,
+      title: `${author.name} | Author at Bookone Studio`,
+      description: `Read articles and insights by ${author.name}, expert author at Bookone Studio.`,
       type: "profile",
       url: `${baseUrl}/authors/${slug}`,
-      siteName: "BookOne",
+      siteName: "Bookone Studio",
       locale: "en_US",
       images: authorImageUrl
-        ? [{ url: authorImageUrl, width: 1200, height: 630, alt: `${author.name} - Author at BookOne` }]
-        : [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: `${author.name} - Author at BookOne` }],
+        ? [{ url: authorImageUrl, width: 1200, height: 630, alt: `${author.name} - Author at Bookone Studio` }]
+        : [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: `${author.name} - Author at Bookone Studio` }],
     },
     twitter: {
       card: authorImageUrl ? "summary_large_image" : "summary",
-      title: `${author.name} | Author at BookOne`,
-      description: `Read articles and insights by ${author.name}, expert author at BookOne.`,
+      title: `${author.name} | Author at Bookone Studio`,
+      description: `Read articles and insights by ${author.name}, expert author at Bookone Studio.`,
       images: authorImageUrl ? [authorImageUrl] : ["/opengraph-image.png"],
     },
   };

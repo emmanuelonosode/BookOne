@@ -70,7 +70,7 @@ export default async function FeaturedBlogs() {
             )}
             <div className="p-8">
               <p className="text-[10px] tracking-[0.2em] text-white/30 uppercase mb-4">
-                {featured.author?.name ?? "BookOne"} ·{" "}
+                {featured.author?.name ?? "Bookone Studio"} ·{" "}
                 {featured._createdAt
                   ? new Date(featured._createdAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })
                   : ""}

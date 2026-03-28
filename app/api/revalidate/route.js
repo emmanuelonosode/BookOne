@@ -50,10 +50,10 @@ export async function POST(request) {
 
       case "caseStudy":
         // Portfolio list page
-        revalidatePath("/portfolio", "page");
+        revalidatePath("/portfolio", "layout");
         // Individual case study
         if (slug?.current) {
-          revalidatePath(`/portfolio/${slug.current}`, "page");
+          revalidatePath(`/portfolio/${slug.current}`, "layout");
         }
         break;
 

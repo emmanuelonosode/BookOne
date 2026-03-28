@@ -148,7 +148,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
   const metaTitle = data.seo?.metaTitle || data.title;
   const metaDescription =
-    data.seo?.metaDescription || data.shortDescription || "BookOne case study";
+    data.seo?.metaDescription || data.shortDescription || "Bookone Studio case study";
   const canonicalUrl = data.seo?.canonicalUrl || `${baseUrl}/portfolio/${slug}`;
   const ogSource = data.seo?.ogImage || data.heroMedia;
   const ogUrl = ogSource ? getOGImageUrl(ogSource) : undefined;
@@ -178,7 +178,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: metaTitle,
       description: metaDescription,
       url: `${baseUrl}/portfolio/${slug}`,
-      siteName: "BookOne",
+      siteName: "Bookone Studio",
       type: "article",
       images: absoluteOgUrl
         ? [
@@ -222,7 +222,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     name: data?.title,
     description: data?.shortDescription ?? "",
     url: `${baseUrl}/portfolio/${slug}`,
-    creator: { "@type": "Organization", name: "BookOne", url: baseUrl },
+    creator: { "@type": "Organization", name: "Bookone Studio", url: baseUrl },
     ...(heroImage ? { image: heroImage } : {}),
     ...(data?.publishedAt ? { datePublished: data.publishedAt } : {}),
     ...(data?.client ? { author: { "@type": "Organization", name: data.client } } : {}),

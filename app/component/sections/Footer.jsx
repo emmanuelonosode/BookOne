@@ -40,7 +40,7 @@ export default function Footer() {
             href="/"
             className="font-display font-black text-white text-3xl sm:text-4xl lg:text-5xl tracking-tight hover:text-[#E8FF47] transition-colors duration-300 leading-none"
           >
-            BOOKONE
+            BOOKONE STUDIO
           </Link>
           <p className="text-xs text-white/30 max-w-xs leading-relaxed">
             Web design, AI automation & SEO for ambitious businesses.<br />
@@ -72,7 +72,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <p className="text-xs text-white/25">
-            © {year} BookOne. All rights reserved.
+            © {year} Bookone Studio. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             {SOCIALS.map(({ label, href }) => (

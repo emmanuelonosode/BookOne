@@ -2,7 +2,7 @@ export const OrganizationSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "BookOne",
+    name: "Bookone Studio",
     url: "https://bookone.dev",
     logo: "https://bookone.dev/logo.png",
     description:
@@ -81,11 +81,11 @@ export const PortfolioProjectSchema = ({ project }) => {
     url: `https://bookone.dev/portfolio/${project.slug}`,
     author: {
       "@type": "Organization",
-      name: "BookOne",
+      name: "Bookone Studio",
     },
     creator: {
       "@type": "Organization",
-      name: "BookOne",
+      name: "Bookone Studio",
     },
     dateCreated: new Date().toISOString(),
     genre: project.category,
@@ -148,14 +148,14 @@ export const PortfolioPageSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "BookOne Portfolio",
+    name: "Bookone Studio Portfolio",
     description:
       "Explore our portfolio of successful projects in web design, SEO & marketing, and AI automation",
     url: "https://bookone.dev/portfolio",
     mainEntity: {
       "@type": "ItemList",
       name: "Portfolio Projects",
-      description: "Collection of professional projects by BookOne",
+      description: "Collection of professional projects by Bookone Studio",
       numberOfItems: 6,
       itemListElement: [
         {

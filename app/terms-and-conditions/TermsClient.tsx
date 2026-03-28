@@ -88,14 +88,14 @@ export default function TermsClient() {
         {/* 00 — Overview */}
         <Section number="00" title="Overview">
           <Body>
-            Welcome to <strong className="text-white/80 font-semibold">BookOne</strong>. These Terms and Conditions govern your use of our website at <strong className="text-white/75">bookone.dev</strong> and your engagement with our services. By accessing our website or engaging BookOne, you agree to comply with these Terms.
+            Welcome to <strong className="text-white/80 font-semibold">Bookone Studio</strong>. These Terms and Conditions govern your use of our website at <strong className="text-white/75">bookone.dev</strong> and your engagement with our services. By accessing our website or engaging Bookone Studio, you agree to comply with these Terms.
           </Body>
         </Section>
 
         {/* 01 — Definitions */}
         <Section number="01" title="Definitions">
           <LabelList items={[
-            ['"Agency", "We", "Us", "Our"', "BookOne, a digital agency based in Lagos, Nigeria."],
+            ['"Agency", "We", "Us", "Our"', "Bookone Studio, a digital agency based in Lagos, Nigeria."],
             ['"Client", "You"', "The entity or individual engaging our services."],
             ['"Services"', "Web Design, Development, SEO, AI Automation, Content Writing, and related digital solutions."],
             ['"Deliverables"', "Specific work product created for the Client — website code, design files, or automation scripts."],
@@ -104,7 +104,7 @@ export default function TermsClient() {
 
         {/* 02 — Scope of Services */}
         <Section number="02" title="Scope of Services">
-          <Body>BookOne provides professional digital services including, but not limited to:</Body>
+          <Body>Bookone Studio provides professional digital services including, but not limited to:</Body>
           <LabelList items={[
             ["Web Development", "Custom websites, e-commerce stores, and web applications using React and Next.js."],
             ["SEO Optimization", "Technical SEO, on-page optimization, site speed improvements, and content strategy."],
@@ -133,10 +133,10 @@ export default function TermsClient() {
             <strong className="text-white/80 font-semibold">Client Ownership:</strong> Upon full payment, the Client receives full ownership of the final Deliverables (the specific website design and content).
           </Body>
           <Body>
-            <strong className="text-white/80 font-semibold">Agency Rights:</strong> BookOne retains ownership of background technology, frameworks, pre-existing code libraries, and tools used to create the Deliverables; and draft concepts not selected by the Client.
+            <strong className="text-white/80 font-semibold">Agency Rights:</strong> Bookone Studio retains ownership of background technology, frameworks, pre-existing code libraries, and tools used to create the Deliverables; and draft concepts not selected by the Client.
           </Body>
           <Body>
-            You grant BookOne a non-exclusive licence to display the project in our portfolio and marketing materials.
+            You grant Bookone Studio a non-exclusive licence to display the project in our portfolio and marketing materials.
           </Body>
         </Section>
 
@@ -175,10 +175,10 @@ export default function TermsClient() {
         {/* 08 — Limitation of Liability */}
         <Section number="08" title="Limitation of Liability">
           <Body>
-            To the fullest extent permitted by applicable law, BookOne shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or goodwill.
+            To the fullest extent permitted by applicable law, Bookone Studio shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or goodwill.
           </Body>
           <Body>
-            Our total liability for any claim shall not exceed the total amount paid by you to BookOne for the specific service giving rise to the claim during the six (6) months prior to the claim.
+            Our total liability for any claim shall not exceed the total amount paid by you to Bookone Studio for the specific service giving rise to the claim during the six (6) months prior to the claim.
           </Body>
         </Section>
 
@@ -186,8 +186,8 @@ export default function TermsClient() {
         <Section number="09" title="Termination">
           <Body>Either party may terminate a project with written notice. In the event of termination:</Body>
           <List items={[
-            "The Client shall pay BookOne for all work completed and expenses incurred up to the date of termination.",
-            "If the Client terminates without cause, any non-refundable deposit remains with BookOne.",
+            "The Client shall pay Bookone Studio for all work completed and expenses incurred up to the date of termination.",
+            "If the Client terminates without cause, any non-refundable deposit remains with Bookone Studio.",
           ]} />
         </Section>
 

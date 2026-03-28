@@ -38,7 +38,7 @@ export default function CookiesClient() {
               <h2 className="font-display font-bold text-white leading-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}>Overview</h2>
             </div>
             <p className="text-base text-white/55 leading-relaxed">
-              BookOne uses cookies and similar tracking technologies on{" "}
+              Bookone Studio uses cookies and similar tracking technologies on{" "}
               <strong className="text-white/75 font-semibold">bookone.dev</strong> to improve your browsing experience, deliver personalised content, analyse site traffic, and provide relevant advertising. By using our website, you agree to the use of cookies in accordance with this policy.
             </p>
           </div>

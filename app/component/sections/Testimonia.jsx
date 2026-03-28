@@ -79,7 +79,7 @@ const PLACEHOLDERS = [
     name: "Sarah Okonkwo",
     position: "Founder, StyleHouse Lagos",
     tag: "Web Design",
-    desc: "BookOne rebuilt our entire online store in three weeks. Revenue from organic search doubled in the first quarter after launch. The attention to detail is unlike anything I've seen from an agency.",
+    desc: "Bookone Studio rebuilt our entire online store in three weeks. Revenue from organic search doubled in the first quarter after launch. The attention to detail is unlike anything I've seen from an agency.",
   },
   {
     name: "Daniel Adeyemi",
@@ -97,6 +97,6 @@ const PLACEHOLDERS = [
     name: "Tunde Fasanya",
     position: "Co-Founder, BuildRight",
     tag: "Web Design",
-    desc: "We've worked with three agencies before BookOne. None of them communicated like this team does. Fast, clear, and the work actually looks premium.",
+    desc: "We've worked with three agencies before Bookone Studio. None of them communicated like this team does. Fast, clear, and the work actually looks premium.",
   },
 ];

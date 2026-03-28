@@ -8,16 +8,16 @@ import Image from "next/image";
 export async function generateMetadata() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
   return {
-    title: "Portfolio | BookOne - Web Design, SEO & AI Automation Projects",
+    title: "Portfolio | Bookone Studio - Web Design, SEO & AI Automation Projects",
     description:
       "Explore our portfolio of successful projects in web design, SEO optimization, and AI automation.",
     keywords: [
       "portfolio", "web design projects", "SEO projects", "AI automation projects",
-      "website development", "digital marketing", "BookOne portfolio",
+      "website development", "digital marketing", "Bookone Studio portfolio",
     ],
-    authors: [{ name: "BookOne" }],
-    creator: "BookOne",
-    publisher: "BookOne",
+    authors: [{ name: "Bookone Studio" }],
+    creator: "Bookone Studio",
+    publisher: "Bookone Studio",
     robots: {
       index: true,
       follow: true,
@@ -25,17 +25,17 @@ export async function generateMetadata() {
     },
     alternates: { canonical: "/portfolio" },
     openGraph: {
-      title: "Portfolio | BookOne - Web Design, SEO & AI Automation Projects",
+      title: "Portfolio | Bookone Studio - Web Design, SEO & AI Automation Projects",
       description: "Explore our portfolio of successful projects in web design, SEO optimization, and AI automation.",
       type: "website",
       url: `${baseUrl}/portfolio`,
-      siteName: "BookOne",
+      siteName: "Bookone Studio",
       locale: "en_US",
-      images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "BookOne Portfolio" }],
+      images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "Bookone Studio Portfolio" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Portfolio | BookOne",
+      title: "Portfolio | Bookone Studio",
       description: "Explore our portfolio of successful projects.",
       images: ["/opengraph-image.png"],
     },
@@ -50,7 +50,7 @@ export default async function PortfolioPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "BookOne Portfolio",
+    name: "Bookone Studio Portfolio",
     description: "Showcasing our impactful work across various industries.",
     url: `${baseUrl}/portfolio`,
     mainEntity: {
@@ -64,11 +64,11 @@ export default async function PortfolioPage() {
           description: cs.shortDescription,
           url: `${baseUrl}/portfolio/${typeof cs.slug === "object" ? cs.slug?.current : cs.slug}`,
           image: cs.heroMedia ? getImageUrl(cs.heroMedia) : undefined,
-          creator: { "@type": "Organization", name: "BookOne" },
+          creator: { "@type": "Organization", name: "Bookone Studio" },
         },
       })),
     },
-    publisher: { "@type": "Organization", name: "BookOne" },
+    publisher: { "@type": "Organization", name: "Bookone Studio" },
   };
 
   return (

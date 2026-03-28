@@ -38,7 +38,7 @@ export default function PrivacyClient() {
               <h2 className="font-display font-bold text-white leading-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}>Overview</h2>
             </div>
             <p className="text-base text-white/55 leading-relaxed">
-              At <strong className="text-white/80 font-semibold">BookOne</strong>, we respect your privacy and are committed to protecting your personal data. This policy explains how we collect, use, and share your information when you use our website or services.
+              At <strong className="text-white/80 font-semibold">Bookone Studio</strong>, we respect your privacy and are committed to protecting your personal data. This policy explains how we collect, use, and share your information when you use our website or services.
             </p>
           </div>
         </section>
@@ -107,7 +107,7 @@ export default function PrivacyClient() {
                 {[
                   ["Service Providers", "Third-party companies who process data on our behalf — hosting providers, analytics tools, payment processors."],
                   ["Legal Requirements", "If required by law or in response to valid requests by public authorities (e.g. a court or government agency)."],
-                  ["Business Transfers", "If BookOne is involved in a merger, acquisition, or asset sale, your data may be transferred."],
+                  ["Business Transfers", "If Bookone Studio is involved in a merger, acquisition, or asset sale, your data may be transferred."],
                 ].map(([label, text]) => (
                   <div key={label} className="flex items-start gap-3">
                     <Bullet />

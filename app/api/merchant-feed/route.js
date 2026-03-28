@@ -58,7 +58,7 @@ export async function GET() {
       const productUrl = `${baseUrl}/websites/${slug}`;
       const imageUrl = getSanityImageUrl(listing.mainImage);
       const description =
-        listing.shortDescription || `${listing.title} — available on BookOne.`;
+        listing.shortDescription || `${listing.title} — available on Bookone Studio.`;
       const availability =
         listing.availability === "in stock" ? "in stock" : "out of stock";
 
@@ -71,7 +71,7 @@ export async function GET() {
       <g:price>${listing.price} USD</g:price>
       <g:availability>${availability}</g:availability>
       <g:condition>new</g:condition>
-      <g:brand>BookOne</g:brand>
+      <g:brand>Bookone Studio</g:brand>
       ${listing.category ? `<g:product_type>${escapeXml(listing.category)}</g:product_type>` : ""}
     </item>`;
     })
@@ -80,9 +80,9 @@ export async function GET() {
   const feed = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>
-    <title>BookOne — Websites for Sale</title>
+    <title>Bookone Studio — Websites for Sale</title>
     <link>${baseUrl}/websites</link>
-    <description>Pre-built and done-for-you websites available for purchase from BookOne.</description>
+    <description>Pre-built and done-for-you websites available for purchase from Bookone Studio.</description>
 ${items}
   </channel>
 </rss>`;

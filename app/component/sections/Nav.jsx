@@ -44,10 +44,10 @@ export default function Nav() {
           {/* Logo wordmark */}
           <Link
             href="/"
-            aria-label="BookOne Home"
+            aria-label="Bookone Studio Home"
             className="text-white font-display font-black text-xl tracking-tight hover:text-[#E8FF47] transition-colors duration-300"
           >
-            BOOKONE
+            BOOKONE STUDIO
           </Link>
 
           {/* Desktop nav links */}
@@ -125,7 +125,7 @@ export default function Nav() {
             >
               {/* Close */}
               <div className="flex items-center justify-between px-8 h-16 lg:h-20 border-b border-white/[0.06]">
-                <span className="font-display font-black text-white text-lg">BOOKONE</span>
+                <span className="font-display font-black text-white text-lg">BOOKONE STUDIO</span>
                 <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="text-white/40 hover:text-white transition-colors">
                   <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
                     <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>

@@ -144,7 +144,7 @@ export default function GetStartedClient() {
             {/* Testimonial */}
             <blockquote className="mt-16 border-l-2 border-[#E8FF47] pl-6">
               <p className="font-display italic text-white/60 text-base leading-snug mb-3">
-                &quot;BookOne transformed our workflow. Their AI solutions saved us 20+ hours a week.&quot;
+                &quot;Bookone Studio transformed our workflow. Their AI solutions saved us 20+ hours a week.&quot;
               </p>
               <footer className="text-[10px] tracking-[0.15em] uppercase text-white/25 font-mono">
                 John Doe — CEO, TechStart

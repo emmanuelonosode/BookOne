@@ -100,7 +100,7 @@ async function sendConfirmationEmail(email) {
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td>
-                <span style="font-family:Georgia,serif;font-weight:900;font-size:22px;color:#ffffff;letter-spacing:0.1em;">BOOKONE</span>
+                <span style="font-family:Georgia,serif;font-weight:900;font-size:22px;color:#ffffff;letter-spacing:0.1em;">BOOKONE STUDIO</span>
               </td>
               <td align="right" valign="middle">
                 <span style="display:inline-block;width:8px;height:8px;background-color:#E8FF47;border-radius:50%;"></span>
@@ -115,7 +115,7 @@ async function sendConfirmationEmail(email) {
         <td style="padding:40px 36px 0;">
           <p style="font-family:Georgia,serif;font-size:26px;font-weight:700;color:#ffffff;margin:0 0 16px;">You're in.</p>
           <p style="font-family:Georgia,serif;font-size:16px;line-height:1.75;color:#888;margin:0 0 12px;">
-            Thanks for subscribing to the BookOne newsletter. You'll be the first to receive our latest thinking on web design, AI automation, and digital strategy — once a week, no spam.
+            Thanks for subscribing to the Bookone Studio newsletter. You'll be the first to receive our latest thinking on web design, AI automation, and digital strategy — once a week, no spam.
           </p>
           <p style="font-family:Georgia,serif;font-size:16px;line-height:1.75;color:#888;margin:0;">
             In the meantime, explore what we've been building.
@@ -177,7 +177,7 @@ async function sendConfirmationEmail(email) {
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td>
-                <p style="font-family:monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:#444;margin:0 0 6px;">BookOne Digital Agency</p>
+                <p style="font-family:monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:#444;margin:0 0 6px;">Bookone Studio Digital Agency</p>
                 <p style="font-family:monospace;font-size:9px;letter-spacing:0.1em;color:#333;margin:0 0 4px;">Allen Avenue, Lagos, Nigeria</p>
                 <p style="font-family:monospace;font-size:9px;letter-spacing:0.1em;margin:0;">
                   <a href="mailto:hello@bookone.dev" style="color:#444;text-decoration:none;">hello@bookone.dev</a>
@@ -205,9 +205,9 @@ async function sendConfirmationEmail(email) {
 </html>`;
 
     const emailPromise = transporter.sendMail({
-      from: `"BookOne Newsletter" <${process.env.GMAIL_USER}>`,
+      from: `"Bookone Studio Newsletter" <${process.env.GMAIL_USER}>`,
       to: email,
-      subject: "You're subscribed — BookOne",
+      subject: "You're subscribed — Bookone Studio",
       html,
     });
 

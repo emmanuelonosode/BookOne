@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(grep -r \"Bookone Studio\\\\|BOOKONE STUDIO\" app components --include=*.jsx --include=*.tsx --include=*.js --include=*.ts -l)",
+      "Bash(grep -n \"screenshots\" app/portfolio/[slug]/page.tsx)",
+      "Bash(grep -n \"images\\\\|screenshots\\\\|src\\\\|alt\" app/portfolio/[slug]/ClientCaseStudy.tsx)"
     ]
   }
 }

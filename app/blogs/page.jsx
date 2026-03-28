@@ -10,13 +10,13 @@ export const revalidate = 60;
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
 
 export const metadata = {
-  title: "Blog | Web Design, SEO & AI Automation Insights — BookOne",
+  title: "Blog | Web Design, SEO & AI Automation Insights — Bookone Studio",
   description:
-    "Expert insights on web design, SEO strategies, AI automation, and digital marketing. Stay ahead with tips and trends from the BookOne team.",
+    "Expert insights on web design, SEO strategies, AI automation, and digital marketing. Stay ahead with tips and trends from the Bookone Studio team.",
   keywords: [
     "web design blog", "SEO tips", "AI automation insights",
     "digital marketing blog", "web development tips", "business automation",
-    "digital transformation", "BookOne blog", "Nigeria digital agency blog",
+    "digital transformation", "Bookone Studio blog", "Nigeria digital agency blog",
   ],
   alternates: { canonical: "/blogs" },
   robots: {
@@ -25,19 +25,19 @@ export const metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
   openGraph: {
-    title: "Blog | Web Design, SEO & AI Automation Insights — BookOne",
+    title: "Blog | Web Design, SEO & AI Automation Insights — Bookone Studio",
     description:
-      "Expert insights on web design, SEO strategies, AI automation, and digital marketing from the BookOne team.",
+      "Expert insights on web design, SEO strategies, AI automation, and digital marketing from the Bookone Studio team.",
     url: `${BASE_URL}/blogs`,
-    siteName: "BookOne",
-    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "BookOne Blog" }],
+    siteName: "Bookone Studio",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "Bookone Studio Blog" }],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog | BookOne — Web Design, SEO & AI Automation",
-    description: "Expert insights on web design, SEO, and AI automation from the BookOne team.",
+    title: "Blog | Bookone Studio — Web Design, SEO & AI Automation",
+    description: "Expert insights on web design, SEO, and AI automation from the Bookone Studio team.",
     images: ["/opengraph-image.png"],
     creator: "@bookonedotdev",
     site: "@bookonedotdev",
@@ -80,12 +80,12 @@ export default async function BlogListPage({ searchParams }) {
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: "BookOne Blog",
+    name: "Bookone Studio Blog",
     description: "Expert insights on web design, SEO, and AI automation.",
     url: `${BASE_URL}/blogs`,
     publisher: {
       "@type": "Organization",
-      name: "BookOne",
+      name: "Bookone Studio",
       url: BASE_URL,
       logo: { "@type": "ImageObject", url: `${BASE_URL}/icon.svg` },
     },

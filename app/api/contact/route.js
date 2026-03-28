@@ -44,7 +44,7 @@ async function sendOwnerNotification(data) {
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td>
-                <span style="font-family:Georgia,serif;font-weight:900;font-size:20px;color:#ffffff;letter-spacing:0.08em;">BOOKONE</span>
+                <span style="font-family:Georgia,serif;font-weight:900;font-size:20px;color:#ffffff;letter-spacing:0.08em;">BOOKONE STUDIO</span>
               </td>
               <td align="right">
                 <span style="font-family:monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#E8FF47;">New Inquiry</span>
@@ -165,7 +165,7 @@ async function sendOwnerNotification(data) {
     try {
       attempt++;
       await transporter.sendMail({
-        from: `"BookOne Forms" <${process.env.GMAIL_USER}>`,
+        from: `"Bookone Studio Forms" <${process.env.GMAIL_USER}>`,
         to: process.env.GMAIL_USER,
         replyTo: email,
         subject: `New Inquiry — ${firstName} ${lastName} [${servicesFormatted}]`,
@@ -217,7 +217,7 @@ async function sendClientConfirmation(data) {
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td>
-                <span style="font-family:Georgia,serif;font-weight:900;font-size:22px;color:#ffffff;letter-spacing:0.1em;">BOOKONE</span>
+                <span style="font-family:Georgia,serif;font-weight:900;font-size:22px;color:#ffffff;letter-spacing:0.1em;">BOOKONE STUDIO</span>
               </td>
               <td align="right" valign="middle">
                 <span style="display:inline-block;width:8px;height:8px;background-color:#E8FF47;border-radius:50%;"></span>
@@ -304,7 +304,7 @@ async function sendClientConfirmation(data) {
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td>
-                <p style="font-family:monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:#444;margin:0 0 6px;">BookOne Digital Agency</p>
+                <p style="font-family:monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:#444;margin:0 0 6px;">Bookone Studio Digital Agency</p>
                 <p style="font-family:monospace;font-size:9px;letter-spacing:0.1em;color:#333;margin:0 0 4px;">Allen Avenue, Lagos, Nigeria</p>
                 <p style="font-family:monospace;font-size:9px;letter-spacing:0.1em;margin:0;">
                   <a href="mailto:hello@bookone.dev" style="color:#444;text-decoration:none;">hello@bookone.dev</a>
@@ -331,9 +331,9 @@ async function sendClientConfirmation(data) {
   try {
     const transporter = createTransporter();
     await transporter.sendMail({
-      from: `"BookOne" <${process.env.GMAIL_USER}>`,
+      from: `"Bookone Studio" <${process.env.GMAIL_USER}>`,
       to: email,
-      subject: "We've received your inquiry — BookOne",
+      subject: "We've received your inquiry — Bookone Studio",
       html,
     });
   } catch {

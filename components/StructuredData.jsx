@@ -14,8 +14,8 @@ export const WebsiteListingSchema = ({ listing, baseUrl = BASE_URL }) => {
     "@context": "https://schema.org",
     "@type": "Product",
     name: listing.title,
-    description: listing.shortDescription ?? `Buy this ${listing.category ?? "website"} built by BookOne.`,
-    brand: { "@type": "Brand", name: "BookOne" },
+    description: listing.shortDescription ?? `Buy this ${listing.category ?? "website"} built by Bookone Studio.`,
+    brand: { "@type": "Brand", name: "Bookone Studio" },
     url: `${baseUrl}/websites/${slug}`,
     ...(imageUrl ? { image: imageUrl } : {}),
     offers: {
@@ -29,7 +29,7 @@ export const WebsiteListingSchema = ({ listing, baseUrl = BASE_URL }) => {
       url: `${baseUrl}/websites/${slug}`,
       seller: {
         "@type": "Organization",
-        name: "BookOne",
+        name: "Bookone Studio",
         url: baseUrl,
       },
     },

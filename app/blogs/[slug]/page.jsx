@@ -31,12 +31,12 @@ export async function generateMetadata({ params }) {
   if (!blog) return {};
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
-  const author = blog.author?.name || "BookOne";
+  const author = blog.author?.name || "Bookone Studio";
   const category = blog.category
     ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
     : undefined;
   const metaTitle = blog.seo?.metaTitle || blog.title;
-  const metaDescription = blog.seo?.metaDescription || blog.description || "BookOne blog article";
+  const metaDescription = blog.seo?.metaDescription || blog.description || "Bookone Studio blog article";
   const canonicalUrl = blog.seo?.canonicalUrl || `${baseUrl}/blogs/${resolvedParams.slug}`;
   const ogSource = blog.seo?.ogImage || blog.mainImage;
   const imageUrl = ogSource ? getOGImageUrl(ogSource) : undefined;
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }) {
     description: metaDescription,
     authors: [author],
     creator: author,
-    publisher: "BookOne",
+    publisher: "Bookone Studio",
     robots: {
       index: !noIndex,
       follow: !noIndex,
@@ -63,11 +63,11 @@ export async function generateMetadata({ params }) {
       description: metaDescription,
       type: "article",
       url: `${baseUrl}/blogs/${resolvedParams.slug}`,
-      siteName: "BookOne",
+      siteName: "Bookone Studio",
       locale: "en_US",
       images: absoluteOgUrl
         ? [{ url: absoluteOgUrl, width: 1200, height: 630, alt: metaTitle }]
-        : [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "BookOne Blog" }],
+        : [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "Bookone Studio Blog" }],
       article: {
         publishedTime: published,
         modifiedTime: updated,
@@ -258,7 +258,7 @@ export default async function BlogDetailPage({ params }) {
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
   const imageUrl = blog.mainImage ? getOGImageUrl(blog.mainImage) : undefined;
-  const author = blog.author?.name || "BookOne";
+  const author = blog.author?.name || "Bookone Studio";
   const category = blog.category
     ? blog.category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
     : undefined;
@@ -274,7 +274,7 @@ export default async function BlogDetailPage({ params }) {
       name: author,
       url: blog.author?.slug?.current ? `${baseUrl}/authors/${blog.author.slug.current}` : undefined,
     },
-    publisher: { "@type": "Organization", name: "BookOne" },
+    publisher: { "@type": "Organization", name: "Bookone Studio" },
     datePublished: blog._createdAt,
     dateModified: blog._updatedAt || blog._createdAt,
     mainEntityOfPage: { "@type": "WebPage", "@id": `${baseUrl}/blogs/${resolvedParams.slug}` },

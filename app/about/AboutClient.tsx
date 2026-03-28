@@ -98,7 +98,7 @@ export default function AboutClient() {
             <span className="italic">that builds big things.</span>
           </h1>
           <p className="text-base text-white/40 leading-relaxed max-w-xl">
-            BookOne is the strategic partner that ambitious businesses trust to unlock growth through technology — world-class web design, intelligent automation, and SEO that compounds.
+            Bookone Studio is the strategic partner that ambitious businesses trust to unlock growth through technology — world-class web design, intelligent automation, and SEO that compounds.
           </p>
         </div>
       </section>
@@ -139,7 +139,7 @@ export default function AboutClient() {
                   We exist to bridge the gap between ambitious business goals and digital reality. In a world where digital presence determines success, we ensure you&apos;re leading the pack.
                 </p>
                 <p>
-                  BookOne started with a powerful observation: talented businesses across Africa were being held back by outdated strategies. We set out to change that by combining world-class design with intelligent automation.
+                  Bookone Studio started with a powerful observation: talented businesses across Africa were being held back by outdated strategies. We set out to change that by combining world-class design with intelligent automation.
                 </p>
               </div>
               <blockquote className="mt-10 border-l-2 border-[#E8FF47] pl-6">
@@ -152,7 +152,7 @@ export default function AboutClient() {
             <div className="relative aspect-[4/3] rounded-sm overflow-hidden bg-white/[0.04]">
               <Image
                 src="/about-team.jpg"
-                alt="BookOne Team"
+                alt="Bookone Studio Team"
                 fill
                 className="object-cover opacity-70"
               />

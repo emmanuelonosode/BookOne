@@ -4,14 +4,14 @@ import PrivacyClient from "./PrivacyClient";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Privacy Policy | BookOne - Data Protection & Privacy",
+  title: "Privacy Policy | Bookone Studio - Data Protection & Privacy",
   description:
-    "Learn how BookOne protects your privacy and personal data. Our comprehensive privacy policy explains how we collect, use, and safeguard your information.",
+    "Learn how Bookone Studio protects your privacy and personal data. Our comprehensive privacy policy explains how we collect, use, and safeguard your information.",
   keywords: [
     "privacy policy",
     "data protection",
     "personal data",
-    "BookOne privacy",
+    "Bookone Studio privacy",
     "GDPR compliance",
     "data security",
     "privacy rights",
@@ -20,17 +20,17 @@ export const metadata = {
     canonical: "/privacy-policy",
   },
   openGraph: {
-    title: "Privacy Policy | BookOne - Data Protection & Privacy",
+    title: "Privacy Policy | Bookone Studio - Data Protection & Privacy",
     description:
-      "Learn how BookOne protects your privacy and personal data. Our comprehensive privacy policy explains how we collect, use, and safeguard your information.",
+      "Learn how Bookone Studio protects your privacy and personal data. Our comprehensive privacy policy explains how we collect, use, and safeguard your information.",
     url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}/privacy-policy`,
-    siteName: "BookOne",
+    siteName: "Bookone Studio",
     images: [
       {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "Privacy Policy BookOne",
+        alt: "Privacy Policy Bookone Studio",
       },
     ],
     locale: "en_US",
@@ -38,8 +38,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Privacy Policy | BookOne",
-    description: "Learn how BookOne protects your privacy and personal data.",
+    title: "Privacy Policy | Bookone Studio",
+    description: "Learn how Bookone Studio protects your privacy and personal data.",
     images: ["/opengraph-image.png"],
   },
 };

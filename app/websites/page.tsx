@@ -10,13 +10,13 @@ export const revalidate = 3600;
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
 
 export const metadata: Metadata = {
-  title: "Websites for Sale | Buy Pre-built & Done-for-You Sites — BookOne",
+  title: "Websites for Sale | Buy Pre-built & Done-for-You Sites — Bookone Studio",
   description:
     "Browse pre-built and done-for-you websites for sale. Each listing includes a live preview, tech stack details, and full video walkthrough. Ready to launch from day one.",
   keywords: [
     "websites for sale", "buy a website", "pre-built websites",
     "done-for-you website", "website marketplace", "buy website online",
-    "ready-made websites", "website templates for sale", "BookOne websites",
+    "ready-made websites", "website templates for sale", "Bookone Studio websites",
     "e-commerce website for sale", "SaaS website template",
   ],
   alternates: { canonical: `${baseUrl}/websites` },
@@ -26,18 +26,18 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
   openGraph: {
-    title: "Websites for Sale | Buy Pre-built & Done-for-You Sites — BookOne",
+    title: "Websites for Sale | Buy Pre-built & Done-for-You Sites — Bookone Studio",
     description:
       "Browse pre-built and done-for-you websites for sale. Live preview, full video walkthrough, and instant transfer.",
     url: `${baseUrl}/websites`,
-    siteName: "BookOne",
+    siteName: "Bookone Studio",
     type: "website",
     locale: "en_US",
-    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "Websites for Sale — BookOne" }],
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "Websites for Sale — Bookone Studio" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Websites for Sale | BookOne",
+    title: "Websites for Sale | Bookone Studio",
     description: "Pre-built and done-for-you websites ready to launch. Browse listings with live previews.",
     images: ["/opengraph-image.png"],
     creator: "@bookonedotdev",
@@ -57,10 +57,10 @@ export default async function WebsitesPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Websites for Sale — BookOne",
-    description: "Pre-built and done-for-you websites available for purchase from BookOne.",
+    name: "Websites for Sale — Bookone Studio",
+    description: "Pre-built and done-for-you websites available for purchase from Bookone Studio.",
     url: `${baseUrl}/websites`,
-    publisher: { "@type": "Organization", name: "BookOne", url: baseUrl },
+    publisher: { "@type": "Organization", name: "Bookone Studio", url: baseUrl },
     mainEntity: {
       "@type": "ItemList",
       name: "Website Listings",
@@ -75,7 +75,7 @@ export default async function WebsitesPage() {
             name: listing.title,
             description: listing.shortDescription ?? "",
             url: `${baseUrl}/websites/${slug}`,
-            brand: { "@type": "Brand", name: "BookOne" },
+            brand: { "@type": "Brand", name: "Bookone Studio" },
             offers: {
               "@type": "Offer",
               price: listing.price,
@@ -84,7 +84,7 @@ export default async function WebsitesPage() {
                 listing.availability === "in stock"
                   ? "https://schema.org/InStock"
                   : "https://schema.org/OutOfStock",
-              seller: { "@type": "Organization", name: "BookOne" },
+              seller: { "@type": "Organization", name: "Bookone Studio" },
             },
           },
         };

@@ -33,7 +33,7 @@ export async function generateMetadata({
   const description =
     listing.seo?.metaDescription ??
     listing.shortDescription ??
-    `Buy this ${listing.category ?? ""} website built by BookOne.`;
+    `Buy this ${listing.category ?? ""} website built by Bookone Studio.`;
 
   const ogImage = listing.seo?.ogImage ?? listing.mainImage;
   const ogImageUrl = ogImage ? getOGImageUrl(ogImage) : undefined;
@@ -41,7 +41,7 @@ export async function generateMetadata({
     listing.seo?.canonicalUrl ?? `${baseUrl}/websites/${slug}`;
 
   return {
-    title: listing.seo?.metaTitle ?? `${listing.title} | Websites for Sale — BookOne`,
+    title: listing.seo?.metaTitle ?? `${listing.title} | Websites for Sale — Bookone Studio`,
     description,
     alternates: { canonical },
     robots: listing.seo?.noIndex
