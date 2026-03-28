@@ -4,7 +4,14 @@
       "Bash(npm run:*)",
       "Bash(grep -r \"Bookone Studio\\\\|BOOKONE STUDIO\" app components --include=*.jsx --include=*.tsx --include=*.js --include=*.ts -l)",
       "Bash(grep -n \"screenshots\" app/portfolio/[slug]/page.tsx)",
-      "Bash(grep -n \"images\\\\|screenshots\\\\|src\\\\|alt\" app/portfolio/[slug]/ClientCaseStudy.tsx)"
+      "Bash(grep -n \"images\\\\|screenshots\\\\|src\\\\|alt\" app/portfolio/[slug]/ClientCaseStudy.tsx)",
+      "Bash(mkdir -p \"C:/Users/emmanuel onosode/.claude/commands\")",
+      "Bash(cp \"C:/Users/emmanuel onosode/.claude/skills/bookone-studio-brand.md\" \"C:/Users/emmanuel onosode/.claude/commands/bookone-studio-brand.md\")",
+      "Bash(cp \"C:/Users/emmanuel onosode/.claude/skills/bookone-studio-design.md\" \"C:/Users/emmanuel onosode/.claude/commands/bookone-studio-design.md\")",
+      "Bash(ls -la *.json *.ts *.js)",
+      "Bash(find lib:*)",
+      "mcp__claude_ai_Canva__generate-design",
+      "Bash(node scripts/generate-favicon.mjs)"
     ]
   }
 }
