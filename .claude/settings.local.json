@@ -11,7 +11,11 @@
       "Bash(ls -la *.json *.ts *.js)",
       "Bash(find lib:*)",
       "mcp__claude_ai_Canva__generate-design",
-      "Bash(node scripts/generate-favicon.mjs)"
+      "Bash(node scripts/generate-favicon.mjs)",
+      "Bash(node -e \"const fs=require\\(''fs''\\); const s=fs.statSync\\(''app/opengraph-image.png''\\); console.log\\(\\(s.size/1024/1024\\).toFixed\\(2\\)+''MB''\\);\")",
+      "Bash(node -e \":*)",
+      "Bash(mv \"app/opengraph-image-compressed.png\" \"app/opengraph-image.png\")",
+      "Bash(node -e \"const fs=require\\(''fs''\\); console.log\\(\\(fs.statSync\\(''app/opengraph-image.png''\\).size/1024/1024\\).toFixed\\(2\\)+''MB''\\);\")"
     ]
   }
 }
