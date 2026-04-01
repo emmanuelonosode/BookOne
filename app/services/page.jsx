@@ -29,6 +29,38 @@ export const metadata = {
   },
 };
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
+
 export default function ServicesPage() {
-  return <ServicesClient />;
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "Services", item: `${BASE_URL}/services` },
+    ],
+  };
+
+  const serviceList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Bookone Studio Services",
+    description: "Web design, SEO, and AI automation services for ambitious businesses",
+    url: `${BASE_URL}/services`,
+    numberOfItems: 4,
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Web Design & Development", url: `${BASE_URL}/services` },
+      { "@type": "ListItem", position: 2, name: "SEO Optimization", url: `${BASE_URL}/services` },
+      { "@type": "ListItem", position: 3, name: "AI Automation", url: `${BASE_URL}/services` },
+      { "@type": "ListItem", position: 4, name: "Websites for Sale", url: `${BASE_URL}/websites` },
+    ],
+  };
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceList) }} />
+      <ServicesClient />
+    </>
+  );
 }

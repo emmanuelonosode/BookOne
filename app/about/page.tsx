@@ -28,6 +28,22 @@ export const metadata = {
   },
 };
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
+
 export default function AboutPage() {
-  return <AboutClient />;
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "About", item: `${BASE_URL}/about` },
+    ],
+  };
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      <AboutClient />
+    </>
+  );
 }

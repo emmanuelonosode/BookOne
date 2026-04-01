@@ -51,6 +51,7 @@ export const metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"
   ),
+  applicationName: "Bookone Studio",
   title: {
     default: "Bookone Studio — Web Design, SEO & AI Automation Agency",
     template: "%s | Bookone Studio",
@@ -97,6 +98,97 @@ export default function RootLayout({ children }) {
       className={`${playfair.variable} ${dmSans.variable}`}
     >
       <head>
+        {/* WebSite schema — tells Google the site name is "Bookone Studio" */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Bookone Studio",
+              alternateName: "Bookone",
+              url: process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate: `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}/blogs?q={search_term_string}`,
+                },
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
+        {/* Organization schema — powers Google sitelinks and knowledge panel */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "@id": `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}/#organization`,
+              name: "Bookone Studio",
+              legalName: "Bookone Studio",
+              url: process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev",
+              logo: {
+                "@type": "ImageObject",
+                url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}/logo.svg`,
+                width: 186,
+                height: 166,
+              },
+              image: `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}/opengraph-image.png`,
+              description: "Bookone Studio is a digital agency specializing in web design, SEO optimization, and AI automation for businesses across Africa and worldwide.",
+              foundingDate: "2023",
+              foundingLocation: {
+                "@type": "Place",
+                name: "Lagos, Nigeria",
+              },
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Allen Avenue",
+                addressLocality: "Lagos",
+                addressRegion: "Lagos State",
+                addressCountry: "NG",
+              },
+              contactPoint: [
+                {
+                  "@type": "ContactPoint",
+                  email: "hello@bookone.dev",
+                  contactType: "customer service",
+                  availableLanguage: "English",
+                },
+              ],
+              sameAs: [
+                "https://instagram.com/officialbookone",
+                "https://twitter.com/bookonedev",
+                "https://linkedin.com/company/bookone",
+              ],
+              knowsAbout: [
+                "Web Design",
+                "Search Engine Optimization",
+                "AI Automation",
+                "Next.js Development",
+                "E-commerce Development",
+                "Business Process Automation",
+              ],
+              areaServed: [
+                { "@type": "Country", name: "Nigeria" },
+                { "@type": "Country", name: "United Kingdom" },
+                { "@type": "Country", name: "United States" },
+              ],
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Bookone Studio Services",
+                itemListElement: [
+                  { "@type": "Offer", itemOffered: { "@type": "Service", name: "Web Design & Development", url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}/services` } },
+                  { "@type": "Offer", itemOffered: { "@type": "Service", name: "SEO Optimization", url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}/services` } },
+                  { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Automation", url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}/services` } },
+                  { "@type": "Offer", itemOffered: { "@type": "Service", name: "Websites for Sale", url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}/websites` } },
+                ],
+              },
+            }),
+          }}
+        />
         {/* DNS prefetch for external domains */}
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
         <link rel="dns-prefetch" href="//cdn.sanity.io" />

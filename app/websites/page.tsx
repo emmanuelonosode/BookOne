@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import WebsitesClient from "./WebsitesClient";
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
 
@@ -49,7 +49,7 @@ export default async function WebsitesPage() {
   const listings: WebsiteListing[] = await sanity.fetch(
     allWebsiteListingsQuery,
     {},
-    { cache: "force-cache", next: { revalidate: 3600 } }
+    { next: { revalidate: 60 } }
   );
 
   const inStock = listings.filter((l) => l.availability === "in stock");
@@ -99,6 +99,14 @@ export default async function WebsitesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+          { "@type": "ListItem", position: 2, name: "Websites for Sale", item: `${baseUrl}/websites` },
+        ],
+      }) }} />
 
       <main className="bg-[#080808] min-h-screen" aria-labelledby="websites-heading">
 

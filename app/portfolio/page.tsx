@@ -71,6 +71,15 @@ export default async function PortfolioPage() {
     publisher: { "@type": "Organization", name: "Bookone Studio" },
   };
 
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+      { "@type": "ListItem", position: 2, name: "Portfolio", item: `${baseUrl}/portfolio` },
+    ],
+  };
+
   return (
     <>
       <Script
@@ -78,6 +87,7 @@ export default async function PortfolioPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
 
       <section className="bg-[#080808] min-h-screen" aria-labelledby="portfolio-heading">
 
