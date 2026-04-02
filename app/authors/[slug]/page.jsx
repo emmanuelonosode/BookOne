@@ -44,6 +44,7 @@ export async function generateMetadata({ params }) {
     authors: [{ name: author.name }],
     creator: author.name,
     publisher: "Bookone Studio",
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"),
     robots: {
       index: true,
       follow: true,
@@ -56,7 +57,7 @@ export async function generateMetadata({ params }) {
       },
     },
     alternates: {
-      canonical: `/authors/${slug}`,
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev"}/authors/${slug}`,
     },
     openGraph: {
       title: `${author.name} | Author at Bookone Studio`,

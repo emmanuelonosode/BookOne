@@ -134,9 +134,9 @@ export default function HomePage() {
       <Service />
       <PortfolioSection />
       <ManifestoSection />
+      <FeaturedWebsites />
       <Testimonia />
       <FeaturedBlog />
-      <FeaturedWebsites />
       <ForWhoSection />
       <FAQ />
       <Contact />

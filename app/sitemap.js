@@ -2,23 +2,29 @@ import { sanity } from "@/lib/sanity";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
 
+// ─── Static page last-modified dates ─────────────────────────────────────────
+// Use real, pinned dates instead of new Date() (which changes every build and
+// causes Google to distrust the sitemap data entirely).
+const SITE_LAUNCH = new Date("2024-09-01");
+const CONTENT_UPDATE = new Date("2025-06-01");
+
 export default async function sitemap() {
-  // Static pages
+  // Static pages — pinned dates so Google knows when content actually changed
   const staticRoutes = [
-    { url: BASE_URL, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
-    { url: `${BASE_URL}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE_URL}/services`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE_URL}/portfolio`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE_URL}/blogs`, lastModified: new Date(), changeFrequency: "daily", priority: 0.8 },
-    { url: `${BASE_URL}/websites`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/authors`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
-    { url: `${BASE_URL}/get-started`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/privacy-policy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
-    { url: `${BASE_URL}/terms-and-conditions`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
-    { url: `${BASE_URL}/cookies-policy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
+    { url: BASE_URL, lastModified: CONTENT_UPDATE, changeFrequency: "weekly", priority: 1.0 },
+    { url: `${BASE_URL}/about`, lastModified: CONTENT_UPDATE, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE_URL}/services`, lastModified: CONTENT_UPDATE, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/portfolio`, lastModified: CONTENT_UPDATE, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE_URL}/blogs`, lastModified: CONTENT_UPDATE, changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE_URL}/websites`, lastModified: CONTENT_UPDATE, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/authors`, lastModified: CONTENT_UPDATE, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE_URL}/get-started`, lastModified: CONTENT_UPDATE, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/privacy-policy`, lastModified: SITE_LAUNCH, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${BASE_URL}/terms-and-conditions`, lastModified: SITE_LAUNCH, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${BASE_URL}/cookies-policy`, lastModified: SITE_LAUNCH, changeFrequency: "yearly", priority: 0.2 },
   ];
 
-  // Blog posts
+  // Blog posts — use actual _updatedAt from Sanity for accurate lastModified
   let blogRoutes = [];
   try {
     const posts = await sanity.fetch(
@@ -28,9 +34,9 @@ export default async function sitemap() {
     );
     blogRoutes = posts.map((post) => ({
       url: `${BASE_URL}/blogs/${post.slug}`,
-      lastModified: new Date(post._updatedAt || post.publishedAt || new Date()),
+      lastModified: new Date(post._updatedAt || post.publishedAt || CONTENT_UPDATE),
       changeFrequency: "weekly",
-      priority: 0.7,
+      priority: 0.8, // bumped from 0.7 — blog is a key traffic driver
     }));
   } catch {}
 
@@ -44,9 +50,9 @@ export default async function sitemap() {
     );
     portfolioRoutes = projects.map((p) => ({
       url: `${BASE_URL}/portfolio/${p.slug}`,
-      lastModified: new Date(p._updatedAt || new Date()),
+      lastModified: new Date(p._updatedAt || CONTENT_UPDATE),
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.8, // bumped — portfolio pages drive conversions
     }));
   } catch {}
 
@@ -60,7 +66,7 @@ export default async function sitemap() {
     );
     websiteRoutes = websites.map((w) => ({
       url: `${BASE_URL}/websites/${w.slug}`,
-      lastModified: new Date(w._updatedAt || new Date()),
+      lastModified: new Date(w._updatedAt || CONTENT_UPDATE),
       changeFrequency: "weekly",
       priority: 0.6,
     }));
@@ -76,7 +82,7 @@ export default async function sitemap() {
     );
     authorRoutes = authors.map((a) => ({
       url: `${BASE_URL}/authors/${a.slug}`,
-      lastModified: new Date(a._updatedAt || new Date()),
+      lastModified: new Date(a._updatedAt || CONTENT_UPDATE),
       changeFrequency: "monthly",
       priority: 0.5,
     }));

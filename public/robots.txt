@@ -6,7 +6,13 @@ Allow: /
 # Explicitly allow Next.js internals needed for JavaScript rendering
 Allow: /_next/static/
 Allow: /_next/data/
-Allow: /_next/image/
+
+# ─── Block non-page URLs from being indexed ───────────────────────────────────
+# These are assets/utilities, not indexable content pages.
+Disallow: /apple-icon
+Disallow: /manifest.webmanifest
+Disallow: /_next/image
+Disallow: /_next/static/media/
 
 # Disallow admin and backend areas
 Disallow: /admin/

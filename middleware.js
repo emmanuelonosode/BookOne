@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
+  // Note: HTTPS enforcement is handled by Cloudflare ("Always Use HTTPS" is ON).
+  // No redirect needed here — Cloudflare enforces it at the edge before this runs.
+
   const response = NextResponse.next();
 
   // Security headers
@@ -20,12 +23,25 @@ export function middleware(request) {
   // Performance headers
   response.headers.set("X-DNS-Prefetch-Control", "on");
 
-  // X-Robots-Tag: only set on HTML pages (not on assets)
+  // ─── 2. X-Robots-Tag: only set "index, follow" on real HTML pages ────────────
+  // Excludes:
+  //  - Static asset extensions (js, css, images, fonts, etc.)
+  //  - The dynamic /apple-icon route (no file extension, but not a real page)
+  //  - The /_next/image proxy (query-string image optimizer)
+  //  - /manifest.webmanifest
   const pathname = request.nextUrl.pathname || "";
-  const isAsset = /\.(js|css|png|jpg|jpeg|gif|svg|ico|webmanifest|avif|webp|woff2?|map|txt|xml)$/.test(pathname);
+  const isStaticAsset = /\.(js|css|png|jpg|jpeg|gif|svg|ico|webmanifest|avif|webp|woff2?|map|txt|xml)$/.test(pathname);
+  const isNonPageRoute =
+    pathname === "/apple-icon" ||
+    pathname.startsWith("/_next/image") ||
+    pathname.startsWith("/_next/static/") ||
+    pathname === "/manifest.webmanifest";
 
-  if (!isAsset) {
-    response.headers.set("X-Robots-Tag", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
+  if (!isStaticAsset && !isNonPageRoute) {
+    response.headers.set(
+      "X-Robots-Tag",
+      "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    );
   }
 
   // Cache control for _next and static directory assets
