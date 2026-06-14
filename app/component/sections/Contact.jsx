@@ -2,57 +2,47 @@ import Link from "next/link";
 
 export default function Contact() {
   return (
-    <section className="py-28 sm:py-40 border-t border-white/[0.06]">
-      <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
+    <section className="py-24 sm:py-32 px-6 sm:px-10 lg:px-16 border-t border-[#1C1917]/[0.08]">
+      <div className="max-w-[1100px] mx-auto">
+        <div className="rounded-3xl bg-[#15803D] px-8 py-14 sm:px-16 sm:py-20 text-center">
+          <p className="text-sm font-medium text-[#DCFCE7] mb-5">
+            Let&apos;s work together
+          </p>
 
-        <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-10">
-          Let&apos;s Work Together
-        </p>
-
-        <h2
-          className="font-display font-black text-white leading-[0.95] tracking-tight mb-14 max-w-4xl"
-          style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
-        >
-          Ready to start something great?
-        </h2>
-
-        {/* Contact options */}
-        <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-20">
-          <a
-            href="mailto:hello@bookone.dev"
-            className="group inline-flex items-center gap-3 text-white/50 hover:text-white transition-colors duration-200 text-sm tracking-wide"
+          <h2
+            className="font-display font-extrabold text-white leading-[1.1] tracking-tight mb-6 max-w-2xl mx-auto"
+            style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)" }}
           >
-            <span className="w-px h-4 bg-[#E8FF47] shrink-0" aria-hidden="true" />
-            hello@bookone.dev
-          </a>
-          <a
-            href="https://calendar.notion.so/meet/officialbookone/call"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 text-white/50 hover:text-white transition-colors duration-200 text-sm tracking-wide"
-          >
-            <span className="w-px h-4 bg-[#E8FF47] shrink-0" aria-hidden="true" />
-            Book a free call
-          </a>
+            Ready to get more customers from your website?
+          </h2>
+
+          <p className="text-base text-[#DCFCE7] leading-relaxed max-w-xl mx-auto mb-10">
+            Tell us what you need and we&apos;ll send you a free, no-pressure quote
+            within 24 hours. No jargon — just a clear plan and a clear price.
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/get-started"
+              className="press inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm sm:text-base font-semibold text-[#15803D] hover:bg-[#F0FDF4] transition-colors"
+            >
+              Get a free quote
+              <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+            <a
+              href="mailto:hello@bookone.dev"
+              className="press inline-flex items-center gap-2 rounded-full border border-white/40 px-7 py-3.5 text-sm sm:text-base font-semibold text-white hover:bg-white/10 transition-colors"
+            >
+              Or email us
+            </a>
+          </div>
+
+          <p className="mt-8 text-sm text-[#DCFCE7]">
+            hello@bookone.dev · +234 807 708 0903
+          </p>
         </div>
-
-        {/* Primary CTA */}
-        <Link
-          href="/get-started"
-          className="group inline-flex items-center gap-4 text-[#E8FF47] hover:text-white transition-colors duration-300"
-        >
-          <span
-            className="font-display font-bold leading-none"
-            style={{ fontSize: "clamp(1.5rem, 3.5vw, 3rem)" }}
-          >
-            Start a Project
-          </span>
-          <span className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full border border-[#E8FF47]/30 group-hover:border-white/30 group-hover:bg-white/5 transition-all duration-300">
-            <svg width="18" height="18" viewBox="0 0 14 14" fill="none">
-              <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </span>
-        </Link>
       </div>
     </section>
   );

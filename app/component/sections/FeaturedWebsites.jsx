@@ -18,17 +18,17 @@ export default async function FeaturedWebsites() {
   if (listings.length === 0) return null;
 
   return (
-    <section className="py-20 sm:py-28 border-t border-white/[0.06]">
+    <section className="py-20 sm:py-28 border-t border-[#1C1917]/[0.08]">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
         {/* Header */}
         <div className="flex items-end justify-between mb-14 gap-6 flex-wrap">
           <div>
-            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-3">
+            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-3">
               Website Marketplace
             </p>
             <h2
-              className="font-display font-black text-white leading-none"
+              className="font-display font-black text-[#1C1917] leading-none"
               style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
             >
               Websites for Sale
@@ -36,7 +36,7 @@ export default async function FeaturedWebsites() {
           </div>
           <Link
             href="/websites"
-            className="text-xs tracking-[0.15em] uppercase text-white/40 hover:text-white transition-colors duration-200 flex items-center gap-2 group shrink-0"
+            className="text-xs tracking-[0.15em] uppercase text-[#6F6A62] hover:text-[#1C1917] transition-colors duration-200 flex items-center gap-2 group shrink-0"
           >
             Browse All
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
@@ -46,7 +46,7 @@ export default async function FeaturedWebsites() {
         </div>
 
         {/* Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.06]">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1C1917]/[0.04]">
           {listings.map((listing, i) => {
             const slug = typeof listing.slug === "string" ? listing.slug : listing.slug?.current ?? "#";
             const imgUrl = listing.mainImage ? getImageUrl(listing.mainImage) : null;
@@ -56,10 +56,10 @@ export default async function FeaturedWebsites() {
               <Link
                 key={listing._id}
                 href={`/websites/${slug}`}
-                className="group bg-[#080808] flex flex-col overflow-hidden"
+                className="group bg-[#FBF8F2] flex flex-col overflow-hidden"
               >
                 {/* Image */}
-                <div className="relative w-full aspect-[16/10] overflow-hidden bg-white/5">
+                <div className="relative w-full aspect-[16/10] overflow-hidden bg-[#1C1917]/[0.03]">
                   {imgUrl ? (
                     <Image
                       src={imgUrl}
@@ -75,8 +75,8 @@ export default async function FeaturedWebsites() {
                   <div className="absolute top-4 right-4">
                     <span className={`text-[9px] tracking-[0.15em] uppercase font-mono px-2 py-1 ${
                       isAvailable
-                        ? "bg-[#E8FF47] text-[#080808]"
-                        : "bg-white/10 text-white/40"
+                        ? "bg-[#15803D] text-[#FBF8F2]"
+                        : "bg-[#1C1917]/[0.05] text-[#6F6A62]"
                     }`}>
                       {isAvailable ? "Available" : "Sold"}
                     </span>
@@ -86,24 +86,24 @@ export default async function FeaturedWebsites() {
                 {/* Info */}
                 <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-center justify-between mb-3">
-                    <p className="text-[10px] tracking-[0.2em] text-[#E8FF47]/60 uppercase font-mono">
+                    <p className="text-[10px] tracking-[0.2em] text-[#15803D]/60 uppercase font-mono">
                       {String(i + 1).padStart(2, "0")} · {listing.type ?? "Pre-built"}
                     </p>
                     {listing.price && (
-                      <p className="text-sm font-semibold text-white">
+                      <p className="text-sm font-semibold text-[#1C1917]">
                         ${listing.price.toLocaleString()}
                       </p>
                     )}
                   </div>
-                  <h3 className="font-display font-bold text-white group-hover:text-white/80 transition-colors leading-tight text-lg sm:text-xl mb-2">
+                  <h3 className="font-display font-bold text-[#1C1917] group-hover:text-[#3A352F] transition-colors leading-tight text-lg sm:text-xl mb-2">
                     {listing.title}
                   </h3>
                   {listing.shortDescription && (
-                    <p className="text-sm text-white/30 leading-relaxed line-clamp-2 mb-4 flex-1">
+                    <p className="text-sm text-[#9C968C] leading-relaxed line-clamp-2 mb-4 flex-1">
                       {listing.shortDescription}
                     </p>
                   )}
-                  <span className="inline-flex items-center gap-2 text-xs text-[#E8FF47] group-hover:text-white transition-colors duration-200 font-medium mt-auto">
+                  <span className="inline-flex items-center gap-2 text-xs text-[#15803D] group-hover:text-[#1C1917] transition-colors duration-200 font-medium mt-auto">
                     View Details
                     <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                       <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

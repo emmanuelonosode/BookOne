@@ -82,40 +82,40 @@ const team = [
 
 export default function AboutClient() {
   return (
-    <main className="bg-[#080808] min-h-screen overflow-x-hidden">
+    <main className="bg-[#FBF8F2] min-h-screen overflow-x-hidden">
 
       {/* HERO */}
-      <section className="pt-32 pb-20 border-b border-white/[0.06]">
+      <section className="pt-32 pb-20 border-b border-[#1C1917]/[0.08]">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
-          <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-4">
+          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-4">
             About Us
           </p>
           <h1
-            className="font-display font-black text-white leading-none mb-8"
+            className="font-display font-black text-[#1C1917] leading-none mb-8"
             style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
           >
             We&apos;re a small team<br />
             <span className="italic">that builds big things.</span>
           </h1>
-          <p className="text-base text-white/40 leading-relaxed max-w-xl">
+          <p className="text-base text-[#6F6A62] leading-relaxed max-w-xl">
             Bookone Studio is the strategic partner that ambitious businesses trust to unlock growth through technology — world-class web design, intelligent automation, and SEO that compounds.
           </p>
         </div>
       </section>
 
       {/* STATS STRIP */}
-      <section className="border-b border-white/[0.06]">
+      <section className="border-b border-[#1C1917]/[0.08]">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.06]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#1C1917]/[0.04]">
             {stats.map(({ value, label }) => (
-              <div key={label} className="bg-[#080808] px-6 py-10">
+              <div key={label} className="bg-[#FBF8F2] px-6 py-10">
                 <p
-                  className="font-display font-black text-white leading-none mb-2"
+                  className="font-display font-black text-[#1C1917] leading-none mb-2"
                   style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
                 >
                   {value}
                 </p>
-                <p className="text-xs text-white/30 uppercase tracking-wider">{label}</p>
+                <p className="text-xs text-[#9C968C] uppercase tracking-wider">{label}</p>
               </div>
             ))}
           </div>
@@ -123,18 +123,18 @@ export default function AboutClient() {
       </section>
 
       {/* MISSION */}
-      <section className="py-24 sm:py-32 border-b border-white/[0.06]">
+      <section className="py-24 sm:py-32 border-b border-[#1C1917]/[0.08]">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <div>
-              <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-4">Our Mission</p>
+              <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-4">Our Mission</p>
               <h2
-                className="font-display font-black text-white leading-none mb-8"
+                className="font-display font-black text-[#1C1917] leading-none mb-8"
                 style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
               >
                 Your success is the only metric that matters.
               </h2>
-              <div className="space-y-5 text-base text-white/45 leading-relaxed">
+              <div className="space-y-5 text-base text-[#1C1917]/45 leading-relaxed">
                 <p>
                   We exist to bridge the gap between ambitious business goals and digital reality. In a world where digital presence determines success, we ensure you&apos;re leading the pack.
                 </p>
@@ -142,34 +142,34 @@ export default function AboutClient() {
                   Bookone Studio started with a powerful observation: talented businesses across Africa were being held back by outdated strategies. We set out to change that by combining world-class design with intelligent automation.
                 </p>
               </div>
-              <blockquote className="mt-10 border-l-2 border-[#E8FF47] pl-6">
-                <p className="font-display font-bold italic text-white/70 text-lg leading-snug">
+              <blockquote className="mt-10 border-l-2 border-[#15803D] pl-6">
+                <p className="font-display font-bold italic text-[#3A352F] text-lg leading-snug">
                   &quot;We don&apos;t just deliver projects — we deliver results that position you for sustainable, long-term success.&quot;
                 </p>
               </blockquote>
             </div>
 
-            <div className="relative aspect-[4/3] rounded-sm overflow-hidden bg-white/[0.04]">
+            <div className="relative aspect-[4/3] rounded-sm overflow-hidden bg-[#1C1917]/[0.03]">
               <Image
                 src="/about-team.jpg"
                 alt="Bookone Studio Team"
                 fill
                 className="object-cover opacity-70"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#080808]/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#FBF8F2]/60 to-transparent" />
             </div>
           </div>
         </div>
       </section>
 
       {/* VALUES */}
-      <section className="py-24 sm:py-32 border-b border-white/[0.06]">
+      <section className="py-24 sm:py-32 border-b border-[#1C1917]/[0.08]">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
           <div className="grid lg:grid-cols-[1fr_2fr] gap-16 items-start">
             <div className="lg:sticky lg:top-28">
-              <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-4">Our Values</p>
+              <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-4">Our Values</p>
               <h2
-                className="font-display font-black text-white leading-none"
+                className="font-display font-black text-[#1C1917] leading-none"
                 style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
               >
                 What we stand for.
@@ -184,11 +184,11 @@ export default function AboutClient() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-10%" }}
                   transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  className="border-t border-white/[0.06] last:border-b py-8 grid sm:grid-cols-[60px_1fr_1.5fr] gap-6 items-start"
+                  className="border-t border-[#1C1917]/[0.08] last:border-b py-8 grid sm:grid-cols-[60px_1fr_1.5fr] gap-6 items-start"
                 >
-                  <span className="text-xs tracking-[0.15em] font-mono text-white/20 pt-1">{val.number}</span>
-                  <h3 className="font-display font-bold text-white text-xl leading-tight">{val.title}</h3>
-                  <p className="text-sm text-white/40 leading-relaxed">{val.description}</p>
+                  <span className="text-xs tracking-[0.15em] font-mono text-[#9C968C] pt-1">{val.number}</span>
+                  <h3 className="font-display font-bold text-[#1C1917] text-xl leading-tight">{val.title}</h3>
+                  <p className="text-sm text-[#6F6A62] leading-relaxed">{val.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -197,19 +197,19 @@ export default function AboutClient() {
       </section>
 
       {/* TEAM */}
-      <section className="py-24 sm:py-32 border-b border-white/[0.06]">
+      <section className="py-24 sm:py-32 border-b border-[#1C1917]/[0.08]">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
           <div className="mb-16">
-            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-4">The Team</p>
+            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-4">The Team</p>
             <h2
-              className="font-display font-black text-white leading-none"
+              className="font-display font-black text-[#1C1917] leading-none"
               style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
             >
               Meet the experts.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.06]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1C1917]/[0.04]">
             {team.map((member, i) => (
               <motion.div
                 key={member.name}
@@ -217,9 +217,9 @@ export default function AboutClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.07 }}
-                className="group bg-[#080808] p-8 flex flex-col"
+                className="group bg-[#FBF8F2] p-8 flex flex-col"
               >
-                <div className="relative aspect-[4/3] w-full mb-6 overflow-hidden bg-white/[0.04]">
+                <div className="relative aspect-[4/3] w-full mb-6 overflow-hidden bg-[#1C1917]/[0.03]">
                   <Image
                     src={member.image}
                     alt={member.name}
@@ -227,13 +227,13 @@ export default function AboutClient() {
                     className="object-cover opacity-70 group-hover:opacity-90 group-hover:scale-[1.02] transition-all duration-700"
                   />
                 </div>
-                <h3 className="font-display font-bold text-white text-xl leading-tight mb-1">
+                <h3 className="font-display font-bold text-[#1C1917] text-xl leading-tight mb-1">
                   {member.name}
                 </h3>
-                <p className="text-[10px] tracking-[0.2em] text-white/30 uppercase font-mono mb-4">
+                <p className="text-[10px] tracking-[0.2em] text-[#9C968C] uppercase font-mono mb-4">
                   {member.role}
                 </p>
-                <p className="text-sm text-white/40 leading-relaxed">{member.bio}</p>
+                <p className="text-sm text-[#6F6A62] leading-relaxed">{member.bio}</p>
               </motion.div>
             ))}
           </div>
@@ -243,9 +243,9 @@ export default function AboutClient() {
       {/* CTA */}
       <section className="py-24 sm:py-32">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
-          <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-6">Ready?</p>
+          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-6">Ready?</p>
           <h2
-            className="font-display font-black text-white leading-none mb-10"
+            className="font-display font-black text-[#1C1917] leading-none mb-10"
             style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
           >
             Let&apos;s build<br />
@@ -254,16 +254,16 @@ export default function AboutClient() {
           <div className="flex flex-col sm:flex-row gap-6 items-start">
             <Link
               href="/get-started"
-              className="group inline-flex items-center gap-3 text-[#E8FF47] text-sm font-semibold tracking-wide hover:text-white transition-colors duration-200"
+              className="group inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
             >
-              Start a Project
+              Get a free quote
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
                 <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </Link>
             <Link
               href="/portfolio"
-              className="inline-flex items-center gap-3 text-white/40 text-sm font-semibold tracking-wide hover:text-white transition-colors duration-200"
+              className="inline-flex items-center gap-3 text-[#6F6A62] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
             >
               View Our Work
             </Link>

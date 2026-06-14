@@ -18,27 +18,27 @@ export default async function Testimonia() {
   const [featured, ...rest] = items;
 
   return (
-    <section className="py-20 sm:py-28 border-t border-white/[0.06]">
+    <section className="py-20 sm:py-28 border-t border-[#1C1917]/[0.08]">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
         {/* Label */}
-        <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-16">
+        <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-16">
           Client Voices
         </p>
 
         {/* Featured testimonial — full width */}
-        <blockquote className="mb-16 pb-16 border-b border-white/[0.06]">
+        <blockquote className="mb-16 pb-16 border-b border-[#1C1917]/[0.08]">
           <p
-            className="font-display font-bold italic text-white/90 leading-[1.15] mb-8"
+            className="font-display font-bold italic text-[#1C1917] leading-[1.15] mb-8"
             style={{ fontSize: "clamp(1.6rem, 4vw, 3.5rem)" }}
           >
             &ldquo;{featured.desc}&rdquo;
           </p>
           <footer className="flex items-center gap-4">
-            <div className="w-px h-6 bg-[#E8FF47]" aria-hidden="true" />
+            <div className="w-px h-6 bg-[#15803D]" aria-hidden="true" />
             <div>
-              <p className="text-sm font-semibold text-white">{featured.name}</p>
-              <p className="text-xs text-white/30 tracking-wide uppercase mt-0.5">
+              <p className="text-sm font-semibold text-[#1C1917]">{featured.name}</p>
+              <p className="text-xs text-[#9C968C] tracking-wide uppercase mt-0.5">
                 {featured.position}{featured.tag ? ` · ${featured.tag}` : ""}
               </p>
             </div>
@@ -47,20 +47,20 @@ export default async function Testimonia() {
 
         {/* Grid — remaining testimonials */}
         {rest.length > 0 && (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.06]">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1C1917]/[0.04]">
             {rest.map((item, i) => (
-              <div key={i} className="bg-[#080808] p-8">
-                <span className="font-display text-6xl text-white/[0.06] leading-none block mb-4" aria-hidden="true">
+              <div key={i} className="bg-[#FBF8F2] p-8">
+                <span className="font-display text-6xl text-[#9C968C] leading-none block mb-4" aria-hidden="true">
                   &ldquo;
                 </span>
-                <p className="text-sm sm:text-base text-white/60 leading-relaxed italic mb-6">
+                <p className="text-sm sm:text-base text-[#6F6A62] leading-relaxed italic mb-6">
                   {item.desc}
                 </p>
-                <div className="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
-                  <div className="w-px h-4 bg-[#E8FF47] shrink-0" aria-hidden="true" />
+                <div className="flex items-center gap-3 pt-4 border-t border-[#1C1917]/[0.08]">
+                  <div className="w-px h-4 bg-[#15803D] shrink-0" aria-hidden="true" />
                   <div>
-                    <p className="text-xs font-semibold text-white">{item.name}</p>
-                    <p className="text-[10px] text-white/30 uppercase tracking-wider mt-0.5">
+                    <p className="text-xs font-semibold text-[#1C1917]">{item.name}</p>
+                    <p className="text-[10px] text-[#9C968C] uppercase tracking-wider mt-0.5">
                       {item.position}
                     </p>
                   </div>

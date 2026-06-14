@@ -108,32 +108,32 @@ export default async function WebsitesPage() {
         ],
       }) }} />
 
-      <main className="bg-[#080808] min-h-screen" aria-labelledby="websites-heading">
+      <main className="bg-[#FBF8F2] min-h-screen" aria-labelledby="websites-heading">
 
         {/* HERO */}
-        <div className="pt-32 pb-20 border-b border-white/[0.06]">
+        <div className="pt-32 pb-20 border-b border-[#1C1917]/[0.08]">
           <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
             <div className="grid lg:grid-cols-[1fr_auto] gap-10 items-end">
               <div>
-                <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase font-mono mb-4">
+                <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-4">
                   Website Marketplace
                 </p>
                 <h1
                   id="websites-heading"
-                  className="font-display font-black text-white leading-none"
+                  className="font-display font-black text-[#1C1917] leading-none"
                   style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
                 >
                   Websites<br />
                   <span className="italic">for sale.</span>
                 </h1>
-                <p className="mt-6 text-base text-white/40 leading-relaxed max-w-xl">
+                <p className="mt-6 text-base text-[#6F6A62] leading-relaxed max-w-xl">
                   Pre-built templates and done-for-you builds — ready to launch.
                   Live preview, full walkthrough, instant transfer.
                 </p>
               </div>
               <div className="text-right hidden lg:block">
-                <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-white/20 mb-1">Available now</p>
-                <p className="font-display font-black text-[#E8FF47]" style={{ fontSize: "clamp(2rem, 3vw, 3.5rem)" }}>
+                <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C] mb-1">Available now</p>
+                <p className="font-display font-black text-[#15803D]" style={{ fontSize: "clamp(2rem, 3vw, 3.5rem)" }}>
                   {inStock.length}
                 </p>
               </div>
@@ -144,8 +144,8 @@ export default async function WebsitesPage() {
         {/* CONTENT */}
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-16">
           {listings.length === 0 ? (
-            <div className="py-24 border-t border-white/[0.06]">
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-white/20">
+            <div className="py-24 border-t border-[#1C1917]/[0.08]">
+              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C]">
                 No listings yet — check back soon.
               </p>
             </div>
@@ -155,13 +155,13 @@ export default async function WebsitesPage() {
         </div>
 
         {/* CTA */}
-        <div className="border-t border-white/[0.06]">
+        <div className="border-t border-[#1C1917]/[0.08]">
           <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
-            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase font-mono mb-6">
+            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-6">
               Custom build
             </p>
             <h2
-              className="font-display font-black text-white leading-none mb-10"
+              className="font-display font-black text-[#1C1917] leading-none mb-10"
               style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
             >
               Need something<br />
@@ -169,7 +169,7 @@ export default async function WebsitesPage() {
             </h2>
             <a
               href="/get-started"
-              className="group inline-flex items-center gap-3 text-[#E8FF47] text-sm font-semibold tracking-wide hover:text-white transition-colors duration-200"
+              className="group inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
             >
               Start a Custom Project
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">

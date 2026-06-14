@@ -38,24 +38,24 @@ export default function Service() {
   const [open, setOpen] = useState(null);
 
   return (
-    <section className="py-20 sm:py-28 border-t border-white/[0.06]">
+    <section className="py-20 sm:py-28 border-t border-[#1C1917]/[0.08]">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
         {/* Header row */}
         <div className="flex items-end justify-between mb-16 gap-8">
           <div>
-            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-3">
+            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-3">
               Our Services
             </p>
             <h2
-              className="font-display font-black text-white leading-none"
+              className="font-display font-black text-[#1C1917] leading-none"
               style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
             >
               What We Do
             </h2>
           </div>
           <span
-            className="font-display font-black text-white/[0.06] leading-none hidden sm:block"
+            className="font-display font-black text-[#9C968C] leading-none hidden sm:block"
             style={{ fontSize: "clamp(4rem, 10vw, 9rem)" }}
             aria-hidden="true"
           >
@@ -77,15 +77,15 @@ export default function Service() {
         </div>
 
         {/* Footer CTA */}
-        <div className="mt-16 pt-10 border-t border-white/[0.06] flex items-center justify-between gap-6 flex-wrap">
-          <p className="text-sm text-white/40 max-w-xs">
+        <div className="mt-16 pt-10 border-t border-[#1C1917]/[0.08] flex items-center justify-between gap-6 flex-wrap">
+          <p className="text-sm text-[#6F6A62] max-w-xs">
             Not sure what you need? Let&apos;s talk it through.
           </p>
           <Link
             href="/get-started"
-            className="inline-flex items-center gap-2 text-[#E8FF47] text-xs tracking-[0.15em] uppercase font-semibold hover:text-white transition-colors duration-200 group"
+            className="inline-flex items-center gap-2 text-[#15803D] text-xs tracking-[0.15em] uppercase font-semibold hover:text-[#166534] transition-colors duration-200 group"
           >
-            Start a Project
+            Get a free quote
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
               <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -98,7 +98,7 @@ export default function Service() {
 
 function ServiceRow({ service, isOpen, onToggle, isLast }) {
   return (
-    <div className={`border-t border-white/[0.06] ${isLast ? "border-b" : ""}`}>
+    <div className={`border-t border-[#1C1917]/[0.08] ${isLast ? "border-b" : ""}`}>
       <button
         onClick={onToggle}
         className="w-full text-left py-7 sm:py-8 flex items-center gap-6 sm:gap-10 group cursor-pointer"
@@ -107,7 +107,7 @@ function ServiceRow({ service, isOpen, onToggle, isLast }) {
         {/* Number */}
         <span
           className={`text-xs tracking-[0.15em] font-mono shrink-0 transition-colors duration-300 ${
-            isOpen ? "text-[#E8FF47]" : "text-white/20 group-hover:text-[#E8FF47]"
+            isOpen ? "text-[#15803D]" : "text-[#9C968C] group-hover:text-[#15803D]"
           }`}
         >
           {service.number}
@@ -115,7 +115,7 @@ function ServiceRow({ service, isOpen, onToggle, isLast }) {
 
         {/* Name */}
         <span
-          className="font-display font-bold text-white group-hover:text-white/90 transition-colors duration-200 flex-1 leading-tight"
+          className="font-display font-bold text-[#1C1917] group-hover:text-[#1C1917] transition-colors duration-200 flex-1 leading-tight"
           style={{ fontSize: "clamp(1.4rem, 3.5vw, 3rem)" }}
         >
           {service.name}
@@ -127,8 +127,8 @@ function ServiceRow({ service, isOpen, onToggle, isLast }) {
           height="20"
           viewBox="0 0 24 24"
           fill="none"
-          className={`shrink-0 text-white/20 group-hover:text-[#E8FF47] transition-all duration-300 ${
-            isOpen ? "rotate-90 text-[#E8FF47]" : ""
+          className={`shrink-0 text-[#9C968C] group-hover:text-[#15803D] transition-all duration-300 ${
+            isOpen ? "rotate-90 text-[#15803D]" : ""
           }`}
         >
           <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -147,14 +147,14 @@ function ServiceRow({ service, isOpen, onToggle, isLast }) {
             className="overflow-hidden"
           >
             <div className="pb-10 pl-12 sm:pl-16 grid sm:grid-cols-2 gap-8 items-start">
-              <p className="text-sm sm:text-base text-white/50 leading-relaxed max-w-md">
+              <p className="text-sm sm:text-base text-[#6F6A62] leading-relaxed max-w-md">
                 {service.description}
               </p>
               <ul className="flex flex-wrap gap-2">
                 {service.items.map((item) => (
                   <li
                     key={item}
-                    className="text-xs tracking-wide text-white/50 border border-white/10 px-3 py-1.5 rounded-full"
+                    className="text-xs tracking-wide text-[#6F6A62] border border-[#1C1917]/10 px-3 py-1.5 rounded-full"
                   >
                     {item}
                   </li>

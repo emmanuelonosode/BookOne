@@ -41,18 +41,18 @@ type ReactChildren = { children?: React.ReactNode };
 const portableComponents = {
   block: {
     normal: ({ children }: ReactChildren) => (
-      <p className="mb-4 text-base leading-relaxed text-white/55">{children}</p>
+      <p className="mb-4 text-base leading-relaxed text-[#1C1917]/55">{children}</p>
     ),
     h3: ({ children }: ReactChildren) => (
-      <h3 className="font-display font-bold text-white text-lg mt-6 mb-3">{children}</h3>
+      <h3 className="font-display font-bold text-[#1C1917] text-lg mt-6 mb-3">{children}</h3>
     ),
     h4: ({ children }: ReactChildren) => (
-      <h4 className="font-semibold text-white/80 mt-4 mb-2">{children}</h4>
+      <h4 className="font-semibold text-[#3A352F] mt-4 mb-2">{children}</h4>
     ),
   },
   marks: {
-    strong: ({ children }: ReactChildren) => <strong className="font-bold text-white/90">{children}</strong>,
-    em: ({ children }: ReactChildren) => <em className="italic text-white/70">{children}</em>,
+    strong: ({ children }: ReactChildren) => <strong className="font-bold text-[#1C1917]">{children}</strong>,
+    em: ({ children }: ReactChildren) => <em className="italic text-[#3A352F]">{children}</em>,
   },
   list: {
     bullet: ({ children }: ReactChildren) => <ul className="my-4 space-y-2 pl-0 list-none">{children}</ul>,
@@ -61,14 +61,14 @@ const portableComponents = {
   listItem: {
     bullet: ({ children }: ReactChildren) => (
       <li className="flex items-start gap-3">
-        <span className="text-[#E8FF47] mt-1 shrink-0 text-xs">—</span>
-        <span className="text-base text-white/55 leading-relaxed">{children}</span>
+        <span className="text-[#15803D] mt-1 shrink-0 text-xs">—</span>
+        <span className="text-base text-[#1C1917]/55 leading-relaxed">{children}</span>
       </li>
     ),
     number: ({ children }: ReactChildren) => (
       <li className="flex items-start gap-3">
-        <span className="text-[#E8FF47] mt-1 shrink-0 text-xs font-mono">›</span>
-        <span className="text-base text-white/55 leading-relaxed">{children}</span>
+        <span className="text-[#15803D] mt-1 shrink-0 text-xs font-mono">›</span>
+        <span className="text-base text-[#1C1917]/55 leading-relaxed">{children}</span>
       </li>
     ),
   },
@@ -79,23 +79,23 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
   const loomEmbed = listing.loomVideoUrl ? getLoomEmbedUrl(listing.loomVideoUrl) : null;
 
   return (
-    <main className="min-h-screen bg-[#080808] text-white pt-28 pb-24">
+    <main className="min-h-screen bg-[#FBF8F2] text-[#1C1917] pt-28 pb-24">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
         {/* Breadcrumb nav */}
-        <nav className="mb-10 flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-mono text-white/25" aria-label="Breadcrumb">
-          <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+        <nav className="mb-10 flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C]" aria-label="Breadcrumb">
+          <Link href="/" className="hover:text-[#6F6A62] transition-colors">Home</Link>
           <span>/</span>
-          <Link href="/websites" className="hover:text-white/60 transition-colors">Websites for Sale</Link>
+          <Link href="/websites" className="hover:text-[#6F6A62] transition-colors">Websites for Sale</Link>
           <span>/</span>
-          <span className="text-white/40 truncate max-w-[200px]">{listing.title}</span>
+          <span className="text-[#6F6A62] truncate max-w-[200px]">{listing.title}</span>
         </nav>
 
         {/* Hero Grid */}
-        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16 mb-20 items-start border-b border-white/[0.06] pb-20">
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16 mb-20 items-start border-b border-[#1C1917]/[0.08] pb-20">
 
           {/* Image */}
-          <div className="relative aspect-video overflow-hidden bg-[#111]">
+          <div className="relative aspect-video overflow-hidden bg-[#FFFFFF]">
             {heroImage ? (
               <Image
                 src={heroImage}
@@ -106,7 +106,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-white/20 text-[10px] tracking-[0.2em] uppercase font-mono">
+              <div className="w-full h-full flex items-center justify-center text-[#9C968C] text-[10px] tracking-[0.2em] uppercase font-mono">
                 No preview
               </div>
             )}
@@ -117,55 +117,55 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
 
             {/* Type + Category badges */}
             <div className="flex flex-wrap gap-2">
-              <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-white/25 border border-white/[0.08] px-3 py-1">
+              <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] border border-[#1C1917]/[0.08] px-3 py-1">
                 {listing.type === "pre-built" ? "Pre-built" : "Done-for-You"}
               </span>
               {listing.category && (
-                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-white/25 border border-white/[0.08] px-3 py-1">
+                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] border border-[#1C1917]/[0.08] px-3 py-1">
                   {CATEGORY_LABELS[listing.category] ?? listing.category}
                 </span>
               )}
             </div>
 
             <h1
-              className="font-display font-black text-white leading-[0.95]"
+              className="font-display font-black text-[#1C1917] leading-[0.95]"
               style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
             >
               {listing.title}
             </h1>
 
             {listing.shortDescription && (
-              <p className="text-white/45 leading-relaxed text-sm max-w-sm">
+              <p className="text-[#1C1917]/45 leading-relaxed text-sm max-w-sm">
                 {listing.shortDescription}
               </p>
             )}
 
             {/* Price */}
-            <div className="border-t border-white/[0.06] pt-5">
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-white/25 mb-2">Price</p>
+            <div className="border-t border-[#1C1917]/[0.08] pt-5">
+              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C] mb-2">Price</p>
               <div className="flex items-baseline gap-3">
                 <span
-                  className="font-display font-black text-[#E8FF47]"
+                  className="font-display font-black text-[#15803D]"
                   style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
                 >
                   ${listing.price.toLocaleString()}
                 </span>
-                <span className="text-sm font-mono text-white/30">USD</span>
+                <span className="text-sm font-mono text-[#9C968C]">USD</span>
               </div>
-              <p className={`text-[10px] font-mono uppercase tracking-[0.2em] mt-2 ${isInStock ? "text-white/40" : "text-white/20"}`}>
+              <p className={`text-[10px] font-mono uppercase tracking-[0.2em] mt-2 ${isInStock ? "text-[#6F6A62]" : "text-[#9C968C]"}`}>
                 {isInStock ? "● Available" : "○ Sold Out"}
               </p>
             </div>
 
             {/* Preview + Demo links */}
             {(listing.liveUrl || listing.loomVideoUrl) && (
-              <div className="flex flex-wrap gap-5 border-t border-white/[0.06] pt-5">
+              <div className="flex flex-wrap gap-5 border-t border-[#1C1917]/[0.08] pt-5">
                 {listing.liveUrl && (
                   <a
                     href={listing.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-mono text-white/40 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-mono text-[#6F6A62] hover:text-[#1C1917] transition-colors"
                   >
                     Live Preview <DiagonalArrow />
                   </a>
@@ -175,7 +175,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
                     href={listing.loomVideoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-mono text-white/40 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-mono text-[#6F6A62] hover:text-[#1C1917] transition-colors"
                   >
                     Watch Demo <DiagonalArrow />
                   </a>
@@ -184,11 +184,11 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
             )}
 
             {/* Buy CTA */}
-            <div className="border-t border-white/[0.06] pt-5">
+            <div className="border-t border-[#1C1917]/[0.08] pt-5">
               {isInStock ? (
                 <Link
                   href={`/get-started?intent=website-purchase&website=${encodeURIComponent(listing.title)}&price=${listing.price}`}
-                  className="inline-flex items-center gap-3 text-[#E8FF47] text-sm font-semibold hover:text-white transition-colors duration-200"
+                  className="inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold hover:text-[#1C1917] transition-colors duration-200"
                 >
                   Buy This Website — ${listing.price.toLocaleString()}
                   <DiagonalArrow />
@@ -196,7 +196,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
               ) : (
                 <Link
                   href="/get-started"
-                  className="inline-flex items-center gap-3 text-white/30 text-sm font-semibold hover:text-white transition-colors duration-200"
+                  className="inline-flex items-center gap-3 text-[#9C968C] text-sm font-semibold hover:text-[#1C1917] transition-colors duration-200"
                 >
                   Commission a Similar Build
                   <DiagonalArrow />
@@ -209,10 +209,10 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
         {/* Loom Video Embed */}
         {loomEmbed && (
           <section className="mb-20" aria-label="Video walkthrough">
-            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase font-mono mb-6">
+            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-6">
               Video Walkthrough
             </p>
-            <div className="relative w-full aspect-video overflow-hidden bg-[#111]">
+            <div className="relative w-full aspect-video overflow-hidden bg-[#FFFFFF]">
               <iframe
                 src={loomEmbed}
                 allowFullScreen
@@ -225,25 +225,25 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
         )}
 
         {/* Tech Stack + Category */}
-        <section className="border-t border-white/[0.06] pt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        <section className="border-t border-[#1C1917]/[0.08] pt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {listing.category && (
             <div>
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-white/25 mb-3">Category</p>
-              <p className="text-sm text-white/60">{CATEGORY_LABELS[listing.category] ?? listing.category}</p>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C] mb-3">Category</p>
+              <p className="text-sm text-[#6F6A62]">{CATEGORY_LABELS[listing.category] ?? listing.category}</p>
             </div>
           )}
           {listing.type && (
             <div>
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-white/25 mb-3">Type</p>
-              <p className="text-sm text-white/60">{listing.type === "pre-built" ? "Pre-built Template" : "Done-for-You Build"}</p>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C] mb-3">Type</p>
+              <p className="text-sm text-[#6F6A62]">{listing.type === "pre-built" ? "Pre-built Template" : "Done-for-You Build"}</p>
             </div>
           )}
           {listing.techStack && listing.techStack.length > 0 && (
             <div>
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-white/25 mb-3">Tech Stack</p>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C] mb-3">Tech Stack</p>
               <div className="flex flex-wrap gap-2">
                 {listing.techStack.map((tech) => (
-                  <span key={tech} className="text-[10px] border border-white/[0.08] px-3 py-1 font-mono text-white/30 uppercase">
+                  <span key={tech} className="text-[10px] border border-[#1C1917]/[0.08] px-3 py-1 font-mono text-[#9C968C] uppercase">
                     {tech}
                   </span>
                 ))}
@@ -254,8 +254,8 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
 
         {/* What's Included */}
         {listing.whatsIncluded && listing.whatsIncluded.length > 0 && (
-          <section className="border-t border-white/[0.06] pt-10 mb-20">
-            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase font-mono mb-8">
+          <section className="border-t border-[#1C1917]/[0.08] pt-10 mb-20">
+            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-8">
               What&apos;s Included
             </p>
             <div className="max-w-2xl">
@@ -267,15 +267,15 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
         {/* Screenshots */}
         {listing.screenshots && listing.screenshots.length > 0 && (
           <section className="mb-20">
-            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase font-mono mb-8">
+            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-8">
               Screenshots
             </p>
-            <div className="grid sm:grid-cols-2 gap-px bg-white/[0.06]">
+            <div className="grid sm:grid-cols-2 gap-px bg-[#1C1917]/[0.04]">
               {listing.screenshots.map((shot, i) => {
                 const url = shot?.asset?.url;
                 if (!url) return null;
                 return (
-                  <div key={i} className="aspect-video relative overflow-hidden bg-[#111]">
+                  <div key={i} className="aspect-video relative overflow-hidden bg-[#FFFFFF]">
                     <Image
                       src={url}
                       alt={shot.alt ?? `${listing.title} — screenshot ${i + 1}`}
@@ -292,17 +292,17 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
         )}
 
         {/* Bottom CTA */}
-        <div className="border-t border-white/[0.06] pt-16">
-          <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase font-mono mb-6">
+        <div className="border-t border-[#1C1917]/[0.08] pt-16">
+          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-6">
             {isInStock ? "Ready to buy?" : "Need something similar?"}
           </p>
           <h2
-            className="font-display font-black text-white mb-6 leading-[0.95]"
+            className="font-display font-black text-[#1C1917] mb-6 leading-[0.95]"
             style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
           >
             {isInStock ? "Own this website today." : "Let's build yours from scratch."}
           </h2>
-          <p className="text-white/40 text-sm mb-8 max-w-md leading-relaxed">
+          <p className="text-[#6F6A62] text-sm mb-8 max-w-md leading-relaxed">
             {isInStock
               ? "Fill out the form and we'll transfer everything — domain, code, and hosting setup."
               : "This listing is sold, but we can build you something similar or fully custom."}
@@ -311,7 +311,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
             href={isInStock
               ? `/get-started?intent=website-purchase&website=${encodeURIComponent(listing.title)}&price=${listing.price}`
               : "/get-started"}
-            className="inline-flex items-center gap-3 text-[#E8FF47] text-sm font-semibold hover:text-white transition-colors duration-200"
+            className="inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold hover:text-[#1C1917] transition-colors duration-200"
           >
             {isInStock ? `Get Started — $${listing.price.toLocaleString()}` : "Start a Custom Build"}
             <DiagonalArrow />

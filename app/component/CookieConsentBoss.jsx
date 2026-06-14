@@ -40,16 +40,16 @@ export default function ClientCookieConsent() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="fixed bottom-0 left-0 right-0 z-[9990] border-t border-white/[0.08] bg-[#0D0D0D]"
+          className="fixed bottom-0 left-0 right-0 z-[9990] border-t border-[#1C1917]/[0.08] bg-[#FFFFFF]"
           role="dialog"
           aria-label="Cookie consent"
         >
           <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-5 flex items-center justify-between gap-6 flex-wrap">
-            <p className="text-[11px] font-mono text-white/40 leading-relaxed">
+            <p className="text-[11px] font-mono text-[#6F6A62] leading-relaxed">
               We use cookies to improve your experience.{" "}
               <Link
                 href="/cookies-policy"
-                className="text-[#E8FF47] hover:text-white transition-colors duration-200"
+                className="text-[#15803D] hover:text-[#1C1917] transition-colors duration-200"
               >
                 Learn more
               </Link>
@@ -58,13 +58,13 @@ export default function ClientCookieConsent() {
             <div className="flex items-center gap-5 shrink-0">
               <button
                 onClick={handleDecline}
-                className="text-[10px] font-mono uppercase tracking-[0.15em] text-white/30 hover:text-white transition-colors duration-200"
+                className="text-[10px] font-mono uppercase tracking-[0.15em] text-[#9C968C] hover:text-[#1C1917] transition-colors duration-200"
               >
                 Decline
               </button>
               <button
                 onClick={handleAccept}
-                className="text-[10px] font-mono uppercase tracking-[0.15em] border border-[#E8FF47]/40 text-[#E8FF47] hover:bg-[#E8FF47] hover:text-[#080808] px-4 py-2 transition-all duration-200"
+                className="text-[10px] font-mono uppercase tracking-[0.15em] border border-[#15803D]/40 text-[#15803D] hover:bg-[#15803D] hover:text-[#FBF8F2] px-4 py-2 transition-all duration-200"
               >
                 Accept All
               </button>

@@ -20,8 +20,8 @@ export default function WebDesignDetails({ details }) {
       )}
 
       <div>
-        <h3 className="text-2xl font-bold text-white mb-4">Key Features</h3>
-        <ul className="list-disc list-inside space-y-2 text-gray-300">
+        <h3 className="text-2xl font-bold text-[#1C1917] mb-4">Key Features</h3>
+        <ul className="list-disc list-inside space-y-2 text-[#6F6A62]">
           {Array.isArray(details.keyFeatures) &&
             details.keyFeatures.map((feature, index) => (
               <li key={index}>{feature}</li>
@@ -30,13 +30,13 @@ export default function WebDesignDetails({ details }) {
       </div>
 
       <div>
-        <h3 className="text-2xl font-bold text-white mb-4">Technology Stack</h3>
+        <h3 className="text-2xl font-bold text-[#1C1917] mb-4">Technology Stack</h3>
         <div className="flex flex-wrap gap-2">
           {Array.isArray(details.techStack) &&
             details.techStack.map((tech) => (
               <span
                 key={tech}
-                className="bg-blue-500 text-white px-3 py-1 text-sm rounded-full"
+                className="bg-[#15803D]/[0.08] text-[#15803D] border border-[#15803D]/20 px-3 py-1 text-sm rounded-full"
               >
                 {tech}
               </span>
@@ -49,7 +49,7 @@ export default function WebDesignDetails({ details }) {
           href={details.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-green-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-600 transition-colors"
+          className="inline-block bg-[#15803D] text-white font-bold py-2 px-6 rounded-lg hover:bg-[#166534] transition-colors"
         >
           View Live Site
         </a>

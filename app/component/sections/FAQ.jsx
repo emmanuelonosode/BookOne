@@ -29,15 +29,15 @@ export default function FAQ() {
   const [open, setOpen] = useState(null);
 
   return (
-    <section className="py-20 sm:py-28 border-t border-white/[0.06]">
+    <section className="py-20 sm:py-28 border-t border-[#1C1917]/[0.08]">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
         <div className="grid lg:grid-cols-[1fr_2fr] gap-16 items-start">
           {/* Left label */}
           <div className="lg:sticky lg:top-28">
-            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-3">FAQ</p>
+            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-3">FAQ</p>
             <h2
-              className="font-display font-black text-white leading-none"
+              className="font-display font-black text-[#1C1917] leading-none"
               style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
             >
               Common Questions
@@ -47,16 +47,16 @@ export default function FAQ() {
           {/* Accordion */}
           <div>
             {FAQS.map((faq, i) => (
-              <div key={i} className={`border-t border-white/[0.06] ${i === FAQS.length - 1 ? "border-b" : ""}`}>
+              <div key={i} className={`border-t border-[#1C1917]/[0.08] ${i === FAQS.length - 1 ? "border-b" : ""}`}>
                 <button
                   onClick={() => setOpen(open === i ? null : i)}
                   className="w-full text-left py-7 flex items-start gap-6 group"
                   aria-expanded={open === i}
                 >
-                  <span className="text-xs font-mono text-white/20 group-hover:text-[#E8FF47] transition-colors duration-300 pt-1 shrink-0">
+                  <span className="text-xs font-mono text-[#9C968C] group-hover:text-[#15803D] transition-colors duration-300 pt-1 shrink-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="flex-1 text-base sm:text-lg font-medium text-white/80 group-hover:text-white transition-colors duration-200 leading-snug pr-4">
+                  <span className="flex-1 text-base sm:text-lg font-medium text-[#3A352F] group-hover:text-[#1C1917] transition-colors duration-200 leading-snug pr-4">
                     {faq.q}
                   </span>
                   <svg
@@ -64,8 +64,8 @@ export default function FAQ() {
                     height="16"
                     viewBox="0 0 24 24"
                     fill="none"
-                    className={`shrink-0 mt-1 text-white/20 group-hover:text-white/60 transition-all duration-300 ${
-                      open === i ? "rotate-45 text-[#E8FF47]" : ""
+                    className={`shrink-0 mt-1 text-[#9C968C] group-hover:text-[#6F6A62] transition-all duration-300 ${
+                      open === i ? "rotate-45 text-[#15803D]" : ""
                     }`}
                   >
                     <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -82,7 +82,7 @@ export default function FAQ() {
                       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="pl-14 pb-8 text-sm sm:text-base text-white/40 leading-relaxed max-w-2xl">
+                      <p className="pl-14 pb-8 text-sm sm:text-base text-[#6F6A62] leading-relaxed max-w-2xl">
                         {faq.a}
                       </p>
                     </motion.div>

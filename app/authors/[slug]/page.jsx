@@ -120,13 +120,13 @@ export default async function AuthorPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div className="bg-[#080808] min-h-screen pt-32 pb-24">
+      <div className="bg-[#FBF8F2] min-h-screen pt-32 pb-24">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
           {/* Back link */}
           <Link
             href="/authors"
-            className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-white transition-colors duration-200 font-mono mb-14"
+            className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#9C968C] hover:text-[#1C1917] transition-colors duration-200 font-mono mb-14"
           >
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
               <path d="M12 7H2M2 7L7 2M2 7L7 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -135,10 +135,10 @@ export default async function AuthorPage({ params }) {
           </Link>
 
           {/* Author hero */}
-          <div className="grid lg:grid-cols-[1fr_2fr] gap-16 pb-16 mb-16 border-b border-white/[0.06]">
+          <div className="grid lg:grid-cols-[1fr_2fr] gap-16 pb-16 mb-16 border-b border-[#1C1917]/[0.08]">
             {/* Left: avatar + socials */}
             <div>
-              <div className="w-24 h-24 rounded-full overflow-hidden bg-white/[0.06] ring-1 ring-white/10 mb-6">
+              <div className="w-24 h-24 rounded-full overflow-hidden bg-[#1C1917]/[0.04] ring-1 ring-white/10 mb-6">
                 {authorImageUrl ? (
                   <Image
                     src={authorImageUrl}
@@ -150,7 +150,7 @@ export default async function AuthorPage({ params }) {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <span className="font-display font-black text-white/40 text-3xl">
+                    <span className="font-display font-black text-[#6F6A62] text-3xl">
                       {author.name?.charAt(0)}
                     </span>
                   </div>
@@ -165,7 +165,7 @@ export default async function AuthorPage({ params }) {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white/25 hover:text-[#E8FF47] transition-colors duration-200"
+                      className="text-[#9C968C] hover:text-[#15803D] transition-colors duration-200"
                       aria-label={`${author.name} on ${label}`}
                     >
                       {icon}
@@ -178,22 +178,22 @@ export default async function AuthorPage({ params }) {
             {/* Right: name + bio + stats */}
             <div>
               {author.role && (
-                <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-4 font-mono">
+                <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-4 font-mono">
                   {author.role}
                 </p>
               )}
               <h1
-                className="font-display font-black text-white leading-none mb-6"
+                className="font-display font-black text-[#1C1917] leading-none mb-6"
                 style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
               >
                 {author.name}
               </h1>
               {author.bio && (
-                <p className="text-base text-white/50 leading-relaxed max-w-xl mb-8">
+                <p className="text-base text-[#6F6A62] leading-relaxed max-w-xl mb-8">
                   {author.bio}
                 </p>
               )}
-              <p className="text-xs text-white/20 tracking-wide font-mono">
+              <p className="text-xs text-[#9C968C] tracking-wide font-mono">
                 {blogs.length} {blogs.length === 1 ? "article" : "articles"} published
               </p>
             </div>
@@ -201,7 +201,7 @@ export default async function AuthorPage({ params }) {
 
           {/* Articles */}
           <div>
-            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-10 font-mono">
+            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-10 font-mono">
               Articles
             </p>
 
@@ -211,21 +211,21 @@ export default async function AuthorPage({ params }) {
                   <Link
                     key={blog._id}
                     href={`/blogs/${blog.slug.current}`}
-                    className="group flex items-start gap-8 border-t border-white/[0.06] py-8 last:border-b hover:bg-white/[0.02] transition-colors duration-200 -mx-6 px-6 sm:-mx-10 sm:px-10 lg:-mx-16 lg:px-16"
+                    className="group flex items-start gap-8 border-t border-[#1C1917]/[0.08] py-8 last:border-b hover:bg-white/[0.02] transition-colors duration-200 -mx-6 px-6 sm:-mx-10 sm:px-10 lg:-mx-16 lg:px-16"
                   >
-                    <span className="text-xs font-mono text-white/20 group-hover:text-[#E8FF47] transition-colors duration-300 pt-1 shrink-0 w-8">
+                    <span className="text-xs font-mono text-[#9C968C] group-hover:text-[#15803D] transition-colors duration-300 pt-1 shrink-0 w-8">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div className="flex-1 min-w-0">
-                      <h2 className="font-display font-bold text-white group-hover:text-white/80 transition-colors leading-tight text-xl sm:text-2xl mb-3">
+                      <h2 className="font-display font-bold text-[#1C1917] group-hover:text-[#3A352F] transition-colors leading-tight text-xl sm:text-2xl mb-3">
                         {blog.title}
                       </h2>
                       {blog.excerpt && (
-                        <p className="text-sm text-white/35 leading-relaxed mb-4 max-w-2xl">
+                        <p className="text-sm text-[#1C1917]/35 leading-relaxed mb-4 max-w-2xl">
                           {blog.excerpt}
                         </p>
                       )}
-                      <p className="text-[10px] tracking-wide text-white/20 uppercase font-mono">
+                      <p className="text-[10px] tracking-wide text-[#9C968C] uppercase font-mono">
                         {new Date(blog._createdAt).toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
@@ -238,7 +238,7 @@ export default async function AuthorPage({ params }) {
                       height="14"
                       viewBox="0 0 14 14"
                       fill="none"
-                      className="text-white/20 group-hover:text-[#E8FF47] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0 mt-1"
+                      className="text-[#9C968C] group-hover:text-[#15803D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0 mt-1"
                     >
                       <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
@@ -246,8 +246,8 @@ export default async function AuthorPage({ params }) {
                 ))}
               </div>
             ) : (
-              <div className="py-16 border-t border-white/[0.06]">
-                <p className="text-white/20 text-sm tracking-wide uppercase font-mono">
+              <div className="py-16 border-t border-[#1C1917]/[0.08]">
+                <p className="text-[#9C968C] text-sm tracking-wide uppercase font-mono">
                   No articles published yet
                 </p>
               </div>

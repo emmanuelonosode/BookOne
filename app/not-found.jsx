@@ -22,7 +22,7 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-[#FBF8F2]">
       <div className="max-w-md w-full text-center">
         <div className="mb-8">
           <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
@@ -37,7 +37,7 @@ export default function NotFound() {
         <div className="space-y-4">
           <Link
             href="/"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-block bg-[#15803D] text-white px-6 py-3 rounded-lg hover:bg-[#166534] transition-colors"
             aria-label="Go to home page"
           >
             Go Home
@@ -46,7 +46,7 @@ export default function NotFound() {
           <div className="text-sm text-gray-500">
             <Link
               href="/blogs"
-              className="hover:text-blue-600"
+              className="hover:text-[#15803D]"
               aria-label="Browse our blog"
             >
               Browse our blog
@@ -54,7 +54,7 @@ export default function NotFound() {
             {" • "}
             <Link
               href="/services"
-              className="hover:text-blue-600"
+              className="hover:text-[#15803D]"
               aria-label="View our services"
             >
               View services
@@ -62,7 +62,7 @@ export default function NotFound() {
             {" • "}
             <Link
               href="/get-started"
-              className="hover:text-blue-600"
+              className="hover:text-[#15803D]"
               aria-label="Get a quote - View pricing and get started"
             >
               Get a Quote

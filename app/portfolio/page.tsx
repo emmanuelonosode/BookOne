@@ -89,17 +89,17 @@ export default async function PortfolioPage() {
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
 
-      <section className="bg-[#080808] min-h-screen" aria-labelledby="portfolio-heading">
+      <section className="bg-[#FBF8F2] min-h-screen" aria-labelledby="portfolio-heading">
 
         {/* HERO */}
-        <div className="pt-32 pb-20 border-b border-white/[0.06]">
+        <div className="pt-32 pb-20 border-b border-[#1C1917]/[0.08]">
           <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
-            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-4">
+            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-4">
               Selected Work
             </p>
             <h1
               id="portfolio-heading"
-              className="font-display font-black text-white leading-none"
+              className="font-display font-black text-[#1C1917] leading-none"
               style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
             >
               Innovative builds<br />
@@ -121,24 +121,24 @@ export default async function PortfolioPage() {
                   <Link
                     key={cs._id}
                     href={`/portfolio/${slug}`}
-                    className="group block border-t border-white/[0.06] py-10 last:border-b hover:bg-white/[0.01] transition-colors duration-300 -mx-6 px-6 sm:-mx-10 sm:px-10 lg:-mx-16 lg:px-16"
+                    className="group block border-t border-[#1C1917]/[0.08] py-10 last:border-b hover:bg-white/[0.01] transition-colors duration-300 -mx-6 px-6 sm:-mx-10 sm:px-10 lg:-mx-16 lg:px-16"
                   >
                     <div className="grid lg:grid-cols-[60px_1fr_1fr_auto] gap-6 lg:gap-10 items-start">
                       {/* number */}
-                      <span className="text-xs font-mono text-white/20 group-hover:text-[#E8FF47] transition-colors duration-300 pt-1 hidden sm:block">
+                      <span className="text-xs font-mono text-[#9C968C] group-hover:text-[#15803D] transition-colors duration-300 pt-1 hidden sm:block">
                         {String(i + 1).padStart(2, "0")}
                       </span>
 
                       {/* title + tags */}
                       <div>
                         <h2
-                          className="font-display font-bold text-white group-hover:text-white/80 transition-colors leading-tight mb-3"
+                          className="font-display font-bold text-[#1C1917] group-hover:text-[#3A352F] transition-colors leading-tight mb-3"
                           style={{ fontSize: "clamp(1.4rem, 3vw, 2.2rem)" }}
                         >
                           {cs.title}
                         </h2>
                         {cs.category && (
-                          <p className="text-[10px] tracking-[0.2em] uppercase text-white/25 font-mono">
+                          <p className="text-[10px] tracking-[0.2em] uppercase text-[#9C968C] font-mono">
                             {cs.category}
                           </p>
                         )}
@@ -146,7 +146,7 @@ export default async function PortfolioPage() {
 
                       {/* description */}
                       {description && (
-                        <p className="text-sm text-white/35 leading-relaxed hidden lg:block max-w-sm">
+                        <p className="text-sm text-[#1C1917]/35 leading-relaxed hidden lg:block max-w-sm">
                           {description}
                         </p>
                       )}
@@ -154,7 +154,7 @@ export default async function PortfolioPage() {
                       {/* thumbnail + arrow */}
                       <div className="flex items-center gap-6">
                         {image && (
-                          <div className="relative w-20 h-14 overflow-hidden bg-white/[0.04] shrink-0">
+                          <div className="relative w-20 h-14 overflow-hidden bg-[#1C1917]/[0.03] shrink-0">
                             <Image
                               src={getImageUrl(image) ?? ""}
                               alt={cs.title}
@@ -169,7 +169,7 @@ export default async function PortfolioPage() {
                           height="14"
                           viewBox="0 0 14 14"
                           fill="none"
-                          className="text-white/20 group-hover:text-[#E8FF47] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0"
+                          className="text-[#9C968C] group-hover:text-[#15803D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0"
                         >
                           <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
@@ -181,8 +181,8 @@ export default async function PortfolioPage() {
             </div>
           ) : (
             /* empty state */
-            <div className="py-24 border-t border-white/[0.06]">
-              <p className="text-white/20 text-sm tracking-wide uppercase font-mono">
+            <div className="py-24 border-t border-[#1C1917]/[0.08]">
+              <p className="text-[#9C968C] text-sm tracking-wide uppercase font-mono">
                 No projects yet — check back soon.
               </p>
             </div>
@@ -190,13 +190,13 @@ export default async function PortfolioPage() {
         </div>
 
         {/* CTA */}
-        <div className="border-t border-white/[0.06] mt-8">
+        <div className="border-t border-[#1C1917]/[0.08] mt-8">
           <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
-            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-6">
+            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-6">
               Start a project
             </p>
             <h2
-              className="font-display font-black text-white leading-none mb-10"
+              className="font-display font-black text-[#1C1917] leading-none mb-10"
               style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
             >
               Let&apos;s build something<br />
@@ -204,7 +204,7 @@ export default async function PortfolioPage() {
             </h2>
             <Link
               href="/get-started"
-              className="group inline-flex items-center gap-3 text-[#E8FF47] text-sm font-semibold tracking-wide hover:text-white transition-colors duration-200"
+              className="group inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
             >
               Start Your Project
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">

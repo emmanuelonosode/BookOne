@@ -77,23 +77,23 @@ export default async function AuthorsPage() {
   );
 
   return (
-    <section className="bg-[#080808] min-h-screen pt-32 pb-24" aria-labelledby="authors-heading">
+    <section className="bg-[#FBF8F2] min-h-screen pt-32 pb-24" aria-labelledby="authors-heading">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
         {/* Header */}
-        <div className="mb-16 border-b border-white/[0.06] pb-12">
-          <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-4">
+        <div className="mb-16 border-b border-[#1C1917]/[0.08] pb-12">
+          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-4">
             The Team
           </p>
           <div className="flex items-end justify-between gap-8 flex-wrap">
             <h1
               id="authors-heading"
-              className="font-display font-black text-white leading-none"
+              className="font-display font-black text-[#1C1917] leading-none"
               style={{ fontSize: "clamp(2.5rem, 7vw, 6rem)" }}
             >
               Our Authors
             </h1>
-            <p className="text-sm text-white/40 leading-relaxed max-w-sm">
+            <p className="text-sm text-[#6F6A62] leading-relaxed max-w-sm">
               The writers and strategists behind Bookone Studio&apos;s content — each bringing deep expertise in web, AI, and growth.
             </p>
           </div>
@@ -101,7 +101,7 @@ export default async function AuthorsPage() {
 
         {/* Authors grid */}
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-white/[0.06]"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-[#1C1917]/[0.04]"
           role="list"
           aria-label="Authors List"
         >
@@ -117,13 +117,13 @@ export default async function AuthorsPage() {
             return (
               <div
                 key={author._id}
-                className="group bg-[#080808] p-8 flex flex-col"
+                className="group bg-[#FBF8F2] p-8 flex flex-col"
                 role="listitem"
                 aria-label={`Author: ${author.name}`}
               >
                 {/* Avatar */}
                 <div className="mb-6">
-                  <div className="w-16 h-16 rounded-full overflow-hidden bg-white/[0.06] ring-1 ring-white/10">
+                  <div className="w-16 h-16 rounded-full overflow-hidden bg-[#1C1917]/[0.04] ring-1 ring-white/10">
                     {imageUrl ? (
                       <Image
                         src={imageUrl}
@@ -136,7 +136,7 @@ export default async function AuthorsPage() {
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
                         <span
-                          className="font-display font-black text-white/40"
+                          className="font-display font-black text-[#6F6A62]"
                           style={{ fontSize: "1.5rem" }}
                         >
                           {author.name?.charAt(0)}
@@ -147,18 +147,18 @@ export default async function AuthorsPage() {
                 </div>
 
                 {/* Name + role */}
-                <h2 className="font-display font-bold text-white text-xl leading-tight mb-1">
+                <h2 className="font-display font-bold text-[#1C1917] text-xl leading-tight mb-1">
                   {author.name}
                 </h2>
                 {author.role && (
-                  <p className="text-[10px] tracking-[0.2em] text-white/30 uppercase mb-4 font-mono">
+                  <p className="text-[10px] tracking-[0.2em] text-[#9C968C] uppercase mb-4 font-mono">
                     {author.role}
                   </p>
                 )}
 
                 {/* Bio */}
                 {author.bio && (
-                  <p className="text-sm text-white/40 leading-relaxed mb-6 flex-1">
+                  <p className="text-sm text-[#6F6A62] leading-relaxed mb-6 flex-1">
                     {author.bio}
                   </p>
                 )}
@@ -172,7 +172,7 @@ export default async function AuthorsPage() {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white/25 hover:text-[#E8FF47] transition-colors duration-200"
+                        className="text-[#9C968C] hover:text-[#15803D] transition-colors duration-200"
                         aria-label={`${author.name} on ${label}`}
                       >
                         {icon}
@@ -184,7 +184,7 @@ export default async function AuthorsPage() {
                 {/* View Profile */}
                 <Link
                   href={`/authors/${author.slug?.current}`}
-                  className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#E8FF47] hover:text-white transition-colors duration-200 font-medium group/link"
+                  className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#15803D] hover:text-[#1C1917] transition-colors duration-200 font-medium group/link"
                   aria-label={`View profile for ${author.name}`}
                 >
                   View Profile
@@ -211,7 +211,7 @@ export default async function AuthorsPage() {
 
         {authors.length === 0 && (
           <div className="text-center py-24">
-            <p className="text-white/20 text-sm tracking-wide uppercase">No authors yet</p>
+            <p className="text-[#9C968C] text-sm tracking-wide uppercase">No authors yet</p>
           </div>
         )}
       </div>

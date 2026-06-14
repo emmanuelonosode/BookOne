@@ -35,7 +35,7 @@ export default function Nav() {
     <header
       role="banner"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "border-b border-white/[0.06] bg-[#080808]/90 backdrop-blur-md" : "bg-transparent"
+        scrolled ? "border-b border-[#1C1917]/[0.08] bg-[#FBF8F2]/90 backdrop-blur-md" : "bg-transparent"
       }`}
     >
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
@@ -45,7 +45,7 @@ export default function Nav() {
           <Link
             href="/"
             aria-label="Bookone Studio Home"
-            className="text-white font-display font-black text-xl tracking-tight hover:text-[#E8FF47] transition-colors duration-300"
+            className="text-[#1C1917] font-display font-black text-xl tracking-tight hover:text-[#15803D] transition-colors duration-300"
           >
             BOOKONE STUDIO
           </Link>
@@ -61,7 +61,7 @@ export default function Nav() {
                 key={href}
                 href={href}
                 className={`text-[11px] tracking-[0.15em] uppercase font-medium transition-colors duration-200 ${
-                  pathname === href ? "text-white" : "text-white/40 hover:text-white"
+                  pathname === href ? "text-[#1C1917]" : "text-[#6F6A62] hover:text-[#1C1917]"
                 }`}
               >
                 {name}
@@ -73,9 +73,9 @@ export default function Nav() {
           <div className="flex items-center gap-5">
             <Link
               href="/get-started"
-              className="hidden sm:inline-flex items-center gap-2 border border-[#E8FF47]/60 text-[#E8FF47] hover:bg-[#E8FF47] hover:text-[#080808] transition-all duration-300 text-[11px] tracking-[0.15em] uppercase font-semibold px-5 py-2.5 rounded-full"
+              className="press hidden sm:inline-flex items-center gap-2 bg-[#15803D] text-white hover:bg-[#166534] transition-colors duration-200 text-[11px] tracking-[0.15em] uppercase font-semibold px-5 py-2.5 rounded-full"
             >
-              Get Started
+              Get a quote
             </Link>
 
             {/* Hamburger */}
@@ -85,17 +85,17 @@ export default function Nav() {
               className="md:hidden w-8 h-8 flex flex-col justify-center items-end gap-1.5 group"
             >
               <span
-                className={`block h-px bg-white transition-all duration-300 origin-right ${
+                className={`block h-px bg-[#1C1917] transition-all duration-300 origin-right ${
                   menuOpen ? "w-6 rotate-[-45deg] translate-y-[4px]" : "w-6"
                 }`}
               />
               <span
-                className={`block h-px bg-white transition-all duration-300 ${
+                className={`block h-px bg-[#1C1917] transition-all duration-300 ${
                   menuOpen ? "w-6 opacity-0" : "w-4 group-hover:w-6"
                 }`}
               />
               <span
-                className={`block h-px bg-white transition-all duration-300 origin-right ${
+                className={`block h-px bg-[#1C1917] transition-all duration-300 origin-right ${
                   menuOpen ? "w-6 rotate-[45deg] translate-y-[-4px]" : "w-6"
                 }`}
               />
@@ -109,7 +109,7 @@ export default function Nav() {
         {menuOpen && (
           <>
             <motion.div
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-[#1C1917]/40 backdrop-blur-sm z-40"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -117,16 +117,16 @@ export default function Nav() {
               onClick={() => setMenuOpen(false)}
             />
             <motion.div
-              className="fixed top-0 right-0 bottom-0 w-full max-w-xs bg-[#080808] border-l border-white/[0.06] z-50 flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-full max-w-xs bg-[#FBF8F2] border-l border-[#1C1917]/[0.08] z-50 flex flex-col"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Close */}
-              <div className="flex items-center justify-between px-8 h-16 lg:h-20 border-b border-white/[0.06]">
-                <span className="font-display font-black text-white text-lg">BOOKONE STUDIO</span>
-                <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="text-white/40 hover:text-white transition-colors">
+              <div className="flex items-center justify-between px-8 h-16 lg:h-20 border-b border-[#1C1917]/[0.08]">
+                <span className="font-display font-black text-[#1C1917] text-lg">BOOKONE STUDIO</span>
+                <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="text-[#6F6A62] hover:text-[#1C1917] transition-colors">
                   <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
                     <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
@@ -144,7 +144,7 @@ export default function Nav() {
                   >
                     <Link
                       href={href}
-                      className="block py-4 border-b border-white/[0.06] font-display font-bold text-3xl text-white/70 hover:text-white transition-colors duration-200"
+                      className="block py-4 border-b border-[#1C1917]/[0.08] font-display font-bold text-3xl text-[#3A352F] hover:text-[#1C1917] transition-colors duration-200"
                     >
                       {name}
                     </Link>
@@ -156,9 +156,9 @@ export default function Nav() {
               <div className="px-8 pb-10">
                 <Link
                   href="/get-started"
-                  className="block text-center border border-[#E8FF47]/60 text-[#E8FF47] hover:bg-[#E8FF47] hover:text-[#080808] transition-all duration-300 text-xs tracking-[0.15em] uppercase font-semibold px-6 py-4 rounded-full"
+                  className="block text-center bg-[#15803D] text-white hover:bg-[#166534] transition-colors duration-200 text-xs tracking-[0.15em] uppercase font-semibold px-6 py-4 rounded-full"
                 >
-                  Get Started
+                  Get a quote
                 </Link>
               </div>
             </motion.div>

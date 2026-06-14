@@ -8,23 +8,33 @@
 :root {
   /* ── Typography ── */
   --font-sans: var(--font-sans), system-ui, sans-serif;
-  --font-display: var(--font-display), Georgia, serif;
+  /* Headlines share the same friendly humanist family, just heavier */
+  --font-display: var(--font-sans), system-ui, sans-serif;
 
-  /* ── Brand palette ── */
-  --color-bg: #080808;
-  --color-bg-card: #111111;
-  --color-accent: #E8FF47;
-  --color-accent-hover: #D4F000;
-  --color-text-muted: #999999;
-  --color-border: rgba(255,255,255,0.08);
+  /* ── Brand palette — warm & approachable ── */
+  --color-bg: #FBF8F2;          /* cream page background */
+  --color-bg-card: #FFFFFF;     /* white cards/surfaces */
+  --color-bg-warm: #FFFDF8;     /* slightly warm surface */
+  --color-accent: #15803D;      /* deep, trustworthy green */
+  --color-accent-hover: #166534;
+  --color-accent-soft: #DCFCE7; /* light green tint */
+  --color-ink: #1C1917;         /* near-black warm text */
+  --color-text-muted: #6F6A62;  /* warm grey body text */
+  --color-text-faint: #9C968C;  /* labels, captions */
+  --color-border: #E7E1D6;      /* warm hairline border */
 
   /* ── Legacy tokens (kept for any component not yet updated) ── */
-  --color-primary: #E8FF47;
-  --color-secondary: #b9c7f8;
-  --color-dark: #080808;
+  --color-primary: #15803D;
+  --color-secondary: #166534;
+  --color-dark: #1C1917;
   --color-light: #ffffff;
-  --color-neutral: #111111;
-  --color-muted: #999999;
+  --color-neutral: #FFFFFF;
+  --color-muted: #6F6A62;
+
+  /* ── Motion — strong custom easing (built-ins are too weak) ── */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 
   /* Performance optimizations */
   --transition-fast: 150ms ease-out;
@@ -96,13 +106,48 @@ html {
 body {
   font-family: var(--font-sans);
   line-height: 1.6;
-  color: #F8FAFC;
-  background-color: #080808;
+  color: #1C1917;
+  background-color: #FBF8F2;
 }
 
-/* Display serif utility */
+/* Headline utility — same friendly family, just set heavier where used */
 .font-display {
   font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* ── Interaction polish ── */
+/* Pressable elements should feel like they heard the click */
+.press {
+  transition: transform 160ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .press:hover {
+    transform: translateY(-1px);
+  }
+}
+.press:active {
+  transform: scale(0.97);
+}
+
+/* Primary CTA — warm green, used sitewide */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--color-accent);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.875rem 1.75rem;
+  transition: transform 160ms var(--ease-out), background-color 160ms ease;
+}
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+}
+.btn-primary:active {
+  transform: scale(0.97);
 }
 
 /* Premium Dark Theme Animations */

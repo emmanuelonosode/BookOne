@@ -10,7 +10,7 @@ const BackArrow = () => (
   </svg>
 );
 
-const Bullet = () => <span className="text-[#E8FF47] mt-1 shrink-0 text-xs leading-relaxed">—</span>;
+const Bullet = () => <span className="text-[#15803D] mt-1 shrink-0 text-xs leading-relaxed">—</span>;
 
 interface SectionProps {
   number: string;
@@ -21,11 +21,11 @@ interface SectionProps {
 
 function Section({ number, title, children, last }: SectionProps) {
   return (
-    <section className={`${last ? "pt-12" : "border-b border-white/[0.06] py-12"}`}>
+    <section className={`${last ? "pt-12" : "border-b border-[#1C1917]/[0.08] py-12"}`}>
       <div className="grid lg:grid-cols-[220px_1fr] gap-10 lg:gap-16 items-start">
         <div className="lg:sticky lg:top-28">
-          <p className="text-[10px] tracking-[0.15em] font-mono text-white/20 mb-2">{number}</p>
-          <h2 className="font-display font-bold text-white leading-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}>
+          <p className="text-[10px] tracking-[0.15em] font-mono text-[#9C968C] mb-2">{number}</p>
+          <h2 className="font-display font-bold text-[#1C1917] leading-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}>
             {title}
           </h2>
         </div>
@@ -36,7 +36,7 @@ function Section({ number, title, children, last }: SectionProps) {
 }
 
 function Body({ children }: { children: React.ReactNode }) {
-  return <p className="text-base text-white/55 leading-relaxed">{children}</p>;
+  return <p className="text-base text-[#1C1917]/55 leading-relaxed">{children}</p>;
 }
 
 function List({ items }: { items: string[] }) {
@@ -45,7 +45,7 @@ function List({ items }: { items: string[] }) {
       {items.map((item) => (
         <div key={item} className="flex items-start gap-3">
           <Bullet />
-          <span className="text-base text-white/55 leading-relaxed">{item}</span>
+          <span className="text-base text-[#1C1917]/55 leading-relaxed">{item}</span>
         </div>
       ))}
     </div>
@@ -58,8 +58,8 @@ function LabelList({ items }: { items: [string, string][] }) {
       {items.map(([label, text]) => (
         <div key={label} className="flex items-start gap-3">
           <Bullet />
-          <span className="text-base text-white/55 leading-relaxed">
-            <strong className="text-white/75 font-semibold">{label}:</strong> {text}
+          <span className="text-base text-[#1C1917]/55 leading-relaxed">
+            <strong className="text-[#1C1917]/75 font-semibold">{label}:</strong> {text}
           </span>
         </div>
       ))}
@@ -69,26 +69,26 @@ function LabelList({ items }: { items: [string, string][] }) {
 
 export default function TermsClient() {
   return (
-    <main className="bg-[#080808] min-h-screen pt-32 pb-24">
+    <main className="bg-[#FBF8F2] min-h-screen pt-32 pb-24">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
-        <Link href="/" className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-white transition-colors duration-200 font-mono mb-12">
+        <Link href="/" className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#9C968C] hover:text-[#1C1917] transition-colors duration-200 font-mono mb-12">
           <BackArrow /> Home
         </Link>
 
         {/* Page header */}
-        <div className="border-b border-white/[0.06] pb-16 mb-0">
-          <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase font-mono mb-4">Legal</p>
-          <h1 className="font-display font-black text-white leading-none mb-4" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
+        <div className="border-b border-[#1C1917]/[0.08] pb-16 mb-0">
+          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-4">Legal</p>
+          <h1 className="font-display font-black text-[#1C1917] leading-none mb-4" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
             Terms &amp; Conditions
           </h1>
-          <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-white/25">Last updated: {LAST_UPDATED}</p>
+          <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C]">Last updated: {LAST_UPDATED}</p>
         </div>
 
         {/* 00 — Overview */}
         <Section number="00" title="Overview">
           <Body>
-            Welcome to <strong className="text-white/80 font-semibold">Bookone Studio</strong>. These Terms and Conditions govern your use of our website at <strong className="text-white/75">bookone.dev</strong> and your engagement with our services. By accessing our website or engaging Bookone Studio, you agree to comply with these Terms.
+            Welcome to <strong className="text-[#3A352F] font-semibold">Bookone Studio</strong>. These Terms and Conditions govern your use of our website at <strong className="text-[#1C1917]/75">bookone.dev</strong> and your engagement with our services. By accessing our website or engaging Bookone Studio, you agree to comply with these Terms.
           </Body>
         </Section>
 
@@ -130,10 +130,10 @@ export default function TermsClient() {
         {/* 04 — Intellectual Property */}
         <Section number="04" title="Intellectual Property">
           <Body>
-            <strong className="text-white/80 font-semibold">Client Ownership:</strong> Upon full payment, the Client receives full ownership of the final Deliverables (the specific website design and content).
+            <strong className="text-[#3A352F] font-semibold">Client Ownership:</strong> Upon full payment, the Client receives full ownership of the final Deliverables (the specific website design and content).
           </Body>
           <Body>
-            <strong className="text-white/80 font-semibold">Agency Rights:</strong> Bookone Studio retains ownership of background technology, frameworks, pre-existing code libraries, and tools used to create the Deliverables; and draft concepts not selected by the Client.
+            <strong className="text-[#3A352F] font-semibold">Agency Rights:</strong> Bookone Studio retains ownership of background technology, frameworks, pre-existing code libraries, and tools used to create the Deliverables; and draft concepts not selected by the Client.
           </Body>
           <Body>
             You grant Bookone Studio a non-exclusive licence to display the project in our portfolio and marketing materials.
@@ -194,7 +194,7 @@ export default function TermsClient() {
         {/* 10 — Governing Law */}
         <Section number="10" title="Governing Law">
           <Body>
-            These Terms shall be governed by the laws of the <strong className="text-white/75 font-semibold">Federal Republic of Nigeria</strong>. Any disputes shall be resolved in the courts of Lagos State, Nigeria.
+            These Terms shall be governed by the laws of the <strong className="text-[#1C1917]/75 font-semibold">Federal Republic of Nigeria</strong>. Any disputes shall be resolved in the courts of Lagos State, Nigeria.
           </Body>
         </Section>
 
@@ -207,12 +207,12 @@ export default function TermsClient() {
               { label: "PH", value: "+234 807 708 0903", href: "tel:+2348077080903" },
               { label: "LO", value: "Allen Avenue, Lagos, Nigeria", href: null },
             ].map(({ label, value, href }) => (
-              <div key={label} className="flex items-start gap-4 border-t border-white/[0.06] py-4">
-                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-white/20 w-8 pt-px shrink-0">{label}</span>
+              <div key={label} className="flex items-start gap-4 border-t border-[#1C1917]/[0.08] py-4">
+                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] w-8 pt-px shrink-0">{label}</span>
                 {href ? (
-                  <a href={href} className="text-sm text-white/50 hover:text-[#E8FF47] transition-colors duration-200">{value}</a>
+                  <a href={href} className="text-sm text-[#6F6A62] hover:text-[#15803D] transition-colors duration-200">{value}</a>
                 ) : (
-                  <p className="text-sm text-white/50">{value}</p>
+                  <p className="text-sm text-[#6F6A62]">{value}</p>
                 )}
               </div>
             ))}

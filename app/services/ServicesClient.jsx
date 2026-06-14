@@ -69,50 +69,50 @@ const ServicesClient = () => {
   const [open, setOpen] = useState(null);
 
   return (
-    <main className="bg-[#080808] min-h-screen overflow-x-hidden">
+    <main className="bg-[#FBF8F2] min-h-screen overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       {/* HERO */}
-      <section className="pt-32 pb-20 border-b border-white/[0.06]">
+      <section className="pt-32 pb-20 border-b border-[#1C1917]/[0.08]">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
-          <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-4">
+          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-4">
             Our Services
           </p>
           <h1
-            className="font-display font-black text-white leading-none mb-8"
+            className="font-display font-black text-[#1C1917] leading-none mb-8"
             style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
           >
             Web Design &<br />
             <span className="italic">AI Automation.</span>
           </h1>
-          <p className="text-base text-white/40 leading-relaxed max-w-xl">
+          <p className="text-base text-[#6F6A62] leading-relaxed max-w-xl">
             We don&apos;t just design websites — we build growth engines. From high-performance Next.js sites to AI agents that automate your workflow, Bookone Studio delivers digital excellence.
           </p>
         </div>
       </section>
 
       {/* SERVICES ACCORDION */}
-      <section className="py-20 sm:py-28 border-b border-white/[0.06]" aria-label="Our Services">
+      <section className="py-20 sm:py-28 border-b border-[#1C1917]/[0.08]" aria-label="Our Services">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
           <div>
             {services.map((service, i) => (
               <div
                 key={service.number}
-                className={`border-t border-white/[0.06] ${i === services.length - 1 ? "border-b" : ""}`}
+                className={`border-t border-[#1C1917]/[0.08] ${i === services.length - 1 ? "border-b" : ""}`}
               >
                 <button
                   onClick={() => setOpen(open === i ? null : i)}
                   className="w-full text-left py-8 flex items-start gap-6 group"
                   aria-expanded={open === i}
                 >
-                  <span className="text-xs font-mono text-white/20 group-hover:text-[#E8FF47] transition-colors duration-300 pt-1 shrink-0 w-8">
+                  <span className="text-xs font-mono text-[#9C968C] group-hover:text-[#15803D] transition-colors duration-300 pt-1 shrink-0 w-8">
                     {service.number}
                   </span>
                   <span
-                    className="flex-1 font-display font-bold text-white group-hover:text-white/80 transition-colors leading-tight"
+                    className="flex-1 font-display font-bold text-[#1C1917] group-hover:text-[#3A352F] transition-colors leading-tight"
                     style={{ fontSize: "clamp(1.4rem, 3vw, 2.5rem)" }}
                   >
                     {service.title}
@@ -122,7 +122,7 @@ const ServicesClient = () => {
                     height="16"
                     viewBox="0 0 24 24"
                     fill="none"
-                    className={`shrink-0 mt-2 text-white/20 group-hover:text-white/60 transition-all duration-300 ${open === i ? "rotate-45 text-[#E8FF47]" : ""}`}
+                    className={`shrink-0 mt-2 text-[#9C968C] group-hover:text-[#6F6A62] transition-all duration-300 ${open === i ? "rotate-45 text-[#15803D]" : ""}`}
                   >
                     <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
@@ -139,14 +139,14 @@ const ServicesClient = () => {
                       className="overflow-hidden"
                     >
                       <div className="pl-14 pb-10">
-                        <p className="text-sm sm:text-base text-white/40 leading-relaxed max-w-2xl mb-6">
+                        <p className="text-sm sm:text-base text-[#6F6A62] leading-relaxed max-w-2xl mb-6">
                           {service.description}
                         </p>
                         <div className="flex flex-wrap gap-2 mb-6">
                           {service.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="px-3 py-1 border border-white/[0.08] text-[10px] tracking-[0.12em] uppercase text-white/30 font-mono"
+                              className="px-3 py-1 border border-[#1C1917]/[0.08] text-[10px] tracking-[0.12em] uppercase text-[#9C968C] font-mono"
                             >
                               {tag}
                             </span>
@@ -154,7 +154,7 @@ const ServicesClient = () => {
                         </div>
                         <Link
                           href="/get-started"
-                          className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#E8FF47] hover:text-white transition-colors duration-200 font-medium"
+                          className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#15803D] hover:text-[#1C1917] transition-colors duration-200 font-medium"
                         >
                           Get Started
                           <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
@@ -172,13 +172,13 @@ const ServicesClient = () => {
       </section>
 
       {/* PROCESS */}
-      <section className="py-20 sm:py-28 border-b border-white/[0.06]">
+      <section className="py-20 sm:py-28 border-b border-[#1C1917]/[0.08]">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
           <div className="grid lg:grid-cols-[1fr_2fr] gap-16 items-start">
             <div className="lg:sticky lg:top-28">
-              <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-4">Process</p>
+              <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-4">Process</p>
               <h2
-                className="font-display font-black text-white leading-none"
+                className="font-display font-black text-[#1C1917] leading-none"
                 style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
               >
                 How we work.
@@ -188,7 +188,7 @@ const ServicesClient = () => {
             {/* Horizontal timeline */}
             <div className="relative">
               {/* connecting line */}
-              <div className="hidden sm:block absolute top-4 left-0 right-0 h-px bg-white/[0.06]" />
+              <div className="hidden sm:block absolute top-4 left-0 right-0 h-px bg-[#1C1917]/[0.04]" />
               <div className="grid sm:grid-cols-4 gap-8">
                 {processSteps.map((step, i) => (
                   <motion.div
@@ -200,9 +200,9 @@ const ServicesClient = () => {
                     className="relative"
                   >
                     <div className="w-2 h-2 rounded-full bg-white/20 mb-6 relative z-10 sm:block hidden" />
-                    <p className="text-xs font-mono text-white/20 mb-3">{step.num}</p>
-                    <h3 className="font-display font-bold text-white text-lg mb-2">{step.title}</h3>
-                    <p className="text-sm text-white/35 leading-relaxed">{step.desc}</p>
+                    <p className="text-xs font-mono text-[#9C968C] mb-3">{step.num}</p>
+                    <h3 className="font-display font-bold text-[#1C1917] text-lg mb-2">{step.title}</h3>
+                    <p className="text-sm text-[#1C1917]/35 leading-relaxed">{step.desc}</p>
                   </motion.div>
                 ))}
               </div>
@@ -214,9 +214,9 @@ const ServicesClient = () => {
       {/* CTA */}
       <section className="py-24 sm:py-32">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
-          <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-6">Ready to scale?</p>
+          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-6">Ready to scale?</p>
           <h2
-            className="font-display font-black text-white leading-none mb-10"
+            className="font-display font-black text-[#1C1917] leading-none mb-10"
             style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
           >
             Stop losing leads to<br />
@@ -227,7 +227,7 @@ const ServicesClient = () => {
               href="https://calendar.notion.so/meet/officialbookone/call"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 text-[#E8FF47] text-sm font-semibold tracking-wide hover:text-white transition-colors duration-200"
+              className="group inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
             >
               Book a Strategy Call
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
@@ -236,7 +236,7 @@ const ServicesClient = () => {
             </a>
             <Link
               href="/portfolio"
-              className="inline-flex items-center gap-3 text-white/40 text-sm font-semibold tracking-wide hover:text-white transition-colors duration-200"
+              className="inline-flex items-center gap-3 text-[#6F6A62] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
             >
               View Our Work
             </Link>

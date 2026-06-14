@@ -1,41 +1,34 @@
 // app/layout.jsx or layout.tsx
 
-import { Playfair_Display, DM_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import dynamic from "next/dynamic";
 import "./globals.css";
 import Script from "next/script";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-// Display serif — headlines, big moments
-const playfair = Playfair_Display({
+// One friendly humanist sans for everything — headlines and body
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["700", "900"],
-  style: ["normal", "italic"],
-  display: "swap",
-  preload: true,
-  fallback: ["Georgia", "serif"],
-  variable: "--font-display",
-});
-
-// Body sans — all UI text
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
   preload: true,
   fallback: ["system-ui", "sans-serif"],
   variable: "--font-sans",
 });
 
+// Headlines use the same family, just heavier — wired to --font-display for back-compat
+const playfair = { variable: "" };
+const dmSans = jakarta;
+
 import Nav from "./component/sections/Nav.jsx";
 
 const Footer = dynamic(() => import("./component/sections/Footer.jsx"), {
   ssr: true,
   loading: () => (
-    <footer className="bg-gray-900 text-white py-8">
+    <footer className="bg-[#FBF8F2] border-t border-[#1C1917]/[0.08] py-8">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="h-32 bg-gray-800 animate-pulse rounded"></div>
+        <div className="h-32 bg-[#1C1917]/[0.04] animate-pulse rounded"></div>
       </div>
     </footer>
   ),
@@ -242,12 +235,12 @@ export default function RootLayout({ children }) {
         )}
       </head>
       <body
-        className={`${dmSans.className} antialiased bg-[#080808] text-slate-50`}
+        className={`${jakarta.className} antialiased bg-[#FBF8F2] text-[#1C1917]`}
         suppressHydrationWarning
       >
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:bg-[#6b46c1] focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-medium"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:bg-[#15803D] focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-medium"
         >
           Skip to main content
         </a>

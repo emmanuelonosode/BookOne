@@ -60,8 +60,8 @@ export default function WebsitesClient({ listings }: Props) {
               onClick={() => setTypeFilter(val)}
               className={`px-3 py-1.5 text-[10px] tracking-[0.12em] uppercase font-mono border transition-colors ${
                 typeFilter === val
-                  ? "border-[#E8FF47] text-[#E8FF47]"
-                  : "border-white/[0.08] text-white/30 hover:border-white/20 hover:text-white/50"
+                  ? "border-[#15803D] text-[#15803D]"
+                  : "border-[#1C1917]/[0.08] text-[#9C968C] hover:border-[#1C1917]/15 hover:text-[#6F6A62]"
               }`}
             >
               {val === "all"
@@ -72,7 +72,7 @@ export default function WebsitesClient({ listings }: Props) {
             </button>
           ))}
 
-          <span className="w-px h-4 bg-white/[0.06] mx-1" />
+          <span className="w-px h-4 bg-[#1C1917]/[0.04] mx-1" />
 
           {/* Category filter */}
           {categories.length > 0 && (
@@ -80,10 +80,10 @@ export default function WebsitesClient({ listings }: Props) {
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className={`bg-transparent text-[10px] tracking-[0.12em] uppercase font-mono border px-3 py-1.5 outline-none cursor-pointer [&>option]:bg-[#080808] transition-colors ${
+                className={`bg-transparent text-[10px] tracking-[0.12em] uppercase font-mono border px-3 py-1.5 outline-none cursor-pointer [&>option]:bg-[#FBF8F2] transition-colors ${
                   categoryFilter !== "all"
-                    ? "border-[#E8FF47] text-[#E8FF47]"
-                    : "border-white/[0.08] text-white/30 hover:border-white/20 hover:text-white/50"
+                    ? "border-[#15803D] text-[#15803D]"
+                    : "border-[#1C1917]/[0.08] text-[#9C968C] hover:border-[#1C1917]/15 hover:text-[#6F6A62]"
                 }`}
               >
                 <option value="all">All Categories</option>
@@ -93,7 +93,7 @@ export default function WebsitesClient({ listings }: Props) {
                   </option>
                 ))}
               </select>
-              <span className="w-px h-4 bg-white/[0.06] mx-1" />
+              <span className="w-px h-4 bg-[#1C1917]/[0.04] mx-1" />
             </>
           )}
 
@@ -104,8 +104,8 @@ export default function WebsitesClient({ listings }: Props) {
               onClick={() => setAvailabilityFilter(val)}
               className={`px-3 py-1.5 text-[10px] tracking-[0.12em] uppercase font-mono border transition-colors ${
                 availabilityFilter === val
-                  ? "border-[#E8FF47] text-[#E8FF47]"
-                  : "border-white/[0.08] text-white/30 hover:border-white/20 hover:text-white/50"
+                  ? "border-[#15803D] text-[#15803D]"
+                  : "border-[#1C1917]/[0.08] text-[#9C968C] hover:border-[#1C1917]/15 hover:text-[#6F6A62]"
               }`}
             >
               {val === "all" ? "All" : val === "in stock" ? "Available" : "Sold"}
@@ -115,14 +115,14 @@ export default function WebsitesClient({ listings }: Props) {
           {hasActiveFilters && (
             <button
               onClick={clearFilters}
-              className="px-3 py-1.5 text-[10px] tracking-[0.12em] uppercase font-mono border border-white/[0.08] text-white/30 hover:border-white/20 hover:text-white/50 transition-colors ml-1"
+              className="px-3 py-1.5 text-[10px] tracking-[0.12em] uppercase font-mono border border-[#1C1917]/[0.08] text-[#9C968C] hover:border-[#1C1917]/15 hover:text-[#6F6A62] transition-colors ml-1"
             >
               Clear
             </button>
           )}
         </div>
 
-        <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-white/30 shrink-0">
+        <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C] shrink-0">
           {filtered.length} / {listings.length}
         </p>
       </div>
@@ -130,18 +130,18 @@ export default function WebsitesClient({ listings }: Props) {
       {/* Grid */}
       {filtered.length === 0 ? (
         <div className="py-24 text-center">
-          <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-white/30">
+          <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C]">
             No listings match your filters.{" "}
           </p>
           <button
             onClick={clearFilters}
-            className="mt-4 text-[10px] tracking-[0.2em] uppercase font-mono text-[#E8FF47] hover:text-white transition-colors"
+            className="mt-4 text-[10px] tracking-[0.2em] uppercase font-mono text-[#15803D] hover:text-[#1C1917] transition-colors"
           >
             Clear filters
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.06]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1C1917]/[0.04]">
           {filtered.map((listing) => (
             <ListingCard key={listing._id} listing={listing} />
           ))}
@@ -166,10 +166,10 @@ function ListingCard({ listing }: { listing: WebsiteListing }) {
   return (
     <Link
       href={`/websites/${slug}`}
-      className="group bg-[#080808] flex flex-col"
+      className="group bg-[#FBF8F2] flex flex-col"
     >
       {/* Image */}
-      <div className="relative w-full aspect-video overflow-hidden bg-[#111]">
+      <div className="relative w-full aspect-video overflow-hidden bg-[#FFFFFF]">
         <Image
           src={imageUrl}
           alt={listing.title}
@@ -183,12 +183,12 @@ function ListingCard({ listing }: { listing: WebsiteListing }) {
       <div className="flex flex-col flex-1 p-6 gap-4">
         {/* Title + Availability */}
         <div className="flex items-start justify-between gap-3">
-          <h2 className="font-display font-bold text-white text-base leading-snug line-clamp-2">
+          <h2 className="font-display font-bold text-[#1C1917] text-base leading-snug line-clamp-2">
             {listing.title}
           </h2>
           <span
             className={`shrink-0 text-[10px] font-mono uppercase leading-none pt-0.5 ${
-              isInStock ? "text-white/30" : "text-white/20"
+              isInStock ? "text-[#9C968C]" : "text-[#9C968C]"
             }`}
           >
             {isInStock ? "In Stock" : "Sold"}
@@ -196,14 +196,14 @@ function ListingCard({ listing }: { listing: WebsiteListing }) {
         </div>
 
         {listing.shortDescription && (
-          <p className="text-sm text-white/40 line-clamp-2 leading-relaxed">
+          <p className="text-sm text-[#6F6A62] line-clamp-2 leading-relaxed">
             {listing.shortDescription}
           </p>
         )}
 
         {/* Price + Arrow */}
-        <div className="flex items-end justify-between mt-auto pt-4 border-t border-white/[0.06]">
-          <span className="font-display font-black text-[#E8FF47] text-xl">
+        <div className="flex items-end justify-between mt-auto pt-4 border-t border-[#1C1917]/[0.08]">
+          <span className="font-display font-black text-[#15803D] text-xl">
             ${listing.price.toLocaleString()}
           </span>
           <svg
@@ -211,7 +211,7 @@ function ListingCard({ listing }: { listing: WebsiteListing }) {
             height="16"
             viewBox="0 0 14 14"
             fill="none"
-            className="text-white/30 group-hover:text-[#E8FF47] transition-colors"
+            className="text-[#9C968C] group-hover:text-[#15803D] transition-colors"
             aria-hidden="true"
           >
             <path

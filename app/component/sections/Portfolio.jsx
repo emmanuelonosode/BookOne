@@ -15,17 +15,17 @@ export default async function PortfolioSection() {
   }
 
   return (
-    <section className="py-20 sm:py-28 border-t border-white/[0.06]">
+    <section className="py-20 sm:py-28 border-t border-[#1C1917]/[0.08]">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
         {/* Header */}
         <div className="flex items-end justify-between mb-14 gap-6 flex-wrap">
           <div>
-            <p className="text-[10px] tracking-[0.25em] text-white/30 uppercase mb-3">
+            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-3">
               Selected Work
             </p>
             <h2
-              className="font-display font-black text-white leading-none"
+              className="font-display font-black text-[#1C1917] leading-none"
               style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
             >
               Recent Projects
@@ -33,7 +33,7 @@ export default async function PortfolioSection() {
           </div>
           <Link
             href="/portfolio"
-            className="text-xs tracking-[0.15em] uppercase text-white/40 hover:text-white transition-colors duration-200 flex items-center gap-2 group shrink-0"
+            className="text-xs tracking-[0.15em] uppercase text-[#6F6A62] hover:text-[#1C1917] transition-colors duration-200 flex items-center gap-2 group shrink-0"
           >
             View All Work
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
@@ -75,19 +75,19 @@ function CaseStudyRow({ index, title, category, description, imageUrl, href }) {
   return (
     <Link
       href={href}
-      className="group relative block border-t border-white/[0.06] last:border-b py-8 sm:py-10 overflow-hidden hover:bg-white/[0.02] transition-colors duration-300"
+      className="group relative block border-t border-[#1C1917]/[0.08] last:border-b py-8 sm:py-10 overflow-hidden hover:bg-white/[0.02] transition-colors duration-300"
     >
       <div className="flex items-center gap-6 sm:gap-10">
         {/* Number */}
-        <span className="text-xs tracking-[0.15em] font-mono text-white/20 group-hover:text-[#E8FF47] transition-colors duration-300 shrink-0 w-8">
+        <span className="text-xs tracking-[0.15em] font-mono text-[#9C968C] group-hover:text-[#15803D] transition-colors duration-300 shrink-0 w-8">
           {String(index).padStart(2, "0")}
         </span>
 
         {/* Title + category */}
         <div className="flex-1 min-w-0">
-          <p className="text-[10px] tracking-[0.2em] text-white/30 uppercase mb-1">{category}</p>
+          <p className="text-[10px] tracking-[0.2em] text-[#9C968C] uppercase mb-1">{category}</p>
           <h3
-            className="font-display font-bold text-white group-hover:text-white/90 transition-colors leading-tight truncate"
+            className="font-display font-bold text-[#1C1917] group-hover:text-[#1C1917] transition-colors leading-tight truncate"
             style={{ fontSize: "clamp(1.2rem, 3vw, 2.5rem)" }}
           >
             {title}
@@ -96,14 +96,14 @@ function CaseStudyRow({ index, title, category, description, imageUrl, href }) {
 
         {/* Description — hidden on mobile */}
         {description && (
-          <p className="hidden lg:block text-sm text-white/30 max-w-xs leading-relaxed shrink-0">
+          <p className="hidden lg:block text-sm text-[#9C968C] max-w-xs leading-relaxed shrink-0">
             {description}
           </p>
         )}
 
         {/* Thumbnail */}
         {imageUrl && (
-          <div className="hidden sm:block relative w-20 h-14 lg:w-28 lg:h-20 rounded overflow-hidden bg-white/5 shrink-0">
+          <div className="hidden sm:block relative w-20 h-14 lg:w-28 lg:h-20 rounded overflow-hidden bg-[#1C1917]/[0.03] shrink-0">
             <Image
               src={imageUrl}
               alt={title}
@@ -120,7 +120,7 @@ function CaseStudyRow({ index, title, category, description, imageUrl, href }) {
           height="18"
           viewBox="0 0 14 14"
           fill="none"
-          className="shrink-0 text-white/20 group-hover:text-[#E8FF47] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300"
+          className="shrink-0 text-[#9C968C] group-hover:text-[#15803D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300"
         >
           <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
