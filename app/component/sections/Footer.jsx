@@ -55,14 +55,14 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[#1C1917]/[0.08] bg-[#FBF8F2]">
+    <footer className="border-t border-[#1C1917]/[0.08] bg-[#F4F1EA]">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-16 sm:py-20">
 
         {/* Top row */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-14">
           <Link
             href="/"
-            className="font-display font-black text-[#1C1917] text-3xl sm:text-4xl lg:text-5xl tracking-tight hover:text-[#15803D] transition-colors duration-300 leading-none"
+            className="font-display font-black text-[#1C1917] text-3xl sm:text-4xl lg:text-5xl tracking-tight hover:text-[#C98A2B] transition-colors duration-300 leading-none"
           >
             BOOKONE STUDIO
           </Link>

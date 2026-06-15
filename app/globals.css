@@ -8,27 +8,28 @@
 :root {
   /* ── Typography ── */
   --font-sans: var(--font-sans), system-ui, sans-serif;
-  /* Headlines share the same friendly humanist family, just heavier */
-  --font-display: var(--font-sans), system-ui, sans-serif;
+  /* Expressive editorial serif for headlines */
+  --font-display: var(--font-display), Georgia, serif;
 
-  /* ── Brand palette — warm & approachable ── */
-  --color-bg: #FBF8F2;          /* cream page background */
-  --color-bg-card: #FFFFFF;     /* white cards/surfaces */
-  --color-bg-warm: #FFFDF8;     /* slightly warm surface */
-  --color-accent: #15803D;      /* deep, trustworthy green */
-  --color-accent-hover: #166534;
-  --color-accent-soft: #DCFCE7; /* light green tint */
+  /* ── Brand palette — warm editorial (Grain & Mortar–inspired) ── */
+  --color-bg: #F4F1EA;          /* bone / cream page background */
+  --color-bg-warm: #EFE9DC;     /* deeper warm surface (alternating sections) */
+  --color-bg-card: #FBF9F4;     /* card / panel surface */
+  --color-accent: #C98A2B;      /* ochre / mustard accent */
+  --color-accent-hover: #B0741F;
+  --color-accent-soft: #F2E4C8; /* light ochre tint */
   --color-ink: #1C1917;         /* near-black warm text */
+  --color-ink-soft: #3A352F;    /* softened headline ink */
   --color-text-muted: #6F6A62;  /* warm grey body text */
   --color-text-faint: #9C968C;  /* labels, captions */
-  --color-border: #E7E1D6;      /* warm hairline border */
+  --color-border: #E4DDCF;      /* warm hairline border */
 
   /* ── Legacy tokens (kept for any component not yet updated) ── */
-  --color-primary: #15803D;
-  --color-secondary: #166534;
+  --color-primary: #C98A2B;
+  --color-secondary: #B0741F;
   --color-dark: #1C1917;
   --color-light: #ffffff;
-  --color-neutral: #FFFFFF;
+  --color-neutral: #FBF9F4;
   --color-muted: #6F6A62;
 
   /* ── Motion — strong custom easing (built-ins are too weak) ── */
@@ -96,24 +97,38 @@
 }
 
 html {
-  scroll-behavior: smooth;
-  /* Optimize for performance */
+  /* Lenis owns smooth scrolling — no native scroll-behavior */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Lenis smooth-scroll base */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {
   font-family: var(--font-sans);
   line-height: 1.6;
   color: #1C1917;
-  background-color: #FBF8F2;
+  background-color: #F4F1EA;
 }
 
-/* Headline utility — same friendly family, just set heavier where used */
+/* Headline utility — expressive editorial serif */
 .font-display {
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.018em;
 }
 
 /* ── Interaction polish ── */
@@ -148,6 +163,38 @@ body {
 }
 .btn-primary:active {
   transform: scale(0.97);
+}
+
+/* ── Editorial media zoom ── */
+/* Wrap an image in .media-zoom (overflow hidden); image gently scales on hover */
+.media-zoom {
+  overflow: hidden;
+}
+.media-zoom img,
+.media-zoom video,
+.media-zoom .zoom-target {
+  transition: transform 600ms var(--ease-out);
+  will-change: transform;
+}
+@media (hover: hover) and (pointer: fine) {
+  .media-zoom:hover img,
+  .media-zoom:hover video,
+  .media-zoom:hover .zoom-target,
+  .group:hover .media-zoom img {
+    transform: scale(1.04);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .media-zoom img,
+  .media-zoom video,
+  .media-zoom .zoom-target {
+    transition: none;
+  }
+}
+
+/* Thin warm rule used to separate editorial sections */
+.rule-warm {
+  border-color: var(--color-border);
 }
 
 /* Premium Dark Theme Animations */

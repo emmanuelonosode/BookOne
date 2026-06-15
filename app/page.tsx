@@ -8,6 +8,7 @@ import FeaturedBlog from "./component/sections/FeaturedBlogs.jsx";
 import FeaturedWebsites from "./component/sections/FeaturedWebsites.jsx";
 import FAQ from "./component/sections/FAQ.jsx";
 import ForWhoSection from "./component/sections/ForWho.jsx";
+import Industries from "./component/sections/Industries.jsx";
 import Contact from "./component/sections/Contact.jsx";
 
 export const metadata = {
@@ -131,9 +132,10 @@ export default function HomePage() {
       />
       <HeroSection />
       <MarqueeTicker />
-      <Service />
-      <PortfolioSection />
       <ManifestoSection />
+      <PortfolioSection />
+      <Service />
+      <Industries />
       <FeaturedWebsites />
       <Testimonia />
       <FeaturedBlog />

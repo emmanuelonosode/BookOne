@@ -10,11 +10,11 @@ const BackArrow = () => (
   </svg>
 );
 
-const Bullet = () => <span className="text-[#15803D] mt-1 shrink-0 text-xs leading-relaxed">—</span>;
+const Bullet = () => <span className="text-[#C98A2B] mt-1 shrink-0 text-xs leading-relaxed">—</span>;
 
 export default function CookiesClient() {
   return (
-    <main className="bg-[#FBF8F2] min-h-screen pt-32 pb-24">
+    <main className="bg-[#F4F1EA] min-h-screen pt-32 pb-24">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
         <Link href="/" className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#9C968C] hover:text-[#1C1917] transition-colors duration-200 font-mono mb-12">
@@ -145,7 +145,7 @@ export default function CookiesClient() {
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-base text-[#1C1917]/55 hover:text-[#15803D] transition-colors duration-200"
+                      className="text-base text-[#1C1917]/55 hover:text-[#C98A2B] transition-colors duration-200"
                     >
                       {browser}
                     </a>
@@ -154,7 +154,7 @@ export default function CookiesClient() {
               </div>
               <p className="text-base text-[#1C1917]/55 leading-relaxed">
                 You can opt out of Google Analytics tracking{" "}
-                <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-[#15803D] hover:text-[#1C1917] transition-colors duration-200">
+                <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-[#C98A2B] hover:text-[#1C1917] transition-colors duration-200">
                   here
                 </a>.
               </p>
@@ -193,7 +193,7 @@ export default function CookiesClient() {
                   <div key={label} className="flex items-start gap-4 border-t border-[#1C1917]/[0.08] py-4">
                     <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] w-8 pt-px shrink-0">{label}</span>
                     {href ? (
-                      <a href={href} className="text-sm text-[#6F6A62] hover:text-[#15803D] transition-colors duration-200">{value}</a>
+                      <a href={href} className="text-sm text-[#6F6A62] hover:text-[#C98A2B] transition-colors duration-200">{value}</a>
                     ) : (
                       <p className="text-sm text-[#6F6A62]">{value}</p>
                     )}

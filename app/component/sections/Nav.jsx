@@ -35,7 +35,7 @@ export default function Nav() {
     <header
       role="banner"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "border-b border-[#1C1917]/[0.08] bg-[#FBF8F2]/90 backdrop-blur-md" : "bg-transparent"
+        scrolled ? "border-b border-[#1C1917]/[0.08] bg-[#F4F1EA]/90 backdrop-blur-md" : "bg-transparent"
       }`}
     >
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
@@ -45,7 +45,7 @@ export default function Nav() {
           <Link
             href="/"
             aria-label="Bookone Studio Home"
-            className="text-[#1C1917] font-display font-black text-xl tracking-tight hover:text-[#15803D] transition-colors duration-300"
+            className="text-[#1C1917] font-display font-black text-xl tracking-tight hover:text-[#C98A2B] transition-colors duration-300"
           >
             BOOKONE STUDIO
           </Link>
@@ -73,7 +73,7 @@ export default function Nav() {
           <div className="flex items-center gap-5">
             <Link
               href="/get-started"
-              className="press hidden sm:inline-flex items-center gap-2 bg-[#15803D] text-white hover:bg-[#166534] transition-colors duration-200 text-[11px] tracking-[0.15em] uppercase font-semibold px-5 py-2.5 rounded-full"
+              className="press hidden sm:inline-flex items-center gap-2 bg-[#C98A2B] text-white hover:bg-[#B0741F] transition-colors duration-200 text-[11px] tracking-[0.15em] uppercase font-semibold px-5 py-2.5 rounded-full"
             >
               Get a quote
             </Link>
@@ -117,7 +117,7 @@ export default function Nav() {
               onClick={() => setMenuOpen(false)}
             />
             <motion.div
-              className="fixed top-0 right-0 bottom-0 w-full max-w-xs bg-[#FBF8F2] border-l border-[#1C1917]/[0.08] z-50 flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-full max-w-xs bg-[#F4F1EA] border-l border-[#1C1917]/[0.08] z-50 flex flex-col"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -156,7 +156,7 @@ export default function Nav() {
               <div className="px-8 pb-10">
                 <Link
                   href="/get-started"
-                  className="block text-center bg-[#15803D] text-white hover:bg-[#166534] transition-colors duration-200 text-xs tracking-[0.15em] uppercase font-semibold px-6 py-4 rounded-full"
+                  className="block text-center bg-[#C98A2B] text-white hover:bg-[#B0741F] transition-colors duration-200 text-xs tracking-[0.15em] uppercase font-semibold px-6 py-4 rounded-full"
                 >
                   Get a quote
                 </Link>

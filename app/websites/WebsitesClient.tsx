@@ -60,7 +60,7 @@ export default function WebsitesClient({ listings }: Props) {
               onClick={() => setTypeFilter(val)}
               className={`px-3 py-1.5 text-[10px] tracking-[0.12em] uppercase font-mono border transition-colors ${
                 typeFilter === val
-                  ? "border-[#15803D] text-[#15803D]"
+                  ? "border-[#C98A2B] text-[#C98A2B]"
                   : "border-[#1C1917]/[0.08] text-[#9C968C] hover:border-[#1C1917]/15 hover:text-[#6F6A62]"
               }`}
             >
@@ -80,9 +80,9 @@ export default function WebsitesClient({ listings }: Props) {
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className={`bg-transparent text-[10px] tracking-[0.12em] uppercase font-mono border px-3 py-1.5 outline-none cursor-pointer [&>option]:bg-[#FBF8F2] transition-colors ${
+                className={`bg-transparent text-[10px] tracking-[0.12em] uppercase font-mono border px-3 py-1.5 outline-none cursor-pointer [&>option]:bg-[#F4F1EA] transition-colors ${
                   categoryFilter !== "all"
-                    ? "border-[#15803D] text-[#15803D]"
+                    ? "border-[#C98A2B] text-[#C98A2B]"
                     : "border-[#1C1917]/[0.08] text-[#9C968C] hover:border-[#1C1917]/15 hover:text-[#6F6A62]"
                 }`}
               >
@@ -104,7 +104,7 @@ export default function WebsitesClient({ listings }: Props) {
               onClick={() => setAvailabilityFilter(val)}
               className={`px-3 py-1.5 text-[10px] tracking-[0.12em] uppercase font-mono border transition-colors ${
                 availabilityFilter === val
-                  ? "border-[#15803D] text-[#15803D]"
+                  ? "border-[#C98A2B] text-[#C98A2B]"
                   : "border-[#1C1917]/[0.08] text-[#9C968C] hover:border-[#1C1917]/15 hover:text-[#6F6A62]"
               }`}
             >
@@ -135,7 +135,7 @@ export default function WebsitesClient({ listings }: Props) {
           </p>
           <button
             onClick={clearFilters}
-            className="mt-4 text-[10px] tracking-[0.2em] uppercase font-mono text-[#15803D] hover:text-[#1C1917] transition-colors"
+            className="mt-4 text-[10px] tracking-[0.2em] uppercase font-mono text-[#C98A2B] hover:text-[#1C1917] transition-colors"
           >
             Clear filters
           </button>
@@ -166,15 +166,15 @@ function ListingCard({ listing }: { listing: WebsiteListing }) {
   return (
     <Link
       href={`/websites/${slug}`}
-      className="group bg-[#FBF8F2] flex flex-col"
+      className="group bg-[#F4F1EA] flex flex-col"
     >
       {/* Image */}
-      <div className="relative w-full aspect-video overflow-hidden bg-[#FFFFFF]">
+      <div className="media-zoom relative w-full aspect-video rounded-2xl bg-[#EFE9DC] border border-[#1C1917]/[0.06]">
         <Image
           src={imageUrl}
           alt={listing.title}
           fill
-          className="object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-500"
+          className="object-cover"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
       </div>
@@ -203,7 +203,7 @@ function ListingCard({ listing }: { listing: WebsiteListing }) {
 
         {/* Price + Arrow */}
         <div className="flex items-end justify-between mt-auto pt-4 border-t border-[#1C1917]/[0.08]">
-          <span className="font-display font-black text-[#15803D] text-xl">
+          <span className="font-display font-black text-[#C98A2B] text-xl">
             ${listing.price.toLocaleString()}
           </span>
           <svg
@@ -211,7 +211,7 @@ function ListingCard({ listing }: { listing: WebsiteListing }) {
             height="16"
             viewBox="0 0 14 14"
             fill="none"
-            className="text-[#9C968C] group-hover:text-[#15803D] transition-colors"
+            className="text-[#9C968C] group-hover:text-[#C98A2B] transition-colors"
             aria-hidden="true"
           >
             <path

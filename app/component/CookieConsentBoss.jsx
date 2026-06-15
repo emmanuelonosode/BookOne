@@ -49,7 +49,7 @@ export default function ClientCookieConsent() {
               We use cookies to improve your experience.{" "}
               <Link
                 href="/cookies-policy"
-                className="text-[#15803D] hover:text-[#1C1917] transition-colors duration-200"
+                className="text-[#C98A2B] hover:text-[#1C1917] transition-colors duration-200"
               >
                 Learn more
               </Link>
@@ -64,7 +64,7 @@ export default function ClientCookieConsent() {
               </button>
               <button
                 onClick={handleAccept}
-                className="text-[10px] font-mono uppercase tracking-[0.15em] border border-[#15803D]/40 text-[#15803D] hover:bg-[#15803D] hover:text-[#FBF8F2] px-4 py-2 transition-all duration-200"
+                className="text-[10px] font-mono uppercase tracking-[0.15em] border border-[#C98A2B]/40 text-[#C98A2B] hover:bg-[#C98A2B] hover:text-[#F4F1EA] px-4 py-2 transition-all duration-200"
               >
                 Accept All
               </button>

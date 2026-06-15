@@ -2,62 +2,63 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import RotatingText from "../ui/RotatingText.jsx";
 
 const EASE = [0.23, 1, 0.32, 1];
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 const item = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
 };
+
+const ROTATING = ["your brand.", "your customers.", "your growth.", "your business."];
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-[#FBF8F2]">
-      {/* Soft warm glow, top-right — adds depth without noise */}
+    <section className="relative overflow-hidden bg-[#F4F1EA]">
+      {/* Soft ochre glow — warmth + depth, no noise */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-32 -right-32 h-[480px] w-[480px] rounded-full opacity-60 blur-3xl"
-        style={{ background: "radial-gradient(circle, #DCFCE7 0%, rgba(251,248,242,0) 70%)" }}
+        className="pointer-events-none absolute -top-40 -right-32 h-[560px] w-[560px] rounded-full opacity-70 blur-3xl"
+        style={{ background: "radial-gradient(circle, #F2E4C8 0%, rgba(244,241,234,0) 70%)" }}
       />
 
-      <div className="relative z-10 max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 pt-36 pb-20 sm:pt-44 sm:pb-28">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="max-w-4xl"
-        >
+      <div className="relative z-10 max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 pt-40 pb-20 sm:pt-48 sm:pb-28">
+        <motion.div variants={container} initial="hidden" animate="show" className="max-w-5xl">
           {/* Eyebrow */}
           <motion.p
             variants={item}
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-[#15803D] mb-6"
+            className="inline-flex items-center gap-2.5 text-xs sm:text-sm font-medium tracking-wide text-[#6F6A62] mb-8"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#15803D]" />
-            Web design · SEO · AI automation — Lagos &amp; worldwide
+            <span className="h-1.5 w-1.5 rounded-full bg-[#C98A2B]" />
+            Bookone Studio — web design, SEO &amp; AI automation
           </motion.p>
 
-          {/* Headline */}
+          {/* Headline — expressive serif with rotating tail */}
           <motion.h1
             variants={item}
-            className="font-display font-extrabold text-[#1C1917] leading-[1.05] tracking-tight mb-6"
-            style={{ fontSize: "clamp(2.5rem, 6.5vw, 5.25rem)" }}
+            className="font-display font-medium text-[#1C1917] leading-[1.02] tracking-[-0.02em] mb-8"
+            style={{ fontSize: "clamp(2.75rem, 7vw, 6rem)" }}
           >
-            Websites that turn visitors into{" "}
-            <span className="text-[#15803D]">paying customers.</span>
+            We make websites
+            <br className="hidden sm:block" />{" "}
+            that work for{" "}
+            <span className="italic text-[#C98A2B]">
+              <RotatingText items={ROTATING} />
+            </span>
           </motion.h1>
 
           {/* Subhead */}
           <motion.p
             variants={item}
-            className="text-base sm:text-lg text-[#6F6A62] leading-relaxed max-w-xl mb-10"
+            className="text-base sm:text-xl text-[#6F6A62] leading-relaxed max-w-2xl mb-12"
           >
-            We design fast, clean websites and set up the SEO and automation that
-            bring you a steady flow of leads — so you can focus on running your
-            business.
+            Smart, beautiful websites — plus the SEO and automation that bring you a
+            steady flow of leads. Built for ambitious businesses in Lagos and worldwide.
           </motion.p>
 
           {/* CTAs */}
@@ -70,17 +71,14 @@ export default function HeroSection() {
             </Link>
             <Link
               href="/portfolio"
-              className="press inline-flex items-center gap-2 rounded-full border border-[#1C1917]/15 px-7 py-3.5 text-sm sm:text-base font-semibold text-[#1C1917] hover:border-[#1C1917]/30 hover:bg-[#1C1917]/[0.03] transition-colors"
+              className="press inline-flex items-center gap-2 rounded-full border border-[#1C1917]/20 px-7 py-3.5 text-sm sm:text-base font-semibold text-[#1C1917] hover:border-[#1C1917]/40 hover:bg-[#1C1917]/[0.03] transition-colors"
             >
               See our work
             </Link>
           </motion.div>
 
           {/* Trust line */}
-          <motion.p
-            variants={item}
-            className="mt-12 text-sm text-[#9C968C]"
-          >
+          <motion.p variants={item} className="mt-14 text-sm text-[#9C968C]">
             Trusted by growing businesses across Nigeria, the UK &amp; the US.
           </motion.p>
         </motion.div>

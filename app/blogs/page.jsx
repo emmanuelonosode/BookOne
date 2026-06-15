@@ -113,7 +113,7 @@ export default async function BlogListPage({ searchParams }) {
           { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE_URL}/blogs` },
         ],
       }) }} />
-    <div className="bg-[#FBF8F2] min-h-screen">
+    <div className="bg-[#F4F1EA] min-h-screen">
       {/* ── Hero ── */}
       <div className="pt-32 pb-16 border-b border-[#1C1917]/[0.08]">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
@@ -142,12 +142,12 @@ export default async function BlogListPage({ searchParams }) {
                   name="search"
                   placeholder="Search articles"
                   defaultValue={search}
-                  className="w-full bg-transparent text-[#1C1917] placeholder:text-[#9C968C] text-sm font-mono focus:outline-none caret-[#15803D]"
+                  className="w-full bg-transparent text-[#1C1917] placeholder:text-[#9C968C] text-sm font-mono focus:outline-none caret-[#C98A2B]"
                 />
               </div>
               <button
                 type="submit"
-                className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono hover:text-[#15803D] transition-colors pb-2 border-b border-transparent hover:border-[#15803D] shrink-0"
+                className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono hover:text-[#C98A2B] transition-colors pb-2 border-b border-transparent hover:border-[#C98A2B] shrink-0"
                 aria-label="Search articles"
               >
                 Search &rarr;
@@ -192,7 +192,7 @@ export default async function BlogListPage({ searchParams }) {
                   >
                     <Link
                       href={`/blogs/${blogs[0].slug.current}`}
-                      className="hover:text-[#15803D] transition-colors"
+                      className="hover:text-[#C98A2B] transition-colors"
                     >
                       {blogs[0].title}
                     </Link>
@@ -219,7 +219,7 @@ export default async function BlogListPage({ searchParams }) {
                   </div>
                   <Link
                     href={`/blogs/${blogs[0].slug.current}`}
-                    className="inline-flex items-center gap-2 text-[#15803D] text-xs font-mono tracking-[0.15em] uppercase group"
+                    className="inline-flex items-center gap-2 text-[#C98A2B] text-xs font-mono tracking-[0.15em] uppercase group"
                     aria-label={`Read ${blogs[0].title}`}
                   >
                     Read
@@ -247,12 +247,12 @@ export default async function BlogListPage({ searchParams }) {
             {blogs.slice(1).map((blog, index) => (
               <article
                 key={blog._id}
-                className="bg-[#FBF8F2] p-8 flex flex-col justify-between group min-h-[340px]"
+                className="bg-[#F4F1EA] p-8 flex flex-col justify-between group min-h-[340px]"
               >
                 {/* Number + Category */}
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-[#15803D] font-mono text-xs tracking-[0.2em]">
+                    <span className="text-[#C98A2B] font-mono text-xs tracking-[0.2em]">
                       {String(index + 2).padStart(2, "0")}
                     </span>
                     {blog.categories && blog.categories.length > 0 && (
@@ -302,7 +302,7 @@ export default async function BlogListPage({ searchParams }) {
                   </time>
                   <Link
                     href={`/blogs/${blog.slug.current}`}
-                    className="inline-flex items-center gap-1.5 text-[#9C968C] hover:text-[#15803D] text-[10px] font-mono tracking-[0.15em] uppercase transition-colors group/arrow"
+                    className="inline-flex items-center gap-1.5 text-[#9C968C] hover:text-[#C98A2B] text-[10px] font-mono tracking-[0.15em] uppercase transition-colors group/arrow"
                     aria-label={`Read ${blog.title}`}
                   >
                     Read
@@ -333,7 +333,7 @@ export default async function BlogListPage({ searchParams }) {
             {search && (
               <Link
                 href="/blogs"
-                className="text-[10px] tracking-[0.2em] text-[#15803D] uppercase font-mono hover:underline"
+                className="text-[10px] tracking-[0.2em] text-[#C98A2B] uppercase font-mono hover:underline"
               >
                 Clear search &rarr;
               </Link>
@@ -354,8 +354,8 @@ export default async function BlogListPage({ searchParams }) {
                 }`}
                 className={`text-xs font-mono transition-colors px-3 py-1 ${
                   page === i + 1
-                    ? "text-[#15803D] border border-[#15803D]"
-                    : "text-[#9C968C] hover:text-[#15803D] border border-transparent"
+                    ? "text-[#C98A2B] border border-[#C98A2B]"
+                    : "text-[#9C968C] hover:text-[#C98A2B] border border-transparent"
                 }`}
                 aria-label={`Go to page ${i + 1}`}
               >

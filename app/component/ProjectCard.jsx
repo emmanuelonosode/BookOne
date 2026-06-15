@@ -85,7 +85,7 @@ export default function ProjectCard({ project, index = 0 }) {
 
   return (
     <motion.article
-      className="group relative bg-white border border-[#1C1917]/10 backdrop-blur-md rounded-4xl overflow-hidden will-change-transform hover:border-[#15803D]/30"
+      className="group relative bg-white border border-[#1C1917]/10 backdrop-blur-md rounded-4xl overflow-hidden will-change-transform hover:border-[#C98A2B]/30"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.06 }}
@@ -125,7 +125,7 @@ export default function ProjectCard({ project, index = 0 }) {
       >
         {/* Media layer (appears closer - translateZ) */}
         <motion.div
-          className="relative w-full aspect-video overflow-hidden bg-[#FBF8F2]/20"
+          className="relative w-full aspect-video overflow-hidden bg-[#F4F1EA]/20"
           style={{
             transformStyle: "preserve-3d",
             translateZ: "30px",
@@ -145,7 +145,7 @@ export default function ProjectCard({ project, index = 0 }) {
               }}
             />
           ) : (
-            <div className="w-full h-full bg-linear-to-br from-[#F1EDE4] to-[#E7E1D6] flex items-center justify-center">
+            <div className="w-full h-full bg-linear-to-br from-[#F1EDE4] to-[#E4DDCF] flex items-center justify-center">
               <div className="text-[#9C968C]">No preview</div>
             </div>
           )}
@@ -188,7 +188,7 @@ export default function ProjectCard({ project, index = 0 }) {
               ))}
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-[#15803D]">
+              <span className="text-sm font-medium text-[#C98A2B]">
                 View Project
               </span>
               <ArrowUpRight className="w-4 h-4 text-[#9C968C] group-hover:text-[#1C1917]" />
@@ -223,7 +223,7 @@ export function FeaturedProjectCard({ project }) {
 
   return (
     <motion.article
-      className="group relative bg-white backdrop-blur-md rounded-3xl overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(21,128,61,0.12)] border border-[#1C1917]/10 hover:border-[#15803D]/30 transition-all duration-500"
+      className="group relative bg-white backdrop-blur-md rounded-3xl overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(21,128,61,0.12)] border border-[#1C1917]/10 hover:border-[#C98A2B]/30 transition-all duration-500"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -242,7 +242,7 @@ export function FeaturedProjectCard({ project }) {
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
             ) : (
-              <div className="w-full h-full bg-linear-to-br from-[#F1EDE4] to-[#E7E1D6]" />
+              <div className="w-full h-full bg-linear-to-br from-[#F1EDE4] to-[#E4DDCF]" />
             )}
 
             <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent lg:bg-none" />
@@ -250,12 +250,12 @@ export function FeaturedProjectCard({ project }) {
 
           {/* Content */}
           <div className="p-8 lg:p-12 flex flex-col justify-center relative z-10">
-            <div className="inline-flex items-center text-sm font-medium text-[#15803D] mb-4">
-              <div className="w-2 h-2 bg-[#15803D] rounded-full mr-2 shadow-[0_0_8px_rgba(21,128,61,0.8)]" />
+            <div className="inline-flex items-center text-sm font-medium text-[#C98A2B] mb-4">
+              <div className="w-2 h-2 bg-[#C98A2B] rounded-full mr-2 shadow-[0_0_8px_rgba(21,128,61,0.8)]" />
               Featured Project
             </div>
 
-            <h3 className="text-2xl lg:text-3xl font-bold text-[#1C1917] mb-4 group-hover:text-[#15803D] transition-colors duration-300">
+            <h3 className="text-2xl lg:text-3xl font-bold text-[#1C1917] mb-4 group-hover:text-[#C98A2B] transition-colors duration-300">
               {project.title}
             </h3>
 
@@ -265,7 +265,7 @@ export function FeaturedProjectCard({ project }) {
               </p>
             )}
 
-            <div className="flex items-center text-[#15803D] font-semibold group-hover:text-[#1C1917] transition-colors duration-300">
+            <div className="flex items-center text-[#C98A2B] font-semibold group-hover:text-[#1C1917] transition-colors duration-300">
               <span>Explore Project</span>
               <ArrowUpRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </div>

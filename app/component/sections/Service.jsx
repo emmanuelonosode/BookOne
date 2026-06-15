@@ -83,7 +83,7 @@ export default function Service() {
           </p>
           <Link
             href="/get-started"
-            className="inline-flex items-center gap-2 text-[#15803D] text-xs tracking-[0.15em] uppercase font-semibold hover:text-[#166534] transition-colors duration-200 group"
+            className="inline-flex items-center gap-2 text-[#C98A2B] text-xs tracking-[0.15em] uppercase font-semibold hover:text-[#B0741F] transition-colors duration-200 group"
           >
             Get a free quote
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
@@ -107,7 +107,7 @@ function ServiceRow({ service, isOpen, onToggle, isLast }) {
         {/* Number */}
         <span
           className={`text-xs tracking-[0.15em] font-mono shrink-0 transition-colors duration-300 ${
-            isOpen ? "text-[#15803D]" : "text-[#9C968C] group-hover:text-[#15803D]"
+            isOpen ? "text-[#C98A2B]" : "text-[#9C968C] group-hover:text-[#C98A2B]"
           }`}
         >
           {service.number}
@@ -127,8 +127,8 @@ function ServiceRow({ service, isOpen, onToggle, isLast }) {
           height="20"
           viewBox="0 0 24 24"
           fill="none"
-          className={`shrink-0 text-[#9C968C] group-hover:text-[#15803D] transition-all duration-300 ${
-            isOpen ? "rotate-90 text-[#15803D]" : ""
+          className={`shrink-0 text-[#9C968C] group-hover:text-[#C98A2B] transition-all duration-300 ${
+            isOpen ? "rotate-90 text-[#C98A2B]" : ""
           }`}
         >
           <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

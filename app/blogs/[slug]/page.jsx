@@ -122,7 +122,7 @@ const portableComponents = {
       <div className={`my-8 p-6 border-l-2 ${
         value.type === "warning" ? "border-yellow-400/60 bg-yellow-400/[0.04]"
         : value.type === "error"  ? "border-red-400/60 bg-red-400/[0.04]"
-        : "border-[#15803D]/40 bg-[#15803D]/[0.04]"
+        : "border-[#C98A2B]/40 bg-[#C98A2B]/[0.04]"
       }`}>
         {value.title && <p className="text-sm font-semibold text-[#3A352F] mb-2">{value.title}</p>}
         <PortableText value={value.content} />
@@ -193,7 +193,7 @@ const portableComponents = {
       <p className="mb-5 text-base leading-relaxed text-[#1C1917]/55">{children}</p>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="my-8 border-l-2 border-[#15803D] pl-6">
+      <blockquote className="my-8 border-l-2 border-[#C98A2B] pl-6">
         <div className="font-display italic text-[#6F6A62] text-lg leading-snug">{children}</div>
       </blockquote>
     ),
@@ -203,18 +203,18 @@ const portableComponents = {
     strong: ({ children }) => <strong className="font-bold text-[#1C1917]">{children}</strong>,
     em: ({ children }) => <em className="italic text-[#3A352F]">{children}</em>,
     code: ({ children }) => (
-      <code className="bg-[#1C1917]/[0.04] text-[#15803D] px-1.5 py-0.5 font-mono text-sm border border-[#1C1917]/[0.08]">
+      <code className="bg-[#1C1917]/[0.04] text-[#C98A2B] px-1.5 py-0.5 font-mono text-sm border border-[#1C1917]/[0.08]">
         {children}
       </code>
     ),
     link: ({ value, children }) => (
-      <a href={value?.href} className="text-[#15803D] hover:text-[#1C1917] underline underline-offset-2 transition-colors duration-200"
+      <a href={value?.href} className="text-[#C98A2B] hover:text-[#1C1917] underline underline-offset-2 transition-colors duration-200"
         target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     ),
     highlight: ({ children }) => (
-      <mark className="bg-[#15803D]/20 text-[#15803D] px-1">{children}</mark>
+      <mark className="bg-[#C98A2B]/20 text-[#C98A2B] px-1">{children}</mark>
     ),
   },
 
@@ -226,13 +226,13 @@ const portableComponents = {
   listItem: {
     bullet: ({ children }) => (
       <li className="flex items-start gap-3">
-        <span className="text-[#15803D] mt-1 shrink-0 text-xs">—</span>
+        <span className="text-[#C98A2B] mt-1 shrink-0 text-xs">—</span>
         <span className="text-base text-[#1C1917]/55 leading-relaxed">{children}</span>
       </li>
     ),
     number: ({ children }) => (
       <li className="flex items-start gap-3">
-        <span className="text-[#15803D] mt-1 shrink-0 text-xs font-mono">›</span>
+        <span className="text-[#C98A2B] mt-1 shrink-0 text-xs font-mono">›</span>
         <span className="text-base text-[#1C1917]/55 leading-relaxed">{children}</span>
       </li>
     ),
@@ -291,7 +291,7 @@ export default async function BlogDetailPage({ params }) {
 
       <ReadingProgress />
 
-      <div className="bg-[#FBF8F2] min-h-screen">
+      <div className="bg-[#F4F1EA] min-h-screen">
 
         {/* HERO */}
         <div className="pt-32 pb-14 border-b border-[#1C1917]/[0.08]">
@@ -323,7 +323,7 @@ export default async function BlogDetailPage({ params }) {
                 <div className="flex flex-wrap items-center gap-6 text-[10px] tracking-[0.15em] uppercase text-[#9C968C] font-mono">
                   {blog.author?.name && (
                     <Link href={`/authors/${blog.author.slug?.current}`}
-                      className="hover:text-[#15803D] transition-colors duration-200">
+                      className="hover:text-[#C98A2B] transition-colors duration-200">
                       {blog.author.name}
                     </Link>
                   )}
@@ -411,7 +411,7 @@ export default async function BlogDetailPage({ params }) {
                         <p className="text-sm text-[#6F6A62] leading-relaxed mb-4 max-w-lg">{blog.author.bio}</p>
                       )}
                       <Link href={`/authors/${blog.author.slug?.current}`}
-                        className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#15803D] hover:text-[#1C1917] transition-colors duration-200 font-mono">
+                        className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#C98A2B] hover:text-[#1C1917] transition-colors duration-200 font-mono">
                         View all posts
                         <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                           <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

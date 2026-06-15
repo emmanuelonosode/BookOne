@@ -35,7 +35,7 @@ export default async function Testimonia() {
             &ldquo;{featured.desc}&rdquo;
           </p>
           <footer className="flex items-center gap-4">
-            <div className="w-px h-6 bg-[#15803D]" aria-hidden="true" />
+            <div className="w-px h-6 bg-[#C98A2B]" aria-hidden="true" />
             <div>
               <p className="text-sm font-semibold text-[#1C1917]">{featured.name}</p>
               <p className="text-xs text-[#9C968C] tracking-wide uppercase mt-0.5">
@@ -49,7 +49,7 @@ export default async function Testimonia() {
         {rest.length > 0 && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1C1917]/[0.04]">
             {rest.map((item, i) => (
-              <div key={i} className="bg-[#FBF8F2] p-8">
+              <div key={i} className="bg-[#F4F1EA] p-8">
                 <span className="font-display text-6xl text-[#9C968C] leading-none block mb-4" aria-hidden="true">
                   &ldquo;
                 </span>
@@ -57,7 +57,7 @@ export default async function Testimonia() {
                   {item.desc}
                 </p>
                 <div className="flex items-center gap-3 pt-4 border-t border-[#1C1917]/[0.08]">
-                  <div className="w-px h-4 bg-[#15803D] shrink-0" aria-hidden="true" />
+                  <div className="w-px h-4 bg-[#C98A2B] shrink-0" aria-hidden="true" />
                   <div>
                     <p className="text-xs font-semibold text-[#1C1917]">{item.name}</p>
                     <p className="text-[10px] text-[#9C968C] uppercase tracking-wider mt-0.5">

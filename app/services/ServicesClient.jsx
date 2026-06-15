@@ -69,7 +69,7 @@ const ServicesClient = () => {
   const [open, setOpen] = useState(null);
 
   return (
-    <main className="bg-[#FBF8F2] min-h-screen overflow-x-hidden">
+    <main className="bg-[#F4F1EA] min-h-screen overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -108,7 +108,7 @@ const ServicesClient = () => {
                   className="w-full text-left py-8 flex items-start gap-6 group"
                   aria-expanded={open === i}
                 >
-                  <span className="text-xs font-mono text-[#9C968C] group-hover:text-[#15803D] transition-colors duration-300 pt-1 shrink-0 w-8">
+                  <span className="text-xs font-mono text-[#9C968C] group-hover:text-[#C98A2B] transition-colors duration-300 pt-1 shrink-0 w-8">
                     {service.number}
                   </span>
                   <span
@@ -122,7 +122,7 @@ const ServicesClient = () => {
                     height="16"
                     viewBox="0 0 24 24"
                     fill="none"
-                    className={`shrink-0 mt-2 text-[#9C968C] group-hover:text-[#6F6A62] transition-all duration-300 ${open === i ? "rotate-45 text-[#15803D]" : ""}`}
+                    className={`shrink-0 mt-2 text-[#9C968C] group-hover:text-[#6F6A62] transition-all duration-300 ${open === i ? "rotate-45 text-[#C98A2B]" : ""}`}
                   >
                     <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
@@ -154,7 +154,7 @@ const ServicesClient = () => {
                         </div>
                         <Link
                           href="/get-started"
-                          className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#15803D] hover:text-[#1C1917] transition-colors duration-200 font-medium"
+                          className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#C98A2B] hover:text-[#1C1917] transition-colors duration-200 font-medium"
                         >
                           Get Started
                           <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
@@ -227,7 +227,7 @@ const ServicesClient = () => {
               href="https://calendar.notion.so/meet/officialbookone/call"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
+              className="group inline-flex items-center gap-3 text-[#C98A2B] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
             >
               Book a Strategy Call
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">

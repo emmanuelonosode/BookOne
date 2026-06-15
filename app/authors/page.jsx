@@ -77,7 +77,7 @@ export default async function AuthorsPage() {
   );
 
   return (
-    <section className="bg-[#FBF8F2] min-h-screen pt-32 pb-24" aria-labelledby="authors-heading">
+    <section className="bg-[#F4F1EA] min-h-screen pt-32 pb-24" aria-labelledby="authors-heading">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
         {/* Header */}
@@ -117,7 +117,7 @@ export default async function AuthorsPage() {
             return (
               <div
                 key={author._id}
-                className="group bg-[#FBF8F2] p-8 flex flex-col"
+                className="group bg-[#F4F1EA] p-8 flex flex-col"
                 role="listitem"
                 aria-label={`Author: ${author.name}`}
               >
@@ -172,7 +172,7 @@ export default async function AuthorsPage() {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#9C968C] hover:text-[#15803D] transition-colors duration-200"
+                        className="text-[#9C968C] hover:text-[#C98A2B] transition-colors duration-200"
                         aria-label={`${author.name} on ${label}`}
                       >
                         {icon}
@@ -184,7 +184,7 @@ export default async function AuthorsPage() {
                 {/* View Profile */}
                 <Link
                   href={`/authors/${author.slug?.current}`}
-                  className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#15803D] hover:text-[#1C1917] transition-colors duration-200 font-medium group/link"
+                  className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#C98A2B] hover:text-[#1C1917] transition-colors duration-200 font-medium group/link"
                   aria-label={`View profile for ${author.name}`}
                 >
                   View Profile

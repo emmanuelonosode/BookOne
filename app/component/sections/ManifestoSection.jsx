@@ -20,7 +20,7 @@ export default function ManifestoSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-xs tracking-[0.2em] text-[#15803D] font-semibold uppercase mb-12"
+          className="text-xs tracking-[0.2em] text-[#C98A2B] font-semibold uppercase mb-12"
         >
           Why it matters
         </motion.p>

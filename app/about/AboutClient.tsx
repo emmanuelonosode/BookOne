@@ -82,7 +82,7 @@ const team = [
 
 export default function AboutClient() {
   return (
-    <main className="bg-[#FBF8F2] min-h-screen overflow-x-hidden">
+    <main className="bg-[#F4F1EA] min-h-screen overflow-x-hidden">
 
       {/* HERO */}
       <section className="pt-32 pb-20 border-b border-[#1C1917]/[0.08]">
@@ -108,7 +108,7 @@ export default function AboutClient() {
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#1C1917]/[0.04]">
             {stats.map(({ value, label }) => (
-              <div key={label} className="bg-[#FBF8F2] px-6 py-10">
+              <div key={label} className="bg-[#F4F1EA] px-6 py-10">
                 <p
                   className="font-display font-black text-[#1C1917] leading-none mb-2"
                   style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
@@ -142,7 +142,7 @@ export default function AboutClient() {
                   Bookone Studio started with a powerful observation: talented businesses across Africa were being held back by outdated strategies. We set out to change that by combining world-class design with intelligent automation.
                 </p>
               </div>
-              <blockquote className="mt-10 border-l-2 border-[#15803D] pl-6">
+              <blockquote className="mt-10 border-l-2 border-[#C98A2B] pl-6">
                 <p className="font-display font-bold italic text-[#3A352F] text-lg leading-snug">
                   &quot;We don&apos;t just deliver projects — we deliver results that position you for sustainable, long-term success.&quot;
                 </p>
@@ -156,7 +156,7 @@ export default function AboutClient() {
                 fill
                 className="object-cover opacity-70"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#FBF8F2]/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#F4F1EA]/60 to-transparent" />
             </div>
           </div>
         </div>
@@ -217,7 +217,7 @@ export default function AboutClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.07 }}
-                className="group bg-[#FBF8F2] p-8 flex flex-col"
+                className="group bg-[#F4F1EA] p-8 flex flex-col"
               >
                 <div className="relative aspect-[4/3] w-full mb-6 overflow-hidden bg-[#1C1917]/[0.03]">
                   <Image
@@ -254,7 +254,7 @@ export default function AboutClient() {
           <div className="flex flex-col sm:flex-row gap-6 items-start">
             <Link
               href="/get-started"
-              className="group inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
+              className="group inline-flex items-center gap-3 text-[#C98A2B] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
             >
               Get a free quote
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">

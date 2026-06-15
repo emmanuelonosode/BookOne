@@ -50,7 +50,7 @@ function Arrow({ className = "" }: { className?: string }) {
 
 export default function ClientCaseStudy({ caseStudy }: { caseStudy: CaseStudy }) {
   return (
-    <main className="bg-[#FBF8F2] min-h-screen">
+    <main className="bg-[#F4F1EA] min-h-screen">
 
       {/* HERO */}
       <section className="pt-32 pb-16 border-b border-[#1C1917]/[0.08]">
@@ -77,7 +77,7 @@ export default function ClientCaseStudy({ caseStudy }: { caseStudy: CaseStudy })
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="font-display font-black text-[#1C1917] leading-none"
+                className="font-display font-medium text-[#1C1917] leading-[1.03] tracking-[-0.02em]"
                 style={{ fontSize: "clamp(2.5rem, 7vw, 6rem)" }}
               >
                 {caseStudy.title}
@@ -87,7 +87,7 @@ export default function ClientCaseStudy({ caseStudy }: { caseStudy: CaseStudy })
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.15 }}
-                  className="mt-6 text-base text-[#1C1917]/45 leading-relaxed max-w-xl"
+                  className="mt-6 text-lg text-[#6F6A62] leading-relaxed max-w-xl"
                 >
                   {caseStudy.lead}
                 </motion.p>
@@ -120,7 +120,7 @@ export default function ClientCaseStudy({ caseStudy }: { caseStudy: CaseStudy })
                     href={caseStudy.metadata.link}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#15803D] hover:text-[#1C1917] transition-colors duration-200 font-mono"
+                    className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#C98A2B] hover:text-[#1C1917] transition-colors duration-200 font-mono"
                   >
                     Visit Live Site
                     <Arrow className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
@@ -136,13 +136,13 @@ export default function ClientCaseStudy({ caseStudy }: { caseStudy: CaseStudy })
       {caseStudy.heroImage && (
         <div className="border-b border-[#1C1917]/[0.08]">
           <div className="max-w-[1600px] mx-auto">
-            <div className="relative w-full aspect-[21/9] overflow-hidden">
+            <div className="media-zoom relative w-full aspect-[21/9]">
               <Image
                 src={caseStudy.heroImage}
                 alt={caseStudy.title}
                 fill
                 priority
-                className="object-cover opacity-80"
+                className="object-cover"
               />
             </div>
           </div>
@@ -176,7 +176,7 @@ export default function ClientCaseStudy({ caseStudy }: { caseStudy: CaseStudy })
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className="space-y-8"
               >
-                <p className="text-base text-[#1C1917]/45 leading-relaxed whitespace-pre-wrap max-w-2xl">
+                <p className="text-lg text-[#6F6A62] leading-relaxed whitespace-pre-wrap max-w-2xl">
                   {section.description}
                 </p>
 
@@ -260,29 +260,25 @@ export default function ClientCaseStudy({ caseStudy }: { caseStudy: CaseStudy })
       {/* CTA */}
       <section className="py-24 sm:py-32">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
-          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-6">
+          <p className="text-xs tracking-[0.2em] text-[#C98A2B] font-semibold uppercase mb-6">
             Start a project
           </p>
           <h2
-            className="font-display font-black text-[#1C1917] leading-none mb-10"
-            style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
+            className="font-display font-medium text-[#1C1917] leading-[1.03] tracking-[-0.02em] mb-10 max-w-3xl"
+            style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
           >
-            Ready to start your<br />
-            <span className="italic">next project?</span>
+            Ready to start your <span className="italic text-[#C98A2B]">next project?</span>
           </h2>
-          <div className="flex flex-col sm:flex-row gap-6 items-start">
-            <Link
-              href="/get-started"
-              className="group inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
-            >
-              Get Started
-              <Arrow className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+          <div className="flex flex-wrap gap-4 items-center">
+            <Link href="/get-started" className="btn-primary text-sm sm:text-base">
+              Get a free quote
+              <Arrow />
             </Link>
             <Link
               href="/portfolio"
-              className="inline-flex items-center gap-3 text-[#6F6A62] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
+              className="press inline-flex items-center gap-2 rounded-full border border-[#1C1917]/20 px-7 py-3.5 text-sm sm:text-base font-semibold text-[#1C1917] hover:border-[#1C1917]/40 hover:bg-[#1C1917]/[0.03] transition-colors"
             >
-              View All Work
+              View all work
             </Link>
           </div>
         </div>

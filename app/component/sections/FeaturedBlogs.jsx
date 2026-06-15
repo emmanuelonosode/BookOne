@@ -54,7 +54,7 @@ export default async function FeaturedBlogs() {
           {/* Featured post */}
           <Link
             href={`/blogs/${featured.slug?.current ?? "#"}`}
-            className="group bg-[#FBF8F2] block overflow-hidden"
+            className="group bg-[#F4F1EA] block overflow-hidden"
           >
             {featured.mainImage && (
               <div className="relative w-full aspect-[16/9] overflow-hidden bg-[#1C1917]/[0.03]">
@@ -81,7 +81,7 @@ export default async function FeaturedBlogs() {
               >
                 {featured.title}
               </h3>
-              <span className="inline-flex items-center gap-2 text-xs text-[#15803D] group-hover:text-[#1C1917] transition-colors duration-200 font-medium">
+              <span className="inline-flex items-center gap-2 text-xs text-[#C98A2B] group-hover:text-[#1C1917] transition-colors duration-200 font-medium">
                 Read Article
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                   <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -96,10 +96,10 @@ export default async function FeaturedBlogs() {
               <Link
                 key={post._id}
                 href={`/blogs/${post.slug?.current ?? "#"}`}
-                className="group bg-[#FBF8F2] p-8 flex flex-col justify-between min-h-[200px]"
+                className="group bg-[#F4F1EA] p-8 flex flex-col justify-between min-h-[200px]"
               >
                 <div>
-                  <p className="text-[10px] tracking-[0.2em] text-[#15803D]/60 uppercase mb-3 font-mono">
+                  <p className="text-[10px] tracking-[0.2em] text-[#C98A2B]/60 uppercase mb-3 font-mono">
                     {String(i + 2).padStart(2, "0")}
                   </p>
                   <h3 className="font-display font-bold text-[#1C1917] group-hover:text-[#3A352F] transition-colors leading-tight text-lg sm:text-xl mb-3">
@@ -112,7 +112,7 @@ export default async function FeaturedBlogs() {
                       ? new Date(post._createdAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })
                       : ""}
                   </p>
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="text-[#9C968C] group-hover:text-[#15803D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300">
+                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="text-[#9C968C] group-hover:text-[#C98A2B] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300">
                     <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>

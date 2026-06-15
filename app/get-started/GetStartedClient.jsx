@@ -95,18 +95,18 @@ export default function GetStartedClient() {
     `w-full border-b bg-transparent py-3 text-sm text-[#1C1917] placeholder:text-[#9C968C] outline-none transition-colors duration-200 ${
       errors[field]
         ? "border-red-400/60"
-        : "border-[#1C1917]/[0.12] focus:border-[#15803D]"
+        : "border-[#1C1917]/[0.12] focus:border-[#C98A2B]"
     }`;
 
   return (
-    <div className="bg-[#FBF8F2] min-h-screen pt-32 pb-24">
+    <div className="bg-[#F4F1EA] min-h-screen pt-32 pb-24">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
         <div className="grid lg:grid-cols-[1fr_1.6fr] gap-16 lg:gap-24">
 
           {/* LEFT — info */}
           <div>
-            <p className="text-xs tracking-[0.2em] text-[#15803D] font-semibold uppercase mb-4">
+            <p className="text-xs tracking-[0.2em] text-[#C98A2B] font-semibold uppercase mb-4">
               Get a free quote
             </p>
             <h1
@@ -126,14 +126,14 @@ export default function GetStartedClient() {
                 href="mailto:hello@bookone.dev"
                 className="flex items-center gap-4 text-sm text-[#6F6A62] hover:text-[#1C1917] transition-colors duration-200 group"
               >
-                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] group-hover:text-[#15803D] transition-colors w-8">EM</span>
+                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] group-hover:text-[#C98A2B] transition-colors w-8">EM</span>
                 hello@bookone.dev
               </a>
               <a
                 href="tel:+2348077080903"
                 className="flex items-center gap-4 text-sm text-[#6F6A62] hover:text-[#1C1917] transition-colors duration-200 group"
               >
-                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] group-hover:text-[#15803D] transition-colors w-8">PH</span>
+                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] group-hover:text-[#C98A2B] transition-colors w-8">PH</span>
                 +234 807 708 0903
               </a>
               <p className="flex items-start gap-4 text-sm text-[#6F6A62]">
@@ -143,7 +143,7 @@ export default function GetStartedClient() {
             </div>
 
             {/* Testimonial */}
-            <blockquote className="mt-16 border-l-2 border-[#15803D] pl-6">
+            <blockquote className="mt-16 border-l-2 border-[#C98A2B] pl-6">
               <p className="font-display italic text-[#6F6A62] text-base leading-snug mb-3">
                 &quot;Bookone Studio transformed our workflow. Their AI solutions saved us 20+ hours a week.&quot;
               </p>
@@ -156,8 +156,8 @@ export default function GetStartedClient() {
           {/* RIGHT — form */}
           <div>
             {isWebsitePurchase && (
-              <div className="mb-8 border border-[#15803D]/20 bg-[#15803D]/[0.04] px-5 py-4">
-                <p className="text-xs text-[#15803D]/80 font-mono tracking-wide">
+              <div className="mb-8 border border-[#C98A2B]/20 bg-[#C98A2B]/[0.04] px-5 py-4">
+                <p className="text-xs text-[#C98A2B]/80 font-mono tracking-wide">
                   Purchasing: {websiteTitle}
                   {websitePrice && <span className="text-[#6F6A62] ml-2">· ${Number(websitePrice).toLocaleString()}</span>}
                 </p>
@@ -249,7 +249,7 @@ export default function GetStartedClient() {
                           onClick={() => toggleService(s.id)}
                           className={`px-4 py-2 text-xs tracking-wide border transition-colors duration-200 ${
                             formData.services.includes(s.id)
-                              ? "border-[#15803D] text-[#15803D] bg-[#15803D]/[0.06]"
+                              ? "border-[#C98A2B] text-[#C98A2B] bg-[#C98A2B]/[0.06]"
                               : "border-[#1C1917]/[0.10] text-[#6F6A62] hover:border-[#1C1917]/20 hover:text-[#1C1917]"
                           }`}
                         >
@@ -279,7 +279,7 @@ export default function GetStartedClient() {
                       <select
                         value={formData.referralSource}
                         onChange={(e) => handleChange("referralSource", e.target.value)}
-                        className="w-full border-b border-[#1C1917]/[0.12] focus:border-[#15803D] bg-transparent py-3 text-sm text-[#1C1917] outline-none transition-colors duration-200 cursor-pointer [&>option]:bg-[#FFFFFF]"
+                        className="w-full border-b border-[#1C1917]/[0.12] focus:border-[#C98A2B] bg-transparent py-3 text-sm text-[#1C1917] outline-none transition-colors duration-200 cursor-pointer [&>option]:bg-[#FFFFFF]"
                       >
                         <option value="" disabled>Select</option>
                         {REFERRAL.map((r) => <option key={r} value={r}>{r}</option>)}

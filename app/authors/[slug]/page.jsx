@@ -120,7 +120,7 @@ export default async function AuthorPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div className="bg-[#FBF8F2] min-h-screen pt-32 pb-24">
+      <div className="bg-[#F4F1EA] min-h-screen pt-32 pb-24">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
           {/* Back link */}
@@ -165,7 +165,7 @@ export default async function AuthorPage({ params }) {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#9C968C] hover:text-[#15803D] transition-colors duration-200"
+                      className="text-[#9C968C] hover:text-[#C98A2B] transition-colors duration-200"
                       aria-label={`${author.name} on ${label}`}
                     >
                       {icon}
@@ -213,7 +213,7 @@ export default async function AuthorPage({ params }) {
                     href={`/blogs/${blog.slug.current}`}
                     className="group flex items-start gap-8 border-t border-[#1C1917]/[0.08] py-8 last:border-b hover:bg-white/[0.02] transition-colors duration-200 -mx-6 px-6 sm:-mx-10 sm:px-10 lg:-mx-16 lg:px-16"
                   >
-                    <span className="text-xs font-mono text-[#9C968C] group-hover:text-[#15803D] transition-colors duration-300 pt-1 shrink-0 w-8">
+                    <span className="text-xs font-mono text-[#9C968C] group-hover:text-[#C98A2B] transition-colors duration-300 pt-1 shrink-0 w-8">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div className="flex-1 min-w-0">
@@ -238,7 +238,7 @@ export default async function AuthorPage({ params }) {
                       height="14"
                       viewBox="0 0 14 14"
                       fill="none"
-                      className="text-[#9C968C] group-hover:text-[#15803D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0 mt-1"
+                      className="text-[#9C968C] group-hover:text-[#C98A2B] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0 mt-1"
                     >
                       <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>

@@ -3,7 +3,7 @@ import { SanityImage } from "../../lib/types";
 import Script from "next/script";
 import { allCaseStudiesQuery } from "@/lib/queries";
 import Link from "next/link";
-import Image from "next/image";
+import WorkGrid, { WorkItem } from "./PortfolioClientComponents";
 
 export async function generateMetadata() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
@@ -47,6 +47,20 @@ export default async function PortfolioPage() {
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bookone.dev";
 
+  const workItems: WorkItem[] = caseStudies.map((cs: CaseStudy) => {
+    const slug = (typeof cs.slug === "object" ? cs.slug?.current : cs.slug) ?? cs._id;
+    const image = cs.heroMedia || cs.mainImage;
+    return {
+      id: cs._id,
+      title: cs.title,
+      href: `/portfolio/${slug}`,
+      imageUrl: image ? getImageUrl(image) : null,
+      client: cs.client ?? null,
+      services: Array.isArray(cs.services) ? cs.services : [],
+      industry: cs.industry ?? cs.category ?? null,
+    };
+  });
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -89,126 +103,53 @@ export default async function PortfolioPage() {
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
 
-      <section className="bg-[#FBF8F2] min-h-screen" aria-labelledby="portfolio-heading">
+      <section className="bg-[#F4F1EA] min-h-screen" aria-labelledby="portfolio-heading">
 
         {/* HERO */}
-        <div className="pt-32 pb-20 border-b border-[#1C1917]/[0.08]">
+        <div className="pt-36 pb-16">
           <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
-            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-4">
-              Selected Work
+            <p className="text-xs tracking-[0.2em] text-[#C98A2B] font-semibold uppercase mb-5">
+              Our work
             </p>
             <h1
               id="portfolio-heading"
-              className="font-display font-black text-[#1C1917] leading-none"
-              style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
+              className="font-display font-medium text-[#1C1917] leading-[1.02] tracking-[-0.02em] max-w-4xl"
+              style={{ fontSize: "clamp(2.75rem, 7vw, 6rem)" }}
             >
-              Innovative builds<br />
-              <span className="italic">powering growth.</span>
+              Case studies &amp; <span className="italic text-[#C98A2B]">good work.</span>
             </h1>
+            <p className="mt-6 text-base sm:text-lg text-[#6F6A62] max-w-xl leading-relaxed">
+              A look at the websites, brands and systems we&apos;ve built — and the
+              results they delivered.
+            </p>
           </div>
         </div>
 
-        {/* PROJECT ROWS */}
-        <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
-          {caseStudies.length > 0 ? (
-            <div>
-              {caseStudies.map((cs: CaseStudy, i: number) => {
-                const image = cs.heroMedia || cs.mainImage;
-                const description = cs.shortDescription || cs.overview;
-                const slug = (typeof cs.slug === "object" ? cs.slug?.current : cs.slug) ?? cs._id;
-
-                return (
-                  <Link
-                    key={cs._id}
-                    href={`/portfolio/${slug}`}
-                    className="group block border-t border-[#1C1917]/[0.08] py-10 last:border-b hover:bg-white/[0.01] transition-colors duration-300 -mx-6 px-6 sm:-mx-10 sm:px-10 lg:-mx-16 lg:px-16"
-                  >
-                    <div className="grid lg:grid-cols-[60px_1fr_1fr_auto] gap-6 lg:gap-10 items-start">
-                      {/* number */}
-                      <span className="text-xs font-mono text-[#9C968C] group-hover:text-[#15803D] transition-colors duration-300 pt-1 hidden sm:block">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-
-                      {/* title + tags */}
-                      <div>
-                        <h2
-                          className="font-display font-bold text-[#1C1917] group-hover:text-[#3A352F] transition-colors leading-tight mb-3"
-                          style={{ fontSize: "clamp(1.4rem, 3vw, 2.2rem)" }}
-                        >
-                          {cs.title}
-                        </h2>
-                        {cs.category && (
-                          <p className="text-[10px] tracking-[0.2em] uppercase text-[#9C968C] font-mono">
-                            {cs.category}
-                          </p>
-                        )}
-                      </div>
-
-                      {/* description */}
-                      {description && (
-                        <p className="text-sm text-[#1C1917]/35 leading-relaxed hidden lg:block max-w-sm">
-                          {description}
-                        </p>
-                      )}
-
-                      {/* thumbnail + arrow */}
-                      <div className="flex items-center gap-6">
-                        {image && (
-                          <div className="relative w-20 h-14 overflow-hidden bg-[#1C1917]/[0.03] shrink-0">
-                            <Image
-                              src={getImageUrl(image) ?? ""}
-                              alt={cs.title}
-                              fill
-                              className="object-cover opacity-60 group-hover:opacity-90 transition-opacity duration-500"
-                              sizes="80px"
-                            />
-                          </div>
-                        )}
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="none"
-                          className="text-[#9C968C] group-hover:text-[#15803D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0"
-                        >
-                          <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          ) : (
-            /* empty state */
-            <div className="py-24 border-t border-[#1C1917]/[0.08]">
-              <p className="text-[#9C968C] text-sm tracking-wide uppercase font-mono">
-                No projects yet — check back soon.
-              </p>
-            </div>
-          )}
-        </div>
+        {/* FILTERABLE WORK GRID */}
+        {workItems.length > 0 ? (
+          <WorkGrid items={workItems} />
+        ) : (
+          <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-24 border-t border-[#1C1917]/[0.08]">
+            <p className="text-[#9C968C] text-sm">No projects yet — check back soon.</p>
+          </div>
+        )}
 
         {/* CTA */}
         <div className="border-t border-[#1C1917]/[0.08] mt-8">
           <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
-            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-6">
+            <p className="text-xs tracking-[0.2em] text-[#C98A2B] font-semibold uppercase mb-6">
               Start a project
             </p>
             <h2
-              className="font-display font-black text-[#1C1917] leading-none mb-10"
-              style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
+              className="font-display font-medium text-[#1C1917] leading-[1.03] tracking-[-0.02em] mb-10 max-w-3xl"
+              style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
             >
-              Let&apos;s build something<br />
-              <span className="italic">great together.</span>
+              Let&apos;s build something <span className="italic text-[#C98A2B]">great together.</span>
             </h2>
-            <Link
-              href="/get-started"
-              className="group inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
-            >
-              Start Your Project
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
-                <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <Link href="/get-started" className="btn-primary text-sm sm:text-base">
+              Get a free quote
+              <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
           </div>
@@ -229,4 +170,7 @@ interface CaseStudy {
   shortDescription?: string;
   overview?: string;
   category?: string;
+  services?: string[];
+  industry?: string | null;
+  client?: string | null;
 }

@@ -108,7 +108,7 @@ export default async function WebsitesPage() {
         ],
       }) }} />
 
-      <main className="bg-[#FBF8F2] min-h-screen" aria-labelledby="websites-heading">
+      <main className="bg-[#F4F1EA] min-h-screen" aria-labelledby="websites-heading">
 
         {/* HERO */}
         <div className="pt-32 pb-20 border-b border-[#1C1917]/[0.08]">
@@ -133,7 +133,7 @@ export default async function WebsitesPage() {
               </div>
               <div className="text-right hidden lg:block">
                 <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C] mb-1">Available now</p>
-                <p className="font-display font-black text-[#15803D]" style={{ fontSize: "clamp(2rem, 3vw, 3.5rem)" }}>
+                <p className="font-display font-black text-[#C98A2B]" style={{ fontSize: "clamp(2rem, 3vw, 3.5rem)" }}>
                   {inStock.length}
                 </p>
               </div>
@@ -169,7 +169,7 @@ export default async function WebsitesPage() {
             </h2>
             <a
               href="/get-started"
-              className="group inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
+              className="group inline-flex items-center gap-3 text-[#C98A2B] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
             >
               Start a Custom Project
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">

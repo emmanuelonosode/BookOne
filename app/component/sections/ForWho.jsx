@@ -76,7 +76,7 @@ export default function ForWhoSection() {
         {/* Stats strip */}
         <div className="grid grid-cols-3 gap-px bg-[#1C1917]/[0.04] mb-14">
           {STATS.map(({ value, label }) => (
-            <div key={label} className="bg-[#FBF8F2] px-6 py-8">
+            <div key={label} className="bg-[#F4F1EA] px-6 py-8">
               <p
                 className="font-display font-black text-[#1C1917] leading-none mb-2"
                 style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
@@ -91,7 +91,7 @@ export default function ForWhoSection() {
         {/* CTA */}
         <Link
           href="/get-started"
-          className="group inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
+          className="group inline-flex items-center gap-3 text-[#C98A2B] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
         >
           Start Your Growth Journey
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">

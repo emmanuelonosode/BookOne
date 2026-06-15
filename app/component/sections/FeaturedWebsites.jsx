@@ -56,7 +56,7 @@ export default async function FeaturedWebsites() {
               <Link
                 key={listing._id}
                 href={`/websites/${slug}`}
-                className="group bg-[#FBF8F2] flex flex-col overflow-hidden"
+                className="group bg-[#F4F1EA] flex flex-col overflow-hidden"
               >
                 {/* Image */}
                 <div className="relative w-full aspect-[16/10] overflow-hidden bg-[#1C1917]/[0.03]">
@@ -75,7 +75,7 @@ export default async function FeaturedWebsites() {
                   <div className="absolute top-4 right-4">
                     <span className={`text-[9px] tracking-[0.15em] uppercase font-mono px-2 py-1 ${
                       isAvailable
-                        ? "bg-[#15803D] text-[#FBF8F2]"
+                        ? "bg-[#C98A2B] text-[#F4F1EA]"
                         : "bg-[#1C1917]/[0.05] text-[#6F6A62]"
                     }`}>
                       {isAvailable ? "Available" : "Sold"}
@@ -86,7 +86,7 @@ export default async function FeaturedWebsites() {
                 {/* Info */}
                 <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-center justify-between mb-3">
-                    <p className="text-[10px] tracking-[0.2em] text-[#15803D]/60 uppercase font-mono">
+                    <p className="text-[10px] tracking-[0.2em] text-[#C98A2B]/60 uppercase font-mono">
                       {String(i + 1).padStart(2, "0")} · {listing.type ?? "Pre-built"}
                     </p>
                     {listing.price && (
@@ -103,7 +103,7 @@ export default async function FeaturedWebsites() {
                       {listing.shortDescription}
                     </p>
                   )}
-                  <span className="inline-flex items-center gap-2 text-xs text-[#15803D] group-hover:text-[#1C1917] transition-colors duration-200 font-medium mt-auto">
+                  <span className="inline-flex items-center gap-2 text-xs text-[#C98A2B] group-hover:text-[#1C1917] transition-colors duration-200 font-medium mt-auto">
                     View Details
                     <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                       <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

@@ -1,32 +1,44 @@
 // app/layout.jsx or layout.tsx
 
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Fraunces, Hanken_Grotesk } from "next/font/google";
 import dynamic from "next/dynamic";
 import "./globals.css";
 import Script from "next/script";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-// One friendly humanist sans for everything — headlines and body
-const jakarta = Plus_Jakarta_Sans({
+// Expressive editorial serif — headlines & big moments
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+  display: "swap",
+  preload: true,
+  fallback: ["Georgia", "serif"],
+  variable: "--font-display",
+});
+
+// Clean neutral grotesque — body & UI
+const hanken = Hanken_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
   preload: true,
   fallback: ["system-ui", "sans-serif"],
   variable: "--font-sans",
 });
 
-// Headlines use the same family, just heavier — wired to --font-display for back-compat
-const playfair = { variable: "" };
-const dmSans = jakarta;
+// Back-compat aliases (html/body classNames below reference these)
+const playfair = fraunces;
+const dmSans = hanken;
 
 import Nav from "./component/sections/Nav.jsx";
+import SmoothScroll from "./component/SmoothScroll.jsx";
 
 const Footer = dynamic(() => import("./component/sections/Footer.jsx"), {
   ssr: true,
   loading: () => (
-    <footer className="bg-[#FBF8F2] border-t border-[#1C1917]/[0.08] py-8">
+    <footer className="bg-[#F4F1EA] border-t border-[#1C1917]/[0.08] py-8">
       <div className="max-w-7xl mx-auto px-4">
         <div className="h-32 bg-[#1C1917]/[0.04] animate-pulse rounded"></div>
       </div>
@@ -235,25 +247,27 @@ export default function RootLayout({ children }) {
         )}
       </head>
       <body
-        className={`${jakarta.className} antialiased bg-[#FBF8F2] text-[#1C1917]`}
+        className={`${hanken.className} antialiased bg-[#F4F1EA] text-[#1C1917]`}
         suppressHydrationWarning
       >
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:bg-[#15803D] focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-medium"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:bg-[#C98A2B] focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-medium"
         >
           Skip to main content
         </a>
 
-        <Nav />
+        <SmoothScroll>
+          <Nav />
 
-        <main id="main-content" aria-label="Main Content" className="min-h-screen">
-          {children}
-        </main>
+          <main id="main-content" aria-label="Main Content" className="min-h-screen">
+            {children}
+          </main>
 
-        <Footer />
+          <Footer />
 
-        <CookieConsent />
+          <CookieConsent />
+        </SmoothScroll>
       </body>
     </html>
   );

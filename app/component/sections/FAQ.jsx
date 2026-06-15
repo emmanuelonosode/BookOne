@@ -53,7 +53,7 @@ export default function FAQ() {
                   className="w-full text-left py-7 flex items-start gap-6 group"
                   aria-expanded={open === i}
                 >
-                  <span className="text-xs font-mono text-[#9C968C] group-hover:text-[#15803D] transition-colors duration-300 pt-1 shrink-0">
+                  <span className="text-xs font-mono text-[#9C968C] group-hover:text-[#C98A2B] transition-colors duration-300 pt-1 shrink-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="flex-1 text-base sm:text-lg font-medium text-[#3A352F] group-hover:text-[#1C1917] transition-colors duration-200 leading-snug pr-4">
@@ -65,7 +65,7 @@ export default function FAQ() {
                     viewBox="0 0 24 24"
                     fill="none"
                     className={`shrink-0 mt-1 text-[#9C968C] group-hover:text-[#6F6A62] transition-all duration-300 ${
-                      open === i ? "rotate-45 text-[#15803D]" : ""
+                      open === i ? "rotate-45 text-[#C98A2B]" : ""
                     }`}
                   >
                     <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>

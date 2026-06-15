@@ -61,13 +61,13 @@ const portableComponents = {
   listItem: {
     bullet: ({ children }: ReactChildren) => (
       <li className="flex items-start gap-3">
-        <span className="text-[#15803D] mt-1 shrink-0 text-xs">—</span>
+        <span className="text-[#C98A2B] mt-1 shrink-0 text-xs">—</span>
         <span className="text-base text-[#1C1917]/55 leading-relaxed">{children}</span>
       </li>
     ),
     number: ({ children }: ReactChildren) => (
       <li className="flex items-start gap-3">
-        <span className="text-[#15803D] mt-1 shrink-0 text-xs font-mono">›</span>
+        <span className="text-[#C98A2B] mt-1 shrink-0 text-xs font-mono">›</span>
         <span className="text-base text-[#1C1917]/55 leading-relaxed">{children}</span>
       </li>
     ),
@@ -79,7 +79,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
   const loomEmbed = listing.loomVideoUrl ? getLoomEmbedUrl(listing.loomVideoUrl) : null;
 
   return (
-    <main className="min-h-screen bg-[#FBF8F2] text-[#1C1917] pt-28 pb-24">
+    <main className="min-h-screen bg-[#F4F1EA] text-[#1C1917] pt-28 pb-24">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
         {/* Breadcrumb nav */}
@@ -145,7 +145,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
               <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C] mb-2">Price</p>
               <div className="flex items-baseline gap-3">
                 <span
-                  className="font-display font-black text-[#15803D]"
+                  className="font-display font-black text-[#C98A2B]"
                   style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
                 >
                   ${listing.price.toLocaleString()}
@@ -188,7 +188,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
               {isInStock ? (
                 <Link
                   href={`/get-started?intent=website-purchase&website=${encodeURIComponent(listing.title)}&price=${listing.price}`}
-                  className="inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold hover:text-[#1C1917] transition-colors duration-200"
+                  className="inline-flex items-center gap-3 text-[#C98A2B] text-sm font-semibold hover:text-[#1C1917] transition-colors duration-200"
                 >
                   Buy This Website — ${listing.price.toLocaleString()}
                   <DiagonalArrow />
@@ -311,7 +311,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
             href={isInStock
               ? `/get-started?intent=website-purchase&website=${encodeURIComponent(listing.title)}&price=${listing.price}`
               : "/get-started"}
-            className="inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold hover:text-[#1C1917] transition-colors duration-200"
+            className="inline-flex items-center gap-3 text-[#C98A2B] text-sm font-semibold hover:text-[#1C1917] transition-colors duration-200"
           >
             {isInStock ? `Get Started — $${listing.price.toLocaleString()}` : "Start a Custom Build"}
             <DiagonalArrow />

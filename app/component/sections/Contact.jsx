@@ -4,8 +4,8 @@ export default function Contact() {
   return (
     <section className="py-24 sm:py-32 px-6 sm:px-10 lg:px-16 border-t border-[#1C1917]/[0.08]">
       <div className="max-w-[1100px] mx-auto">
-        <div className="rounded-3xl bg-[#15803D] px-8 py-14 sm:px-16 sm:py-20 text-center">
-          <p className="text-sm font-medium text-[#DCFCE7] mb-5">
+        <div className="rounded-3xl bg-[#C98A2B] px-8 py-14 sm:px-16 sm:py-20 text-center">
+          <p className="text-sm font-medium text-[#F2E4C8] mb-5">
             Let&apos;s work together
           </p>
 
@@ -16,7 +16,7 @@ export default function Contact() {
             Ready to get more customers from your website?
           </h2>
 
-          <p className="text-base text-[#DCFCE7] leading-relaxed max-w-xl mx-auto mb-10">
+          <p className="text-base text-[#F2E4C8] leading-relaxed max-w-xl mx-auto mb-10">
             Tell us what you need and we&apos;ll send you a free, no-pressure quote
             within 24 hours. No jargon — just a clear plan and a clear price.
           </p>
@@ -24,7 +24,7 @@ export default function Contact() {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/get-started"
-              className="press inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm sm:text-base font-semibold text-[#15803D] hover:bg-[#F0FDF4] transition-colors"
+              className="press inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm sm:text-base font-semibold text-[#C98A2B] hover:bg-[#FBF6EA] transition-colors"
             >
               Get a free quote
               <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -39,7 +39,7 @@ export default function Contact() {
             </a>
           </div>
 
-          <p className="mt-8 text-sm text-[#DCFCE7]">
+          <p className="mt-8 text-sm text-[#F2E4C8]">
             hello@bookone.dev · +234 807 708 0903
           </p>
         </div>

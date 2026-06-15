@@ -12,8 +12,8 @@ function Btn({
   ...props
 }) {
   const secondary = sec
-    ? "bg-transparent text-[#15803D] border-2 border-[#15803D]"
-    : "bg-[#15803D] text-white";
+    ? "bg-transparent text-[#C98A2B] border-2 border-[#C98A2B]"
+    : "bg-[#C98A2B] text-white";
 
   const hoverVariant = sec
     ? {
@@ -90,7 +90,7 @@ export const FancyCtaButton = ({ text = "Get Started" }) => {
       <motion.div
         className="absolute inset-0 -z-10 rounded-full"
         style={{
-          background: "#15803D",
+          background: "#C98A2B",
           x: translateX,
           y: translateY,
         }}
@@ -108,11 +108,11 @@ export const FancyCtaButton = ({ text = "Get Started" }) => {
 export function AnimatedButton({ label }) {
   return (
     <motion.button
-      className="relative overflow-hidden px-6 py-3 rounded-lg font-semibold text-white bg-[#15803D]"
+      className="relative overflow-hidden px-6 py-3 rounded-lg font-semibold text-white bg-[#C98A2B]"
       whileHover="hover"
     >
       <motion.span
-        className="absolute left-0 top-0 h-full w-0 bg-[#166534] "
+        className="absolute left-0 top-0 h-full w-0 bg-[#B0741F] "
         variants={{
           hover: {
             width: "100%",
