@@ -62,11 +62,11 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-14">
           <Link
             href="/"
-            className="font-display font-black text-[#1C1917] text-3xl sm:text-4xl lg:text-5xl tracking-tight hover:text-[#C98A2B] transition-colors duration-300 leading-none"
+            className="font-display font-black text-[#1C1917] text-3xl sm:text-4xl lg:text-5xl tracking-tight hover:text-[#15803D] transition-colors duration-300 leading-none"
           >
             BOOKONE STUDIO
           </Link>
-          <p className="text-xs text-[#9C968C] max-w-xs leading-relaxed">
+          <p className="text-xs text-[#6F6A62] max-w-xs leading-relaxed">
             Web design, AI automation & SEO for ambitious businesses.<br />
             Lagos, Nigeria · Serving clients worldwide.
           </p>
@@ -76,13 +76,13 @@ export default function Footer() {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-10 mb-14">
           {Object.entries(LINKS).map(([group, items]) => (
             <div key={group}>
-              <p className="text-[10px] tracking-[0.2em] text-[#9C968C] uppercase mb-5">{group}</p>
+              <p className="text-[10px] tracking-[0.2em] text-[#6F6A62] uppercase mb-5">{group}</p>
               <ul className="flex flex-col gap-3">
                 {items.map(({ label, href }) => (
                   <li key={label}>
                     <Link
                       href={href}
-                      className="text-sm text-[#6F6A62] hover:text-[#1C1917] transition-colors duration-200"
+                      className="link-underline text-sm text-[#6F6A62] hover:text-[#1C1917] transition-colors duration-200"
                     >
                       {label}
                     </Link>
@@ -95,7 +95,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="pt-8 border-t border-[#1C1917]/[0.08] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-xs text-[#9C968C]">
+          <p className="text-xs text-[#6F6A62]">
             © {year} Bookone Studio. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
@@ -105,7 +105,7 @@ export default function Footer() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#9C968C] hover:text-[#1C1917] transition-colors duration-200"
+                className="text-[#6F6A62] hover:text-[#1C1917] transition-colors duration-200"
                 aria-label={label}
               >
                 {icon}

@@ -16,14 +16,14 @@ export default function Industries() {
     <section className="py-24 sm:py-32 px-6 sm:px-10 lg:px-16 border-t border-[#1C1917]/[0.08] bg-[#EFE9DC]">
       <div className="max-w-[1600px] mx-auto grid lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-20">
         <Reveal>
-          <p className="text-xs tracking-[0.2em] text-[#C98A2B] font-semibold uppercase mb-4">
+          <p className="text-xs tracking-[0.2em] text-[#15803D] font-semibold uppercase mb-4">
             Who we work with
           </p>
           <h2
             className="font-display font-medium text-[#1C1917] leading-[1.05] tracking-[-0.02em]"
             style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)" }}
           >
-            Built for businesses that want to <span className="italic text-[#C98A2B]">grow.</span>
+            Built for businesses that want to <span className="italic text-[#15803D]">grow.</span>
           </h2>
           <p className="mt-6 text-base text-[#6F6A62] leading-relaxed max-w-md">
             From first-time founders to established brands — if you need a website that
@@ -39,7 +39,7 @@ export default function Industries() {
               delay={(i % 2) * 0.06}
               className="flex items-center gap-4 py-4 border-b border-[#1C1917]/[0.08]"
             >
-              <span className="text-xs font-mono text-[#9C968C] w-7">
+              <span className="text-xs font-mono text-[#6F6A62] w-7">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span

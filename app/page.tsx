@@ -9,6 +9,7 @@ import FeaturedWebsites from "./component/sections/FeaturedWebsites.jsx";
 import FAQ from "./component/sections/FAQ.jsx";
 import ForWhoSection from "./component/sections/ForWho.jsx";
 import Industries from "./component/sections/Industries.jsx";
+import Numbers from "./component/sections/Numbers.jsx";
 import Contact from "./component/sections/Contact.jsx";
 
 export const metadata = {
@@ -134,6 +135,7 @@ export default function HomePage() {
       <MarqueeTicker />
       <ManifestoSection />
       <PortfolioSection />
+      <Numbers />
       <Service />
       <Industries />
       <FeaturedWebsites />

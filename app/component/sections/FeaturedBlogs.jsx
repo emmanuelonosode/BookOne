@@ -27,7 +27,7 @@ export default async function FeaturedBlogs() {
         {/* Header */}
         <div className="flex items-end justify-between mb-14 gap-6 flex-wrap">
           <div>
-            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-3">
+            <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase mb-3">
               Latest Thinking
             </p>
             <h2
@@ -69,7 +69,7 @@ export default async function FeaturedBlogs() {
               </div>
             )}
             <div className="p-8">
-              <p className="text-[10px] tracking-[0.2em] text-[#9C968C] uppercase mb-4">
+              <p className="text-[10px] tracking-[0.2em] text-[#6F6A62] uppercase mb-4">
                 {featured.author?.name ?? "Bookone Studio"} ·{" "}
                 {featured._createdAt
                   ? new Date(featured._createdAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })
@@ -81,7 +81,7 @@ export default async function FeaturedBlogs() {
               >
                 {featured.title}
               </h3>
-              <span className="inline-flex items-center gap-2 text-xs text-[#C98A2B] group-hover:text-[#1C1917] transition-colors duration-200 font-medium">
+              <span className="inline-flex items-center gap-2 text-xs text-[#15803D] group-hover:text-[#1C1917] transition-colors duration-200 font-medium">
                 Read Article
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                   <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -99,7 +99,7 @@ export default async function FeaturedBlogs() {
                 className="group bg-[#F4F1EA] p-8 flex flex-col justify-between min-h-[200px]"
               >
                 <div>
-                  <p className="text-[10px] tracking-[0.2em] text-[#C98A2B]/60 uppercase mb-3 font-mono">
+                  <p className="text-[10px] tracking-[0.2em] text-[#15803D]/60 uppercase mb-3 font-mono">
                     {String(i + 2).padStart(2, "0")}
                   </p>
                   <h3 className="font-display font-bold text-[#1C1917] group-hover:text-[#3A352F] transition-colors leading-tight text-lg sm:text-xl mb-3">
@@ -107,12 +107,12 @@ export default async function FeaturedBlogs() {
                   </h3>
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-[10px] tracking-wide text-[#9C968C] uppercase">
+                  <p className="text-[10px] tracking-wide text-[#6F6A62] uppercase">
                     {post._createdAt
                       ? new Date(post._createdAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })
                       : ""}
                   </p>
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="text-[#9C968C] group-hover:text-[#C98A2B] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300">
+                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="text-[#6F6A62] group-hover:text-[#15803D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300">
                     <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>

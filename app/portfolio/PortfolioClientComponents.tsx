@@ -33,7 +33,7 @@ function Chips({
   if (options.length === 0) return null;
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="text-xs tracking-[0.18em] uppercase text-[#9C968C] mr-1">{label}</span>
+      <span className="text-xs tracking-[0.18em] uppercase text-[#6F6A62] mr-1">{label}</span>
       {[ALL, ...options].map((opt) => {
         const isActive = active === opt;
         return (
@@ -43,7 +43,7 @@ function Chips({
             onClick={() => onChange(opt)}
             className={`press rounded-full border px-4 py-1.5 text-sm transition-colors duration-200 ${
               isActive
-                ? "border-[#C98A2B] bg-[#C98A2B] text-white"
+                ? "border-[#15803D] bg-[#15803D] text-white"
                 : "border-[#1C1917]/15 text-[#3A352F] hover:border-[#1C1917]/35"
             }`}
           >
@@ -85,7 +85,7 @@ export default function WorkGrid({ items }: { items: WorkItem[] }) {
 
       {/* Grid */}
       {filtered.length === 0 ? (
-        <p className="py-24 text-[#9C968C] text-sm">No projects match those filters yet.</p>
+        <p className="py-24 text-[#6F6A62] text-sm">No projects match those filters yet.</p>
       ) : (
         <motion.div layout className="grid sm:grid-cols-2 gap-x-8 gap-y-14 pt-12">
           <AnimatePresence mode="popLayout">
@@ -102,7 +102,7 @@ export default function WorkGrid({ items }: { items: WorkItem[] }) {
                   exit={reduce ? undefined : { opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.5, delay: reduce ? 0 : (i % 2) * 0.05, ease: EASE }}
                 >
-                  <Link href={item.href} className="group block">
+                  <Link href={item.href} className="group block" data-cursor data-cursor-label="View">
                     <div className="media-zoom relative aspect-[4/3] rounded-2xl bg-[#EFE9DC] border border-[#1C1917]/[0.06]">
                       {item.imageUrl ? (
                         <Image
@@ -113,19 +113,19 @@ export default function WorkGrid({ items }: { items: WorkItem[] }) {
                           sizes="(max-width: 640px) 100vw, 50vw"
                         />
                       ) : (
-                        <div className="absolute inset-0 grid place-items-center text-[#9C968C] text-sm">
+                        <div className="absolute inset-0 grid place-items-center text-[#6F6A62] text-sm">
                           Preview coming soon
                         </div>
                       )}
                     </div>
                     <div className="mt-5 flex items-baseline justify-between gap-4">
                       <h2
-                        className="font-display font-medium text-[#1C1917] leading-tight tracking-[-0.01em] group-hover:text-[#C98A2B] transition-colors duration-300"
+                        className="font-display font-medium text-[#1C1917] leading-tight tracking-[-0.01em] group-hover:text-[#15803D] transition-colors duration-300"
                         style={{ fontSize: "clamp(1.35rem, 2.4vw, 2rem)" }}
                       >
                         {item.title}
                       </h2>
-                      <span className="shrink-0 text-[#C98A2B] opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                      <span className="shrink-0 text-[#15803D] opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
                         <svg width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                           <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>

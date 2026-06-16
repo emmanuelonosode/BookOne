@@ -41,7 +41,7 @@ type ReactChildren = { children?: React.ReactNode };
 const portableComponents = {
   block: {
     normal: ({ children }: ReactChildren) => (
-      <p className="mb-4 text-base leading-relaxed text-[#1C1917]/55">{children}</p>
+      <p className="mb-4 text-base leading-relaxed text-[#3A352F]">{children}</p>
     ),
     h3: ({ children }: ReactChildren) => (
       <h3 className="font-display font-bold text-[#1C1917] text-lg mt-6 mb-3">{children}</h3>
@@ -61,14 +61,14 @@ const portableComponents = {
   listItem: {
     bullet: ({ children }: ReactChildren) => (
       <li className="flex items-start gap-3">
-        <span className="text-[#C98A2B] mt-1 shrink-0 text-xs">—</span>
-        <span className="text-base text-[#1C1917]/55 leading-relaxed">{children}</span>
+        <span className="text-[#15803D] mt-1 shrink-0 text-xs">—</span>
+        <span className="text-base text-[#3A352F] leading-relaxed">{children}</span>
       </li>
     ),
     number: ({ children }: ReactChildren) => (
       <li className="flex items-start gap-3">
-        <span className="text-[#C98A2B] mt-1 shrink-0 text-xs font-mono">›</span>
-        <span className="text-base text-[#1C1917]/55 leading-relaxed">{children}</span>
+        <span className="text-[#15803D] mt-1 shrink-0 text-xs font-mono">›</span>
+        <span className="text-base text-[#3A352F] leading-relaxed">{children}</span>
       </li>
     ),
   },
@@ -83,7 +83,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
         {/* Breadcrumb nav */}
-        <nav className="mb-10 flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C]" aria-label="Breadcrumb">
+        <nav className="mb-10 flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase font-mono text-[#6F6A62]" aria-label="Breadcrumb">
           <Link href="/" className="hover:text-[#6F6A62] transition-colors">Home</Link>
           <span>/</span>
           <Link href="/websites" className="hover:text-[#6F6A62] transition-colors">Websites for Sale</Link>
@@ -106,7 +106,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-[#9C968C] text-[10px] tracking-[0.2em] uppercase font-mono">
+              <div className="w-full h-full flex items-center justify-center text-[#6F6A62] text-[10px] tracking-[0.2em] uppercase font-mono">
                 No preview
               </div>
             )}
@@ -117,11 +117,11 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
 
             {/* Type + Category badges */}
             <div className="flex flex-wrap gap-2">
-              <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] border border-[#1C1917]/[0.08] px-3 py-1">
+              <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#6F6A62] border border-[#1C1917]/[0.08] px-3 py-1">
                 {listing.type === "pre-built" ? "Pre-built" : "Done-for-You"}
               </span>
               {listing.category && (
-                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] border border-[#1C1917]/[0.08] px-3 py-1">
+                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#6F6A62] border border-[#1C1917]/[0.08] px-3 py-1">
                   {CATEGORY_LABELS[listing.category] ?? listing.category}
                 </span>
               )}
@@ -135,24 +135,24 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
             </h1>
 
             {listing.shortDescription && (
-              <p className="text-[#1C1917]/45 leading-relaxed text-sm max-w-sm">
+              <p className="text-[#3A352F] leading-relaxed text-sm max-w-sm">
                 {listing.shortDescription}
               </p>
             )}
 
             {/* Price */}
             <div className="border-t border-[#1C1917]/[0.08] pt-5">
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C] mb-2">Price</p>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#6F6A62] mb-2">Price</p>
               <div className="flex items-baseline gap-3">
                 <span
-                  className="font-display font-black text-[#C98A2B]"
+                  className="font-display font-black text-[#15803D]"
                   style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
                 >
                   ${listing.price.toLocaleString()}
                 </span>
-                <span className="text-sm font-mono text-[#9C968C]">USD</span>
+                <span className="text-sm font-mono text-[#6F6A62]">USD</span>
               </div>
-              <p className={`text-[10px] font-mono uppercase tracking-[0.2em] mt-2 ${isInStock ? "text-[#6F6A62]" : "text-[#9C968C]"}`}>
+              <p className={`text-[10px] font-mono uppercase tracking-[0.2em] mt-2 ${isInStock ? "text-[#6F6A62]" : "text-[#6F6A62]"}`}>
                 {isInStock ? "● Available" : "○ Sold Out"}
               </p>
             </div>
@@ -188,7 +188,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
               {isInStock ? (
                 <Link
                   href={`/get-started?intent=website-purchase&website=${encodeURIComponent(listing.title)}&price=${listing.price}`}
-                  className="inline-flex items-center gap-3 text-[#C98A2B] text-sm font-semibold hover:text-[#1C1917] transition-colors duration-200"
+                  className="inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold hover:text-[#1C1917] transition-colors duration-200"
                 >
                   Buy This Website — ${listing.price.toLocaleString()}
                   <DiagonalArrow />
@@ -196,7 +196,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
               ) : (
                 <Link
                   href="/get-started"
-                  className="inline-flex items-center gap-3 text-[#9C968C] text-sm font-semibold hover:text-[#1C1917] transition-colors duration-200"
+                  className="inline-flex items-center gap-3 text-[#6F6A62] text-sm font-semibold hover:text-[#1C1917] transition-colors duration-200"
                 >
                   Commission a Similar Build
                   <DiagonalArrow />
@@ -209,7 +209,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
         {/* Loom Video Embed */}
         {loomEmbed && (
           <section className="mb-20" aria-label="Video walkthrough">
-            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-6">
+            <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono mb-6">
               Video Walkthrough
             </p>
             <div className="relative w-full aspect-video overflow-hidden bg-[#FFFFFF]">
@@ -228,22 +228,22 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
         <section className="border-t border-[#1C1917]/[0.08] pt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {listing.category && (
             <div>
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C] mb-3">Category</p>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#6F6A62] mb-3">Category</p>
               <p className="text-sm text-[#6F6A62]">{CATEGORY_LABELS[listing.category] ?? listing.category}</p>
             </div>
           )}
           {listing.type && (
             <div>
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C] mb-3">Type</p>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#6F6A62] mb-3">Type</p>
               <p className="text-sm text-[#6F6A62]">{listing.type === "pre-built" ? "Pre-built Template" : "Done-for-You Build"}</p>
             </div>
           )}
           {listing.techStack && listing.techStack.length > 0 && (
             <div>
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C] mb-3">Tech Stack</p>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#6F6A62] mb-3">Tech Stack</p>
               <div className="flex flex-wrap gap-2">
                 {listing.techStack.map((tech) => (
-                  <span key={tech} className="text-[10px] border border-[#1C1917]/[0.08] px-3 py-1 font-mono text-[#9C968C] uppercase">
+                  <span key={tech} className="text-[10px] border border-[#1C1917]/[0.08] px-3 py-1 font-mono text-[#6F6A62] uppercase">
                     {tech}
                   </span>
                 ))}
@@ -255,7 +255,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
         {/* What's Included */}
         {listing.whatsIncluded && listing.whatsIncluded.length > 0 && (
           <section className="border-t border-[#1C1917]/[0.08] pt-10 mb-20">
-            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-8">
+            <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono mb-8">
               What&apos;s Included
             </p>
             <div className="max-w-2xl">
@@ -267,7 +267,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
         {/* Screenshots */}
         {listing.screenshots && listing.screenshots.length > 0 && (
           <section className="mb-20">
-            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-8">
+            <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono mb-8">
               Screenshots
             </p>
             <div className="grid sm:grid-cols-2 gap-px bg-[#1C1917]/[0.04]">
@@ -293,7 +293,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
 
         {/* Bottom CTA */}
         <div className="border-t border-[#1C1917]/[0.08] pt-16">
-          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-6">
+          <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono mb-6">
             {isInStock ? "Ready to buy?" : "Need something similar?"}
           </p>
           <h2
@@ -311,7 +311,7 @@ export default function WebsiteDetail({ listing, heroImage }: Props) {
             href={isInStock
               ? `/get-started?intent=website-purchase&website=${encodeURIComponent(listing.title)}&price=${listing.price}`
               : "/get-started"}
-            className="inline-flex items-center gap-3 text-[#C98A2B] text-sm font-semibold hover:text-[#1C1917] transition-colors duration-200"
+            className="inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold hover:text-[#1C1917] transition-colors duration-200"
           >
             {isInStock ? `Get Started — $${listing.price.toLocaleString()}` : "Start a Custom Build"}
             <DiagonalArrow />

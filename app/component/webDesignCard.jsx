@@ -36,7 +36,7 @@ export default function WebDesignDetails({ details }) {
             details.techStack.map((tech) => (
               <span
                 key={tech}
-                className="bg-[#C98A2B]/[0.08] text-[#C98A2B] border border-[#C98A2B]/20 px-3 py-1 text-sm rounded-full"
+                className="bg-[#15803D]/[0.08] text-[#15803D] border border-[#15803D]/20 px-3 py-1 text-sm rounded-full"
               >
                 {tech}
               </span>
@@ -49,7 +49,7 @@ export default function WebDesignDetails({ details }) {
           href={details.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-[#C98A2B] text-white font-bold py-2 px-6 rounded-lg hover:bg-[#B0741F] transition-colors"
+          className="inline-block bg-[#15803D] text-white font-bold py-2 px-6 rounded-lg hover:bg-[#166534] transition-colors"
         >
           View Live Site
         </a>

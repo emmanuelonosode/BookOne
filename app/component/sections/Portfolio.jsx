@@ -36,14 +36,14 @@ export default async function PortfolioSection() {
         {/* Header */}
         <Reveal className="flex items-end justify-between mb-14 gap-6 flex-wrap">
           <div>
-            <p className="text-xs tracking-[0.2em] text-[#C98A2B] font-semibold uppercase mb-4">
+            <p className="text-xs tracking-[0.2em] text-[#15803D] font-semibold uppercase mb-4">
               Selected work
             </p>
             <h2
               className="font-display font-medium text-[#1C1917] leading-[1.02] tracking-[-0.02em]"
               style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)" }}
             >
-              Work that <span className="italic text-[#C98A2B]">works.</span>
+              Work that <span className="italic text-[#15803D]">works.</span>
             </h2>
           </div>
           <Link
@@ -61,7 +61,7 @@ export default async function PortfolioSection() {
         <div className="grid sm:grid-cols-2 gap-x-8 gap-y-14">
           {items.map((item, i) => (
             <Reveal key={item.href + i} delay={(i % 2) * 0.08}>
-              <Link href={item.href} className="group block">
+              <Link href={item.href} className="group block" data-cursor data-cursor-label="View">
                 <div className="media-zoom relative aspect-[4/3] rounded-2xl bg-[#EFE9DC] border border-[#1C1917]/[0.06]">
                   {item.imageUrl ? (
                     <Image
@@ -72,19 +72,19 @@ export default async function PortfolioSection() {
                       sizes="(max-width: 640px) 100vw, 50vw"
                     />
                   ) : (
-                    <div className="absolute inset-0 grid place-items-center text-[#9C968C] text-sm">
+                    <div className="absolute inset-0 grid place-items-center text-[#6F6A62] text-sm">
                       Preview coming soon
                     </div>
                   )}
                 </div>
                 <div className="mt-5 flex items-baseline justify-between gap-4">
                   <h3
-                    className="font-display font-medium text-[#1C1917] leading-tight tracking-[-0.01em] group-hover:text-[#C98A2B] transition-colors duration-300"
+                    className="font-display font-medium text-[#1C1917] leading-tight tracking-[-0.01em] group-hover:text-[#15803D] transition-colors duration-300"
                     style={{ fontSize: "clamp(1.35rem, 2.4vw, 2rem)" }}
                   >
                     {item.title}
                   </h3>
-                  <span className="shrink-0 text-[#C98A2B] opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                  <span className="shrink-0 text-[#15803D] opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
                     <svg width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                       <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>

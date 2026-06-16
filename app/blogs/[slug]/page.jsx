@@ -111,7 +111,7 @@ const portableComponents = {
             />
           </div>
           {value.caption && (
-            <figcaption className="text-center text-xs text-[#9C968C] mt-3 font-mono tracking-wide">
+            <figcaption className="text-center text-xs text-[#6F6A62] mt-3 font-mono tracking-wide">
               {value.caption}
             </figcaption>
           )}
@@ -122,7 +122,7 @@ const portableComponents = {
       <div className={`my-8 p-6 border-l-2 ${
         value.type === "warning" ? "border-yellow-400/60 bg-yellow-400/[0.04]"
         : value.type === "error"  ? "border-red-400/60 bg-red-400/[0.04]"
-        : "border-[#C98A2B]/40 bg-[#C98A2B]/[0.04]"
+        : "border-[#15803D]/40 bg-[#15803D]/[0.04]"
       }`}>
         {value.title && <p className="text-sm font-semibold text-[#3A352F] mb-2">{value.title}</p>}
         <PortableText value={value.content} />
@@ -135,7 +135,7 @@ const portableComponents = {
         <div className="my-8 overflow-x-auto border border-[#1C1917]/[0.08]">
           <table className="min-w-full">
             {value.caption && (
-              <caption className="text-xs text-[#9C968C] px-4 py-3 border-b border-[#1C1917]/[0.08] font-mono text-left">
+              <caption className="text-xs text-[#6F6A62] px-4 py-3 border-b border-[#1C1917]/[0.08] font-mono text-left">
                 {value.caption}
               </caption>
             )}
@@ -168,7 +168,7 @@ const portableComponents = {
   block: {
     h1: ({ children }) => (
       <h1 id={String(children?.[0] ?? "").replace(/\s+/g, "-").toLowerCase()}
-        className="font-display font-black text-[#1C1917] leading-tight mt-12 mb-5 scroll-mt-24"
+        className="font-display font-semibold text-[#1C1917] leading-tight tracking-[-0.01em] mt-12 mb-5 scroll-mt-24"
         style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
         {children}
       </h1>
@@ -190,10 +190,10 @@ const portableComponents = {
       <h4 className="font-semibold text-[#3A352F] mt-6 mb-2 text-lg">{children}</h4>
     ),
     normal: ({ children }) => (
-      <p className="mb-5 text-base leading-relaxed text-[#1C1917]/55">{children}</p>
+      <p className="mb-6 text-[1.0625rem] leading-[1.75] text-[#3A352F]">{children}</p>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="my-8 border-l-2 border-[#C98A2B] pl-6">
+      <blockquote className="my-8 border-l-2 border-[#15803D] pl-6">
         <div className="font-display italic text-[#6F6A62] text-lg leading-snug">{children}</div>
       </blockquote>
     ),
@@ -203,18 +203,18 @@ const portableComponents = {
     strong: ({ children }) => <strong className="font-bold text-[#1C1917]">{children}</strong>,
     em: ({ children }) => <em className="italic text-[#3A352F]">{children}</em>,
     code: ({ children }) => (
-      <code className="bg-[#1C1917]/[0.04] text-[#C98A2B] px-1.5 py-0.5 font-mono text-sm border border-[#1C1917]/[0.08]">
+      <code className="bg-[#1C1917]/[0.04] text-[#15803D] px-1.5 py-0.5 font-mono text-sm border border-[#1C1917]/[0.08]">
         {children}
       </code>
     ),
     link: ({ value, children }) => (
-      <a href={value?.href} className="text-[#C98A2B] hover:text-[#1C1917] underline underline-offset-2 transition-colors duration-200"
+      <a href={value?.href} className="text-[#15803D] hover:text-[#1C1917] underline underline-offset-2 transition-colors duration-200"
         target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     ),
     highlight: ({ children }) => (
-      <mark className="bg-[#C98A2B]/20 text-[#C98A2B] px-1">{children}</mark>
+      <mark className="bg-[#15803D]/20 text-[#15803D] px-1">{children}</mark>
     ),
   },
 
@@ -226,14 +226,14 @@ const portableComponents = {
   listItem: {
     bullet: ({ children }) => (
       <li className="flex items-start gap-3">
-        <span className="text-[#C98A2B] mt-1 shrink-0 text-xs">—</span>
-        <span className="text-base text-[#1C1917]/55 leading-relaxed">{children}</span>
+        <span className="text-[#15803D] mt-1 shrink-0 text-xs">—</span>
+        <span className="text-[1.0625rem] text-[#3A352F] leading-relaxed">{children}</span>
       </li>
     ),
     number: ({ children }) => (
       <li className="flex items-start gap-3">
-        <span className="text-[#C98A2B] mt-1 shrink-0 text-xs font-mono">›</span>
-        <span className="text-base text-[#1C1917]/55 leading-relaxed">{children}</span>
+        <span className="text-[#15803D] mt-1 shrink-0 text-xs font-mono">›</span>
+        <span className="text-[1.0625rem] text-[#3A352F] leading-relaxed">{children}</span>
       </li>
     ),
   },
@@ -299,7 +299,7 @@ export default async function BlogDetailPage({ params }) {
 
             {/* Back */}
             <Link href="/blogs"
-              className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#9C968C] hover:text-[#1C1917] transition-colors duration-200 font-mono mb-12">
+              className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#6F6A62] hover:text-[#1C1917] transition-colors duration-200 font-mono mb-12">
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                 <path d="M12 7H2M2 7L7 2M2 7L7 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -309,21 +309,21 @@ export default async function BlogDetailPage({ params }) {
             <div className="grid lg:grid-cols-[1fr_280px] gap-16 items-start">
               <div>
                 {category && (
-                  <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-4">{category}</p>
+                  <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono mb-4">{category}</p>
                 )}
-                <h1 className="font-display font-black text-[#1C1917] leading-none mb-6"
+                <h1 className="font-display font-medium text-[#1C1917] leading-[1.05] tracking-[-0.02em] mb-6"
                   style={{ fontSize: "clamp(2.2rem, 5vw, 4.5rem)" }}>
                   {blog.title}
                 </h1>
                 {blog.description && (
-                  <p className="text-base text-[#1C1917]/45 leading-relaxed max-w-2xl mb-8">{blog.description}</p>
+                  <p className="text-lg text-[#6F6A62] leading-relaxed max-w-2xl mb-8">{blog.description}</p>
                 )}
 
                 {/* Meta row */}
-                <div className="flex flex-wrap items-center gap-6 text-[10px] tracking-[0.15em] uppercase text-[#9C968C] font-mono">
+                <div className="flex flex-wrap items-center gap-6 text-[10px] tracking-[0.15em] uppercase text-[#6F6A62] font-mono">
                   {blog.author?.name && (
                     <Link href={`/authors/${blog.author.slug?.current}`}
-                      className="hover:text-[#C98A2B] transition-colors duration-200">
+                      className="hover:text-[#15803D] transition-colors duration-200">
                       {blog.author.name}
                     </Link>
                   )}
@@ -335,7 +335,7 @@ export default async function BlogDetailPage({ params }) {
 
               {/* Share */}
               <div className="hidden lg:block">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-[#9C968C] font-mono mb-4">Share</p>
+                <p className="text-[10px] tracking-[0.2em] uppercase text-[#6F6A62] font-mono mb-4">Share</p>
                 <ShareButtons url={currentUrl} title={blog.title} />
               </div>
             </div>
@@ -351,7 +351,7 @@ export default async function BlogDetailPage({ params }) {
                   src={getImageUrl(blog.mainImage)}
                   alt={blog.title}
                   fill
-                  className="object-cover opacity-75"
+                  className="object-cover"
                   priority
                 />
               </div>
@@ -365,7 +365,7 @@ export default async function BlogDetailPage({ params }) {
 
             {/* Sticky ToC */}
             <aside className="hidden lg:block lg:sticky lg:top-28">
-              <p className="text-[10px] tracking-[0.2em] uppercase text-[#9C968C] font-mono mb-4">Contents</p>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-[#6F6A62] font-mono mb-4">Contents</p>
               <TableOfContents content={blog.body} />
             </aside>
 
@@ -378,11 +378,11 @@ export default async function BlogDetailPage({ params }) {
               {/* Tags */}
               {blog.tags?.length > 0 && (
                 <div className="mt-12 pt-8 border-t border-[#1C1917]/[0.08]">
-                  <p className="text-[10px] tracking-[0.2em] uppercase text-[#9C968C] font-mono mb-4">Tags</p>
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-[#6F6A62] font-mono mb-4">Tags</p>
                   <div className="flex flex-wrap gap-2">
                     {blog.tags.map((tag, i) => (
                       <span key={i}
-                        className="px-3 py-1 border border-[#1C1917]/[0.08] text-[10px] tracking-[0.1em] uppercase font-mono text-[#9C968C]">
+                        className="px-3 py-1 border border-[#1C1917]/[0.08] text-[10px] tracking-[0.1em] uppercase font-mono text-[#6F6A62]">
                         {tag}
                       </span>
                     ))}
@@ -395,7 +395,7 @@ export default async function BlogDetailPage({ params }) {
                 <div className="mt-12 pt-8 border-t border-[#1C1917]/[0.08]">
                   <div className="flex items-start gap-6">
                     {blog.author.image && (
-                      <div className="w-14 h-14 rounded-full overflow-hidden bg-[#1C1917]/[0.04] shrink-0 ring-1 ring-white/10">
+                      <div className="w-14 h-14 rounded-full overflow-hidden bg-[#1C1917]/[0.04] shrink-0 ring-1 ring-[#1C1917]/10">
                         <Image
                           src={getImageUrl(blog.author.image)}
                           alt={blog.author.name}
@@ -411,7 +411,7 @@ export default async function BlogDetailPage({ params }) {
                         <p className="text-sm text-[#6F6A62] leading-relaxed mb-4 max-w-lg">{blog.author.bio}</p>
                       )}
                       <Link href={`/authors/${blog.author.slug?.current}`}
-                        className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#C98A2B] hover:text-[#1C1917] transition-colors duration-200 font-mono">
+                        className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#15803D] hover:text-[#1C1917] transition-colors duration-200 font-mono">
                         View all posts
                         <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                           <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -424,7 +424,7 @@ export default async function BlogDetailPage({ params }) {
 
               {/* Share bottom */}
               <div className="mt-12 pt-8 border-t border-[#1C1917]/[0.08]">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-[#9C968C] font-mono mb-4">Share this article</p>
+                <p className="text-[10px] tracking-[0.2em] uppercase text-[#6F6A62] font-mono mb-4">Share this article</p>
                 <ShareButtons url={currentUrl} title={blog.title} />
               </div>
 

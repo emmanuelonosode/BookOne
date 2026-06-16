@@ -15,18 +15,18 @@
   --color-bg: #F4F1EA;          /* bone / cream page background */
   --color-bg-warm: #EFE9DC;     /* deeper warm surface (alternating sections) */
   --color-bg-card: #FBF9F4;     /* card / panel surface */
-  --color-accent: #C98A2B;      /* ochre / mustard accent */
-  --color-accent-hover: #B0741F;
-  --color-accent-soft: #F2E4C8; /* light ochre tint */
+  --color-accent: #15803D;      /* ochre / mustard accent */
+  --color-accent-hover: #166534;
+  --color-accent-soft: #DCFCE7; /* light ochre tint */
   --color-ink: #1C1917;         /* near-black warm text */
   --color-ink-soft: #3A352F;    /* softened headline ink */
   --color-text-muted: #6F6A62;  /* warm grey body text */
-  --color-text-faint: #9C968C;  /* labels, captions */
+  --color-text-faint: #6F6A62;  /* labels, captions */
   --color-border: #E4DDCF;      /* warm hairline border */
 
   /* ── Legacy tokens (kept for any component not yet updated) ── */
-  --color-primary: #C98A2B;
-  --color-secondary: #B0741F;
+  --color-primary: #15803D;
+  --color-secondary: #166534;
   --color-dark: #1C1917;
   --color-light: #ffffff;
   --color-neutral: #FBF9F4;
@@ -195,6 +195,34 @@ body {
 /* Thin warm rule used to separate editorial sections */
 .rule-warm {
   border-color: var(--color-border);
+}
+
+/* ── Animated link underline (micro-interaction) ── */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 320ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .link-underline::after {
+    transition: none;
+  }
 }
 
 /* Premium Dark Theme Animations */

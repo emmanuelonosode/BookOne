@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import Magnetic from "../ui/Magnetic.jsx";
 
 const NAV_LINKS = [
   { name: "Work", href: "/portfolio" },
@@ -45,7 +46,7 @@ export default function Nav() {
           <Link
             href="/"
             aria-label="Bookone Studio Home"
-            className="text-[#1C1917] font-display font-black text-xl tracking-tight hover:text-[#C98A2B] transition-colors duration-300"
+            className="text-[#1C1917] font-display font-black text-xl tracking-tight hover:text-[#15803D] transition-colors duration-300"
           >
             BOOKONE STUDIO
           </Link>
@@ -60,7 +61,7 @@ export default function Nav() {
               <Link
                 key={href}
                 href={href}
-                className={`text-[11px] tracking-[0.15em] uppercase font-medium transition-colors duration-200 ${
+                className={`link-underline text-[11px] tracking-[0.15em] uppercase font-medium transition-colors duration-200 ${
                   pathname === href ? "text-[#1C1917]" : "text-[#6F6A62] hover:text-[#1C1917]"
                 }`}
               >
@@ -71,12 +72,14 @@ export default function Nav() {
 
           {/* Desktop CTA + Mobile hamburger */}
           <div className="flex items-center gap-5">
-            <Link
-              href="/get-started"
-              className="press hidden sm:inline-flex items-center gap-2 bg-[#C98A2B] text-white hover:bg-[#B0741F] transition-colors duration-200 text-[11px] tracking-[0.15em] uppercase font-semibold px-5 py-2.5 rounded-full"
-            >
-              Get a quote
-            </Link>
+            <Magnetic strength={14} className="hidden sm:inline-block">
+              <Link
+                href="/get-started"
+                className="inline-flex items-center gap-2 bg-[#15803D] text-white hover:bg-[#166534] transition-colors duration-200 text-[11px] tracking-[0.15em] uppercase font-semibold px-5 py-2.5 rounded-full"
+              >
+                Get a quote
+              </Link>
+            </Magnetic>
 
             {/* Hamburger */}
             <button
@@ -156,7 +159,7 @@ export default function Nav() {
               <div className="px-8 pb-10">
                 <Link
                   href="/get-started"
-                  className="block text-center bg-[#C98A2B] text-white hover:bg-[#B0741F] transition-colors duration-200 text-xs tracking-[0.15em] uppercase font-semibold px-6 py-4 rounded-full"
+                  className="block text-center bg-[#15803D] text-white hover:bg-[#166534] transition-colors duration-200 text-xs tracking-[0.15em] uppercase font-semibold px-6 py-4 rounded-full"
                 >
                   Get a quote
                 </Link>

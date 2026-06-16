@@ -82,7 +82,7 @@ export default async function AuthorsPage() {
 
         {/* Header */}
         <div className="mb-16 border-b border-[#1C1917]/[0.08] pb-12">
-          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-4">
+          <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase mb-4">
             The Team
           </p>
           <div className="flex items-end justify-between gap-8 flex-wrap">
@@ -151,7 +151,7 @@ export default async function AuthorsPage() {
                   {author.name}
                 </h2>
                 {author.role && (
-                  <p className="text-[10px] tracking-[0.2em] text-[#9C968C] uppercase mb-4 font-mono">
+                  <p className="text-[10px] tracking-[0.2em] text-[#6F6A62] uppercase mb-4 font-mono">
                     {author.role}
                   </p>
                 )}
@@ -172,7 +172,7 @@ export default async function AuthorsPage() {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#9C968C] hover:text-[#C98A2B] transition-colors duration-200"
+                        className="text-[#6F6A62] hover:text-[#15803D] transition-colors duration-200"
                         aria-label={`${author.name} on ${label}`}
                       >
                         {icon}
@@ -184,7 +184,7 @@ export default async function AuthorsPage() {
                 {/* View Profile */}
                 <Link
                   href={`/authors/${author.slug?.current}`}
-                  className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#C98A2B] hover:text-[#1C1917] transition-colors duration-200 font-medium group/link"
+                  className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#15803D] hover:text-[#1C1917] transition-colors duration-200 font-medium group/link"
                   aria-label={`View profile for ${author.name}`}
                 >
                   View Profile
@@ -211,7 +211,7 @@ export default async function AuthorsPage() {
 
         {authors.length === 0 && (
           <div className="text-center py-24">
-            <p className="text-[#9C968C] text-sm tracking-wide uppercase">No authors yet</p>
+            <p className="text-[#6F6A62] text-sm tracking-wide uppercase">No authors yet</p>
           </div>
         )}
       </div>

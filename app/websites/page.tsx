@@ -115,7 +115,7 @@ export default async function WebsitesPage() {
           <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
             <div className="grid lg:grid-cols-[1fr_auto] gap-10 items-end">
               <div>
-                <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-4">
+                <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono mb-4">
                   Website Marketplace
                 </p>
                 <h1
@@ -132,8 +132,8 @@ export default async function WebsitesPage() {
                 </p>
               </div>
               <div className="text-right hidden lg:block">
-                <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C] mb-1">Available now</p>
-                <p className="font-display font-black text-[#C98A2B]" style={{ fontSize: "clamp(2rem, 3vw, 3.5rem)" }}>
+                <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#6F6A62] mb-1">Available now</p>
+                <p className="font-display font-black text-[#15803D]" style={{ fontSize: "clamp(2rem, 3vw, 3.5rem)" }}>
                   {inStock.length}
                 </p>
               </div>
@@ -145,7 +145,7 @@ export default async function WebsitesPage() {
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-16">
           {listings.length === 0 ? (
             <div className="py-24 border-t border-[#1C1917]/[0.08]">
-              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C]">
+              <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#6F6A62]">
                 No listings yet — check back soon.
               </p>
             </div>
@@ -157,7 +157,7 @@ export default async function WebsitesPage() {
         {/* CTA */}
         <div className="border-t border-[#1C1917]/[0.08]">
           <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
-            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-6">
+            <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono mb-6">
               Custom build
             </p>
             <h2
@@ -169,7 +169,7 @@ export default async function WebsitesPage() {
             </h2>
             <a
               href="/get-started"
-              className="group inline-flex items-center gap-3 text-[#C98A2B] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
+              className="group inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
             >
               Start a Custom Project
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">

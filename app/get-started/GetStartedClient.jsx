@@ -92,10 +92,10 @@ export default function GetStartedClient() {
   }
 
   const inputClass = (field) =>
-    `w-full border-b bg-transparent py-3 text-sm text-[#1C1917] placeholder:text-[#9C968C] outline-none transition-colors duration-200 ${
+    `w-full border-b bg-transparent py-3 text-sm text-[#1C1917] placeholder:text-[#6F6A62] outline-none transition-colors duration-200 ${
       errors[field]
         ? "border-red-400/60"
-        : "border-[#1C1917]/[0.12] focus:border-[#C98A2B]"
+        : "border-[#1C1917]/[0.12] focus:border-[#15803D]"
     }`;
 
   return (
@@ -106,7 +106,7 @@ export default function GetStartedClient() {
 
           {/* LEFT — info */}
           <div>
-            <p className="text-xs tracking-[0.2em] text-[#C98A2B] font-semibold uppercase mb-4">
+            <p className="text-xs tracking-[0.2em] text-[#15803D] font-semibold uppercase mb-4">
               Get a free quote
             </p>
             <h1
@@ -126,28 +126,28 @@ export default function GetStartedClient() {
                 href="mailto:hello@bookone.dev"
                 className="flex items-center gap-4 text-sm text-[#6F6A62] hover:text-[#1C1917] transition-colors duration-200 group"
               >
-                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] group-hover:text-[#C98A2B] transition-colors w-8">EM</span>
+                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#6F6A62] group-hover:text-[#15803D] transition-colors w-8">EM</span>
                 hello@bookone.dev
               </a>
               <a
                 href="tel:+2348077080903"
                 className="flex items-center gap-4 text-sm text-[#6F6A62] hover:text-[#1C1917] transition-colors duration-200 group"
               >
-                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] group-hover:text-[#C98A2B] transition-colors w-8">PH</span>
+                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#6F6A62] group-hover:text-[#15803D] transition-colors w-8">PH</span>
                 +234 807 708 0903
               </a>
               <p className="flex items-start gap-4 text-sm text-[#6F6A62]">
-                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] w-8 pt-px">LO</span>
+                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#6F6A62] w-8 pt-px">LO</span>
                 Allen Avenue, Lagos, Nigeria
               </p>
             </div>
 
             {/* Testimonial */}
-            <blockquote className="mt-16 border-l-2 border-[#C98A2B] pl-6">
+            <blockquote className="mt-16 border-l-2 border-[#15803D] pl-6">
               <p className="font-display italic text-[#6F6A62] text-base leading-snug mb-3">
                 &quot;Bookone Studio transformed our workflow. Their AI solutions saved us 20+ hours a week.&quot;
               </p>
-              <footer className="text-[10px] tracking-[0.15em] uppercase text-[#9C968C] font-mono">
+              <footer className="text-[10px] tracking-[0.15em] uppercase text-[#6F6A62] font-mono">
                 John Doe — CEO, TechStart
               </footer>
             </blockquote>
@@ -156,8 +156,8 @@ export default function GetStartedClient() {
           {/* RIGHT — form */}
           <div>
             {isWebsitePurchase && (
-              <div className="mb-8 border border-[#C98A2B]/20 bg-[#C98A2B]/[0.04] px-5 py-4">
-                <p className="text-xs text-[#C98A2B]/80 font-mono tracking-wide">
+              <div className="mb-8 border border-[#15803D]/20 bg-[#15803D]/[0.04] px-5 py-4">
+                <p className="text-xs text-[#15803D]/80 font-mono tracking-wide">
                   Purchasing: {websiteTitle}
                   {websitePrice && <span className="text-[#6F6A62] ml-2">· ${Number(websitePrice).toLocaleString()}</span>}
                 </p>
@@ -172,7 +172,7 @@ export default function GetStartedClient() {
                   animate={{ opacity: 1, y: 0 }}
                   className="py-24 border-t border-[#1C1917]/[0.08]"
                 >
-                  <p className="text-[10px] tracking-[0.25em] uppercase text-[#9C968C] font-mono mb-6">Message received</p>
+                  <p className="text-[10px] tracking-[0.25em] uppercase text-[#6F6A62] font-mono mb-6">Message received</p>
                   <p
                     className="font-display font-black text-[#1C1917] leading-none mb-6"
                     style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
@@ -184,7 +184,7 @@ export default function GetStartedClient() {
                   </p>
                   <button
                     onClick={() => setSubmitStatus(null)}
-                    className="text-xs tracking-[0.1em] uppercase text-[#9C968C] hover:text-[#1C1917] transition-colors duration-200 font-mono"
+                    className="text-xs tracking-[0.1em] uppercase text-[#6F6A62] hover:text-[#1C1917] transition-colors duration-200 font-mono"
                   >
                     Send another message
                   </button>
@@ -200,7 +200,7 @@ export default function GetStartedClient() {
                   {/* Name row */}
                   <div className="grid sm:grid-cols-2 gap-8">
                     <div>
-                      <label className="block text-[10px] tracking-[0.2em] uppercase text-[#9C968C] mb-3 font-mono">First Name</label>
+                      <label className="block text-[11px] tracking-[0.18em] uppercase text-[#6F6A62] mb-3 font-mono">First Name</label>
                       <input
                         type="text"
                         placeholder="John"
@@ -211,7 +211,7 @@ export default function GetStartedClient() {
                       {errors.firstName && <p className="text-red-400 text-[10px] mt-1">{errors.firstName}</p>}
                     </div>
                     <div>
-                      <label className="block text-[10px] tracking-[0.2em] uppercase text-[#9C968C] mb-3 font-mono">Last Name</label>
+                      <label className="block text-[11px] tracking-[0.18em] uppercase text-[#6F6A62] mb-3 font-mono">Last Name</label>
                       <input
                         type="text"
                         placeholder="Doe"
@@ -225,7 +225,7 @@ export default function GetStartedClient() {
 
                   {/* Email */}
                   <div>
-                    <label className="block text-[10px] tracking-[0.2em] uppercase text-[#9C968C] mb-3 font-mono">Email Address</label>
+                    <label className="block text-[11px] tracking-[0.18em] uppercase text-[#6F6A62] mb-3 font-mono">Email Address</label>
                     <input
                       type="email"
                       placeholder="john@company.com"
@@ -238,7 +238,7 @@ export default function GetStartedClient() {
 
                   {/* Services */}
                   <div>
-                    <label className="block text-[10px] tracking-[0.2em] uppercase text-[#9C968C] mb-4 font-mono">
+                    <label className="block text-[11px] tracking-[0.18em] uppercase text-[#6F6A62] mb-4 font-mono">
                       I&apos;m interested in
                     </label>
                     <div className="flex flex-wrap gap-2">
@@ -249,7 +249,7 @@ export default function GetStartedClient() {
                           onClick={() => toggleService(s.id)}
                           className={`px-4 py-2 text-xs tracking-wide border transition-colors duration-200 ${
                             formData.services.includes(s.id)
-                              ? "border-[#C98A2B] text-[#C98A2B] bg-[#C98A2B]/[0.06]"
+                              ? "border-[#15803D] text-[#15803D] bg-[#15803D]/[0.06]"
                               : "border-[#1C1917]/[0.10] text-[#6F6A62] hover:border-[#1C1917]/20 hover:text-[#1C1917]"
                           }`}
                         >
@@ -263,7 +263,7 @@ export default function GetStartedClient() {
                   {/* Budget + Referral */}
                   <div className="grid sm:grid-cols-2 gap-8">
                     <div>
-                      <label className="block text-[10px] tracking-[0.2em] uppercase text-[#9C968C] mb-3 font-mono">Budget Range</label>
+                      <label className="block text-[11px] tracking-[0.18em] uppercase text-[#6F6A62] mb-3 font-mono">Budget Range</label>
                       <select
                         value={formData.budget}
                         onChange={(e) => handleChange("budget", e.target.value)}
@@ -275,11 +275,11 @@ export default function GetStartedClient() {
                       {errors.budget && <p className="text-red-400 text-[10px] mt-1">{errors.budget}</p>}
                     </div>
                     <div>
-                      <label className="block text-[10px] tracking-[0.2em] uppercase text-[#9C968C] mb-3 font-mono">How did you find us?</label>
+                      <label className="block text-[11px] tracking-[0.18em] uppercase text-[#6F6A62] mb-3 font-mono">How did you find us?</label>
                       <select
                         value={formData.referralSource}
                         onChange={(e) => handleChange("referralSource", e.target.value)}
-                        className="w-full border-b border-[#1C1917]/[0.12] focus:border-[#C98A2B] bg-transparent py-3 text-sm text-[#1C1917] outline-none transition-colors duration-200 cursor-pointer [&>option]:bg-[#FFFFFF]"
+                        className="w-full border-b border-[#1C1917]/[0.12] focus:border-[#15803D] bg-transparent py-3 text-sm text-[#1C1917] outline-none transition-colors duration-200 cursor-pointer [&>option]:bg-[#FFFFFF]"
                       >
                         <option value="" disabled>Select</option>
                         {REFERRAL.map((r) => <option key={r} value={r}>{r}</option>)}
@@ -289,7 +289,7 @@ export default function GetStartedClient() {
 
                   {/* Message */}
                   <div>
-                    <label className="block text-[10px] tracking-[0.2em] uppercase text-[#9C968C] mb-3 font-mono">Project Details</label>
+                    <label className="block text-[11px] tracking-[0.18em] uppercase text-[#6F6A62] mb-3 font-mono">Project Details</label>
                     <textarea
                       placeholder="Tell us about your goals, timeline, and requirements..."
                       value={formData.message}

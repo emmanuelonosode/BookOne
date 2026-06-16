@@ -37,7 +37,7 @@ export default function NotFound() {
         <div className="space-y-4">
           <Link
             href="/"
-            className="inline-block bg-[#C98A2B] text-white px-6 py-3 rounded-lg hover:bg-[#B0741F] transition-colors"
+            className="inline-block bg-[#15803D] text-white px-6 py-3 rounded-lg hover:bg-[#166534] transition-colors"
             aria-label="Go to home page"
           >
             Go Home
@@ -46,7 +46,7 @@ export default function NotFound() {
           <div className="text-sm text-gray-500">
             <Link
               href="/blogs"
-              className="hover:text-[#C98A2B]"
+              className="hover:text-[#15803D]"
               aria-label="Browse our blog"
             >
               Browse our blog
@@ -54,7 +54,7 @@ export default function NotFound() {
             {" • "}
             <Link
               href="/services"
-              className="hover:text-[#C98A2B]"
+              className="hover:text-[#15803D]"
               aria-label="View our services"
             >
               View services
@@ -62,7 +62,7 @@ export default function NotFound() {
             {" • "}
             <Link
               href="/get-started"
-              className="hover:text-[#C98A2B]"
+              className="hover:text-[#15803D]"
               aria-label="Get a quote - View pricing and get started"
             >
               Get a Quote

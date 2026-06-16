@@ -33,7 +33,7 @@ export default function MarqueeTicker() {
           <span
             key={i}
             className={`text-[10px] sm:text-xs tracking-[0.22em] uppercase font-medium shrink-0 ${
-              item === "✦" ? "text-[#C98A2B]" : "text-[#9C968C]"
+              item === "✦" ? "text-[#15803D]" : "text-[#6F6A62]"
             }`}
           >
             {item}

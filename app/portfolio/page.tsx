@@ -108,7 +108,7 @@ export default async function PortfolioPage() {
         {/* HERO */}
         <div className="pt-36 pb-16">
           <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
-            <p className="text-xs tracking-[0.2em] text-[#C98A2B] font-semibold uppercase mb-5">
+            <p className="text-xs tracking-[0.2em] text-[#15803D] font-semibold uppercase mb-5">
               Our work
             </p>
             <h1
@@ -116,7 +116,7 @@ export default async function PortfolioPage() {
               className="font-display font-medium text-[#1C1917] leading-[1.02] tracking-[-0.02em] max-w-4xl"
               style={{ fontSize: "clamp(2.75rem, 7vw, 6rem)" }}
             >
-              Case studies &amp; <span className="italic text-[#C98A2B]">good work.</span>
+              Case studies &amp; <span className="italic text-[#15803D]">good work.</span>
             </h1>
             <p className="mt-6 text-base sm:text-lg text-[#6F6A62] max-w-xl leading-relaxed">
               A look at the websites, brands and systems we&apos;ve built — and the
@@ -130,21 +130,21 @@ export default async function PortfolioPage() {
           <WorkGrid items={workItems} />
         ) : (
           <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-24 border-t border-[#1C1917]/[0.08]">
-            <p className="text-[#9C968C] text-sm">No projects yet — check back soon.</p>
+            <p className="text-[#6F6A62] text-sm">No projects yet — check back soon.</p>
           </div>
         )}
 
         {/* CTA */}
         <div className="border-t border-[#1C1917]/[0.08] mt-8">
           <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
-            <p className="text-xs tracking-[0.2em] text-[#C98A2B] font-semibold uppercase mb-6">
+            <p className="text-xs tracking-[0.2em] text-[#15803D] font-semibold uppercase mb-6">
               Start a project
             </p>
             <h2
               className="font-display font-medium text-[#1C1917] leading-[1.03] tracking-[-0.02em] mb-10 max-w-3xl"
               style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
             >
-              Let&apos;s build something <span className="italic text-[#C98A2B]">great together.</span>
+              Let&apos;s build something <span className="italic text-[#15803D]">great together.</span>
             </h2>
             <Link href="/get-started" className="btn-primary text-sm sm:text-base">
               Get a free quote

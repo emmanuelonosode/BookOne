@@ -10,34 +10,34 @@ const BackArrow = () => (
   </svg>
 );
 
-const Bullet = () => <span className="text-[#C98A2B] mt-1 shrink-0 text-xs leading-relaxed">—</span>;
+const Bullet = () => <span className="text-[#15803D] mt-1 shrink-0 text-xs leading-relaxed">—</span>;
 
 export default function PrivacyClient() {
   return (
     <main className="bg-[#F4F1EA] min-h-screen pt-32 pb-24">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
-        <Link href="/" className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#9C968C] hover:text-[#1C1917] transition-colors duration-200 font-mono mb-12">
+        <Link href="/" className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#6F6A62] hover:text-[#1C1917] transition-colors duration-200 font-mono mb-12">
           <BackArrow /> Home
         </Link>
 
         {/* Page header */}
         <div className="border-b border-[#1C1917]/[0.08] pb-16 mb-0">
-          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-4">Legal</p>
+          <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono mb-4">Legal</p>
           <h1 className="font-display font-black text-[#1C1917] leading-none mb-4" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
             Privacy Policy
           </h1>
-          <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C]">Last updated: {LAST_UPDATED}</p>
+          <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#6F6A62]">Last updated: {LAST_UPDATED}</p>
         </div>
 
         {/* 00 — Overview */}
         <section className="border-b border-[#1C1917]/[0.08] py-12">
           <div className="grid lg:grid-cols-[220px_1fr] gap-10 lg:gap-16 items-start">
             <div className="lg:sticky lg:top-28">
-              <p className="text-[10px] tracking-[0.15em] font-mono text-[#9C968C] mb-2">00</p>
+              <p className="text-[10px] tracking-[0.15em] font-mono text-[#6F6A62] mb-2">00</p>
               <h2 className="font-display font-bold text-[#1C1917] leading-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}>Overview</h2>
             </div>
-            <p className="text-base text-[#1C1917]/55 leading-relaxed">
+            <p className="text-base text-[#3A352F] leading-relaxed">
               At <strong className="text-[#3A352F] font-semibold">Bookone Studio</strong>, we respect your privacy and are committed to protecting your personal data. This policy explains how we collect, use, and share your information when you use our website or services.
             </p>
           </div>
@@ -47,7 +47,7 @@ export default function PrivacyClient() {
         <section className="border-b border-[#1C1917]/[0.08] py-12">
           <div className="grid lg:grid-cols-[220px_1fr] gap-10 lg:gap-16 items-start">
             <div className="lg:sticky lg:top-28">
-              <p className="text-[10px] tracking-[0.15em] font-mono text-[#9C968C] mb-2">01</p>
+              <p className="text-[10px] tracking-[0.15em] font-mono text-[#6F6A62] mb-2">01</p>
               <h2 className="font-display font-bold text-[#1C1917] leading-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}>Information We Collect</h2>
             </div>
             <div className="space-y-3">
@@ -58,7 +58,7 @@ export default function PrivacyClient() {
               ].map(([label, text]) => (
                 <div key={label} className="flex items-start gap-3">
                   <Bullet />
-                  <span className="text-base text-[#1C1917]/55 leading-relaxed">
+                  <span className="text-base text-[#3A352F] leading-relaxed">
                     <strong className="text-[#1C1917]/75 font-semibold">{label}:</strong> {text}
                   </span>
                 </div>
@@ -71,7 +71,7 @@ export default function PrivacyClient() {
         <section className="border-b border-[#1C1917]/[0.08] py-12">
           <div className="grid lg:grid-cols-[220px_1fr] gap-10 lg:gap-16 items-start">
             <div className="lg:sticky lg:top-28">
-              <p className="text-[10px] tracking-[0.15em] font-mono text-[#9C968C] mb-2">02</p>
+              <p className="text-[10px] tracking-[0.15em] font-mono text-[#6F6A62] mb-2">02</p>
               <h2 className="font-display font-bold text-[#1C1917] leading-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}>How We Use Your Information</h2>
             </div>
             <div className="space-y-3">
@@ -85,7 +85,7 @@ export default function PrivacyClient() {
               ].map((item) => (
                 <div key={item} className="flex items-start gap-3">
                   <Bullet />
-                  <span className="text-base text-[#1C1917]/55 leading-relaxed">{item}</span>
+                  <span className="text-base text-[#3A352F] leading-relaxed">{item}</span>
                 </div>
               ))}
             </div>
@@ -96,11 +96,11 @@ export default function PrivacyClient() {
         <section className="border-b border-[#1C1917]/[0.08] py-12">
           <div className="grid lg:grid-cols-[220px_1fr] gap-10 lg:gap-16 items-start">
             <div className="lg:sticky lg:top-28">
-              <p className="text-[10px] tracking-[0.15em] font-mono text-[#9C968C] mb-2">03</p>
+              <p className="text-[10px] tracking-[0.15em] font-mono text-[#6F6A62] mb-2">03</p>
               <h2 className="font-display font-bold text-[#1C1917] leading-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}>Sharing Your Information</h2>
             </div>
             <div className="space-y-5">
-              <p className="text-base text-[#1C1917]/55 leading-relaxed">
+              <p className="text-base text-[#3A352F] leading-relaxed">
                 <strong className="text-[#3A352F] font-semibold">We do not sell your personal data.</strong> We only share your information in these circumstances:
               </p>
               <div className="space-y-3">
@@ -111,7 +111,7 @@ export default function PrivacyClient() {
                 ].map(([label, text]) => (
                   <div key={label} className="flex items-start gap-3">
                     <Bullet />
-                    <span className="text-base text-[#1C1917]/55 leading-relaxed">
+                    <span className="text-base text-[#3A352F] leading-relaxed">
                       <strong className="text-[#1C1917]/75 font-semibold">{label}:</strong> {text}
                     </span>
                   </div>
@@ -125,11 +125,11 @@ export default function PrivacyClient() {
         <section className="border-b border-[#1C1917]/[0.08] py-12">
           <div className="grid lg:grid-cols-[220px_1fr] gap-10 lg:gap-16 items-start">
             <div className="lg:sticky lg:top-28">
-              <p className="text-[10px] tracking-[0.15em] font-mono text-[#9C968C] mb-2">04</p>
+              <p className="text-[10px] tracking-[0.15em] font-mono text-[#6F6A62] mb-2">04</p>
               <h2 className="font-display font-bold text-[#1C1917] leading-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}>Your Rights (NDPR)</h2>
             </div>
             <div className="space-y-5">
-              <p className="text-base text-[#1C1917]/55 leading-relaxed">
+              <p className="text-base text-[#3A352F] leading-relaxed">
                 Under the <strong className="text-[#1C1917]/75 font-semibold">Nigeria Data Protection Regulation (NDPR)</strong>, you have the right to:
               </p>
               <div className="space-y-3">
@@ -141,7 +141,7 @@ export default function PrivacyClient() {
                 ].map(([label, text]) => (
                   <div key={label} className="flex items-start gap-3">
                     <Bullet />
-                    <span className="text-base text-[#1C1917]/55 leading-relaxed">
+                    <span className="text-base text-[#3A352F] leading-relaxed">
                       <strong className="text-[#1C1917]/75 font-semibold">{label}:</strong> {text}
                     </span>
                   </div>
@@ -155,10 +155,10 @@ export default function PrivacyClient() {
         <section className="border-b border-[#1C1917]/[0.08] py-12">
           <div className="grid lg:grid-cols-[220px_1fr] gap-10 lg:gap-16 items-start">
             <div className="lg:sticky lg:top-28">
-              <p className="text-[10px] tracking-[0.15em] font-mono text-[#9C968C] mb-2">05</p>
+              <p className="text-[10px] tracking-[0.15em] font-mono text-[#6F6A62] mb-2">05</p>
               <h2 className="font-display font-bold text-[#1C1917] leading-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}>Data Security</h2>
             </div>
-            <p className="text-base text-[#1C1917]/55 leading-relaxed">
+            <p className="text-base text-[#3A352F] leading-relaxed">
               The security of your data is important to us. No method of transmission over the Internet or electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your data, we cannot guarantee its absolute security.
             </p>
           </div>
@@ -168,11 +168,11 @@ export default function PrivacyClient() {
         <section className="pt-12">
           <div className="grid lg:grid-cols-[220px_1fr] gap-10 lg:gap-16 items-start">
             <div className="lg:sticky lg:top-28">
-              <p className="text-[10px] tracking-[0.15em] font-mono text-[#9C968C] mb-2">06</p>
+              <p className="text-[10px] tracking-[0.15em] font-mono text-[#6F6A62] mb-2">06</p>
               <h2 className="font-display font-bold text-[#1C1917] leading-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}>Contact Us</h2>
             </div>
             <div className="space-y-5">
-              <p className="text-base text-[#1C1917]/55 leading-relaxed">Questions about this Privacy Policy? We&apos;re happy to help.</p>
+              <p className="text-base text-[#3A352F] leading-relaxed">Questions about this Privacy Policy? We&apos;re happy to help.</p>
               <div>
                 {[
                   { label: "EM", value: "hello@bookone.dev", href: "mailto:hello@bookone.dev" },
@@ -180,9 +180,9 @@ export default function PrivacyClient() {
                   { label: "LO", value: "Allen Avenue, Lagos, Nigeria", href: null },
                 ].map(({ label, value, href }) => (
                   <div key={label} className="flex items-start gap-4 border-t border-[#1C1917]/[0.08] py-4">
-                    <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] w-8 pt-px shrink-0">{label}</span>
+                    <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#6F6A62] w-8 pt-px shrink-0">{label}</span>
                     {href ? (
-                      <a href={href} className="text-sm text-[#6F6A62] hover:text-[#C98A2B] transition-colors duration-200">{value}</a>
+                      <a href={href} className="text-sm text-[#6F6A62] hover:text-[#15803D] transition-colors duration-200">{value}</a>
                     ) : (
                       <p className="text-sm text-[#6F6A62]">{value}</p>
                     )}

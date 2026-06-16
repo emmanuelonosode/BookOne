@@ -9,7 +9,7 @@ export default function TestimonialCard({ testimonial }) {
       <p className="mt-4 text-right font-semibold text-[#1C1917]">
         - {testimonial.author}
         {testimonial.role && (
-          <span className="block text-sm font-normal text-[#9C968C]">
+          <span className="block text-sm font-normal text-[#6F6A62]">
             {testimonial.role}
           </span>
         )}

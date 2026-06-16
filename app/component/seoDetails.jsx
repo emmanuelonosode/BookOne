@@ -13,7 +13,7 @@ export default function SeoDetails({ details }) {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           {details.results?.map((result, index) => (
             <div key={index} className="bg-white border border-[#1C1917]/[0.08] p-4 rounded-xl">
-              <p className="text-3xl font-bold text-[#C98A2B]">
+              <p className="text-3xl font-bold text-[#15803D]">
                 {result.value}
               </p>
               <p className="text-[#6F6A62]">{result.metric}</p>
@@ -46,7 +46,7 @@ export default function SeoDetails({ details }) {
           {details.servicesProvided?.map((service) => (
             <span
               key={service}
-              className="bg-[#C98A2B]/[0.08] text-[#C98A2B] border border-[#C98A2B]/20 px-3 py-1 text-sm rounded-full"
+              className="bg-[#15803D]/[0.08] text-[#15803D] border border-[#15803D]/20 px-3 py-1 text-sm rounded-full"
             >
               {service}
             </span>

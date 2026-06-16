@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import RotatingText from "../ui/RotatingText.jsx";
+import Magnetic from "../ui/Magnetic.jsx";
 
 const EASE = [0.23, 1, 0.32, 1];
 
@@ -18,23 +19,32 @@ const item = {
 const ROTATING = ["your brand.", "your customers.", "your growth.", "your business."];
 
 export default function HeroSection() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  // Subtle scroll parallax — glow drifts, content lifts gently
+  const glowY = useTransform(scrollYProgress, [0, 1], [0, 160]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 70]);
+
   return (
-    <section className="relative overflow-hidden bg-[#F4F1EA]">
-      {/* Soft ochre glow — warmth + depth, no noise */}
-      <div
+    <section ref={ref} className="relative overflow-hidden bg-[#F4F1EA]">
+      {/* Soft green glow — warmth + depth, drifts on scroll */}
+      <motion.div
         aria-hidden="true"
+        style={{ y: glowY, background: "radial-gradient(circle, #DCFCE7 0%, rgba(244,241,234,0) 70%)" }}
         className="pointer-events-none absolute -top-40 -right-32 h-[560px] w-[560px] rounded-full opacity-70 blur-3xl"
-        style={{ background: "radial-gradient(circle, #F2E4C8 0%, rgba(244,241,234,0) 70%)" }}
       />
 
-      <div className="relative z-10 max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 pt-40 pb-20 sm:pt-48 sm:pb-28">
+      <motion.div style={{ y: contentY }} className="relative z-10 max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 pt-40 pb-20 sm:pt-48 sm:pb-28">
         <motion.div variants={container} initial="hidden" animate="show" className="max-w-5xl">
           {/* Eyebrow */}
           <motion.p
             variants={item}
             className="inline-flex items-center gap-2.5 text-xs sm:text-sm font-medium tracking-wide text-[#6F6A62] mb-8"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#C98A2B]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#15803D]" />
             Bookone Studio — web design, SEO &amp; AI automation
           </motion.p>
 
@@ -47,7 +57,7 @@ export default function HeroSection() {
             We make websites
             <br className="hidden sm:block" />{" "}
             that work for{" "}
-            <span className="italic text-[#C98A2B]">
+            <span className="italic text-[#15803D]">
               <RotatingText items={ROTATING} />
             </span>
           </motion.h1>
@@ -63,12 +73,14 @@ export default function HeroSection() {
 
           {/* CTAs */}
           <motion.div variants={item} className="flex flex-wrap items-center gap-4">
-            <Link href="/get-started" className="btn-primary text-sm sm:text-base">
-              Get a free quote
-              <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
+            <Magnetic strength={20}>
+              <Link href="/get-started" className="btn-primary text-sm sm:text-base">
+                Get a free quote
+                <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M2 12L12 2M12 2H4M12 2V10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+            </Magnetic>
             <Link
               href="/portfolio"
               className="press inline-flex items-center gap-2 rounded-full border border-[#1C1917]/20 px-7 py-3.5 text-sm sm:text-base font-semibold text-[#1C1917] hover:border-[#1C1917]/40 hover:bg-[#1C1917]/[0.03] transition-colors"
@@ -78,11 +90,11 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Trust line */}
-          <motion.p variants={item} className="mt-14 text-sm text-[#9C968C]">
+          <motion.p variants={item} className="mt-14 text-sm text-[#6F6A62]">
             Trusted by growing businesses across Nigeria, the UK &amp; the US.
           </motion.p>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

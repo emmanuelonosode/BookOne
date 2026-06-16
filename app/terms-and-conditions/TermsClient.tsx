@@ -10,7 +10,7 @@ const BackArrow = () => (
   </svg>
 );
 
-const Bullet = () => <span className="text-[#C98A2B] mt-1 shrink-0 text-xs leading-relaxed">—</span>;
+const Bullet = () => <span className="text-[#15803D] mt-1 shrink-0 text-xs leading-relaxed">—</span>;
 
 interface SectionProps {
   number: string;
@@ -24,7 +24,7 @@ function Section({ number, title, children, last }: SectionProps) {
     <section className={`${last ? "pt-12" : "border-b border-[#1C1917]/[0.08] py-12"}`}>
       <div className="grid lg:grid-cols-[220px_1fr] gap-10 lg:gap-16 items-start">
         <div className="lg:sticky lg:top-28">
-          <p className="text-[10px] tracking-[0.15em] font-mono text-[#9C968C] mb-2">{number}</p>
+          <p className="text-[10px] tracking-[0.15em] font-mono text-[#6F6A62] mb-2">{number}</p>
           <h2 className="font-display font-bold text-[#1C1917] leading-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}>
             {title}
           </h2>
@@ -36,7 +36,7 @@ function Section({ number, title, children, last }: SectionProps) {
 }
 
 function Body({ children }: { children: React.ReactNode }) {
-  return <p className="text-base text-[#1C1917]/55 leading-relaxed">{children}</p>;
+  return <p className="text-base text-[#3A352F] leading-relaxed">{children}</p>;
 }
 
 function List({ items }: { items: string[] }) {
@@ -45,7 +45,7 @@ function List({ items }: { items: string[] }) {
       {items.map((item) => (
         <div key={item} className="flex items-start gap-3">
           <Bullet />
-          <span className="text-base text-[#1C1917]/55 leading-relaxed">{item}</span>
+          <span className="text-base text-[#3A352F] leading-relaxed">{item}</span>
         </div>
       ))}
     </div>
@@ -58,7 +58,7 @@ function LabelList({ items }: { items: [string, string][] }) {
       {items.map(([label, text]) => (
         <div key={label} className="flex items-start gap-3">
           <Bullet />
-          <span className="text-base text-[#1C1917]/55 leading-relaxed">
+          <span className="text-base text-[#3A352F] leading-relaxed">
             <strong className="text-[#1C1917]/75 font-semibold">{label}:</strong> {text}
           </span>
         </div>
@@ -72,17 +72,17 @@ export default function TermsClient() {
     <main className="bg-[#F4F1EA] min-h-screen pt-32 pb-24">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
 
-        <Link href="/" className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#9C968C] hover:text-[#1C1917] transition-colors duration-200 font-mono mb-12">
+        <Link href="/" className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#6F6A62] hover:text-[#1C1917] transition-colors duration-200 font-mono mb-12">
           <BackArrow /> Home
         </Link>
 
         {/* Page header */}
         <div className="border-b border-[#1C1917]/[0.08] pb-16 mb-0">
-          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-4">Legal</p>
+          <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono mb-4">Legal</p>
           <h1 className="font-display font-black text-[#1C1917] leading-none mb-4" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
             Terms &amp; Conditions
           </h1>
-          <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#9C968C]">Last updated: {LAST_UPDATED}</p>
+          <p className="text-[10px] tracking-[0.2em] uppercase font-mono text-[#6F6A62]">Last updated: {LAST_UPDATED}</p>
         </div>
 
         {/* 00 — Overview */}
@@ -208,9 +208,9 @@ export default function TermsClient() {
               { label: "LO", value: "Allen Avenue, Lagos, Nigeria", href: null },
             ].map(({ label, value, href }) => (
               <div key={label} className="flex items-start gap-4 border-t border-[#1C1917]/[0.08] py-4">
-                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#9C968C] w-8 pt-px shrink-0">{label}</span>
+                <span className="text-[10px] tracking-[0.15em] uppercase font-mono text-[#6F6A62] w-8 pt-px shrink-0">{label}</span>
                 {href ? (
-                  <a href={href} className="text-sm text-[#6F6A62] hover:text-[#C98A2B] transition-colors duration-200">{value}</a>
+                  <a href={href} className="text-sm text-[#6F6A62] hover:text-[#15803D] transition-colors duration-200">{value}</a>
                 ) : (
                   <p className="text-sm text-[#6F6A62]">{value}</p>
                 )}

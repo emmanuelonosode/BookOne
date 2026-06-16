@@ -78,7 +78,7 @@ const ServicesClient = () => {
       {/* HERO */}
       <section className="pt-32 pb-20 border-b border-[#1C1917]/[0.08]">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
-          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-4">
+          <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase mb-4">
             Our Services
           </p>
           <h1
@@ -108,7 +108,7 @@ const ServicesClient = () => {
                   className="w-full text-left py-8 flex items-start gap-6 group"
                   aria-expanded={open === i}
                 >
-                  <span className="text-xs font-mono text-[#9C968C] group-hover:text-[#C98A2B] transition-colors duration-300 pt-1 shrink-0 w-8">
+                  <span className="text-xs font-mono text-[#6F6A62] group-hover:text-[#15803D] transition-colors duration-300 pt-1 shrink-0 w-8">
                     {service.number}
                   </span>
                   <span
@@ -122,7 +122,7 @@ const ServicesClient = () => {
                     height="16"
                     viewBox="0 0 24 24"
                     fill="none"
-                    className={`shrink-0 mt-2 text-[#9C968C] group-hover:text-[#6F6A62] transition-all duration-300 ${open === i ? "rotate-45 text-[#C98A2B]" : ""}`}
+                    className={`shrink-0 mt-2 text-[#6F6A62] group-hover:text-[#6F6A62] transition-all duration-300 ${open === i ? "rotate-45 text-[#15803D]" : ""}`}
                   >
                     <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
@@ -146,7 +146,7 @@ const ServicesClient = () => {
                           {service.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="px-3 py-1 border border-[#1C1917]/[0.08] text-[10px] tracking-[0.12em] uppercase text-[#9C968C] font-mono"
+                              className="px-3 py-1 border border-[#1C1917]/[0.08] text-[10px] tracking-[0.12em] uppercase text-[#6F6A62] font-mono"
                             >
                               {tag}
                             </span>
@@ -154,7 +154,7 @@ const ServicesClient = () => {
                         </div>
                         <Link
                           href="/get-started"
-                          className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#C98A2B] hover:text-[#1C1917] transition-colors duration-200 font-medium"
+                          className="inline-flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-[#15803D] hover:text-[#1C1917] transition-colors duration-200 font-medium"
                         >
                           Get Started
                           <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
@@ -176,7 +176,7 @@ const ServicesClient = () => {
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
           <div className="grid lg:grid-cols-[1fr_2fr] gap-16 items-start">
             <div className="lg:sticky lg:top-28">
-              <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-4">Process</p>
+              <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase mb-4">Process</p>
               <h2
                 className="font-display font-black text-[#1C1917] leading-none"
                 style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
@@ -200,9 +200,9 @@ const ServicesClient = () => {
                     className="relative"
                   >
                     <div className="w-2 h-2 rounded-full bg-white/20 mb-6 relative z-10 sm:block hidden" />
-                    <p className="text-xs font-mono text-[#9C968C] mb-3">{step.num}</p>
+                    <p className="text-xs font-mono text-[#6F6A62] mb-3">{step.num}</p>
                     <h3 className="font-display font-bold text-[#1C1917] text-lg mb-2">{step.title}</h3>
-                    <p className="text-sm text-[#1C1917]/35 leading-relaxed">{step.desc}</p>
+                    <p className="text-sm text-[#6F6A62] leading-relaxed">{step.desc}</p>
                   </motion.div>
                 ))}
               </div>
@@ -214,7 +214,7 @@ const ServicesClient = () => {
       {/* CTA */}
       <section className="py-24 sm:py-32">
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
-          <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-6">Ready to scale?</p>
+          <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase mb-6">Ready to scale?</p>
           <h2
             className="font-display font-black text-[#1C1917] leading-none mb-10"
             style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
@@ -227,7 +227,7 @@ const ServicesClient = () => {
               href="https://calendar.notion.so/meet/officialbookone/call"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 text-[#C98A2B] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
+              className="group inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
             >
               Book a Strategy Call
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">

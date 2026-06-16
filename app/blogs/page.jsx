@@ -120,11 +120,11 @@ export default async function BlogListPage({ searchParams }) {
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-12">
             {/* Label + Heading */}
             <div>
-              <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-6">
+              <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono mb-6">
                 Latest Thinking
               </p>
               <h1
-                className="font-display font-black text-[#1C1917] leading-[0.92]"
+                className="font-display font-medium text-[#1C1917] leading-[1.0] tracking-[-0.02em]"
                 style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
               >
                 From the Blog
@@ -142,12 +142,12 @@ export default async function BlogListPage({ searchParams }) {
                   name="search"
                   placeholder="Search articles"
                   defaultValue={search}
-                  className="w-full bg-transparent text-[#1C1917] placeholder:text-[#9C968C] text-sm font-mono focus:outline-none caret-[#C98A2B]"
+                  className="w-full bg-transparent text-[#1C1917] placeholder:text-[#6F6A62] text-sm font-mono focus:outline-none caret-[#15803D]"
                 />
               </div>
               <button
                 type="submit"
-                className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono hover:text-[#C98A2B] transition-colors pb-2 border-b border-transparent hover:border-[#C98A2B] shrink-0"
+                className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono hover:text-[#15803D] transition-colors pb-2 border-b border-transparent hover:border-[#15803D] shrink-0"
                 aria-label="Search articles"
               >
                 Search &rarr;
@@ -166,7 +166,7 @@ export default async function BlogListPage({ searchParams }) {
               {blogs[0].mainImage && (
                 <Link
                   href={`/blogs/${blogs[0].slug.current}`}
-                  className="block aspect-[16/9] overflow-hidden bg-white/[0.03]"
+                  className="block aspect-[16/9] overflow-hidden bg-[#EFE9DC]"
                   aria-label={`Read full article: ${blogs[0].title}`}
                 >
                   <Image
@@ -183,22 +183,22 @@ export default async function BlogListPage({ searchParams }) {
               {/* Content */}
               <div className="flex flex-col justify-between h-full py-2">
                 <div>
-                  <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-6">
+                  <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono mb-6">
                     Featured
                   </p>
                   <h2
-                    className="font-display font-black text-[#1C1917] leading-[1.05] mb-8"
+                    className="font-display font-medium text-[#1C1917] leading-[1.08] tracking-[-0.01em] mb-8"
                     style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)" }}
                   >
                     <Link
                       href={`/blogs/${blogs[0].slug.current}`}
-                      className="hover:text-[#C98A2B] transition-colors"
+                      className="hover:text-[#15803D] transition-colors"
                     >
                       {blogs[0].title}
                     </Link>
                   </h2>
                   {blogs[0].description && (
-                    <p className="text-[#6F6A62] text-sm leading-relaxed line-clamp-3 mb-10">
+                    <p className="text-[#6F6A62] text-base leading-relaxed line-clamp-3 mb-10">
                       {blogs[0].description}
                     </p>
                   )}
@@ -212,14 +212,14 @@ export default async function BlogListPage({ searchParams }) {
                     </p>
                     <time
                       dateTime={blogs[0]._createdAt}
-                      className="text-[10px] tracking-[0.2em] text-[#9C968C] uppercase font-mono"
+                      className="text-[10px] tracking-[0.2em] text-[#6F6A62] uppercase font-mono"
                     >
                       {formatRelativeDate(blogs[0]._createdAt)}
                     </time>
                   </div>
                   <Link
                     href={`/blogs/${blogs[0].slug.current}`}
-                    className="inline-flex items-center gap-2 text-[#C98A2B] text-xs font-mono tracking-[0.15em] uppercase group"
+                    className="inline-flex items-center gap-2 text-[#15803D] text-xs font-mono tracking-[0.15em] uppercase group"
                     aria-label={`Read ${blogs[0].title}`}
                   >
                     Read
@@ -252,11 +252,11 @@ export default async function BlogListPage({ searchParams }) {
                 {/* Number + Category */}
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-[#C98A2B] font-mono text-xs tracking-[0.2em]">
+                    <span className="text-[#15803D] font-mono text-xs tracking-[0.2em]">
                       {String(index + 2).padStart(2, "0")}
                     </span>
                     {blog.categories && blog.categories.length > 0 && (
-                      <span className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono">
+                      <span className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono">
                         {blog.categories[0].title}
                       </span>
                     )}
@@ -266,7 +266,7 @@ export default async function BlogListPage({ searchParams }) {
                   {blog.mainImage && (
                     <Link
                       href={`/blogs/${blog.slug.current}`}
-                      className="block aspect-[16/9] overflow-hidden bg-white/[0.03] mb-6"
+                      className="block aspect-[16/9] overflow-hidden bg-[#EFE9DC] mb-6"
                       aria-label={`Read ${blog.title}`}
                     >
                       <Image
@@ -280,7 +280,7 @@ export default async function BlogListPage({ searchParams }) {
                   )}
 
                   <h3
-                    className="font-display font-black text-[#1C1917] leading-[1.1] group-hover:text-[#3A352F] transition-colors"
+                    className="font-display font-semibold text-[#1C1917] leading-[1.12] group-hover:text-[#3A352F] transition-colors"
                     style={{ fontSize: "clamp(1.1rem, 1.5vw, 1.4rem)" }}
                   >
                     <Link
@@ -296,13 +296,13 @@ export default async function BlogListPage({ searchParams }) {
                 <div className="flex items-center justify-between border-t border-[#1C1917]/[0.08] pt-6 mt-6">
                   <time
                     dateTime={blog._createdAt}
-                    className="text-[10px] tracking-[0.2em] text-[#9C968C] uppercase font-mono"
+                    className="text-[10px] tracking-[0.2em] text-[#6F6A62] uppercase font-mono"
                   >
                     {formatRelativeDate(blog._createdAt)}
                   </time>
                   <Link
                     href={`/blogs/${blog.slug.current}`}
-                    className="inline-flex items-center gap-1.5 text-[#9C968C] hover:text-[#C98A2B] text-[10px] font-mono tracking-[0.15em] uppercase transition-colors group/arrow"
+                    className="inline-flex items-center gap-1.5 text-[#6F6A62] hover:text-[#15803D] text-[10px] font-mono tracking-[0.15em] uppercase transition-colors group/arrow"
                     aria-label={`Read ${blog.title}`}
                   >
                     Read
@@ -327,13 +327,13 @@ export default async function BlogListPage({ searchParams }) {
         {/* ── Empty state ── */}
         {blogs.length === 0 && (
           <div className="py-32 flex flex-col items-center justify-center">
-            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase font-mono mb-4">
+            <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase font-mono mb-4">
               No articles found
             </p>
             {search && (
               <Link
                 href="/blogs"
-                className="text-[10px] tracking-[0.2em] text-[#C98A2B] uppercase font-mono hover:underline"
+                className="text-[10px] tracking-[0.2em] text-[#15803D] uppercase font-mono hover:underline"
               >
                 Clear search &rarr;
               </Link>
@@ -354,8 +354,8 @@ export default async function BlogListPage({ searchParams }) {
                 }`}
                 className={`text-xs font-mono transition-colors px-3 py-1 ${
                   page === i + 1
-                    ? "text-[#C98A2B] border border-[#C98A2B]"
-                    : "text-[#9C968C] hover:text-[#C98A2B] border border-transparent"
+                    ? "text-[#15803D] border border-[#15803D]"
+                    : "text-[#6F6A62] hover:text-[#15803D] border border-transparent"
                 }`}
                 aria-label={`Go to page ${i + 1}`}
               >

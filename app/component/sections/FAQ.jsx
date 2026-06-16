@@ -35,7 +35,7 @@ export default function FAQ() {
         <div className="grid lg:grid-cols-[1fr_2fr] gap-16 items-start">
           {/* Left label */}
           <div className="lg:sticky lg:top-28">
-            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-3">FAQ</p>
+            <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase mb-3">FAQ</p>
             <h2
               className="font-display font-black text-[#1C1917] leading-none"
               style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
@@ -53,7 +53,7 @@ export default function FAQ() {
                   className="w-full text-left py-7 flex items-start gap-6 group"
                   aria-expanded={open === i}
                 >
-                  <span className="text-xs font-mono text-[#9C968C] group-hover:text-[#C98A2B] transition-colors duration-300 pt-1 shrink-0">
+                  <span className="text-xs font-mono text-[#6F6A62] group-hover:text-[#15803D] transition-colors duration-300 pt-1 shrink-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="flex-1 text-base sm:text-lg font-medium text-[#3A352F] group-hover:text-[#1C1917] transition-colors duration-200 leading-snug pr-4">
@@ -64,8 +64,8 @@ export default function FAQ() {
                     height="16"
                     viewBox="0 0 24 24"
                     fill="none"
-                    className={`shrink-0 mt-1 text-[#9C968C] group-hover:text-[#6F6A62] transition-all duration-300 ${
-                      open === i ? "rotate-45 text-[#C98A2B]" : ""
+                    className={`shrink-0 mt-1 text-[#6F6A62] group-hover:text-[#6F6A62] transition-all duration-300 ${
+                      open === i ? "rotate-45 text-[#15803D]" : ""
                     }`}
                   >
                     <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>

@@ -37,7 +37,7 @@ export default function ForWhoSection() {
         {/* Header */}
         <div className="grid lg:grid-cols-2 gap-12 items-end mb-16">
           <div>
-            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-3">
+            <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase mb-3">
               Who We Work With
             </p>
             <h2
@@ -64,7 +64,7 @@ export default function ForWhoSection() {
               transition={{ duration: 0.55, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="border-t border-[#1C1917]/[0.08] last:border-b py-8 grid sm:grid-cols-[80px_1fr_1fr] gap-6 items-start"
             >
-              <span className="text-xs tracking-[0.15em] font-mono text-[#9C968C] pt-1">{seg.number}</span>
+              <span className="text-xs tracking-[0.15em] font-mono text-[#6F6A62] pt-1">{seg.number}</span>
               <h3 className="font-display font-bold text-[#1C1917] text-xl sm:text-2xl leading-tight">
                 {seg.title}
               </h3>
@@ -83,7 +83,7 @@ export default function ForWhoSection() {
               >
                 {value}
               </p>
-              <p className="text-xs text-[#9C968C] uppercase tracking-wider">{label}</p>
+              <p className="text-xs text-[#6F6A62] uppercase tracking-wider">{label}</p>
             </div>
           ))}
         </div>
@@ -91,7 +91,7 @@ export default function ForWhoSection() {
         {/* CTA */}
         <Link
           href="/get-started"
-          className="group inline-flex items-center gap-3 text-[#C98A2B] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
+          className="group inline-flex items-center gap-3 text-[#15803D] text-sm font-semibold tracking-wide hover:text-[#1C1917] transition-colors duration-200"
         >
           Start Your Growth Journey
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">

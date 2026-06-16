@@ -25,7 +25,7 @@ const TestimonialCard = memo(({ testimonial, isActive }) => {
       role="group"
       aria-roledescription="testimonial"
     >
-      <div className="bg-white backdrop-blur-md rounded-[2rem] p-8 sm:p-10 border border-[#1C1917]/10 shadow-sm hover:shadow-[0_20px_40px_rgba(21,128,61,0.12)] hover:border-[#C98A2B]/30 transition-all duration-300 relative overflow-hidden h-full flex flex-col justify-between">
+      <div className="bg-white backdrop-blur-md rounded-[2rem] p-8 sm:p-10 border border-[#1C1917]/10 shadow-sm hover:shadow-[0_20px_40px_rgba(21,128,61,0.12)] hover:border-[#15803D]/30 transition-all duration-300 relative overflow-hidden h-full flex flex-col justify-between">
         
         <div className="relative z-10">
           {/* Main testimonial content */}
@@ -64,12 +64,12 @@ const TestimonialCard = memo(({ testimonial, isActive }) => {
                 {testimonial.name}
               </h3>
               <div className="text-sm text-[#6F6A62]">
-                <span className="font-medium text-[#C98A2B]">
+                <span className="font-medium text-[#15803D]">
                   {testimonial.position}
                 </span>
                 {testimonial.company && (
                   <>
-                    <span className="mx-1.5 text-[#9C968C]">•</span>
+                    <span className="mx-1.5 text-[#6F6A62]">•</span>
                     <span>{testimonial.company}</span>
                   </>
                 )}
@@ -93,14 +93,14 @@ const NavButton = memo(({ direction, onClick, className = "" }) => {
         absolute top-1/2 -translate-y-1/2 z-20
         w-12 h-12 sm:w-14 sm:h-14 bg-white backdrop-blur-md rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.5)] border border-[#1C1917]/10
         flex items-center justify-center group
-        hover:border-[#C98A2B]/50 hover:shadow-[0_0_15px_rgba(21,128,61,0.3)] hover:scale-105 transition-all duration-300
-        focus:outline-none focus:ring-2 focus:ring-[#C98A2B] focus:ring-offset-2 focus:ring-offset-[#F4F1EA]
+        hover:border-[#15803D]/50 hover:shadow-[0_0_15px_rgba(21,128,61,0.3)] hover:scale-105 transition-all duration-300
+        focus:outline-none focus:ring-2 focus:ring-[#15803D] focus:ring-offset-2 focus:ring-offset-[#F4F1EA]
         ${direction === "prev" ? "-left-6 sm:-left-7" : "-right-6 sm:-right-7"}
         ${className}
       `}
       aria-label={`${direction === "prev" ? "Previous" : "Next"} testimonial`}
     >
-      <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#C98A2B] group-hover:text-[#1C1917] transition-colors" />
+      <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#15803D] group-hover:text-[#1C1917] transition-colors" />
     </button>
   );
 });
@@ -219,16 +219,16 @@ const Testimonia = ({ testimonia: initialTestimonia }) => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <header className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#1C1917]/10 backdrop-blur-md shadow-sm text-sm font-medium text-[#C98A2B] mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#1C1917]/10 backdrop-blur-md shadow-sm text-sm font-medium text-[#15803D] mb-6">
             <span className="relative flex h-2 w-2">
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C98A2B]"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#15803D]"></span>
             </span>
             Client Success Stories
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1C1917] mb-6 tracking-tight">
             Transforming Businesses, <br className="hidden md:block" />
-            <span className="text-[#C98A2B]">
+            <span className="text-[#15803D]">
               One Website at a Time.
             </span>
           </h2>
@@ -277,10 +277,10 @@ const Testimonia = ({ testimonia: initialTestimonia }) => {
                   onClick={() => goToSlide(index)}
                   className={`
                     w-2.5 h-2.5 rounded-full transition-all duration-300
-                    focus:outline-none focus:ring-2 focus:ring-[#C98A2B] focus:ring-offset-2 focus:ring-offset-[#F4F1EA]
+                    focus:outline-none focus:ring-2 focus:ring-[#15803D] focus:ring-offset-2 focus:ring-offset-[#F4F1EA]
                     ${
                       index === currentIndex
-                        ? "bg-[#C98A2B] w-8 shadow-[0_0_10px_rgba(21,128,61,0.5)]"
+                        ? "bg-[#15803D] w-8 shadow-[0_0_10px_rgba(21,128,61,0.5)]"
                         : "bg-white/20 hover:bg-white/40"
                     }
                   `}

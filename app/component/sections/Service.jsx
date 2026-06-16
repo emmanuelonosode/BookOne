@@ -44,7 +44,7 @@ export default function Service() {
         {/* Header row */}
         <div className="flex items-end justify-between mb-16 gap-8">
           <div>
-            <p className="text-[10px] tracking-[0.25em] text-[#9C968C] uppercase mb-3">
+            <p className="text-[10px] tracking-[0.25em] text-[#6F6A62] uppercase mb-3">
               Our Services
             </p>
             <h2
@@ -55,7 +55,7 @@ export default function Service() {
             </h2>
           </div>
           <span
-            className="font-display font-black text-[#9C968C] leading-none hidden sm:block"
+            className="font-display font-black text-[#6F6A62] leading-none hidden sm:block"
             style={{ fontSize: "clamp(4rem, 10vw, 9rem)" }}
             aria-hidden="true"
           >
@@ -83,7 +83,7 @@ export default function Service() {
           </p>
           <Link
             href="/get-started"
-            className="inline-flex items-center gap-2 text-[#C98A2B] text-xs tracking-[0.15em] uppercase font-semibold hover:text-[#B0741F] transition-colors duration-200 group"
+            className="inline-flex items-center gap-2 text-[#15803D] text-xs tracking-[0.15em] uppercase font-semibold hover:text-[#166534] transition-colors duration-200 group"
           >
             Get a free quote
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
@@ -107,7 +107,7 @@ function ServiceRow({ service, isOpen, onToggle, isLast }) {
         {/* Number */}
         <span
           className={`text-xs tracking-[0.15em] font-mono shrink-0 transition-colors duration-300 ${
-            isOpen ? "text-[#C98A2B]" : "text-[#9C968C] group-hover:text-[#C98A2B]"
+            isOpen ? "text-[#15803D]" : "text-[#6F6A62] group-hover:text-[#15803D]"
           }`}
         >
           {service.number}
@@ -127,8 +127,8 @@ function ServiceRow({ service, isOpen, onToggle, isLast }) {
           height="20"
           viewBox="0 0 24 24"
           fill="none"
-          className={`shrink-0 text-[#9C968C] group-hover:text-[#C98A2B] transition-all duration-300 ${
-            isOpen ? "rotate-90 text-[#C98A2B]" : ""
+          className={`shrink-0 text-[#6F6A62] group-hover:text-[#15803D] transition-all duration-300 ${
+            isOpen ? "rotate-90 text-[#15803D]" : ""
           }`}
         >
           <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
