@@ -1,0 +1,8 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chat tile">
+  <rect x="6" y="6" width="108" height="108" rx="30" fill="#E8FF47"></rect>
+  <rect x="6" y="6" width="108" height="108" rx="30" fill="none" stroke="#1C1917" stroke-opacity="0.06"></rect>
+  <path d="M34 42 H86 a8 8 0 0 1 8 8 V72 a8 8 0 0 1 -8 8 H58 L46 90 V80 H34 a8 8 0 0 1 -8 -8 V50 a8 8 0 0 1 8 -8 Z" fill="#1C1917"></path>
+  <circle cx="46" cy="61" r="4" fill="#E8FF47"></circle>
+  <circle cx="60" cy="61" r="4" fill="#E8FF47"></circle>
+  <circle cx="74" cy="61" r="4" fill="#E8FF47"></circle>
+</svg>

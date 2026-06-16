@@ -7,6 +7,7 @@ const SERVICES = [
   {
     number: "01",
     name: "Web Design & Development",
+    tile: "/illustrations/tile-web.svg",
     description:
       "Custom-built, blazing-fast websites engineered for conversion. Every pixel is intentional, every millisecond optimised.",
     items: ["Next.js & React", "E-commerce builds", "Landing pages", "Web apps"],
@@ -14,6 +15,7 @@ const SERVICES = [
   {
     number: "02",
     name: "AI Automation",
+    tile: "/illustrations/tile-ai.svg",
     description:
       "We map your manual workflows and replace them with intelligent systems — so your team spends time on what actually matters.",
     items: ["Lead capture bots", "CRM automation", "Email sequences", "Reporting dashboards"],
@@ -21,6 +23,7 @@ const SERVICES = [
   {
     number: "03",
     name: "SEO & Search Dominance",
+    tile: "/illustrations/tile-search.svg",
     description:
       "Organic traffic that compounds over time. Technical SEO, content strategy, and link architecture working together.",
     items: ["Technical SEO audits", "Content strategy", "Local SEO", "Core Web Vitals"],
@@ -28,6 +31,7 @@ const SERVICES = [
   {
     number: "04",
     name: "Websites for Sale",
+    tile: "/illustrations/tile-cart.svg",
     description:
       "Pre-built and done-for-you websites ready to launch. Browse our marketplace and own a production-ready site today.",
     items: ["Pre-built templates", "Done-for-you builds", "Full source code", "7-day support"],
@@ -112,6 +116,18 @@ function ServiceRow({ service, isOpen, onToggle, isLast }) {
         >
           {service.number}
         </span>
+
+        {/* Brand icon tile — lifts + rotates on row hover */}
+        {service.tile && (
+          <img
+            src={service.tile}
+            alt=""
+            aria-hidden="true"
+            className={`hidden sm:block w-12 h-12 lg:w-14 lg:h-14 shrink-0 transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:rotate-3 motion-reduce:transform-none ${
+              isOpen ? "-translate-y-1 rotate-3" : ""
+            }`}
+          />
+        )}
 
         {/* Name */}
         <span

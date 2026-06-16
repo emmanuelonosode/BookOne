@@ -42,13 +42,19 @@ export default function Nav() {
       <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
         <div className="flex items-center justify-between h-16 lg:h-20">
 
-          {/* Logo wordmark */}
+          {/* Logo: layered-stack mark + wordmark */}
           <Link
             href="/"
             aria-label="Bookone Studio Home"
-            className="text-[#1C1917] font-display font-black text-xl tracking-tight hover:text-[#15803D] transition-colors duration-300"
+            className="group flex items-center gap-2.5 text-[#1C1917] hover:text-[#15803D] transition-colors duration-300"
           >
-            BOOKONE STUDIO
+            <img
+              src="/brand/logo-stack.svg"
+              alt=""
+              aria-hidden="true"
+              className="h-7 w-7 shrink-0 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:rotate-[-4deg] motion-reduce:transform-none"
+            />
+            <span className="font-display font-black text-xl tracking-tight">BOOKONE STUDIO</span>
           </Link>
 
           {/* Desktop nav links */}

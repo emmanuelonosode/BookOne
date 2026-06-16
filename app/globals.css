@@ -225,6 +225,79 @@ body {
   }
 }
 
+/* ── Hero icon-tile arc (floating brand tiles) ── */
+.bk-arc {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  height: 300px;
+  margin: 0 auto 0.5rem;
+}
+.bk-arc-path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.bk-tile {
+  position: absolute;
+  translate: -50% 0;
+  rotate: var(--rot, 0deg);
+  transition: rotate 350ms var(--ease-out);
+}
+.bk-tile__inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: bk-float 6s var(--ease-in-out) infinite;
+  animation-delay: var(--delay, 0s);
+  transition: scale 350ms var(--ease-out), filter 350ms var(--ease-out);
+  will-change: transform;
+}
+.bk-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 8px 18px rgba(28, 25, 23, 0.1));
+}
+@keyframes bk-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -12px; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .bk-tile:hover {
+    rotate: calc(var(--rot, 0deg) + 5deg);
+  }
+  .bk-tile:hover .bk-tile__inner {
+    scale: 1.09;
+    filter: drop-shadow(0 16px 28px rgba(28, 25, 23, 0.2));
+  }
+}
+.bk-arc-cursor {
+  position: absolute;
+  left: 57%;
+  top: 150px;
+  width: 38px;
+  height: auto;
+  pointer-events: none;
+  animation: bk-float 5s var(--ease-in-out) infinite;
+  animation-delay: 0.8s;
+  filter: drop-shadow(0 6px 12px rgba(28, 25, 23, 0.18));
+}
+@media (max-width: 640px) {
+  .bk-arc {
+    height: 196px;
+    transform: scale(0.7);
+    transform-origin: top center;
+    margin-bottom: -1.75rem;
+  }
+  .bk-tile--sm-hide { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bk-tile__inner,
+  .bk-arc-cursor { animation: none; }
+}
+
 /* Premium Dark Theme Animations */
 .shine::before,
 .shine::after {

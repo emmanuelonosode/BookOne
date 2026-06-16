@@ -62,8 +62,14 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-14">
           <Link
             href="/"
-            className="font-display font-black text-[#1C1917] text-3xl sm:text-4xl lg:text-5xl tracking-tight hover:text-[#15803D] transition-colors duration-300 leading-none"
+            className="group inline-flex items-center gap-3 font-display font-black text-[#1C1917] text-3xl sm:text-4xl lg:text-5xl tracking-tight hover:text-[#15803D] transition-colors duration-300 leading-none"
           >
+            <img
+              src="/brand/logo-stack.svg"
+              alt=""
+              aria-hidden="true"
+              className="h-10 w-10 sm:h-12 sm:w-12 shrink-0 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:rotate-[-4deg] motion-reduce:transform-none"
+            />
             BOOKONE STUDIO
           </Link>
           <p className="text-xs text-[#6F6A62] max-w-xs leading-relaxed">
