@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Magnetic from "../ui/Magnetic.jsx";
+import LogoStack from "../ui/LogoStack.jsx";
 
 const NAV_LINKS = [
   { name: "Work", href: "/portfolio" },
@@ -48,12 +49,7 @@ export default function Nav() {
             aria-label="Bookone Studio Home"
             className="group flex items-center gap-2.5 text-[#1C1917] hover:text-[#15803D] transition-colors duration-300"
           >
-            <img
-              src="/brand/logo-stack.svg"
-              alt=""
-              aria-hidden="true"
-              className="h-7 w-7 shrink-0 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:rotate-[-4deg] motion-reduce:transform-none"
-            />
+            <LogoStack className="h-7 w-7 shrink-0" />
             <span className="font-display font-black text-xl tracking-tight">BOOKONE STUDIO</span>
           </Link>
 
